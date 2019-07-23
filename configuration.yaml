@@ -1,3 +1,6 @@
+# Default config
+default_config:
+
 # HTTP
 http:
     ip_ban_enabled: true
