@@ -1,0 +1,5 @@
+# Smart meter
+# sensor:
+#  - platform: dsmr
+#    port: /dev/ttyUSB1
+#    dsmr_version: 5

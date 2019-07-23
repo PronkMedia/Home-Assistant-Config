@@ -1,0 +1,13 @@
+# HTTP
+http:
+    ip_ban_enabled: true
+    login_attempts_threshold: 5
+
+# UI mode
+lovelace:
+  mode: yaml
+
+# Includes
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
