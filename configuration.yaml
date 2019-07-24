@@ -10,6 +10,12 @@ http:
 lovelace:
   mode: yaml
 
+# TP-Link
+tplink:
+  switch:
+    # Energy monitor (HS110)
+    # - host: 192.168.1.#
+
 # Includes
 automation: !include automations.yaml
 script: !include scripts.yaml
