@@ -3,26 +3,26 @@ sensor:
 #  - platform: dsmr
 #    port: /dev/ttyUSB1
 #    dsmr_version: 5
-#  - platform: template
+  - platform: template
   # Energy monitor (TP-Link HS110)
-#    sensors:
-#      my_tp_switch_amps:
-#        friendly_name_template: "{{ states.switch.my_tp_switch.name}} Current"
-#        value_template: '{{ states.switch.my_tp_switch.attributes["current_a"] | float }}'
-#        unit_of_measurement: 'A'
-#      my_tp_switch_watts:
-#        friendly_name_template: "{{ states.switch.my_tp_switch.name}} Current Consumption"
-#        value_template: '{{ states.switch.my_tp_switch.attributes["current_power_w"] | float }}'
-#        unit_of_measurement: 'W'
-#      my_tp_switch_total_kwh:
-#        friendly_name_template: "{{ states.switch.my_tp_switch.name}} Total Consumption"
-#        value_template: '{{ states.switch.my_tp_switch.attributes["total_energy_kwh"] | float }}'
-#        unit_of_measurement: 'kWh'
-#      my_tp_switch_volts:
-#        friendly_name_template: "{{ states.switch.my_tp_switch.name}} Voltage"
-#        value_template: '{{ states.switch.my_tp_switch.attributes["voltage"] | float }}'
-#        unit_of_measurement: 'V'
-#      my_tp_switch_today_kwh:
-#        friendly_name_template: "{{ states.switch.my_tp_switch.name}} Today's Consumption"
-#        value_template: '{{ states.switch.my_tp_switch.attributes["today_energy_kwh"] | float }}'
-#        unit_of_measurement: 'kWh'
+    sensors:
+      energy_monitor_amps:
+        friendly_name_template: "{{ states.switch.energy_monitor.name}} Current"
+        value_template: '{{ states.switch.energy_monitor.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      energy_monitor_watts:
+        friendly_name_template: "{{ states.switch.energy_monitor.name}} Current Consumption"
+        value_template: '{{ states.switch.energy_monitor.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      energy_monitor_total_kwh:
+        friendly_name_template: "{{ states.switch.energy_monitor.name}} Total Consumption"
+        value_template: '{{ states.switch.energy_monitor.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      energy_monitor_volts:
+        friendly_name_template: "{{ states.switch.energy_monitor.name}} Voltage"
+        value_template: '{{ states.switch.energy_monitor.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      energy_monitor_today_kwh:
+        friendly_name_template: "{{ states.switch.energy_monitor.name}} Today's Consumption"
+        value_template: '{{ states.switch.energy_monitor.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'

@@ -25,7 +25,7 @@ lovelace:
 tplink:
   switch:
     # Energy monitor (HS110)
-    # - host: 192.168.1.#
+    - host: !secret ip_tplink_hs110
 
 # Includes
 automation: !include automations.yaml
