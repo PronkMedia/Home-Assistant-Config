@@ -1,8 +1,18 @@
-title: Home
+title: Thuis
 views:
-  - title: Example
+  - path: lighting
+    title: Verlichting
     cards:
-      - type: markdown
-        title: Lovelace
-        content: >
-          This is the **Lovelace UI**.
+      - type: entities
+        entities:
+          - entity: light.eettafel
+            name: Eettafel
+            icon: mdi:ceiling-light
+  - path: energy
+    title: Verbruik
+    cards:
+      - type: entities
+        entities:
+          - entity: switch.energy_monitor
+            name: Energy monitor
+            icon: mdi:flash
