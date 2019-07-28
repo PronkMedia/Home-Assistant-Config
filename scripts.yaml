@@ -1,0 +1,37 @@
+# Hue scenes
+hue_scene_overdag:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "Overdag"
+hue_scene_avond:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "Avond"
+hue_scene_eten:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "Eten"
+hue_scene_koken:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "Koken"
+hue_scene_tv-kijken:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "TV-Kijken"
+hue_scene_spelen:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Huiskamer"
+        scene_name: "Spelen"

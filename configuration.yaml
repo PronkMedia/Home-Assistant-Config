@@ -21,6 +21,11 @@ http:
 lovelace:
   mode: yaml
 
+# Hue
+hue:
+  bridges:
+    - host: !secret ip_hue_bridge
+
 # TP-Link
 tplink:
   switch:
