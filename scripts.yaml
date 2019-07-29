@@ -23,7 +23,7 @@ hue_scene_koken:
       data:
         group_name: "Huiskamer"
         scene_name: "Koken"
-hue_scene_tv-kijken:
+hue_scene_tvkijken:
   sequence:
     - service: hue.hue_activate_scene
       data:
