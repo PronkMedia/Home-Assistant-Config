@@ -1,6 +1,3 @@
-# Default config
-default_config:
-
 # HTTP
 http:
 #  base_url: !secret cloudflare_base_url
@@ -16,6 +13,18 @@ http:
 #  zone: !secret cloudflare_zone
 #  records:
 #    - !secret cloudflare_record
+
+# Enable Frontend
+frontend:
+
+# Enable configuration section
+config:
+
+# Enable history tracking
+history:
+
+# Enable system health information
+system_health:
 
 # UI mode
 lovelace:
