@@ -69,6 +69,12 @@ views:
           - entity: switch.energy_monitor
             name: Energy monitor
             icon: mdi:flash
+          - entity: sensor.energy_monitor_watts
+            icon: mdi:gauge
+          - entity: sensor.energy_monitor_today_kwh
+            icon: mdi:gauge
+          - entity: sensor.energy_monitor_total_kwh
+            icon: mdi:gauge
   - path: system
     title: Systeem
     cards:
