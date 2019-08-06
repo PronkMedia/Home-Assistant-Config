@@ -69,3 +69,15 @@ views:
           - entity: switch.energy_monitor
             name: Energy monitor
             icon: mdi:flash
+  - path: system
+    title: Systeem
+    cards:
+      - type: gauge
+        name: Processor
+        entity: sensor.processor_use
+      - type: gauge
+        name: Geheugen
+        entity: sensor.memory_use_percent
+      - type: gauge
+        name: Schijfruimte
+        entity: sensor.disk_use_percent
