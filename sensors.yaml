@@ -34,3 +34,19 @@
       friendly_name_template: "{{ states.switch.energy_monitor.name}} Verbruik vandaag"
       value_template: '{{ states.switch.energy_monitor.attributes["today_energy_kwh"] | float }}'
       unit_of_measurement: 'kWh'
+
+# Baby Monitor (Motorola MBP-854 Connect)
+- platform: rest
+  resource: !secret ip_motorola_mbp854connect
+  force_update: true
+  name: Baby Monitor Temperature
+  value_template: '{{ (value.split(": ")[1] | float) | round(1) }}'
+  unit_of_measurement: "°C"
+
+# Indoor motion sensor (Philips Hue SML001)
+- platform: template
+  sensors:
+    indoor_motion_sensor_temperature:
+      friendly_name: "Indoor Motion Sensor Temperature"
+      unit_of_measurement: '°C'
+      value_template: "{{ (states('sensor.bewegingssensor_temperature') | float) | round(1) }}"

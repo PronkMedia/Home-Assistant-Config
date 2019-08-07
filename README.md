@@ -16,5 +16,7 @@ My Home Assistant configuration & documentation.
 - Google
     - 1x Google Home (Mini) 
     - 1x Google Chromecast (3rd Generation)
-- Smart meter
-    - 1x Landis+Gyr (E360)
+- Landis+Gyr
+    - 1x Smart Utility Meter (E360)
+- Motorola
+    - 1x Baby Monitor (MBP-854 Connect)

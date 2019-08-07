@@ -75,6 +75,17 @@ views:
             icon: mdi:gauge
           - entity: sensor.energy_monitor_total_kwh
             icon: mdi:gauge
+  - path: climate
+    title: Klimaat
+    cards:
+      - type: sensor
+        entity: sensor.indoor_motion_sensor_temperature
+        graph: line
+        name: Huiskamer
+      - type: sensor
+        entity: sensor.baby_monitor_temperature
+        graph: line
+        name: Kinderkamer
   - path: system
     title: Systeem
     cards:
