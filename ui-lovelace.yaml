@@ -70,10 +70,13 @@ views:
             name: Energy monitor
             icon: mdi:flash
           - entity: sensor.energy_monitor_watts
+            name: Huidig verbruik
             icon: mdi:gauge
           - entity: sensor.energy_monitor_today_kwh
+            name: Verbruik vandaag
             icon: mdi:gauge
           - entity: sensor.energy_monitor_total_kwh
+            name: Totaal verbruik
             icon: mdi:gauge
   - path: climate
     title: Klimaat

@@ -14,25 +14,17 @@
 # Energy monitor (TP-Link HS110)
 - platform: template
   sensors:
-    energy_monitor_amps:
-      friendly_name_template: "{{ states.switch.energy_monitor.name}} Stroomsterkte"
-      value_template: '{{ states.switch.energy_monitor.attributes["current_a"] | float }}'
-      unit_of_measurement: 'A'
     energy_monitor_watts:
-      friendly_name_template: "{{ states.switch.energy_monitor.name}} Huidig verbruik"
-      value_template: '{{ states.switch.energy_monitor.attributes["current_power_w"] | float }}'
+      friendly_name_template: "{{ states.switch.energy_monitor.name }} Huidig verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor", "current_power_w") | float }}'
       unit_of_measurement: 'W'
-    energy_monitor_total_kwh:
-      friendly_name_template: "{{ states.switch.energy_monitor.name}} Totaal verbruik"
-      value_template: '{{ states.switch.energy_monitor.attributes["total_energy_kwh"] | float }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_volts:
-      friendly_name_template: "{{ states.switch.energy_monitor.name}} Spanning"
-      value_template: '{{ states.switch.energy_monitor.attributes["voltage"] | float }}'
-      unit_of_measurement: 'V'
     energy_monitor_today_kwh:
-      friendly_name_template: "{{ states.switch.energy_monitor.name}} Verbruik vandaag"
-      value_template: '{{ states.switch.energy_monitor.attributes["today_energy_kwh"] | float }}'
+      friendly_name_template: "{{ states.switch.energy_monitor.name }} Verbruik vandaag"
+      value_template: '{{ state_attr("switch.energy_monitor", "today_energy_kwh") | float }}'
+      unit_of_measurement: 'kWh'
+    energy_monitor_total_kwh:
+      friendly_name_template: "{{ states.switch.energy_monitor.name }} Totaal verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor", "total_energy_kwh") | float }}'
       unit_of_measurement: 'kWh'
 
 # Baby Monitor (Motorola MBP-854 Connect)
