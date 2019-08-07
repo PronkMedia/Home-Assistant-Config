@@ -17,7 +17,7 @@ views:
           - entity: light.aanbouw
             name: Aanbouw
             icon: mdi:track-light
-          - entity: light.vloerlamp
+          - entity: light.vloerlamp_2
             name: Vloerlamp
             icon: mdi:floor-lamp
       - type: glance
