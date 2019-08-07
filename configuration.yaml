@@ -33,13 +33,13 @@ lovelace:
 # Hue
 hue:
   bridges:
-    - host: !secret ip_hue_bridge
+    - host: !secret address_hue_bridge
 
 # TP-Link
 tplink:
   switch:
     # Energy monitor (HS110)
-    - host: !secret ip_tplink_hs110
+    - host: !secret address_tplink_hs110
 
 # Includes
 automation: !include automations.yaml
