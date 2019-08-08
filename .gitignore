@@ -5,6 +5,11 @@
 !*.yaml
 !.gitignore
 !*.md
+!*.js
+
+# Whitelisted folders
+!*/
+!www/*
 
 # Ignore these folders
 .storage

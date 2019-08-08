@@ -1,3 +1,16 @@
+# Compact Custom Header
+resources:
+  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=1.3.5
+    type: module
+cch:
+  disable_sidebar: true
+  exceptions:
+  - conditions:
+      user: Administrator
+    config:
+      disable_sidebar: false
+
+# Views
 title: Thuis
 views:
   - path: lighting
