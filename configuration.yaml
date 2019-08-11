@@ -14,8 +14,9 @@ http:
 #  records:
 #    - !secret cloudflare_record
 
-# Enable Frontend
+# Frontend configuration
 frontend:
+  themes:  !include themes.yaml
 
 # Enable configuration section
 config:

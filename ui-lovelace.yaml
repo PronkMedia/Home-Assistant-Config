@@ -4,20 +4,28 @@ resources:
     type: module
 cch:
   disable_sidebar: true
+  menu: hide
+  options: hide
+  swipe: true
+  swipe_animate: swipe
+  swipe_prevent_default: true
   exceptions:
   - conditions:
       user: Administrator
     config:
       disable_sidebar: false
+      menu: show
+      options: show
 
 # Views
 title: Thuis
 views:
-  - path: lighting
-    title: Verlichting
+  - title: Home
+    path: home
+    icon: mdi:home-variant-outline
     cards:
       - type: entities
-        title: Huiskamer
+        title: Verlichting
         entities:
           - entity: light.keuken
             icon: mdi:stove
@@ -33,6 +41,18 @@ views:
           - entity: light.vloerlamp_2
             name: Vloerlamp
             icon: mdi:floor-lamp
+      - type: entities
+        title: Temperatuur
+        show_header_toggle: false
+        entities:
+          - entity: sensor.indoor_motion_sensor_temperature
+            name: Huiskamer
+          - entity: sensor.baby_monitor_temperature
+            name: Kinderkamer
+  - title: Verlichting
+    path: lighting
+    icon: mdi:lightbulb-outline
+    cards:
       - type: glance
         title: Scenes
         show_state: false
@@ -74,8 +94,9 @@ views:
             tap_action:
               action: call-service
               service: script.hue_scene_spelen
-  - path: energy
-    title: Verbruik
+  - title: Verbruik
+    path: usage
+    icon: mdi:flash-outline
     cards:
       - type: entities
         entities:
@@ -91,8 +112,9 @@ views:
           - entity: sensor.energy_monitor_total_kwh
             name: Totaal verbruik
             icon: mdi:gauge
-  - path: climate
-    title: Klimaat
+  - title: Klimaat
+    path: climate
+    icon: mdi:thermometer
     cards:
       - type: sensor
         entity: sensor.indoor_motion_sensor_temperature
@@ -102,8 +124,9 @@ views:
         entity: sensor.baby_monitor_temperature
         graph: line
         name: Kinderkamer
-  - path: system
-    title: Systeem
+  - title: Systeem
+    path: system
+    icon: mdi:settings-outline
     cards:
       - type: gauge
         name: Processor
