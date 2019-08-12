@@ -1,7 +1,13 @@
-# Compact Custom Header
+# Import resources
 resources:
+  # Card Mod
+  - url: /local/custom-lovelace/card-mod/card-mod.js?v=3
+    type: module
+  # Compact Custom Header
   - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=1.3.5
     type: module
+
+# Compact Custom Header Configuration
 cch:
   disable_sidebar: true
   menu: hide
@@ -25,6 +31,12 @@ views:
     icon: mdi:home-variant-outline
     cards:
       - type: entities
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         title: Verlichting
         entities:
           - entity: light.keuken
@@ -42,6 +54,12 @@ views:
             name: Vloerlamp
             icon: mdi:floor-lamp
       - type: entities
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         title: Temperatuur
         show_header_toggle: false
         entities:
@@ -54,6 +72,12 @@ views:
     icon: mdi:lightbulb-outline
     cards:
       - type: glance
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         title: Scenes
         show_state: false
         columns: 3
@@ -99,6 +123,12 @@ views:
     icon: mdi:flash-outline
     cards:
       - type: entities
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         entities:
           - entity: switch.energy_monitor
             name: Energy monitor
@@ -117,10 +147,22 @@ views:
     icon: mdi:thermometer
     cards:
       - type: sensor
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         entity: sensor.indoor_motion_sensor_temperature
         graph: line
         name: Huiskamer
       - type: sensor
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         entity: sensor.baby_monitor_temperature
         graph: line
         name: Kinderkamer
@@ -129,11 +171,29 @@ views:
     icon: mdi:settings-outline
     cards:
       - type: gauge
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         name: Processor
         entity: sensor.processor_use
       - type: gauge
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         name: Geheugen
         entity: sensor.memory_use_percent
       - type: gauge
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         name: Schijfruimte
         entity: sensor.disk_use_percent
