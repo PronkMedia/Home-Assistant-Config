@@ -40,7 +40,7 @@ hue:
 tplink:
   switch:
     # Energy monitor (HS110)
-    - host: !secret address_tplink_hs110
+    - host: !secret address_tplink_hs110_1
 
 # Includes
 automation: !include automations.yaml

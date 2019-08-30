@@ -14,15 +14,15 @@
 # Energy monitor (TP-Link HS110)
 - platform: template
   sensors:
-    energy_monitor_watts:
+    energy_monitor_1_watts:
       friendly_name_template: "{{ states.switch.energy_monitor.name }} Huidig verbruik"
       value_template: '{{ state_attr("switch.energy_monitor", "current_power_w") | float }}'
       unit_of_measurement: 'W'
-    energy_monitor_today_kwh:
+    energy_monitor_1_today_kwh:
       friendly_name_template: "{{ states.switch.energy_monitor.name }} Verbruik vandaag"
       value_template: '{{ state_attr("switch.energy_monitor", "today_energy_kwh") | float }}'
       unit_of_measurement: 'kWh'
-    energy_monitor_total_kwh:
+    energy_monitor_1_total_kwh:
       friendly_name_template: "{{ states.switch.energy_monitor.name }} Totaal verbruik"
       value_template: '{{ state_attr("switch.energy_monitor", "total_energy_kwh") | float }}'
       unit_of_measurement: 'kWh'
