@@ -191,8 +191,9 @@ views:
             }
           }
         entity: sensor.indoor_motion_sensor_temperature
-        graph: line
         name: Huiskamer
+        graph: line
+        detail: 2
       - type: sensor
         style: |
           @media screen and (max-width: 500px) { 
@@ -201,8 +202,9 @@ views:
             }
           }
         entity: sensor.baby_monitor_temperature
-        graph: line
         name: Kinderkamer
+        graph: line
+        detail: 2
   - title: Systeem
     path: system
     icon: mdi:settings-outline
