@@ -49,6 +49,10 @@ views:
             icon: mdi:track-light
           - entity: light.vloerlamp_2
             icon: mdi:floor-lamp
+          - entity: light.deurlamp
+            icon: mdi:outdoor-lamp
+          - entity: light.schuurlamp
+            icon: mdi:outdoor-lamp
       - type: entities
         style: |
           @media screen and (max-width: 500px) { 
@@ -121,7 +125,7 @@ views:
               margin: 8px
             }
           }
-        title: Lampen
+        title: Huiskamer
         show_state: false
         columns: 3
         entities:
@@ -151,6 +155,29 @@ views:
               action: more-info
           - entity: light.vloerlamp_2
             icon: mdi:floor-lamp
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+      - type: glance
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
+        title: Tuin
+        show_state: false
+        columns: 2
+        entities:
+          - entity: light.deurlamp
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+          - entity: light.schuurlamp
+            icon: mdi:outdoor-lamp
             tap_action:
               action: toggle
             hold_action:
