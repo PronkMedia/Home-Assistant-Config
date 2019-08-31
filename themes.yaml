@@ -26,7 +26,7 @@ user:
   paper-card-header-color: "#ff0000"
 
   # States and badges
-  state-icon-color: "#ffffff"
+  state-icon-color: "#8d8d8d"
   state-icon-active-color: "#ffffff"
   state-icon-unavailable-color: "#8d8d8d"
   
