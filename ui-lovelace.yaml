@@ -42,20 +42,34 @@ views:
           }
         title: Verlichting
         entities:
-          - entity: light.keuken
+          - type: custom:slider-entity-row
+            entity: light.keuken
             icon: mdi:stove
-          - entity: light.eettafel
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.eettafel
             icon: mdi:ceiling-light
-          - entity: light.speelhoek
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.speelhoek
             icon: mdi:castle
-          - entity: light.aanbouw
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.aanbouw
             icon: mdi:track-light
-          - entity: light.vloerlamp_2
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.vloerlamp_2
             icon: mdi:floor-lamp
-          - entity: light.deurlamp
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.deurlamp
             icon: mdi:outdoor-lamp
-          - entity: light.schuurlamp
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.schuurlamp
             icon: mdi:outdoor-lamp
+            toggle: true
       - type: entities
         style: |
           @media screen and (max-width: 500px) { 
