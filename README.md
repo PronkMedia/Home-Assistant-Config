@@ -2,7 +2,7 @@
 My Home Assistant configuration & documentation.
 
 ## Software
-- Home Assistant 0.98.1
+- Home Assistant 0.98.4
 
 ## Hardware
 - Philips Hue
