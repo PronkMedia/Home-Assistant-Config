@@ -1,18 +1,18 @@
 # HTTP
 http:
-#  base_url: !secret cloudflare_base_url
-#  ssl_certificate: !secret cloudflare_ssl_cert
-#  ssl_key: !secret cloudflare_ssl_key
+  base_url: !secret cloudflare_base_url
+  ssl_certificate: !secret cloudflare_ssl_cert
+  ssl_key: !secret cloudflare_ssl_key
   ip_ban_enabled: true
   login_attempts_threshold: 3
 
 # Cloudflare
-#cloudflare:
-#  email: !secret cloudflare_email_address
-#  api_key: !secret cloudflare_api_key
-#  zone: !secret cloudflare_zone
-#  records:
-#    - !secret cloudflare_record
+cloudflare:
+  email: !secret cloudflare_email_address
+  api_key: !secret cloudflare_api_key
+  zone: !secret cloudflare_zone
+  records:
+    - !secret cloudflare_record
 
 # Frontend configuration
 frontend:
