@@ -260,6 +260,20 @@ views:
               margin: 8px
             }
           }
+        name: Temperatuur
+        entity: sensor.processor_temperature
+        max: 85
+        severity:
+          green: 0
+          yellow: 40
+          red: 70
+      - type: gauge
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
         name: Processor
         entity: sensor.processor_use
       - type: gauge

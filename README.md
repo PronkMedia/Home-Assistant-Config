@@ -5,6 +5,12 @@ My Home Assistant configuration & documentation.
 - Home Assistant 0.98.4
 
 ## Hardware
+- Raspberry Pi Foundation
+    - 1x Raspberry Pi 4 (Model B / 4GB)
+    - 1x Raspberry Pi Official Power Supply (15.3W USB-C)
+- Pimoroni Ltd
+    - Pibow Coupé 4 Ninja Case (PIM463)
+    - Fan SHIM for Raspberry Pi (PIM461)
 - Philips Hue
     - 1x Bridge (BSB002)
     - 1x Indoor Motion Sensor (SML001)
@@ -19,5 +25,6 @@ My Home Assistant configuration & documentation.
     - 1x Google Chromecast (3rd Generation)
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)
+    - 1x USB > Serial Cable (P1)
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
