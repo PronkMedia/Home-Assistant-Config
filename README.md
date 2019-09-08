@@ -13,7 +13,8 @@ My Home Assistant configuration & documentation.
     - Fan SHIM for Raspberry Pi (PIM461)
 - Philips Hue
     - 1x Bridge (BSB002)
-    - 1x Indoor Motion Sensor (SML001)
+    - 1x Motion Sensor (SML001)
+    - 1x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
     - 2x E27 White (LWA001)
     - 3x E27 Color (LCT015)

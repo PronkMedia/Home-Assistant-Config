@@ -48,4 +48,12 @@
     indoor_motion_sensor_temperature:
       friendly_name: "Indoor Motion Sensor Temperature"
       unit_of_measurement: '°C'
-      value_template: "{{ (states('sensor.bewegingssensor_temperature') | float) | round(1) }}"
+      value_template: "{{ (states('sensor.huiskamersensor_temperature') | float) | round(1) }}"
+
+# Outdoor motion sensor (Philips Hue SML002)
+- platform: template
+  sensors:
+    outdoor_motion_sensor_temperature:
+      friendly_name: "Outdoor Motion Sensor Temperature"
+      unit_of_measurement: '°C'
+      value_template: "{{ (states('sensor.hue_outdoor_motion_sensor_1_temperature') | float) | round(1) }}"

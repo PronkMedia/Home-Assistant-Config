@@ -249,6 +249,17 @@ views:
         name: Kinderkamer
         graph: line
         detail: 2
+      - type: sensor
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
+        entity: sensor.outdoor_motion_sensor_temperature
+        name: Tuin
+        graph: line
+        detail: 2
   - title: Systeem
     path: system
     icon: mdi:settings-outline
