@@ -40,36 +40,38 @@ views:
               margin: 8px
             }
           }
-        title: Verlichting
+        title: Huiskamer
         entities:
           - type: custom:slider-entity-row
             entity: light.keuken
             icon: mdi:stove
             toggle: true
+            hide_when_off: true
           - type: custom:slider-entity-row
             entity: light.eettafel
             icon: mdi:ceiling-light
             toggle: true
+            hide_when_off: true
           - type: custom:slider-entity-row
             entity: light.speelhoek
             icon: mdi:castle
             toggle: true
+            hide_when_off: true
           - type: custom:slider-entity-row
             entity: light.aanbouw
             icon: mdi:track-light
             toggle: true
+            hide_when_off: true
           - type: custom:slider-entity-row
             entity: light.vloerlamp_2
             icon: mdi:floor-lamp
             toggle: true
-          - type: custom:slider-entity-row
-            entity: light.deurlamp
-            icon: mdi:outdoor-lamp
-            toggle: true
-          - type: custom:slider-entity-row
-            entity: light.schuurlamp
-            icon: mdi:outdoor-lamp
-            toggle: true
+            hide_when_off: true
+          - type: divider
+          - entity: sensor.indoor_motion_sensor_temperature
+            name: Temperatuur
+          - entity: sensor.huiskamersensor_light_level
+            name: Verlichtingssterkte
       - type: entities
         style: |
           @media screen and (max-width: 500px) { 
@@ -77,13 +79,35 @@ views:
               margin: 8px
             }
           }
-        title: Temperatuur
+        title: Kinderkamer
         show_header_toggle: false
         entities:
-          - entity: sensor.indoor_motion_sensor_temperature
-            name: Huiskamer
           - entity: sensor.baby_monitor_temperature
-            name: Kinderkamer
+            name: Temperatuur
+      - type: entities
+        style: |
+          @media screen and (max-width: 500px) { 
+            ha-card {
+              margin: 8px
+            }
+          }
+        title: Tuin
+        entities:
+          - type: custom:slider-entity-row
+            entity: light.deurlamp
+            icon: mdi:outdoor-lamp
+            toggle: true
+            hide_when_off: true
+          - type: custom:slider-entity-row
+            entity: light.schuurlamp
+            icon: mdi:outdoor-lamp
+            toggle: true
+            hide_when_off: true
+          - type: divider
+          - entity: sensor.outdoor_motion_sensor_temperature
+            name: Temperatuur
+          - entity: sensor.hue_outdoor_motion_sensor_1_light_level
+            name: Verlichtingssterkte
   - title: Verlichting
     path: lighting
     icon: mdi:lightbulb-outline
