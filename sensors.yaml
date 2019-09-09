@@ -13,25 +13,49 @@
   unit_of_measurement: "°C"
   value_template: '{{ value | multiply(0.001) | round(1) }}'
 
-# Smart meter
+# Smart meter (Landis+Gyr E360)
 #- platform: dsmr
 #  port: /dev/ttyUSB1
 #  dsmr_version: 5
 
-# Energy monitor (TP-Link HS110)
+# Energy monitors (TP-Link HS110)
 - platform: template
   sensors:
     energy_monitor_1_watts:
-      friendly_name_template: "{{ states.switch.energy_monitor.name }} Huidig verbruik"
-      value_template: '{{ state_attr("switch.energy_monitor", "current_power_w") | float }}'
+      friendly_name_template: "{{ states.switch.energy_monitor_1.name }} Huidig verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_1", "current_power_w") | float }}'
       unit_of_measurement: 'W'
     energy_monitor_1_today_kwh:
-      friendly_name_template: "{{ states.switch.energy_monitor.name }} Verbruik vandaag"
-      value_template: '{{ state_attr("switch.energy_monitor", "today_energy_kwh") | float }}'
+      friendly_name_template: "{{ states.switch.energy_monitor_1.name }} Verbruik vandaag"
+      value_template: '{{ state_attr("switch.energy_monitor_1", "today_energy_kwh") | float }}'
       unit_of_measurement: 'kWh'
     energy_monitor_1_total_kwh:
-      friendly_name_template: "{{ states.switch.energy_monitor.name }} Totaal verbruik"
-      value_template: '{{ state_attr("switch.energy_monitor", "total_energy_kwh") | float }}'
+      friendly_name_template: "{{ states.switch.energy_monitor_1.name }} Totaal verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_1", "total_energy_kwh") | float }}'
+      unit_of_measurement: 'kWh'
+    energy_monitor_2_watts:
+      friendly_name_template: "{{ states.switch.energy_monitor_2.name }} Huidig verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_2", "current_power_w") | float }}'
+      unit_of_measurement: 'W'
+    energy_monitor_2_today_kwh:
+      friendly_name_template: "{{ states.switch.energy_monitor_2.name }} Verbruik vandaag"
+      value_template: '{{ state_attr("switch.energy_monitor_2", "today_energy_kwh") | float }}'
+      unit_of_measurement: 'kWh'
+    energy_monitor_2_total_kwh:
+      friendly_name_template: "{{ states.switch.energy_monitor_2.name }} Totaal verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_2", "total_energy_kwh") | float }}'
+      unit_of_measurement: 'kWh'
+    energy_monitor_3_watts:
+      friendly_name_template: "{{ states.switch.energy_monitor_3.name }} Huidig verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_3", "current_power_w") | float }}'
+      unit_of_measurement: 'W'
+    energy_monitor_3_today_kwh:
+      friendly_name_template: "{{ states.switch.energy_monitor_3.name }} Verbruik vandaag"
+      value_template: '{{ state_attr("switch.energy_monitor_3", "today_energy_kwh") | float }}'
+      unit_of_measurement: 'kWh'
+    energy_monitor_3_total_kwh:
+      friendly_name_template: "{{ states.switch.energy_monitor_3.name }} Totaal verbruik"
+      value_template: '{{ state_attr("switch.energy_monitor_3", "total_energy_kwh") | float }}'
       unit_of_measurement: 'kWh'
 
 # Baby Monitor (Motorola MBP-854 Connect)

@@ -20,7 +20,7 @@ My Home Assistant configuration & documentation.
     - 3x E27 Color (LCT015)
     - 6x GU10 White and Ambiance (LTW013)
 - TP-Link
-    - 1x Wi-Fi Smart Plug with Energy Monitoring (HS110)
+    - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Google
     - 1x Google Home (Mini) 
     - 1x Google Chromecast (3rd Generation)

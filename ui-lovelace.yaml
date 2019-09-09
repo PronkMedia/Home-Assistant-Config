@@ -29,6 +29,7 @@ cch:
 # Views
 title: Thuis
 views:
+  # Home view
   - title: Home
     path: home
     icon: mdi:home-variant-outline
@@ -127,6 +128,7 @@ views:
                 name: Temperatuur
               - entity: sensor.hue_outdoor_motion_sensor_1_light_level
                 name: Verlichtingssterkte
+  # Lighting view
   - title: Verlichting
     path: lighting
     icon: mdi:lightbulb-outline
@@ -253,35 +255,117 @@ views:
                   action: toggle
                 hold_action:
                   action: more-info
+  # Usage view
   - title: Verbruik
     path: usage
     icon: mdi:flash-outline
     cards:
       - type: vertical-stack
         cards:
-          - type: entities
-            style: |
-              ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
+          - type: conditional
+            conditions:
+              - entity: switch.energy_monitor_1
+                state: "on"
+            card:
+              type: entities
+              style: |
                 ha-card {
-                  margin: 3px 14px
+                  margin: 3px 6px
                 }
-              }
-            entities:
-              - entity: switch.energy_monitor
-                name: Energy monitor
-                icon: mdi:flash
-              - entity: sensor.energy_monitor_1_watts
-                name: Huidig verbruik
-                icon: mdi:gauge
-              - entity: sensor.energy_monitor_1_today_kwh
-                name: Verbruik vandaag
-                icon: mdi:gauge
-              - entity: sensor.energy_monitor_1_total_kwh
-                name: Totaal verbruik
-                icon: mdi:gauge
+                @media screen and (max-width: 500px) { 
+                  ha-card {
+                    margin: 3px 14px
+                  }
+                }
+              title: Energiemeter 1
+              show_header_toggle: false
+              entities:
+                - entity: sensor.energy_monitor_1_watts
+                  name: Huidig verbruik
+                  icon: mdi:flash-outline
+                - entity: sensor.energy_monitor_1_today_kwh
+                  name: Verbruik vandaag
+                  icon: mdi:gauge
+                - entity: sensor.energy_monitor_1_total_kwh
+                  name: Totaal verbruik
+                  icon: mdi:gauge
+          - type: conditional
+            conditions:
+              - entity: switch.energy_monitor_2
+                state: "on"
+            card:
+              type: entities
+              style: |
+                ha-card {
+                  margin: 3px 6px
+                }
+                @media screen and (max-width: 500px) { 
+                  ha-card {
+                    margin: 3px 14px
+                  }
+                }
+              title: Energiemeter 2
+              show_header_toggle: false
+              entities:
+                - entity: sensor.energy_monitor_2_watts
+                  name: Huidig verbruik
+                  icon: mdi:flash-outline
+                - entity: sensor.energy_monitor_2_today_kwh
+                  name: Verbruik vandaag
+                  icon: mdi:gauge
+                - entity: sensor.energy_monitor_2_total_kwh
+                  name: Totaal verbruik
+                  icon: mdi:gauge
+          - type: conditional
+            conditions:
+              - entity: switch.energy_monitor_3
+                state: "on"
+            card:
+              type: entities
+              style: |
+                ha-card {
+                  margin: 3px 6px
+                }
+                @media screen and (max-width: 500px) { 
+                  ha-card {
+                    margin: 3px 14px
+                  }
+                }
+              title: Energiemeter 3
+              show_header_toggle: false
+              entities:
+                - entity: sensor.energy_monitor_3_watts
+                  name: Huidig verbruik
+                  icon: mdi:flash-outline
+                - entity: sensor.energy_monitor_3_today_kwh
+                  name: Verbruik vandaag
+                  icon: mdi:gauge
+                - entity: sensor.energy_monitor_3_total_kwh
+                  name: Totaal verbruik
+                  icon: mdi:gauge
+          - type: conditional
+            conditions:
+              - entity: switch.energy_monitor_1
+                state_not: "on"
+              - entity: switch.energy_monitor_2
+                state_not: "on"
+              - entity: switch.energy_monitor_3
+                state_not: "on"
+            card:
+              type: markdown
+              style: |
+                ha-card {
+                  margin: 3px 6px
+                }
+                @media screen and (max-width: 500px) { 
+                  ha-card {
+                    margin: 3px 14px
+                  }
+                }
+              title: Geen actieve energiemeters
+              content: >
+                Op dit moment zijn er geen energiemeters actief
+  # Climate view
   - title: Klimaat
     path: climate
     icon: mdi:thermometer
@@ -330,6 +414,7 @@ views:
             name: Tuin
             graph: line
             detail: 2
+  # System view
   - title: Systeem
     path: system
     icon: mdi:settings-outline
