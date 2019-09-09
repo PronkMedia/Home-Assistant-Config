@@ -6,6 +6,7 @@ user:
   # main interface
   primary-color: "#242424"
   light-primary-color: "#8d8d8d"
+  #divider-color: "#ff0000"
 
   # Background
   primary-background-color: "#1f1f1f"
@@ -37,3 +38,10 @@ user:
   paper-toggle-button-unchecked-button-color: "#b9b9b9"
   paper-toggle-button-unchecked-bar-color: "#7b7b7b"
   paper-toggle-button-unchecked-ink-color: "rgba(0,0,0,0)"
+  
+  # Slider
+  paper-slider-knob-color: "#ffffff"
+  paper-slider-knob-start-color: "#b9b9b9"
+  paper-slider-pin-color: "#8d8d8d"
+  paper-slider-active-color: "#ffffff"
+  paper-slider-container-color: "#7b7b7b"
