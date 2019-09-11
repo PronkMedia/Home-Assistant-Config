@@ -36,18 +36,14 @@ views:
   - title: Home
     path: home
     icon: mdi:home-variant-outline
+    panel: true
     cards:
       - type: vertical-stack
         cards:
           - type: entities
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 14px 14px 3px 14px
               }
             title: Huiskamer
             entities:
@@ -88,12 +84,7 @@ views:
           - type: entities
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px
               }
             title: Kinderkamer
             show_header_toggle: false
@@ -103,12 +94,7 @@ views:
           - type: entities
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px 14px 14px
               }
             title: Tuin
             entities:
@@ -135,18 +121,14 @@ views:
   - title: Verlichting
     path: lighting
     icon: mdi:lightbulb-outline
+    panel: true
     cards:
       - type: vertical-stack
         cards:
           - type: glance
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 14px 14px 3px 14px
               }
             title: Scenes
             show_state: false
@@ -191,12 +173,7 @@ views:
           - type: glance
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px
               }
             title: Huiskamer
             show_state: false
@@ -225,12 +202,7 @@ views:
           - type: glance
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px 14px 14px
               }
             title: Tuin
             show_state: false
@@ -248,6 +220,7 @@ views:
   - title: Verbruik
     path: usage
     icon: mdi:flash-outline
+    panel: true
     cards:
       - type: vertical-stack
         cards:
@@ -259,12 +232,7 @@ views:
               type: entities
               style: |
                 ha-card {
-                  margin: 3px 6px
-                }
-                @media screen and (max-width: 500px) { 
-                  ha-card {
-                    margin: 3px 14px
-                  }
+                  margin: 14px 14px 3px 14px
                 }
               title: Energiemeter 1
               show_header_toggle: false
@@ -286,12 +254,7 @@ views:
               type: entities
               style: |
                 ha-card {
-                  margin: 3px 6px
-                }
-                @media screen and (max-width: 500px) { 
-                  ha-card {
-                    margin: 3px 14px
-                  }
+                  margin: 3px 14px
                 }
               title: Energiemeter 2
               show_header_toggle: false
@@ -313,12 +276,7 @@ views:
               type: entities
               style: |
                 ha-card {
-                  margin: 3px 6px
-                }
-                @media screen and (max-width: 500px) { 
-                  ha-card {
-                    margin: 3px 14px
-                  }
+                  margin: 3px 14px 14px 14px
                 }
               title: Energiemeter 3
               show_header_toggle: false
@@ -344,12 +302,7 @@ views:
               type: markdown
               style: |
                 ha-card {
-                  margin: 3px 6px
-                }
-                @media screen and (max-width: 500px) { 
-                  ha-card {
-                    margin: 3px 14px
-                  }
+                  margin: 10px 14px 14px 14px
                 }
               title: Geen actieve energiemeters
               content: >
@@ -358,18 +311,14 @@ views:
   - title: Klimaat
     path: climate
     icon: mdi:thermometer
+    panel: true
     cards:
       - type: vertical-stack
         cards:
           - type: sensor
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 14px 14px 3px 14px
               }
             entity: sensor.indoor_motion_sensor_temperature
             name: Huiskamer
@@ -378,12 +327,7 @@ views:
           - type: sensor
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px
               }
             entity: sensor.baby_monitor_temperature
             name: Kinderkamer
@@ -392,12 +336,7 @@ views:
           - type: sensor
             style: |
               ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
+                margin: 3px 14px 14px 14px
               }
             entity: sensor.outdoor_motion_sensor_temperature
             name: Tuin
@@ -407,13 +346,14 @@ views:
   - title: Systeem
     path: system
     icon: mdi:server-network
+    panel: true
     cards:
       - type: vertical-stack
         cards:
           - type: custom:mini-graph-card
             style: |
               ha-card {
-                margin: 3px 6px
+                margin: 14px 14px 3px 14px
               }
               .name,
               .name > span {
@@ -422,11 +362,6 @@ views:
               }
               .states {
                 font-size: 10px;
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
               }
             name: Temperatuur
             entities:
@@ -440,7 +375,7 @@ views:
           - type: custom:mini-graph-card
             style: |
               ha-card {
-                margin: 3px 6px
+                margin: 3px 14px 14px 14px
               }
               .name,
               .name > span {
@@ -449,11 +384,6 @@ views:
               }
               .states {
                 font-size: 10px;
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
               }
             name: Verbruik
             entities:
