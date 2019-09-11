@@ -205,32 +205,22 @@ views:
               - entity: light.keuken
                 icon: mdi:stove
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
               - entity: light.eettafel
                 icon: mdi:ceiling-light
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
               - entity: light.speelhoek
                 icon: mdi:castle
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
               - entity: light.aanbouw
                 icon: mdi:track-light
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
               - entity: light.vloerlamp_2
                 icon: mdi:floor-lamp
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
           - type: glance
             style: |
@@ -249,14 +239,10 @@ views:
               - entity: light.deurlamp
                 icon: mdi:outdoor-lamp
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
               - entity: light.schuurlamp
                 icon: mdi:outdoor-lamp
                 tap_action:
-                  action: toggle
-                hold_action:
                   action: more-info
   # Usage view
   - title: Verbruik
