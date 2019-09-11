@@ -6,6 +6,9 @@ resources:
   # Compact Custom Header
   - url: /local/custom-lovelace/compact-custom-header.js?v=1.3.5
     type: module
+  # Mini Graph Card
+  - url: /local/custom-lovelace/mini-graph-card-bundle.js?v=0.6.0
+    type: module
   # Slider Entity Row
   - url: /local/custom-lovelace/slider-entity-row.js?v=7
     type: module
@@ -417,14 +420,22 @@ views:
   # System view
   - title: Systeem
     path: system
-    icon: mdi:settings-outline
+    icon: mdi:server-network
     cards:
       - type: vertical-stack
         cards:
-          - type: gauge
+          - type: custom:mini-graph-card
             style: |
               ha-card {
                 margin: 3px 6px
+              }
+              .name,
+              .name > span {
+                font-size: 24px !important;
+                opacity: 1 !important;
+              }
+              .states {
+                font-size: 10px;
               }
               @media screen and (max-width: 500px) { 
                 ha-card {
@@ -432,45 +443,50 @@ views:
                 }
               }
             name: Temperatuur
-            entity: sensor.processor_temperature
-            max: 85
-            severity:
-              green: 0
-              yellow: 40
-              red: 70
-          - type: gauge
+            entities:
+             - sensor.processor_temperature
+            show:
+              labels: true
+              points: false
+            points_per_hour: 30
+            line_width: 1
+            line_color: "#ff8906"
+          - type: custom:mini-graph-card
             style: |
               ha-card {
                 margin: 3px 6px
+              }
+              .name,
+              .name > span {
+                font-size: 24px !important;
+                opacity: 1 !important;
+              }
+              .states {
+                font-size: 10px;
               }
               @media screen and (max-width: 500px) { 
                 ha-card {
                   margin: 3px 14px
                 }
               }
-            name: Processor
-            entity: sensor.processor_use
-          - type: gauge
-            style: |
-              ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
-              }
-            name: Geheugen
-            entity: sensor.memory_use_percent
-          - type: gauge
-            style: |
-              ha-card {
-                margin: 3px 6px
-              }
-              @media screen and (max-width: 500px) { 
-                ha-card {
-                  margin: 3px 14px
-                }
-              }
-            name: Schijfruimte
-            entity: sensor.disk_use_percent
+            name: Verbruik
+            entities:
+              - entity: sensor.processor_use
+                name: Processor
+                show_fill: false
+              - entity: sensor.memory_use_percent
+                name: Geheugen
+                show_fill: false
+              - entity: sensor.disk_use_percent
+                name: Harde schijf
+                show_fill: false
+            show:
+              labels: true
+              points: false
+              state: false
+            points_per_hour: 30
+            line_width: 1
+            line_color:
+              - "#e63535"
+              - "#337fbf"
+              - "#7bcc00"

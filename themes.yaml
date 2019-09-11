@@ -45,3 +45,12 @@ user:
   paper-slider-pin-color: "#8d8d8d"
   paper-slider-active-color: "#ffffff"
   paper-slider-container-color: "#7b7b7b"
+  
+  # Colors
+  google-red-500: "#e63535"
+  google-yellow-500: "#ffff00"
+  google-blue-500: "#337fbf"
+  google-green-500: "#7bcc00"
+  paper-blue-400: "#337fbf"
+  paper-green-400: "#7bcc00"
+  paper-orange-400: "#ff8906"
