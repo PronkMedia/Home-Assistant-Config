@@ -2,7 +2,7 @@
 My Home Assistant configuration & documentation.
 
 ## Software
-- Home Assistant 0.98.4
+- Home Assistant 0.98.5
 
 ## Hardware
 - Raspberry Pi Foundation
