@@ -83,7 +83,7 @@ views:
                   background-color: "#333333"
               - entity: sensor.indoor_motion_sensor_temperature
                 name: Temperatuur
-              - entity: sensor.huiskamersensor_light_level
+              - entity: sensor.indoor_motion_sensor_light_level
                 name: Verlichtingssterkte
           - type: entities
             style: |
@@ -129,7 +129,7 @@ views:
                   background-color: "#333333"
               - entity: sensor.outdoor_motion_sensor_temperature
                 name: Temperatuur
-              - entity: sensor.hue_outdoor_motion_sensor_1_light_level
+              - entity: sensor.outdoor_motion_sensor_light_level
                 name: Verlichtingssterkte
   # Lighting view
   - title: Verlichting
