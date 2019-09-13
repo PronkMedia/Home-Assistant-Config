@@ -1,1 +1,40 @@
-[]
+- alias: Turn on garden lights when motion is detected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: light.tuin
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.outdoor_motion_sensor_light_level
+      below: 20
+  action:
+    - service: homeassistant.turn_on
+      data_template:
+        entity_id: light.tuin
+        brightness: 255
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.outdoor_motion_automation_is_triggered
+        value: 'true'
+
+- alias: Turn off garden lights 2 minutes after last motion is detected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
+    to: 'off'
+    for:
+      minutes: 2
+  condition:
+    condition: state
+    entity_id: input_text.outdoor_motion_automation_is_triggered
+    state: 'true'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.tuin
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.outdoor_motion_automation_is_triggered
+        value: 'false'

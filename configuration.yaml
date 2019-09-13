@@ -74,6 +74,12 @@ utility_meter:
     source: sensor.gas_consumption
     cycle: monthly
 
+# Automation variables
+input_text:
+  outdoor_motion_automation_is_triggered:
+    name: Outdoor motion automation is triggered
+    initial: 'false'
+
 # Includes
 automation: !include automations.yaml
 script: !include scripts.yaml
