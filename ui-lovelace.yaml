@@ -503,6 +503,7 @@ views:
               labels: true
               points: false
             points_per_hour: 30
+            decimals: 1
             line_width: 1
             line_color: "#ff8906"
           - type: custom:mini-graph-card
@@ -537,6 +538,8 @@ views:
               points: false
               state: false
             points_per_hour: 30
+            decimals: 0
+            lower_bound: 0
             line_width: 1
             line_color:
               - "#e63535"
