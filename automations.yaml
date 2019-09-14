@@ -1,4 +1,30 @@
-- alias: Turn on garden lights when motion is detected
+- alias: Indoor motion detected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.huiskamersensor_motion
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: light.huiskamer
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.indoor_motion_sensor_light_level
+      below: 20
+  action:
+    - service: homeassistant.turn_on
+      data_template:
+        entity_id: light.keuken
+        brightness: 102
+    - service: homeassistant.turn_on
+      data_template:
+        entity_id: light.speelhoek
+        brightness: 102
+    - service: homeassistant.turn_on
+      data_template:
+        entity_id: light.aanbouw
+        brightness: 102
+
+- alias: Outdoor motion detected
   trigger:
     platform: state
     entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
@@ -20,7 +46,7 @@
         entity_id: input_text.outdoor_motion_automation_is_triggered
         value: 'true'
 
-- alias: Turn off garden lights 2 minutes after last motion is detected
+- alias: Outdoor motion undetected
   trigger:
     platform: state
     entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
