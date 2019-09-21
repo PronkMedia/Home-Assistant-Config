@@ -9,7 +9,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.indoor_motion_sensor_light_level
-      below: 20
+      below: 2
   action:
     - service: homeassistant.turn_on
       data_template:
@@ -35,7 +35,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.outdoor_motion_sensor_light_level
-      below: 20
+      below: 5
   action:
     - service: homeassistant.turn_on
       data_template:
