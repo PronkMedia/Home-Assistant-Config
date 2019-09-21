@@ -2,6 +2,7 @@
 My Home Assistant configuration & documentation.
 
 ## Software
+- HassOS 3.5
 - Home Assistant 0.98.5
 
 ## Hardware
@@ -29,3 +30,11 @@ My Home Assistant configuration & documentation.
     - 1x USB > Serial Cable (P1)
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
+
+### Todo
+- Start using `Vertical Stack In Card` card.
+- Redesign `Lights` view.
+- Split configuration into multiple files.
+- Implement `hass-favicon`.
+- Build automations/template sensors for detecting Hue scenes.
+- Use `decluttering-card` to clean up current configuration.
