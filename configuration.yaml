@@ -1,86 +1,51 @@
-# Home Assistant
-homeassistant:
-  latitude: !secret home_latitude
-  longitude: !secret home_longitude
-  elevation: 0
-  unit_system: metric
-  time_zone: Europe/Amsterdam
-  name: Huis
-
-# HTTP
-http:
-  base_url: !secret cloudflare_base_url
-  ssl_certificate: !secret cloudflare_ssl_cert
-  ssl_key: !secret cloudflare_ssl_key
-  ip_ban_enabled: true
-  login_attempts_threshold: 3
+# Automations
+automation: !include automations/motion.yaml
 
 # Cloudflare
-cloudflare:
-  email: !secret cloudflare_email_address
-  api_key: !secret cloudflare_api_key
-  zone: !secret cloudflare_zone
-  records:
-    - !secret cloudflare_record
-
-# Frontend configuration
-frontend:
-  themes:  !include themes.yaml
+cloudflare: !include configuration/cloudflare.yaml
 
 # Enable configuration section
 config:
 
+# Frontend (theme) configuration
+frontend: !include configuration/frontend.yaml
+
 # Enable history tracking
 history:
+
+# Home Assistant
+homeassistant: !include configuration/home-assistant.yaml
+
+# HTTP
+http: !include configuration/http.yaml
+
+# Hue
+hue: !include configuration/hue.yaml
+
+# Automation variables
+input_text: !include configuration/input-text.yaml
+
+# Lovelace configuration
+lovelace: !include configuration/lovelace.yaml
+
+# Scripts
+script: !include scripts/scenes.yaml
+
+# Sensors
+sensor:
+  - !include sensors/baby-monitor.yaml
+  - !include sensors/energy-monitors.yaml
+  - !include sensors/motion-sensors.yaml
+  - !include sensors/smart-meter.yaml
+  - !include sensors/system-temperature.yaml
+  - !include sensors/system-usage.yaml
+  - !include sensors/utility-sensors.yaml
 
 # Enable system health information
 system_health:
 
-# UI mode
-lovelace:
-  mode: yaml
-
-# Hue
-hue:
-  bridges:
-    - host: !secret address_hue_bridge
-
 # TP-Link
-tplink:
-  switch:
-    # Energy monitor (HS110)
-    - host: !secret address_tplink_hs110_1
-    - host: !secret address_tplink_hs110_2
-    - host: !secret address_tplink_hs110_3
+tplink: !include configuration/tp-link.yaml
 
 # Utility Meter
-utility_meter:
-  daily_power_offpeak:
-    source: sensor.power_consumption_low
-    cycle: daily
-  daily_power_peak:
-    source: sensor.power_consumption_normal
-    cycle: daily
-  daily_gas:
-    source: sensor.gas_consumption
-    cycle: daily
-  monthly_power_offpeak:
-    source: sensor.power_consumption_low
-    cycle: monthly
-  monthly_power_peak:
-    source: sensor.power_consumption_normal
-    cycle: monthly
-  monthly_gas:
-    source: sensor.gas_consumption
-    cycle: monthly
-
-# Automation variables
-input_text:
-  outdoor_motion_automation_is_triggered:
-    name: Outdoor motion automation is triggered
-    initial: 'false'
-
-# Includes
-automation: !include automations.yaml
-script: !include scripts.yaml
-sensor: !include sensors.yaml
+utility_meter: !include configuration/utility-meter.yaml

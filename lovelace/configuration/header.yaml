@@ -1,0 +1,13 @@
+disable_sidebar: true
+menu: hide
+options: hide
+swipe: true
+swipe_animate: swipe
+swipe_prevent_default: true
+exceptions:
+- conditions:
+    user: Administrator
+  config:
+    disable_sidebar: false
+    menu: show
+    options: show

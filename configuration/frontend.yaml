@@ -1,0 +1,2 @@
+themes: 
+  mobile: !include ../themes/mobile.yaml

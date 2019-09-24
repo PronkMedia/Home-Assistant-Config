@@ -32,9 +32,7 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ### Todo
-- Start using `Vertical Stack In Card` card.
 - Redesign `Lights` view.
-- Split configuration into multiple files.
-- Implement `hass-favicon`.
 - Build automations/template sensors for detecting Hue scenes.
+- Implement `hass-favicon`.
 - Use `decluttering-card` to clean up current configuration.

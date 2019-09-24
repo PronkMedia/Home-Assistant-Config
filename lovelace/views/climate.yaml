@@ -1,0 +1,82 @@
+title: Klimaat
+path: climate
+icon: mdi:thermometer
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 14px 14px 3px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Huiskamer
+        entities:
+         - sensor.indoor_motion_sensor_temperature
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: "#e63535"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Kinderkamer
+        entities:
+         - sensor.baby_monitor_temperature
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: "#337fbf"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px 14px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Tuin
+        entities:
+         - sensor.outdoor_motion_sensor_temperature
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: "#ff8906"

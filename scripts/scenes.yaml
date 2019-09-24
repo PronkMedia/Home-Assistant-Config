@@ -1,4 +1,3 @@
-# Hue scenes
 hue_scene_overdag:
   sequence:
     - service: hue.hue_activate_scene

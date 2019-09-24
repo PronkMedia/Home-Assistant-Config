@@ -1,0 +1,72 @@
+title: Systeem
+path: system
+icon: mdi:server-network
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 14px 14px 3px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Temperatuur
+        entities:
+         - sensor.processor_temperature
+        show:
+          labels: true
+          points: false
+        points_per_hour: 30
+        decimals: 1
+        line_width: 1
+        line_color: "#ff8906"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px 14px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Verbruik
+        entities:
+          - entity: sensor.processor_use
+            name: Processor
+            show_fill: false
+          - entity: sensor.memory_use_percent
+            name: Geheugen
+            show_fill: false
+          - entity: sensor.disk_use_percent
+            name: Harde schijf
+            show_fill: false
+        show:
+          labels: true
+          points: false
+          state: false
+        points_per_hour: 30
+        decimals: 0
+        lower_bound: 0
+        line_width: 1
+        line_color:
+          - "#e63535"
+          - "#337fbf"
+          - "#7bcc00"

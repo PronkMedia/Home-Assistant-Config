@@ -1,0 +1,3 @@
+# Hue bridge configuration (BSB002)
+bridges:
+  - host: !secret address_hue_bridge

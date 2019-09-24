@@ -1,0 +1,6 @@
+name: Huis
+latitude: !secret home_latitude
+longitude: !secret home_longitude
+elevation: 0
+unit_system: metric
+time_zone: Europe/Amsterdam

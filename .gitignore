@@ -9,7 +9,6 @@
 
 # Whitelisted folders
 !*/
-!www/*
 
 # Ignore these folders
 .storage

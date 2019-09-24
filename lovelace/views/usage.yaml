@@ -1,0 +1,172 @@
+title: Verbruik
+path: usage
+icon: mdi:flash-outline
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            z-index: 1;
+            margin: 14px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Slimme meter
+        icon: mdi:counter
+        entities:
+          - entity: sensor.power_consumption
+            name: Stroomverbruik
+            show_state: true
+            show_indicator: true
+          - entity: sensor.hourly_gas_consumption
+            name: Gasverbruik
+            show_state: true
+            show_indicator: true
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        decimals: 3
+        lower_bound: 0
+        update_interval: 10
+        line_width: 1
+        line_color:
+          - "#337fbf"
+          - "#e63535"
+      - type: entities
+        style:
+          .: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          "hui-section-row":
+            $: |
+              .label {
+                color: #ffffff !important;
+              }
+              .divider {
+                background-color: #333333 !important;
+                opacity: 1 !important;
+              }
+        show_header_toggle: false
+        entities:
+          - type: section
+            label: Vandaag
+          - entity: sensor.daily_power
+            name: Stroomverbruik
+            icon: mdi:flash-outline
+          - entity: sensor.daily_gas
+            name: Gasverbruik
+            icon: mdi:fire
+          - type: section
+            label: Huidige maand
+          - entity: sensor.monthly_power
+            name: Stroomverbruik
+            icon: mdi:flash-outline
+          - entity: sensor.monthly_gas_rounded
+            name: Gasverbruik
+            icon: mdi:fire
+          - type: section
+            label: Totaal
+          - entity: sensor.total_power
+            name: Stroomverbruik
+            icon: mdi:flash-outline
+          - entity: sensor.total_gas_rounded
+            name: Gasverbruik
+            icon: mdi:fire
+      - type: conditional
+        conditions:
+          - entity: switch.energy_monitor_1
+            state: "on"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          title: Energiemeter 1
+          show_header_toggle: false
+          entities:
+            - entity: sensor.energy_monitor_1_watts
+              name: Huidig verbruik
+              icon: mdi:flash-outline
+            - entity: sensor.energy_monitor_1_today_kwh
+              name: Verbruik vandaag
+              icon: mdi:gauge
+            - entity: sensor.energy_monitor_1_total_kwh
+              name: Totaal verbruik
+              icon: mdi:gauge
+      - type: conditional
+        conditions:
+          - entity: switch.energy_monitor_2
+            state: "on"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          title: Energiemeter 2
+          show_header_toggle: false
+          entities:
+            - entity: sensor.energy_monitor_2_watts
+              name: Huidig verbruik
+              icon: mdi:flash-outline
+            - entity: sensor.energy_monitor_2_today_kwh
+              name: Verbruik vandaag
+              icon: mdi:gauge
+            - entity: sensor.energy_monitor_2_total_kwh
+              name: Totaal verbruik
+              icon: mdi:gauge
+      - type: conditional
+        conditions:
+          - entity: switch.energy_monitor_3
+            state: "on"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              margin: 3px 14px 14px 14px;
+            }
+          title: Energiemeter 3
+          show_header_toggle: false
+          entities:
+            - entity: sensor.energy_monitor_3_watts
+              name: Huidig verbruik
+              icon: mdi:flash-outline
+            - entity: sensor.energy_monitor_3_today_kwh
+              name: Verbruik vandaag
+              icon: mdi:gauge
+            - entity: sensor.energy_monitor_3_total_kwh
+              name: Totaal verbruik
+              icon: mdi:gauge
+      - type: conditional
+        conditions:
+          - entity: switch.energy_monitor_1
+            state_not: "on"
+          - entity: switch.energy_monitor_2
+            state_not: "on"
+          - entity: switch.energy_monitor_3
+            state_not: "on"
+        card:
+          type: markdown
+          style: |
+            ha-card {
+              margin: 3px 14px 14px 14px;
+            }
+          title: Geen actieve energiemeters
+          content: >
+            Geen actieve energiemeters gevonden
