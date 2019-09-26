@@ -52,12 +52,22 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
+          "#states div:first-of-type hui-section-row":
+            $: |
+              .label {
+                color: #ffffff !important;
+              }
+              .divider {
+                background-color: #333333 !important;
+                opacity: 1 !important;
+              }
           "hui-section-row":
             $: |
               .label {
                 color: #ffffff !important;
               }
               .divider {
+                margin: 0 0 0 55px !important;
                 background-color: #333333 !important;
                 opacity: 1 !important;
               }
