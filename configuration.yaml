@@ -1,5 +1,8 @@
 # Automations
-automation: !include automations/motion.yaml
+automation:
+  - !include automations/motion-indoor-detected.yaml
+  - !include automations/motion-outdoor-detected.yaml
+  - !include automations/motion-outdoor-undetected.yaml
 
 # Cloudflare
 cloudflare: !include configuration/cloudflare.yaml
@@ -29,9 +32,11 @@ input_text: !include configuration/input-text.yaml
 lovelace: !include configuration/lovelace.yaml
 
 # Scripts
-script: !include scripts/scenes.yaml
+script: !include scripts/hue-scenes.yaml
 
 # Sensors
+binary_sensor:
+  - !include sensors/hue-scenes.yaml
 sensor:
   - !include sensors/baby-monitor.yaml
   - !include sensors/energy-monitors.yaml

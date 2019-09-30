@@ -17,7 +17,7 @@ My Home Assistant configuration & documentation.
     - 1x Motion Sensor (SML001)
     - 1x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
-    - 2x E27 White (LWA001)
+    - 3x E27 White (LWA001)
     - 3x E27 Color (LCT015)
     - 6x GU10 White and Ambiance (LTW013)
 - TP-Link
@@ -32,7 +32,7 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ### Todo
-- Redesign `Lights` view.
-- Build automations/template sensors for detecting Hue scenes.
 - Implement `hass-favicon`.
 - Use `decluttering-card` to clean up current configuration.
+- Improve 'in-home' motion detection
+- Add parking space light and motion detection

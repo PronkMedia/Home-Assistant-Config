@@ -14,48 +14,89 @@ cards:
         show_state: false
         columns: 3
         entities:
-          - entity: script.hue_scene_overdag
+          - entity: binary_sensor.hue_scene_overdag
             name: Overdag
             icon: mdi:weather-sunny
             tap_action:
               action: call-service
               service: script.hue_scene_overdag
-          - entity: script.hue_scene_eten
+          - entity: binary_sensor.hue_scene_eten
             name: Eten
             icon: mdi:silverware-fork-knife
             tap_action:
               action: call-service
               service: script.hue_scene_eten
-          - entity: script.hue_scene_tvkijken
+          - entity: binary_sensor.hue_scene_tvkijken
             name: TV Kijken
             icon: mdi:sofa
             tap_action:
               action: call-service
               service: script.hue_scene_tvkijken
-          - entity: script.hue_scene_avond
+          - entity: binary_sensor.hue_scene_avond
             name: Avond
             icon: mdi:weather-night
             tap_action:
               action: call-service
               service: script.hue_scene_avond
-          - entity: script.hue_scene_koken
+          - entity: binary_sensor.hue_scene_koken
             name: Koken
             icon: mdi:stove
             tap_action:
               action: call-service
               service: script.hue_scene_koken
-          - entity: script.hue_scene_spelen
+          - entity: binary_sensor.hue_scene_spelen
             name: Spelen
             icon: mdi:castle
             tap_action:
               action: call-service
               service: script.hue_scene_spelen
+      - type: entities
+        style: |
+          ha-card {
+            z-index: 1;
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .card-content {
+            padding: 0;
+          }
+          .card-content > div:first-of-type {
+            display: none;
+          }
+        title: Alle lampen
+        show_header_toggle: true
+        entities:
+          - entity: group.all_lights
+          - type: divider
+            style:
+              height: 1px
+              margin: 0 16px
+              background-color: "#333333"
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .card-content > div {
+            display: none;
+          }
+          .name {
+            font-size: 14px;
+          }
+        title: Huiskamer
+        show_header_toggle: true
+        entities:
+          - entity: light.huiskamer
       - type: glance
         style: |
           ha-card {
-            margin: 3px 14px;
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
           }
-        title: Huiskamer
         show_state: false
         columns: 3
         entities:
@@ -79,20 +120,46 @@ cards:
             icon: mdi:floor-lamp
             tap_action:
               action: more-info
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .card-header {
+            padding: 10px 0 16px 0;
+            margin: 16px 16px 0 16px;
+            border-top: 1px solid #333333;
+          }
+          .card-content > div {
+            display: none;
+          }
+          .name {
+            font-size: 14px;
+          }
+        title: Buiten
+        show_header_toggle: true
+        entities:
+          - entity: light.buiten
       - type: glance
         style: |
           ha-card {
+            z-index: 1;
             margin: 3px 14px 14px 14px;
           }
-        title: Tuin
         show_state: false
-        columns: 2
+        columns: 3
         entities:
-          - entity: light.deurlamp
+          - entity: light.voordeur
             icon: mdi:outdoor-lamp
             tap_action:
               action: more-info
-          - entity: light.schuurlamp
+          - entity: light.achterdeur
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: more-info
+          - entity: light.tuin
             icon: mdi:outdoor-lamp
             tap_action:
               action: more-info

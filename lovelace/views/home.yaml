@@ -61,15 +61,20 @@ cards:
           ha-card {
             margin: 3px 14px 14px 14px;
           }
-        title: Tuin
+        title: Buiten
         entities:
           - type: custom:slider-entity-row
-            entity: light.deurlamp
+            entity: light.voordeur
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
-            entity: light.schuurlamp
+            entity: light.achterdeur
+            icon: mdi:outdoor-lamp
+            toggle: true
+            hide_when_off: true
+          - type: custom:slider-entity-row
+            entity: light.tuin
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
