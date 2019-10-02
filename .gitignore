@@ -2,10 +2,13 @@
 *
 
 # Whitelisted files
-!*.yaml
 !.gitignore
-!*.md
 !*.js
+!*.json
+!*.md
+!*.py
+!*.yaml
+!favicon*.*
 
 # Whitelisted folders
 !*/

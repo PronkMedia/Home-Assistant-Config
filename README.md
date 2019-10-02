@@ -32,7 +32,6 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ### Todo
-- Implement `hass-favicon`.
 - Use `decluttering-card` to clean up current configuration.
 - Improve 'in-home' motion detection
 - Add parking space light and motion detection

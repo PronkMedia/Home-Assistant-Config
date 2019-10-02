@@ -13,6 +13,9 @@ config:
 # Frontend (theme) configuration
 frontend: !include configuration/frontend.yaml
 
+# Favorite icon configuration
+favicon: !include configuration/favicon.yaml
+
 # Enable history tracking
 history:
 
