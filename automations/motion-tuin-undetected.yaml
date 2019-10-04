@@ -1,4 +1,4 @@
-alias: Motion outdoor undetected
+alias: Motion tuin undetected
 trigger:
   platform: state
   entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
@@ -7,7 +7,7 @@ trigger:
     minutes: 2
 condition:
   condition: state
-  entity_id: input_text.outdoor_motion_automation_is_triggered
+  entity_id: input_text.tuin_motion_automation_is_triggered
   state: 'true'
 action:
   - service: homeassistant.turn_off
@@ -16,5 +16,5 @@ action:
       - light.tuin
   - service: input_text.set_value
     data_template:
-      entity_id: input_text.outdoor_motion_automation_is_triggered
+      entity_id: input_text.tuin_motion_automation_is_triggered
       value: 'false'

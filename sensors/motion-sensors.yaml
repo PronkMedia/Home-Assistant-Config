@@ -1,19 +1,19 @@
 # Motion sensors (Philips Hue SML001, Philips Hue SML002)
 platform: template
 sensors:
-  indoor_motion_sensor_temperature:
+  huiskamer_motion_sensor_1_temperature:
     friendly_name: "Indoor Motion Sensor Temperature"
     unit_of_measurement: '°C'
-    value_template: "{{ (states('sensor.huiskamersensor_temperature') | float) | round(1) }}"
-  indoor_motion_sensor_light_level:
+    value_template: "{{ (states('sensor.hue_motion_sensor_1_temperature') | float) | round(1) }}"
+  huiskamer_motion_sensor_1_light_level:
     friendly_name: "Indoor Motion Sensor Light Level"
     unit_of_measurement: 'lx'
-    value_template: "{{ (states('sensor.huiskamersensor_light_level') | float) | round(0) }}"
-  outdoor_motion_sensor_temperature:
+    value_template: "{{ (states('sensor.hue_motion_sensor_1_light_level') | float) | round(0) }}"
+  tuin_motion_sensor_temperature:
     friendly_name: "Outdoor Motion Sensor Temperature"
     unit_of_measurement: '°C'
     value_template: "{{ (states('sensor.hue_outdoor_motion_sensor_1_temperature') | float) | round(1) }}"
-  outdoor_motion_sensor_light_level:
+  tuin_motion_sensor_light_level:
     friendly_name: "Outdoor Motion Sensor Light Level"
     unit_of_measurement: 'lx'
     value_template: "{{ (states('sensor.hue_outdoor_motion_sensor_1_light_level') | float) | round(0) }}"

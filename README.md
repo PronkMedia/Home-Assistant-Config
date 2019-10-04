@@ -14,8 +14,8 @@ My Home Assistant configuration & documentation.
     - Fan SHIM for Raspberry Pi (PIM461)
 - Philips Hue
     - 1x Bridge (BSB002)
-    - 1x Motion Sensor (SML001)
-    - 1x Outdoor Sensor (SML002)
+    - 2x Motion Sensor (SML001)
+    - 2x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
     - 3x E27 White (LWA001)
     - 3x E27 Color (LCT015)
@@ -32,6 +32,5 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ### Todo
-- Use `decluttering-card` to clean up current configuration.
-- Improve 'in-home' motion detection
-- Add parking space light and motion detection
+- Add parking space light with motion automation
+- Use `decluttering-card` to clean up current configuration

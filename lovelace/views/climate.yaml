@@ -23,7 +23,7 @@ cards:
           }
         name: Huiskamer
         entities:
-         - sensor.indoor_motion_sensor_temperature
+         - sensor.huiskamer_motion_sensor_1_temperature
         show:
           labels: false
           points: false
@@ -73,7 +73,7 @@ cards:
           }
         name: Tuin
         entities:
-         - sensor.outdoor_motion_sensor_temperature
+         - sensor.tuin_motion_sensor_temperature
         show:
           labels: false
           points: false

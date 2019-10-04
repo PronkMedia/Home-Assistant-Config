@@ -1,8 +1,5 @@
 # Automations
-automation:
-  - !include automations/motion-indoor-detected.yaml
-  - !include automations/motion-outdoor-detected.yaml
-  - !include automations/motion-outdoor-undetected.yaml
+automation: !include_dir_list automations
 
 # Cloudflare
 cloudflare: !include configuration/cloudflare.yaml

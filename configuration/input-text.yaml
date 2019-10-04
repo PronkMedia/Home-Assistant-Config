@@ -1,4 +1,7 @@
 # Input Text variables (used for automations) 
-outdoor_motion_automation_is_triggered:
-  name: Outdoor motion automation is triggered
+parkeerplaats_motion_automation_is_triggered:
+  name: Parkeerplaats motion automation is triggered
+  initial: 'false'
+tuin_motion_automation_is_triggered:
+  name: Tuin motion automation is triggered
   initial: 'false'

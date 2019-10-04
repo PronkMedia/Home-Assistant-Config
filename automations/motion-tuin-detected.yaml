@@ -1,4 +1,4 @@
-alias: Motion outdoor detected
+alias: Motion tuin detected
 trigger:
   platform: state
   entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
@@ -8,7 +8,7 @@ condition:
     entity_id: light.tuin
     state: 'off'
   - condition: numeric_state
-    entity_id: sensor.outdoor_motion_sensor_light_level
+    entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
     below: 5
 action:
   - service: homeassistant.turn_on
@@ -19,5 +19,5 @@ action:
         - light.tuin
   - service: input_text.set_value
     data_template:
-      entity_id: input_text.outdoor_motion_automation_is_triggered
+      entity_id: input_text.tuin_motion_automation_is_triggered
       value: 'true'
