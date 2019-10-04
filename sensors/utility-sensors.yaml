@@ -1,23 +1,23 @@
 # Utility meter sensors
-platform: template
-sensors:
-  daily_power:
-    friendly_name: Daily Power
-    unit_of_measurement: kWh
-    value_template: "{{ (states('sensor.daily_power_offpeak') | float + states('sensor.daily_power_peak') | float) | round(3) }}"
-  monthly_power:
-    friendly_name: Monthly Power
-    unit_of_measurement: kWh
-    value_template: "{{ (states('sensor.monthly_power_offpeak') | float + states('sensor.monthly_power_peak') | float) | round(0) }}"
-  total_power:
-    friendly_name: Total Power
-    unit_of_measurement: kWh
-    value_template: "{{ (states('sensor.power_consumption_low') | float + states('sensor.power_consumption_normal') | float) | round(0) }}"
-  monthly_gas_rounded:
-    friendly_name: Monthly Gas (rounded)
-    unit_of_measurement: m3
-    value_template: "{{ states('sensor.monthly_gas') | float | round(0) }}"
-  total_gas_rounded:
-    friendly_name: Monthly Gas (rounded)
-    unit_of_measurement: m3
-    value_template: "{{ states('sensor.gas_consumption') | float | round(0) }}"
+- platform: template
+  sensors:
+    daily_power:
+      friendly_name: Daily Power
+      unit_of_measurement: kWh
+      value_template: "{{ (states('sensor.daily_power_offpeak') | float + states('sensor.daily_power_peak') | float) | round(3) }}"
+    monthly_power:
+      friendly_name: Monthly Power
+      unit_of_measurement: kWh
+      value_template: "{{ (states('sensor.monthly_power_offpeak') | float + states('sensor.monthly_power_peak') | float) | round(0) }}"
+    total_power:
+      friendly_name: Total Power
+      unit_of_measurement: kWh
+      value_template: "{{ (states('sensor.power_consumption_low') | float + states('sensor.power_consumption_normal') | float) | round(0) }}"
+    monthly_gas_rounded:
+      friendly_name: Monthly Gas (rounded)
+      unit_of_measurement: m3
+      value_template: "{{ states('sensor.monthly_gas') | float | round(0) }}"
+    total_gas_rounded:
+      friendly_name: Monthly Gas (rounded)
+      unit_of_measurement: m3
+      value_template: "{{ states('sensor.gas_consumption') | float | round(0) }}"

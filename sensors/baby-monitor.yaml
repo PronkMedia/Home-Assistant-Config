@@ -1,7 +1,7 @@
 # Baby Monitor (Motorola MBP-854 Connect)
-platform: rest
-resource: !secret address_motorola_mbp854connect
-force_update: true
-name: Baby Monitor Temperature
-value_template: '{{ (value.split(": ")[1] | float) | round(1) }}'
-unit_of_measurement: "°C"
+- platform: rest
+  resource: !secret address_motorola_mbp854connect
+  force_update: true
+  name: Baby Monitor Temperature
+  value_template: '{{ (value.split(": ")[1] | float) | round(1) }}'
+  unit_of_measurement: "°C"

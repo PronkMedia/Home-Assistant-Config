@@ -42,9 +42,9 @@ cards:
               height: 1px
               margin-left: 55px
               background-color: "#333333"
-          - entity: sensor.huiskamer_motion_sensor_1_temperature
+          - entity: sensor.huiskamer_temperature
             name: Temperatuur
-          - entity: sensor.huiskamer_motion_sensor_1_light_level
+          - entity: sensor.huiskamer_light_level
             name: Verlichtingssterkte
       - type: entities
         style: |
@@ -83,7 +83,7 @@ cards:
               height: 1px
               margin-left: 55px
               background-color: "#333333"
-          - entity: sensor.tuin_motion_sensor_temperature
+          - entity: sensor.buiten_temperature
             name: Temperatuur
-          - entity: sensor.tuin_motion_sensor_light_level
+          - entity: sensor.buiten_light_level
             name: Verlichtingssterkte

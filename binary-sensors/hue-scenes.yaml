@@ -1,0 +1,100 @@
+# Hue scenes
+- platform: template
+  sensors:
+    hue_scene_overdag:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'on')
+            and is_state_attr('light.keuken', 'brightness', 204)
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 204)
+            and is_state_attr('light.eettafel', 'hs_color', (173.333,3.529))
+            and is_state_attr('light.eettafel', 'rgb_color', (246,255,254))
+            and is_state_attr('light.eettafel', 'xy_color', (0.314,0.331))
+            and is_state('light.speelhoek', 'on')
+            and is_state_attr('light.speelhoek', 'brightness', 204)
+            and is_state('light.aanbouw', 'on')
+            and is_state_attr('light.aanbouw', 'brightness', 204)
+            and is_state('light.vloerlamp', 'off')
+        }}
+    hue_scene_avond:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'on')
+            and is_state_attr('light.keuken', 'brightness', 179)
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 179)
+            and is_state_attr('light.eettafel', 'hs_color', (37.5,59.608))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,197,102))
+            and is_state_attr('light.eettafel', 'xy_color', (0.48,0.413))
+            and is_state('light.speelhoek', 'on')
+            and is_state_attr('light.speelhoek', 'brightness', 179)
+            and is_state('light.aanbouw', 'on')
+            and is_state_attr('light.aanbouw', 'brightness', 179)
+            and is_state('light.vloerlamp', 'off')
+        }}
+    hue_scene_eten:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'on')
+            and is_state_attr('light.keuken', 'brightness', 77)
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 204)
+            and is_state_attr('light.eettafel', 'hs_color', (37.703,58.039))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,200,107))
+            and is_state_attr('light.eettafel', 'xy_color', (0.474,0.412))
+            and is_state('light.speelhoek', 'off')
+            and is_state('light.aanbouw', 'off')
+            and is_state('light.vloerlamp', 'on')
+            and is_state_attr('light.vloerlamp', 'brightness', 127)
+            and is_state_attr('light.vloerlamp', 'hs_color', (37.703,58.039))
+            and is_state_attr('light.vloerlamp', 'rgb_color', (255,200,107))
+            and is_state_attr('light.vloerlamp', 'xy_color', (0.474,0.412))
+        }}
+    hue_scene_koken:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'on')
+            and is_state_attr('light.keuken', 'brightness', 205)
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 101)
+            and is_state_attr('light.eettafel', 'hs_color', (44.516,24.314))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,238,192))
+            and is_state_attr('light.eettafel', 'xy_color', (0.376,0.376))
+            and is_state('light.speelhoek', 'off')
+            and is_state('light.aanbouw', 'off')
+            and is_state('light.vloerlamp', 'off')
+        }}
+    hue_scene_tvkijken:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'off')
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 162)
+            and is_state_attr('light.eettafel', 'hs_color', (49.322,46.275))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,233,136))
+            and is_state_attr('light.eettafel', 'xy_color', (0.421,0.426))
+            and is_state('light.speelhoek', 'off')
+            and is_state('light.aanbouw', 'off')
+            and is_state('light.vloerlamp', 'on')
+            and is_state_attr('light.vloerlamp', 'brightness', 162)
+            and is_state_attr('light.vloerlamp', 'hs_color', (49.322,46.275))
+            and is_state_attr('light.vloerlamp', 'rgb_color', (255,233,136))
+            and is_state_attr('light.vloerlamp', 'xy_color', (0.421,0.426))
+        }}
+    hue_scene_spelen:
+      device_class: light
+      value_template: >-
+        {{  is_state('light.keuken', 'on')
+            and is_state_attr('light.keuken', 'brightness', 104)
+            and is_state('light.eettafel', 'on')
+            and is_state_attr('light.eettafel', 'brightness', 153)
+            and is_state_attr('light.eettafel', 'hs_color', (45,20.392))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,242,203))
+            and is_state_attr('light.eettafel', 'xy_color', (0.366,0.369))
+            and is_state('light.speelhoek', 'on')
+            and is_state_attr('light.speelhoek', 'brightness', 229)
+            and is_state('light.aanbouw', 'on')
+            and is_state_attr('light.aanbouw', 'brightness', 154)
+            and is_state('light.vloerlamp', 'off')
+        }}

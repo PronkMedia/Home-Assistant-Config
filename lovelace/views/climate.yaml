@@ -23,7 +23,7 @@ cards:
           }
         name: Huiskamer
         entities:
-         - sensor.huiskamer_motion_sensor_1_temperature
+         - sensor.huiskamer_temperature
         show:
           labels: false
           points: false
@@ -71,9 +71,9 @@ cards:
           .graph {
             margin-bottom: -1px;
           }
-        name: Tuin
+        name: Buiten
         entities:
-         - sensor.tuin_motion_sensor_temperature
+         - sensor.buiten_temperature
         show:
           labels: false
           points: false

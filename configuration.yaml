@@ -35,16 +35,8 @@ lovelace: !include configuration/lovelace.yaml
 script: !include scripts/hue-scenes.yaml
 
 # Sensors
-binary_sensor:
-  - !include sensors/hue-scenes.yaml
-sensor:
-  - !include sensors/baby-monitor.yaml
-  - !include sensors/energy-monitors.yaml
-  - !include sensors/motion-sensors.yaml
-  - !include sensors/smart-meter.yaml
-  - !include sensors/system-temperature.yaml
-  - !include sensors/system-usage.yaml
-  - !include sensors/utility-sensors.yaml
+binary_sensor: !include_dir_merge_list binary-sensors
+sensor: !include_dir_merge_list sensors
 
 # Enable system health information
 system_health:
