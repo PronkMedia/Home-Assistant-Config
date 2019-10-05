@@ -21,17 +21,10 @@
             below: 2
   action:
     - service: homeassistant.turn_on
-      data_template:
-        entity_id: light.keuken
-        brightness: 102
-        color_temp: 400
-    - service: homeassistant.turn_on
-      data_template:
-        entity_id: light.speelhoek
-        brightness: 102
-        color_temp: 400
-    - service: homeassistant.turn_on
-      data_template:
-        entity_id: light.aanbouw
+      entity_id:
+        - light.keuken
+        - light.speelhoek
+        - light.aanbouw
+      data:
         brightness: 102
         color_temp: 400

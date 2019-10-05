@@ -4,21 +4,26 @@
     entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
     to: 'on'
   condition:
-    - condition: state
-      entity_id: light.tuin
-      state: 'off'
-    - condition: numeric_state
-      entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
-      below: 5
+    condition: and
+    conditions:    
+      - condition: state
+        entity_id: light.achterdeur
+        state: 'off'
+      - condition: state
+        entity_id: light.tuin
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
+        below: 5
   action:
     - service: homeassistant.turn_on
+      entity_id:
+        - light.achterdeur
+        - light.tuin
       data:
         brightness: 255
-        entity_id:
-          - light.achterdeur
-          - light.tuin
     - service: input_text.set_value
-      data_template:
+      data:
         entity_id: input_text.tuin_motion_automation_is_triggered
         value: 'true'
 - alias: Motion tuin undetected
@@ -38,6 +43,6 @@
         - light.achterdeur
         - light.tuin
     - service: input_text.set_value
-      data_template:
+      data:
         entity_id: input_text.tuin_motion_automation_is_triggered
         value: 'false'

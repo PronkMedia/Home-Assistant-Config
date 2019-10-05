@@ -17,7 +17,7 @@ My Home Assistant configuration & documentation.
     - 2x Motion Sensor (SML001)
     - 2x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
-    - 3x E27 White (LWA001)
+    - 4x E27 White (LWA001)
     - 3x E27 Color (LCT015)
     - 6x GU10 White and Ambiance (LTW013)
 - TP-Link
@@ -31,6 +31,8 @@ My Home Assistant configuration & documentation.
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
 
-### Todo
-- Add parking space light with motion automation
+## Todo
+- Add more information to `System information` view
+- Change some `homeassistant` service calls to `light`
+- Configure energy monitor(s)
 - Use `decluttering-card` to clean up current configuration

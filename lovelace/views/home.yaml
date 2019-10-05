@@ -78,6 +78,11 @@ cards:
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
+          - type: custom:slider-entity-row
+            entity: light.parkeerplaats
+            icon: mdi:outdoor-lamp
+            toggle: true
+            hide_when_off: true
           - type: divider
             style:
               height: 1px

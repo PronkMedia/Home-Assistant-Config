@@ -163,3 +163,7 @@ cards:
             icon: mdi:outdoor-lamp
             tap_action:
               action: more-info
+          - entity: light.parkeerplaats
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: more-info
