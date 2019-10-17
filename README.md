@@ -33,6 +33,5 @@ My Home Assistant configuration & documentation.
 
 ## Todo
 - Add more information to `System information` view
-- Change some `homeassistant` service calls to `light`
 - Configure energy monitor(s)
 - Use `decluttering-card` to clean up current configuration

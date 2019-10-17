@@ -16,7 +16,7 @@
         entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
         below: 5
   action:
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       entity_id:
         - light.achterdeur
         - light.tuin
@@ -38,7 +38,7 @@
     entity_id: input_text.tuin_motion_automation_is_triggered
     state: 'true'
   action:
-    - service: homeassistant.turn_off
+    - service: light.turn_off
       entity_id:
         - light.achterdeur
         - light.tuin

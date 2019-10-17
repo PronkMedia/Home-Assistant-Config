@@ -13,7 +13,7 @@
         entity_id: sensor.hue_outdoor_motion_sensor_2_light_level
         below: 5
   action:
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       entity_id: light.parkeerplaats
       data:
         brightness: 255
@@ -33,7 +33,7 @@
     entity_id: input_text.parkeerplaats_motion_automation_is_triggered
     state: 'true'
   action:
-    - service: homeassistant.turn_off
+    - service: light.turn_off
       entity_id: light.parkeerplaats
     - service: input_text.set_value
       data:

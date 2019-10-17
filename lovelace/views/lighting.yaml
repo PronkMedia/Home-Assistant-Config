@@ -116,7 +116,7 @@ cards:
             icon: mdi:track-light
             tap_action:
               action: more-info
-          - entity: light.vloerlamp_2
+          - entity: light.vloerlamp
             icon: mdi:floor-lamp
             tap_action:
               action: more-info
