@@ -6,10 +6,16 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
+        style:
+          .: |
+            ha-card {
+              margin: 14px 14px 3px 14px;
+            }
+          "#states slider-entity-row":
+            $: |
+              ha-slider {
+                width: 125px;
+              }
         title: Huiskamer
         entities:
           - type: custom:slider-entity-row

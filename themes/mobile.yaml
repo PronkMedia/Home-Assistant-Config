@@ -22,20 +22,16 @@ card-background-color: "#424242"
 ha-card-background: "#424242"
 ha-card-border-radius: "6px"
 ha-card-box-shadow: none
-paper-card-header-color: "#ff0000"
 
 # States and badges
 state-icon-color: "#8d8d8d"
 state-icon-active-color: "#ffffff"
 state-icon-unavailable-color: "#8d8d8d"
 
-# Toggle
-paper-toggle-button-checked-button-color: "#ffffff"
-paper-toggle-button-checked-bar-color: "#7b7b7b"
-paper-toggle-button-checked-ink-color: "rgba(0,0,0,0)"
-paper-toggle-button-unchecked-button-color: "#b9b9b9"
-paper-toggle-button-unchecked-bar-color: "#7b7b7b"
-paper-toggle-button-unchecked-ink-color: "rgba(0,0,0,0)"
+# Switch
+switch-checked-color: "#ffffff"
+switch-unchecked-button-color: "#b9b9b9"
+switch-unchecked-track-color: "#7b7b7b"
 
 # Slider
 paper-slider-knob-color: "#ffffff"
