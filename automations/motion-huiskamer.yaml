@@ -2,8 +2,8 @@
   trigger:
     - platform: state
       entity_id:
-        - binary_sensor.hue_motion_sensor_1_motion
-        - binary_sensor.hue_motion_sensor_2_motion
+        - binary_sensor.hue_motion_sensor_1_motion_api
+        - binary_sensor.hue_motion_sensor_2_motion_api
       to: 'on'
   condition:
     condition: and

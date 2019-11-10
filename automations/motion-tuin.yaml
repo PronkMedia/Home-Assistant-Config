@@ -1,7 +1,7 @@
 - alias: Motion tuin detected
   trigger:
     platform: state
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion_api
     to: 'on'
   condition:
     condition: and
@@ -29,7 +29,7 @@
 - alias: Motion tuin undetected
   trigger:
     platform: state
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_1_motion_api
     to: 'off'
     for:
       minutes: 2

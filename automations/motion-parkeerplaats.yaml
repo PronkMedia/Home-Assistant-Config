@@ -1,7 +1,7 @@
 - alias: Motion parkeerplaats detected
   trigger:
     platform: state
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_2_motion
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_2_motion_api
     to: 'on'
   condition:
     condition: and
@@ -24,7 +24,7 @@
 - alias: Motion parkeerplaats undetected
   trigger:
     platform: state
-    entity_id: binary_sensor.hue_outdoor_motion_sensor_2_motion
+    entity_id: binary_sensor.hue_outdoor_motion_sensor_2_motion_api
     to: 'off'
     for:
       minutes: 2
