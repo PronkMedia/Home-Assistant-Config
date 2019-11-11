@@ -7,21 +7,13 @@
     condition: and
     conditions:    
       - condition: state
-        entity_id: light.achterdeur
-        state: 'off'
-      - condition: state
         entity_id: light.tuin
         state: 'off'
       - condition: numeric_state
         entity_id: sensor.hue_outdoor_motion_sensor_1_light_level
         below: 5
   action:
-    - service: light.turn_on
-      entity_id:
-        - light.achterdeur
-        - light.tuin
-      data:
-        brightness: 255
+    - service: script.hue_scene_tuin_motion
     - service: input_text.set_value
       data:
         entity_id: input_text.tuin_motion_automation_is_triggered
@@ -39,9 +31,7 @@
     state: 'true'
   action:
     - service: light.turn_off
-      entity_id:
-        - light.achterdeur
-        - light.tuin
+      entity_id: light.tuin
     - service: input_text.set_value
       data:
         entity_id: input_text.tuin_motion_automation_is_triggered

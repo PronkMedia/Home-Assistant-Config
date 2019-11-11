@@ -80,7 +80,7 @@ cards:
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
-            entity: light.tuin
+            entity: light.schuur
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true

@@ -20,11 +20,4 @@
             entity_id: sensor.hue_motion_sensor_2_light_level
             below: 2
   action:
-    - service: light.turn_on
-      entity_id:
-        - light.keuken
-        - light.speelhoek
-        - light.aanbouw
-      data:
-        brightness: 102
-        color_temp: 400
+    - service: script.hue_scene_huiskamer_motion

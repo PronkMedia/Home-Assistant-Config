@@ -1,7 +1,7 @@
 # Hue scenes
 - platform: template
   sensors:
-    hue_scene_overdag:
+    hue_scene_huiskamer_overdag:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
@@ -14,7 +14,7 @@
             and is_state_attr('light.aanbouw', 'brightness', 204)
             and is_state('light.vloerlamp', 'off')
         }}
-    hue_scene_avond:
+    hue_scene_huiskamer_avond:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
@@ -27,7 +27,7 @@
             and is_state_attr('light.aanbouw', 'brightness', 191)
             and is_state('light.vloerlamp', 'off')
         }}
-    hue_scene_eten:
+    hue_scene_huiskamer_eten:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'off')
@@ -37,7 +37,7 @@
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'off')
         }}
-    hue_scene_koken:
+    hue_scene_huiskamer_koken:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
@@ -48,7 +48,7 @@
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'off')
         }}
-    hue_scene_tvkijken:
+    hue_scene_huiskamer_tvkijken:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'off')
@@ -65,7 +65,7 @@
             and is_state_attr('light.vloerlamp', 'rgb_color', (230,255,161))
             and is_state_attr('light.vloerlamp', 'xy_color', (0.356,0.439))
         }}
-    hue_scene_spelen:
+    hue_scene_huiskamer_spelen:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
