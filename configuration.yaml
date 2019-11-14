@@ -19,6 +19,9 @@ history:
 # Home Assistant
 homeassistant: !include configuration/home-assistant.yaml
 
+# Recorder settings
+recorder: !include configuration/recorder.yaml
+
 # HTTP
 http: !include configuration/http.yaml
 
