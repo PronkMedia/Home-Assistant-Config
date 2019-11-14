@@ -4,3 +4,4 @@ longitude: !secret home_longitude
 elevation: 0
 unit_system: metric
 time_zone: Europe/Amsterdam
+whitelist_external_dirs: !secret whitelisted_directories

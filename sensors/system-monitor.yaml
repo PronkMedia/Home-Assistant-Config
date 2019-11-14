@@ -1,0 +1,46 @@
+# System monitoring
+- platform: command_line
+  name: Processor temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  scan_interval: 10
+  value_template: '{{ value | multiply(0.001) | round(1) }}'
+- platform: command_line
+  name: RPI version
+  command: "cat /sys/firmware/devicetree/base/model"
+  value_template: "{{ value.split('Model')[0] }}"
+- platform: command_line
+  name: RPI memory
+  command: "cat /proc/meminfo | grep MemTotal"
+  unit_of_measurement: "MB"
+  value_template: "{{ value.split()[1] | multiply(0.001) | round(0) }}"
+- platform: systemmonitor
+  resources:
+    - type: processor_use
+    - type: memory_use_percent
+    - type: disk_use_percent
+      arg: /
+    - type: throughput_network_in
+      arg: eth0
+    - type: throughput_network_out
+      arg: eth0
+    - type: last_boot
+- platform: version
+- platform: uptime
+  unit_of_measurement: minutes
+- platform: template
+  sensors:
+    last_reboot_ha:
+      value_template: > 
+        {{(as_timestamp(now()) - (states("sensor.uptime") | int * 60 ) ) | timestamp_custom('%d-%m-%Y, %H:%M')}}
+    last_reboot_rpi:
+      value_template: > 
+        {{as_timestamp(states('sensor.last_boot')) | timestamp_custom('%d-%m-%Y, %H:%M')}}
+    network_throughput_in:
+      value_template: '{{ states("sensor.network_throughput_in_eth0") | float | multiply(1000) | round(0)}}'
+      unit_of_measurement: 'KB/s'
+    network_throughput_out:
+      value_template: '{{ states("sensor.network_throughput_out_eth0") | float | multiply(1000) | round(0)}}'
+      unit_of_measurement: 'KB/s'
+- platform: filesize
+  file_paths: !secret file_paths

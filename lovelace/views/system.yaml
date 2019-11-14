@@ -1,14 +1,48 @@
 title: Systeem
 path: system
-icon: mdi:server-network
+icon: mdi:server
 panel: true
 cards:
   - type: vertical-stack
     cards:
-      - type: custom:mini-graph-card
+      - type: entities
         style: |
           ha-card {
             margin: 14px 14px 3px 14px;
+          }
+        title: Home assistant informatie
+        show_header_toggle: false
+        entities:
+          - entity: sensor.current_version
+            name: Huidige versie
+            icon: mdi:home-assistant
+          - entity: sensor.home_assistant_v2_db
+            name: Database grootte
+            icon: mdi:database
+          - entity: sensor.last_reboot_ha
+            name: Laatste herstart
+            icon: mdi:update
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+        title: Systeem informatie
+        show_header_toggle: false
+        entities:
+          - entity: sensor.rpi_version
+            name: Hardware
+            icon: mdi:raspberry-pi
+          - entity: sensor.rpi_memory
+            name: Geheugen
+            icon: mdi:memory
+          - entity: sensor.last_reboot_rpi
+            name: Laatste herstart
+            icon: mdi:update
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px;
           }
           .name,
           .name > span {
@@ -21,7 +55,7 @@ cards:
           .graph {
             margin-bottom: -1px;
           }
-        name: Temperatuur
+        name: Systeem temperatuur
         entities:
          - sensor.processor_temperature
         show:
@@ -31,6 +65,45 @@ cards:
         decimals: 1
         line_width: 1
         line_color: "#ff8906"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+          .name,
+          .name > span {
+            font-size: 24px !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
+        name: Systeem verbruik
+        entities:
+          - entity: sensor.processor_use
+            name: CPU (%)
+            show_fill: false
+          - entity: sensor.memory_use_percent
+            name: RAM (%)
+            show_fill: false
+          - entity: sensor.disk_use_percent
+            name: SD (%)
+            show_fill: false
+        show:
+          labels: true
+          points: false
+          state: false
+        points_per_hour: 30
+        decimals: 0
+        lower_bound: 0
+        line_width: 1
+        line_color:
+          - "#e63535"
+          - "#337fbf"
+          - "#7bcc00"
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -47,26 +120,21 @@ cards:
           .graph {
             margin-bottom: -1px;
           }
-        name: Verbruik
+        name: Netwerk verbruik
+        icon: mdi:server-network
         entities:
-          - entity: sensor.processor_use
-            name: Processor
+          - entity: sensor.network_throughput_in
+            name: Inkomend (KB/s)
             show_fill: false
-          - entity: sensor.memory_use_percent
-            name: Geheugen
-            show_fill: false
-          - entity: sensor.disk_use_percent
-            name: Harde schijf
+          - entity: sensor.network_throughput_out
+            name: Uitgaand (KB/s)
             show_fill: false
         show:
           labels: true
           points: false
           state: false
         points_per_hour: 30
-        decimals: 0
-        lower_bound: 0
         line_width: 1
         line_color:
-          - "#e63535"
           - "#337fbf"
-          - "#7bcc00"
+          - "#ff8906"

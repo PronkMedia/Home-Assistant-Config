@@ -32,6 +32,7 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ## Todo
-- Add more information to `System information` view
 - Configure energy monitor(s)
+- Add `Motion/Presence` view
+- Cast a new view to Google Nest Hub
 - Use `decluttering-card` to clean up current configuration
