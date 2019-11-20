@@ -134,6 +134,7 @@ cards:
           points: false
           state: false
         points_per_hour: 30
+        decimals: 0
         line_width: 1
         line_color:
           - "#337fbf"
