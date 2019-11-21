@@ -44,16 +44,17 @@ cards:
           ha-card {
             margin: 3px 14px;
           }
-          .name,
+          .header {
+            margin-top: 10px;
+          }
           .name > span {
             font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
             opacity: 1 !important;
           }
           .states {
             font-size: 10px;
-          }
-          .graph {
-            margin-bottom: -1px;
           }
         name: Systeem temperatuur
         entities:
@@ -70,16 +71,17 @@ cards:
           ha-card {
             margin: 3px 14px;
           }
-          .name,
+          .header {
+            margin-top: 10px;
+          }
           .name > span {
             font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
             opacity: 1 !important;
           }
           .states {
             font-size: 10px;
-          }
-          .graph {
-            margin-bottom: -1px;
           }
         name: Systeem verbruik
         entities:
@@ -109,16 +111,17 @@ cards:
           ha-card {
             margin: 3px 14px 14px 14px;
           }
-          .name,
+          .header {
+            margin-top: 10px;
+          }
           .name > span {
             font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
             opacity: 1 !important;
           }
           .states {
             font-size: 10px;
-          }
-          .graph {
-            margin-bottom: -1px;
           }
         name: Netwerk verbruik
         icon: mdi:server-network

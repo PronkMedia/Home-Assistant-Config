@@ -13,16 +13,17 @@ cards:
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
-          .name,
+          .header {
+            margin-top: 10px;
+          }
           .name > span {
             font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
             opacity: 1 !important;
           }
           .states {
             font-size: 10px;
-          }
-          .graph {
-            margin-bottom: -1px;
           }
         name: Slimme meter
         icon: mdi:counter
