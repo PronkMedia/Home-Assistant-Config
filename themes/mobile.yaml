@@ -2,7 +2,7 @@
 primary-text-color: "#ffffff"
 secondary-text-color: "#a0a0a0"
 
-# main interface
+# Main interface
 primary-color: "#242424"
 light-primary-color: "#8d8d8d"
 
@@ -29,7 +29,8 @@ state-icon-active-color: "#ffffff"
 state-icon-unavailable-color: "#8d8d8d"
 
 # Switch
-switch-checked-color: "#ffffff"
+switch-checked-button-color: "#ffffff"
+switch-checked-track-color: "#7b7b7b"
 switch-unchecked-button-color: "#b9b9b9"
 switch-unchecked-track-color: "#7b7b7b"
 
