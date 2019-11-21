@@ -37,6 +37,9 @@ lovelace: !include configuration/lovelace.yaml
 # Scripts
 script: !include scripts/hue-scenes.yaml
 
+# Groups
+group: !include_dir_merge_named groups
+
 # Sensors
 binary_sensor: !include_dir_merge_list binary-sensors
 sensor: !include_dir_merge_list sensors
@@ -47,5 +50,11 @@ system_health:
 # TP-Link
 tplink: !include configuration/tp-link.yaml
 
-# Utility Meter
+# Utility meter
 utility_meter: !include configuration/utility-meter.yaml
+
+# Device tracker
+device_tracker: !include configuration/device-tracker.yaml
+
+# Persons
+person: !include configuration/person.yaml

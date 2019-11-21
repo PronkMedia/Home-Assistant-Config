@@ -1,0 +1,5 @@
+all_persons:
+  name: All Persons
+  entities:
+    - person.male
+    - person.female

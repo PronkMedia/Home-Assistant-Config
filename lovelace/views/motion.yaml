@@ -1,0 +1,34 @@
+title: Motion
+path: motion
+icon: mdi:motion-sensor
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: entities
+        style: |
+          ha-card {
+            margin: 14px 14px 3px 14px;
+          }
+        title: Aanwezigheid
+        show_header_toggle: false
+        entities:
+          - entity: person.male
+            name: !secret person_male
+            icon: mdi:human-male
+          - entity: person.female
+            name: !secret person_female
+            icon: mdi:human-female
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px 14px 14px;
+          }
+        title: Bewegingsdetectie
+        entities:
+          - entity: group.automation_motion_huiskamer
+            icon: mdi:sofa
+          - entity: group.automation_motion_tuin
+            icon: mdi:flower
+          - entity: group.automation_motion_parkeerplaats
+            icon: mdi:car

@@ -1,0 +1,12 @@
+- name: male
+  id: male
+  user_id: 553ba2880a374bdfa724aa00474893c6
+  device_trackers:
+    - device_tracker.male_phone_wifi
+    - device_tracker.male_phone_bt
+- name: female
+  id: female
+  user_id: 70f9430437124a90ad18137514cdd76e
+  device_trackers:
+    - device_tracker.female_phone_wifi
+    - device_tracker.female_phone_bt

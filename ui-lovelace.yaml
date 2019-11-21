@@ -11,6 +11,7 @@ cch: !include lovelace/configuration/header.yaml
 views:
   - !include lovelace/views/home.yaml
   - !include lovelace/views/lighting.yaml
+  - !include lovelace/views/motion.yaml
   - !include lovelace/views/usage.yaml
   - !include lovelace/views/climate.yaml
   - !include lovelace/views/system.yaml

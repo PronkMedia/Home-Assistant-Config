@@ -1,0 +1,9 @@
+# Presence
+- platform: template
+  sensors:
+    presence_huiskamer:
+      device_class: presence
+      value_template: >-
+        {{  is_state('group.all_persons', 'home')
+            or is_state('group.motion_huiskamer', 'on')
+        }}

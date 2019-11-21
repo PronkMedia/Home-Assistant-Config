@@ -1,9 +1,7 @@
 - alias: Motion huiskamer detected
   trigger:
     - platform: state
-      entity_id:
-        - binary_sensor.hue_motion_sensor_1_motion_api
-        - binary_sensor.hue_motion_sensor_2_motion_api
+      entity_id: group.motion_huiskamer
       to: 'on'
   condition:
     condition: and
@@ -21,3 +19,17 @@
             below: 2
   action:
     - service: script.hue_scene_huiskamer_motion
+- alias: Motion huiskamer undetected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_huiskamer
+    to: 'off'
+    for:
+      minutes: 2
+  condition:
+    condition: state
+    entity_id: light.huiskamer
+    state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.huiskamer

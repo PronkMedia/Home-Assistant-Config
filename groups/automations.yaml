@@ -1,0 +1,18 @@
+automation_motion_huiskamer:
+  name: Huiskamer
+  all: true
+  entities:
+    - automation.motion_huiskamer_detected
+    - automation.motion_huiskamer_undetected
+automation_motion_tuin:
+  name: Tuin
+  all: true
+  entities:
+    - automation.motion_tuin_detected
+    - automation.motion_tuin_undetected
+automation_motion_parkeerplaats:
+  name: Parkeerplaats
+  all: true
+  entities:
+    - automation.motion_parkeerplaats_detected
+    - automation.motion_parkeerplaats_undetected
