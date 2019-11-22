@@ -19,10 +19,46 @@ cards:
           - entity: person.female
             name: !secret person_female
             icon: mdi:human-female
+          - type: divider
+            style:
+              height: 1px
+              margin-left: 55px
+              background-color: "#333333"
+      - type: custom:mini-graph-card
+        height: 50
+        style: |
+          ha-card {
+            margin: -35px 14px 3px 14px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+        entities:
+          - entity: person.male
+            name: !secret person_male
+          - entity: person.female
+            name: !secret person_female
+        show:
+          name: false
+          icon: false
+          labels: false
+          points: false
+          state: false
+        points_per_hour: 30
+        aggregate_func: max
+        line_width: 1
+        smoothing: false
+        state_map:
+          - value: "not_home"
+            label: Afwezig
+          - value: "home"
+            label: Aanwezig
+        line_color:
+          - "#ff8906"
+          - "#337fbf"
       - type: entities
         style: |
           ha-card {
-            margin: 3px 14px 14px 14px;
+            margin: 3px 14px;
           }
         title: Bewegingsdetectie
         entities:
@@ -32,3 +68,42 @@ cards:
             icon: mdi:flower
           - entity: group.automation_motion_parkeerplaats
             icon: mdi:car
+          - type: divider
+            style:
+              height: 1px
+              margin-left: 55px
+              background-color: "#333333"
+      - type: custom:mini-graph-card
+        height: 50
+        style: |
+          ha-card {
+            margin: -35px 14px 14px 14px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+        entities:
+          - entity: group.motion_huiskamer
+            name: Huiskamer
+          - entity: binary_sensor.hue_outdoor_motion_sensor_1_motion_api
+            name: Tuin
+          - entity: binary_sensor.hue_outdoor_motion_sensor_2_motion_api
+            name: Parkeerplaats
+        show:
+          name: false
+          icon: false
+          labels: false
+          points: false
+          state: false
+        points_per_hour: 30
+        aggregate_func: max
+        line_width: 1
+        smoothing: false
+        state_map:
+          - value: "off"
+            label: Niet gedetecteerd
+          - value: "on"
+            label: Gedetecteerd
+        line_color:
+          - "#e63535"
+          - "#337fbf"
+          - "#ff8906"
