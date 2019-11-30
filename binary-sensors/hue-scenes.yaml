@@ -18,13 +18,13 @@
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
-            and is_state_attr('light.keuken', 'brightness', 191)
+            and is_state_attr('light.keuken', 'brightness', 179)
             and is_state('light.eettafel', 'on')
-            and is_state_attr('light.eettafel', 'brightness', 191)
+            and is_state_attr('light.eettafel', 'brightness', 179)
             and is_state('light.speelhoek', 'on')
-            and is_state_attr('light.speelhoek', 'brightness', 191)
+            and is_state_attr('light.speelhoek', 'brightness', 179)
             and is_state('light.aanbouw', 'on')
-            and is_state_attr('light.aanbouw', 'brightness', 191)
+            and is_state_attr('light.aanbouw', 'brightness', 179)
             and is_state('light.vloerlamp', 'off')
         }}
     hue_scene_huiskamer_eten:
@@ -32,7 +32,7 @@
       value_template: >-
         {{  is_state('light.keuken', 'off')
             and is_state('light.eettafel', 'on')
-            and is_state_attr('light.eettafel', 'brightness', 187)
+            and is_state_attr('light.eettafel', 'brightness', 217)
             and is_state('light.speelhoek', 'off')
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'off')
@@ -41,9 +41,9 @@
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
-            and is_state_attr('light.keuken', 'brightness', 203)
+            and is_state_attr('light.keuken', 'brightness', 254)
             and is_state('light.eettafel', 'on')
-            and is_state_attr('light.eettafel', 'brightness', 100)
+            and is_state_attr('light.eettafel', 'brightness', 128)
             and is_state('light.speelhoek', 'off')
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'off')
@@ -53,28 +53,28 @@
       value_template: >-
         {{  is_state('light.keuken', 'off')
             and is_state('light.eettafel', 'on')
-            and is_state_attr('light.eettafel', 'brightness', 140)
-            and is_state_attr('light.eettafel', 'hs_color', (75.484,36.471))
-            and is_state_attr('light.eettafel', 'rgb_color', (230,255,161))
-            and is_state_attr('light.eettafel', 'xy_color', (0.356,0.439))
+            and is_state_attr('light.eettafel', 'brightness', 166)
+            and is_state_attr('light.eettafel', 'hs_color', (37.975,30.98))
+            and is_state_attr('light.eettafel', 'rgb_color', (255,226,176))
+            and is_state_attr('light.eettafel', 'xy_color', (0.397,0.378))
             and is_state('light.speelhoek', 'off')
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'on')
-            and is_state_attr('light.vloerlamp', 'brightness', 140)
-            and is_state_attr('light.vloerlamp', 'hs_color', (75.484,36.471))
-            and is_state_attr('light.vloerlamp', 'rgb_color', (230,255,161))
-            and is_state_attr('light.vloerlamp', 'xy_color', (0.356,0.439))
+            and is_state_attr('light.vloerlamp', 'brightness', 166)
+            and is_state_attr('light.vloerlamp', 'hs_color', (37.975,30.98))
+            and is_state_attr('light.vloerlamp', 'rgb_color', (255,226,176))
+            and is_state_attr('light.vloerlamp', 'xy_color', (0.397,0.378))
         }}
     hue_scene_huiskamer_spelen:
       device_class: light
       value_template: >-
         {{  is_state('light.keuken', 'on')
-            and is_state_attr('light.keuken', 'brightness', 101)
+            and is_state_attr('light.keuken', 'brightness', 102)
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 153)
             and is_state('light.speelhoek', 'on')
-            and is_state_attr('light.speelhoek', 'brightness', 203)
+            and is_state_attr('light.speelhoek', 'brightness', 204)
             and is_state('light.aanbouw', 'on')
-            and is_state_attr('light.aanbouw', 'brightness', 152)
+            and is_state_attr('light.aanbouw', 'brightness', 153)
             and is_state('light.vloerlamp', 'off')
         }}
