@@ -48,9 +48,9 @@ cards:
               height: 1px
               margin-left: 55px
               background-color: "#333333"
-          - entity: sensor.huiskamer_temperature
+          - entity: sensor.temperature_huiskamer
             name: Temperatuur
-          - entity: sensor.huiskamer_light_level
+          - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
       - type: entities
         style: |
@@ -60,7 +60,7 @@ cards:
         title: Kinderkamer
         show_header_toggle: false
         entities:
-          - entity: sensor.baby_monitor_temperature
+          - entity: sensor.temperature_baby_monitor
             name: Temperatuur
       - type: entities
         style: |
@@ -94,7 +94,7 @@ cards:
               height: 1px
               margin-left: 55px
               background-color: "#333333"
-          - entity: sensor.buiten_temperature
+          - entity: sensor.temperature_buiten
             name: Temperatuur
-          - entity: sensor.buiten_light_level
+          - entity: sensor.light_buiten
             name: Verlichtingssterkte

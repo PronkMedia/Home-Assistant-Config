@@ -1,48 +1,48 @@
 # Motion sensors (Philips Hue SML001, Philips Hue SML002)
 - platform: min_max
-  name: huiskamer_temperature_lowest
+  name: temperature_lowest_huiskamer
   type: min
   entity_ids:
-    - sensor.hue_motion_sensor_1_temperature
-    - sensor.hue_motion_sensor_2_temperature
+    - sensor.motion_sensor_huiskamer_1_temperature
+    - sensor.motion_sensor_huiskamer_2_temperature
 - platform: min_max
-  name: huiskamer_light_level_lowest
+  name: light_lowest_huiskamer
   type: min
   entity_ids:
-    - sensor.hue_motion_sensor_1_light_level
-    - sensor.hue_motion_sensor_2_light_level
+    - sensor.motion_sensor_huiskamer_1_light
+    - sensor.motion_sensor_huiskamer_2_light
 - platform: min_max
-  name: buiten_temperature_lowest
+  name: temperature_lowest_buiten
   type: min
   entity_ids:
-    - sensor.hue_outdoor_motion_sensor_1_temperature
-    - sensor.hue_outdoor_motion_sensor_2_temperature
+    - sensor.motion_sensor_tuin_1_temperature
+    - sensor.motion_sensor_parkeerplaats_temperature
 - platform: min_max
-  name: buiten_light_level_lowest
+  name: light_lowest_buiten
   type: min
   entity_ids:
-    - sensor.hue_outdoor_motion_sensor_1_light_level
-    - sensor.hue_outdoor_motion_sensor_2_light_level
+    - sensor.motion_sensor_tuin_1_light
+    - sensor.motion_sensor_parkeerplaats_light
 - platform: template
   sensors:
-    huiskamer_temperature:
+    temperature_huiskamer:
       friendly_name: "Huiskamer Temperature"
       unit_of_measurement: '°C'
-      value_template: "{{ (states('sensor.huiskamer_temperature_lowest') | float) | round(1) }}"
-    huiskamer_light_level:
+      value_template: "{{ (states('sensor.temperature_lowest_huiskamer') | float) | round(1) }}"
+    light_huiskamer:
       friendly_name: "Huiskamer Light Level"
       unit_of_measurement: 'lx'
-      value_template: "{{ (states('sensor.huiskamer_light_level_lowest') | float) | round(0) }}"
-    buiten_temperature:
+      value_template: "{{ (states('sensor.light_lowest_huiskamer') | float) | round(0) }}"
+    temperature_buiten:
       friendly_name: "Buiten Temperature"
       unit_of_measurement: '°C'
-      value_template: "{{ (states('sensor.buiten_temperature_lowest') | float) | round(1) }}"
-    buiten_light_level:
+      value_template: "{{ (states('sensor.temperature_lowest_buiten') | float) | round(1) }}"
+    light_buiten:
       friendly_name: "Buiten Light Level"
       unit_of_measurement: 'lx'
-      value_template: "{{ (states('sensor.buiten_light_level_lowest') | float) | round(0) }}"
+      value_template: "{{ (states('sensor.light_lowest_buiten') | float) | round(0) }}"
 - platform: rest
-  name: hue_motion_sensor_api
+  name: motion_sensor_api
   resource: !secret api_hue_bridge
   verify_ssl: false
   scan_interval: 1

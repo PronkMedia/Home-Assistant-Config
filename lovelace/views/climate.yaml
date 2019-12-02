@@ -24,7 +24,7 @@ cards:
           }
         name: Huiskamer
         entities:
-         - sensor.huiskamer_temperature
+         - sensor.temperature_huiskamer
         show:
           labels: false
           points: false
@@ -50,7 +50,7 @@ cards:
           }
         name: Kinderkamer
         entities:
-         - sensor.baby_monitor_temperature
+         - sensor.temperature_baby_monitor
         show:
           labels: false
           points: false
@@ -76,7 +76,7 @@ cards:
           }
         name: Buiten
         entities:
-         - sensor.buiten_temperature
+         - sensor.temperature_buiten
         show:
           labels: false
           points: false

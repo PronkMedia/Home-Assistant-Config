@@ -2,22 +2,22 @@
 - platform: template
   sensors:
     # Sensor 11
-    hue_motion_sensor_1_motion_api:
+    motion_sensor_huiskamer_1_motion_api:
       device_class: motion
       value_template: >-
-        {{ states('sensor.hue_motion_sensor_api').split(',')[0].split('=')[1]}}
+        {{ states('sensor.motion_sensor_api').split(',')[0].split('=')[1]}}
     # Sensor 21
-    hue_motion_sensor_2_motion_api:
+    motion_sensor_huiskamer_2_motion_api:
       device_class: motion
       value_template: >-
-        {{ states('sensor.hue_motion_sensor_api').split(',')[2].split('=')[1]}}
+        {{ states('sensor.motion_sensor_api').split(',')[2].split('=')[1]}}
     # Sensor 14
-    hue_outdoor_motion_sensor_1_motion_api:
+    motion_sensor_tuin_1_motion_api:
       device_class: motion
       value_template: >-
-        {{ states('sensor.hue_motion_sensor_api').split(',')[1].split('=')[1]}}
+        {{ states('sensor.motion_sensor_api').split(',')[1].split('=')[1]}}
     # Sensor 25
-    hue_outdoor_motion_sensor_2_motion_api:
+    motion_sensor_parkeerplaats_motion_api:
       device_class: motion
       value_template: >-
-        {{ states('sensor.hue_motion_sensor_api').split(',')[3].split('=')[1]}}
+        {{ states('sensor.motion_sensor_api').split(',')[3].split('=')[1]}}

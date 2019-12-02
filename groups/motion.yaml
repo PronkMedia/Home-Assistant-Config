@@ -1,5 +1,5 @@
 motion_huiskamer:
   name: Motion Huiskamer
   entities:
-    - binary_sensor.hue_motion_sensor_1_motion_api
-    - binary_sensor.hue_motion_sensor_2_motion_api
+    - binary_sensor.motion_sensor_huiskamer_1_motion_api
+    - binary_sensor.motion_sensor_huiskamer_2_motion_api

@@ -1,7 +1,7 @@
 # Input Text variables (used for automations) 
-parkeerplaats_motion_automation_is_triggered:
+motion_automation_parkeerplaats_is_triggered:
   name: Parkeerplaats motion automation is triggered
   initial: 'false'
-tuin_motion_automation_is_triggered:
+motion_automation_tuin_is_triggered:
   name: Tuin motion automation is triggered
   initial: 'false'

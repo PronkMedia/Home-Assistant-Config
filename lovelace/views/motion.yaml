@@ -84,9 +84,9 @@ cards:
         entities:
           - entity: group.motion_huiskamer
             name: Huiskamer
-          - entity: binary_sensor.hue_outdoor_motion_sensor_1_motion_api
+          - entity: binary_sensor.motion_sensor_tuin_1_motion_api
             name: Tuin
-          - entity: binary_sensor.hue_outdoor_motion_sensor_2_motion_api
+          - entity: binary_sensor.motion_sensor_parkeerplaats_motion_api
             name: Parkeerplaats
         show:
           name: false
