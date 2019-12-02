@@ -16,6 +16,11 @@
       device_class: motion
       value_template: >-
         {{ states('sensor.motion_sensor_api').split(',')[1].split('=')[1]}}
+    # Sensor 33
+    motion_sensor_tuin_2_motion_api:
+      device_class: motion
+      value_template: >-
+        {{ states('sensor.motion_sensor_api').split(',')[4].split('=')[1]}}
     # Sensor 25
     motion_sensor_parkeerplaats_motion_api:
       device_class: motion

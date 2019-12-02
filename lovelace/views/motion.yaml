@@ -84,7 +84,7 @@ cards:
         entities:
           - entity: group.motion_huiskamer
             name: Huiskamer
-          - entity: binary_sensor.motion_sensor_tuin_1_motion_api
+          - entity: group.motion_tuin
             name: Tuin
           - entity: binary_sensor.motion_sensor_parkeerplaats_motion_api
             name: Parkeerplaats
@@ -106,4 +106,4 @@ cards:
         line_color:
           - "#e63535"
           - "#337fbf"
-          - "#ff8906"
+          - "#7bcc00"

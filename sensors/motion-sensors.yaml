@@ -16,12 +16,14 @@
   type: min
   entity_ids:
     - sensor.motion_sensor_tuin_1_temperature
+    - sensor.motion_sensor_tuin_2_temperature
     - sensor.motion_sensor_parkeerplaats_temperature
 - platform: min_max
   name: light_lowest_buiten
   type: min
   entity_ids:
     - sensor.motion_sensor_tuin_1_light
+    - sensor.motion_sensor_tuin_2_light
     - sensor.motion_sensor_parkeerplaats_light
 - platform: template
   sensors:
@@ -50,4 +52,5 @@
     11={{ value_json["11"]["state"]["presence"] }},
     21={{value_json["14"]["state"]["presence"]}},
     14={{value_json["21"]["state"]["presence"]}},
-    25={{value_json["25"]["state"]["presence"]}}
+    25={{value_json["25"]["state"]["presence"]}},
+    33={{value_json["33"]["state"]["presence"]}}

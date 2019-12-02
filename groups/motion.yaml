@@ -3,3 +3,8 @@ motion_huiskamer:
   entities:
     - binary_sensor.motion_sensor_huiskamer_1_motion_api
     - binary_sensor.motion_sensor_huiskamer_2_motion_api
+motion_tuin:
+  name: Motion Tuin
+  entities:
+    - binary_sensor.motion_sensor_tuin_1_motion_api
+    - binary_sensor.motion_sensor_tuin_2_motion_api

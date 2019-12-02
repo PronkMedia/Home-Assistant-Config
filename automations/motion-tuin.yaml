@@ -1,7 +1,7 @@
 - alias: Motion tuin detected
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_tuin_1_motion_api
+    entity_id: group.motion_tuin
     to: 'on'
   condition:
     condition: and
@@ -9,9 +9,14 @@
       - condition: state
         entity_id: light.tuin
         state: 'off'
-      - condition: numeric_state
-        entity_id: sensor.motion_sensor_tuin_1_light
-        below: 5
+      - condition: or
+        conditions:
+          - condition: numeric_state
+            entity_id: sensor.motion_sensor_tuin_1_light
+            below: 5
+          - condition: numeric_state
+            entity_id: sensor.motion_sensor_tuin_2_light
+            below: 5
   action:
     - service: script.hue_scene_tuin_motion
     - service: input_text.set_value
@@ -21,7 +26,7 @@
 - alias: Motion tuin undetected
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_tuin_1_motion_api
+    entity_id: group.motion_tuin
     to: 'off'
     for:
       minutes: 2

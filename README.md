@@ -15,7 +15,7 @@ My Home Assistant configuration & documentation.
 - Philips Hue
     - 1x Bridge (BSB002)
     - 2x Motion Sensor (SML001)
-    - 2x Outdoor Sensor (SML002)
+    - 3x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
     - 4x E27 White (LWA001)
     - 3x E27 Color (LCT015)

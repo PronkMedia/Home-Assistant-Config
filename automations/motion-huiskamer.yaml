@@ -1,8 +1,8 @@
 - alias: Motion huiskamer detected
   trigger:
-    - platform: state
-      entity_id: group.motion_huiskamer
-      to: 'on'
+    platform: state
+    entity_id: group.motion_huiskamer
+    to: 'on'
   condition:
     condition: and
     conditions:
