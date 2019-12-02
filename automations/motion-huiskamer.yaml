@@ -25,7 +25,7 @@
     entity_id: binary_sensor.presence_huiskamer
     to: 'off'
     for:
-      minutes: 2
+      minutes: 1
   condition:
     condition: state
     entity_id: light.huiskamer
