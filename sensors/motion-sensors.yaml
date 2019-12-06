@@ -27,6 +27,14 @@
     - sensor.motion_sensor_parkeerplaats_light
 - platform: template
   sensors:
+    temperature_toilet:
+      friendly_name: "Toilet Temperature"
+      unit_of_measurement: '°C'
+      value_template: "{{ (states('sensor.motion_sensor_toilet_temperature') | float) | round(1) }}"
+    light_toilet:
+      friendly_name: "Toilet Light Level"
+      unit_of_measurement: 'lx'
+      value_template: "{{ (states('sensor.motion_sensor_toilet_light') | float) | round(0) }}"
     temperature_huiskamer:
       friendly_name: "Huiskamer Temperature"
       unit_of_measurement: '°C'
@@ -53,4 +61,5 @@
     21={{value_json["14"]["state"]["presence"]}},
     14={{value_json["21"]["state"]["presence"]}},
     25={{value_json["25"]["state"]["presence"]}},
-    33={{value_json["33"]["state"]["presence"]}}
+    33={{value_json["33"]["state"]["presence"]}},
+    38={{value_json["38"]["state"]["presence"]}}

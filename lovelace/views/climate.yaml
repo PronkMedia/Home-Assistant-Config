@@ -48,6 +48,32 @@ cards:
           .states {
             font-size: 10px;
           }
+        name: Toilet
+        entities:
+         - sensor.temperature_toilet
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: "#337fbf"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+          .header {
+            margin-top: 10px;
+          }
+          .name > span {
+            font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
         name: Kinderkamer
         entities:
          - sensor.temperature_baby_monitor
@@ -56,7 +82,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#337fbf"
+        line_color: "#ff8906"
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -82,4 +108,4 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#ff8906"
+        line_color: "#7bcc00"

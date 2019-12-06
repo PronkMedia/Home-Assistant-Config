@@ -1,3 +1,9 @@
+automation_motion_toilet:
+  name: Toilet
+  all: true
+  entities:
+    - automation.motion_toilet_detected
+    - automation.motion_toilet_undetected
 automation_motion_huiskamer:
   name: Huiskamer
   all: true

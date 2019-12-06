@@ -53,6 +53,34 @@ cards:
           - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
       - type: entities
+        style:
+          .: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          "#states slider-entity-row":
+            $: |
+              ha-slider {
+                width: 125px;
+              }
+        title: Toilet
+        show_header_toggle: false
+        entities:
+          - type: custom:slider-entity-row
+            entity: light.toilet
+            icon: mdi:toilet
+            toggle: true
+            hide_when_off: true
+          - type: divider
+            style:
+              height: 1px
+              margin-left: 55px
+              background-color: "#333333"
+          - entity: sensor.temperature_toilet
+            name: Temperatuur
+          - entity: sensor.light_toilet
+            name: Verlichtingssterkte
+      - type: entities
         style: |
           ha-card {
             margin: 3px 14px;

@@ -64,6 +64,8 @@ cards:
         entities:
           - entity: group.automation_motion_huiskamer
             icon: mdi:sofa
+          - entity: group.automation_motion_toilet
+            icon: mdi:toilet
           - entity: group.automation_motion_tuin
             icon: mdi:flower
           - entity: group.automation_motion_parkeerplaats
@@ -81,9 +83,14 @@ cards:
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }
+          .graph__legend__item {
+            width: 35%;
+          }
         entities:
           - entity: group.motion_huiskamer
             name: Huiskamer
+          - entity: binary_sensor.motion_sensor_toilet_motion_api
+            name: Toilet
           - entity: group.motion_tuin
             name: Tuin
           - entity: binary_sensor.motion_sensor_parkeerplaats_motion_api
@@ -105,5 +112,6 @@ cards:
             label: Gedetecteerd
         line_color:
           - "#e63535"
+          - "#ff8906"
           - "#337fbf"
           - "#7bcc00"

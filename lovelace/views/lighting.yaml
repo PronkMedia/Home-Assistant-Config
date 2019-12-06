@@ -86,10 +86,10 @@ cards:
           .name {
             font-size: 14px;
           }
-        title: Huiskamer
+        title: Beneden
         show_header_toggle: true
         entities:
-          - entity: light.huiskamer
+          - entity: light.beneden
       - type: glance
         style: |
           ha-card {
@@ -118,6 +118,10 @@ cards:
               action: more-info
           - entity: light.vloerlamp
             icon: mdi:floor-lamp
+            tap_action:
+              action: more-info
+          - entity: light.toilet
+            icon: mdi:toilet
             tap_action:
               action: more-info
       - type: entities

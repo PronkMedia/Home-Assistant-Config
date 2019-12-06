@@ -41,6 +41,13 @@ hue_scene_huiskamer_motion:
       data:
         group_name: "Huiskamer"
         scene_name: "Motion"
+# Hue toilet scene
+hue_scene_toilet_motion:
+  sequence:
+    - service: hue.hue_activate_scene
+      data:
+        group_name: "Toilet"
+        scene_name: "Motion"
 # Hue tuin scene
 hue_scene_tuin_motion:
   sequence:

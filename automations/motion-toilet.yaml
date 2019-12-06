@@ -1,0 +1,25 @@
+- alias: Motion toilet detected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_toilet_motion_api
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: light.toilet
+    state: 'off'
+  action:
+    service: script.hue_scene_toilet_motion
+- alias: Motion toilet undetected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_toilet_motion_api
+    to: 'off'
+    for:
+      minutes: 1
+  condition:
+    condition: state
+    entity_id: light.toilet
+    state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.toilet
