@@ -54,16 +54,12 @@
         {{  is_state('light.keuken', 'off')
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 166)
-            and is_state_attr('light.eettafel', 'hs_color', (37.975,30.98))
-            and is_state_attr('light.eettafel', 'rgb_color', (255,226,176))
-            and is_state_attr('light.eettafel', 'xy_color', (0.397,0.378))
+            and is_state_attr('light.eettafel', 'hs_color', (37.215,30.98))
             and is_state('light.speelhoek', 'off')
             and is_state('light.aanbouw', 'off')
             and is_state('light.vloerlamp', 'on')
             and is_state_attr('light.vloerlamp', 'brightness', 166)
-            and is_state_attr('light.vloerlamp', 'hs_color', (37.975,30.98))
-            and is_state_attr('light.vloerlamp', 'rgb_color', (255,226,176))
-            and is_state_attr('light.vloerlamp', 'xy_color', (0.397,0.378))
+            and is_state_attr('light.eettafel', 'hs_color', (37.215,30.98))
         }}
     hue_scene_huiskamer_spelen:
       device_class: light
