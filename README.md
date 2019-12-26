@@ -3,7 +3,7 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - HassOS 3.7
-- Home Assistant 0.103.0
+- Home Assistant 0.103.4
 
 ## Hardware
 - Raspberry Pi Foundation
