@@ -86,6 +86,32 @@ cards:
       - type: custom:mini-graph-card
         style: |
           ha-card {
+            margin: 3px 14px;
+          }
+          .header {
+            margin-top: 10px;
+          }
+          .name > span {
+            font-size: 24px !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+        name: Slaapkamer
+        entities:
+         - sensor.temperature_slaapkamer
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: "#7bcc00"
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
             margin: 3px 14px 14px 14px;
           }
           .header {
@@ -108,4 +134,4 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#7bcc00"
+        line_color: "#ffd311"

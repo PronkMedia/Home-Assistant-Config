@@ -142,6 +142,46 @@ cards:
           .name {
             font-size: 14px;
           }
+        title: Boven
+        show_header_toggle: true
+        entities:
+          - entity: light.boven
+      - type: glance
+        style: |
+          ha-card {
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        show_state: false
+        columns: 3
+        entities:
+          - entity: light.kinderkamer
+            icon: mdi:ceiling-light
+            tap_action:
+              action: more-info
+          - entity: light.slaapkamer
+            icon: mdi:ceiling-light
+            tap_action:
+              action: more-info
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px -35px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .card-header {
+            padding: 10px 0 16px 0;
+            margin: 16px 16px 0 16px;
+            border-top: 1px solid #333333;
+          }
+          .card-content > div {
+            display: none;
+          }
+          .name {
+            font-size: 14px;
+          }
         title: Buiten
         show_header_toggle: true
         entities:

@@ -88,8 +88,46 @@ cards:
         title: Kinderkamer
         show_header_toggle: false
         entities:
+          - type: custom:slider-entity-row
+            entity: light.kinderkamer
+            icon: mdi:ceiling-light
+            toggle: true
+            hide_when_off: true
+          - type: divider
+            style:
+              height: 1px
+              margin-left: 55px
+              background-color: "#333333"
           - entity: sensor.temperature_baby_monitor
             name: Temperatuur
+      - type: entities
+        style:
+          .: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          "#states slider-entity-row":
+            $: |
+              ha-slider {
+                width: 125px;
+              }
+        title: Slaapkamer
+        show_header_toggle: false
+        entities:
+          - type: custom:slider-entity-row
+            entity: light.slaapkamer
+            icon: mdi:ceiling-light
+            toggle: true
+            hide_when_off: true
+          - type: divider
+            style:
+              height: 1px
+              margin-left: 55px
+              background-color: "#333333"
+          - entity: sensor.temperature_slaapkamer
+            name: Temperatuur
+          - entity: sensor.light_slaapkamer
+            name: Verlichtingssterkte
       - type: entities
         style: |
           ha-card {
