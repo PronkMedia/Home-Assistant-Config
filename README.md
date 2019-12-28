@@ -35,6 +35,7 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ## Todo
+- Adjust light icons and naming
 - Cast a new view to Google Nest Hub
-- Configure extra energy monitor(s)
+- Create conditional entity rows for unavailable lights
 - Use `decluttering-card` to clean up current configuration

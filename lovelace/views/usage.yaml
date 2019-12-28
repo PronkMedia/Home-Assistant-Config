@@ -108,7 +108,7 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
-          title: Energiemeter 1
+          title: Koelkast
           show_header_toggle: false
           entities:
             - entity: sensor.energy_monitor_1_watts
@@ -130,7 +130,7 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
-          title: Energiemeter 2
+          title: Quooker
           show_header_toggle: false
           entities:
             - entity: sensor.energy_monitor_2_watts
