@@ -61,13 +61,15 @@ cards:
           .card-content {
             padding: 0;
           }
-          .card-content > div:first-of-type {
+          .card-content > div:nth-child(-n+3) {
             display: none;
           }
         title: Alle lampen
         show_header_toggle: true
         entities:
-          - entity: group.all_lights
+          - entity: light.beneden
+          - entity: light.boven
+          - entity: light.buiten
           - type: divider
             style:
               height: 1px
