@@ -4,8 +4,8 @@ title: Thuis
 # Import resources
 resources: !include lovelace/configuration/resources.yaml
 
-# Compact Custom Header configuration
-cch: !include lovelace/configuration/header.yaml
+# Custom Header configuration
+custom_header: !include lovelace/configuration/header.yaml
 
 # Views
 views:

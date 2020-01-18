@@ -1,13 +1,11 @@
+compact_mode: true
 disable_sidebar: true
-menu: hide
-options: hide
-swipe: true
-swipe_animate: swipe
-swipe_prevent_default: true
+options_hide: true
+chevrons: false
 exceptions:
 - conditions:
     user: Administrator
   config:
+    compact_mode: false
     disable_sidebar: false
-    menu: show
-    options: show
+    options_hide: false
