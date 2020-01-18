@@ -10,3 +10,6 @@
 # Slider Entity Row
 - url: /local/lovelace-custom-cards/slider-entity-row.js?v=7
   type: module
+# Swipe Navigation
+- url: /local/lovelace-custom-cards/swipe-navigation.js?v=1.2.2
+  type: js

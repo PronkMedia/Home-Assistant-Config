@@ -7,6 +7,9 @@ resources: !include lovelace/configuration/resources.yaml
 # Custom Header configuration
 custom_header: !include lovelace/configuration/header.yaml
 
+# Swipe Navigation configuration
+swipe_nav: !include lovelace/configuration/swipe.yaml
+
 # Views
 views:
   - !include lovelace/views/home.yaml
