@@ -1,15 +1,15 @@
 # Card Mod
-- url: /local/lovelace-custom-cards/card-mod.js?v=5
+- url: /local/custom_lovelace/card-mod.js?v=5
   type: module
 # Custom Header
-- url: /local/lovelace-custom-cards/custom-header.js?v=1.2.1
+- url: /local/custom_lovelace/custom-header.js?v=1.2.1
   type: module
 # Mini Graph Card
-- url: /local/lovelace-custom-cards/mini-graph-card-bundle.js?v=0.8.2
+- url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.8.2
   type: module
 # Slider Entity Row
-- url: /local/lovelace-custom-cards/slider-entity-row.js?v=7
+- url: /local/custom_lovelace/slider-entity-row.js?v=7
   type: module
 # Swipe Navigation
-- url: /local/lovelace-custom-cards/swipe-navigation.js?v=1.2.2
+- url: /local/custom_lovelace/swipe-navigation.js?v=1.2.2
   type: js
