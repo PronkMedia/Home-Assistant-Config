@@ -26,8 +26,8 @@ My Home Assistant configuration & documentation.
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Google
-    - 1x Google Home (Mini) 
-    - 1x Google Chromecast (3rd Generation)
+    - 1x Nest Hub
+    - 1x Chromecast (3rd Generation)
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)
     - 1x USB > Serial Cable (P1)
