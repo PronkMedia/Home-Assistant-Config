@@ -110,6 +110,10 @@ cards:
             icon: mdi:ceiling-light
             tap_action:
               action: more-info
+          - entity: light.buffetkast
+            icon: mdi:spotlight
+            tap_action:
+              action: more-info
           - entity: light.speelhoek
             icon: mdi:castle
             tap_action:
