@@ -1,4 +1,4 @@
-# Hue sensors (Philips Hue RWL021, Philips Hue SML001, Philips Hue SML002)
+# Hue sensors (Philips Hue SML001, Philips Hue SML002)
 - platform: min_max
   name: temperature_lowest_huiskamer
   type: min

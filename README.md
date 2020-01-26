@@ -36,6 +36,7 @@ My Home Assistant configuration & documentation.
 
 ## Todo
 - Adjust light icons and naming
-- Cast a new view to Google Nest Hub
+- Add a new multimedia view
 - Create conditional entity rows for unavailable lights
+- Cast a new view to Google Nest Hub
 - Use `decluttering-card` to clean up current configuration
