@@ -5,7 +5,7 @@
   hosts: 192.168.1.1-255
   home_interval: 5
   exclude:
-   - 192.168.1.50
+   - 192.168.1.50-56
    - 192.168.1.100
   new_device_defaults:
     track_new_devices: false
