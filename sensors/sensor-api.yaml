@@ -1,0 +1,15 @@
+# Hue Sensor API
+- platform: rest
+  name: hue_sensor_api
+  resource: !secret api_hue_bridge
+  verify_ssl: false
+  scan_interval: 1
+  value_template: >
+    sensor_2_update={{ value_json["2"]["state"]["lastupdated"]}},
+    sensor_2_button={{ value_json["2"]["state"]["buttonevent"]}},
+    sensor_11_motion={{ value_json["11"]["state"]["presence"]}},
+    sensor_21_motion={{value_json["14"]["state"]["presence"]}},
+    sensor_14_motion={{value_json["21"]["state"]["presence"]}},
+    sensor_25_motion={{value_json["25"]["state"]["presence"]}},
+    sensor_33_motion={{value_json["33"]["state"]["presence"]}},
+    sensor_38_motion={{value_json["38"]["state"]["presence"]}}

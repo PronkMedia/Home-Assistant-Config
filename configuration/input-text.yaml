@@ -5,3 +5,5 @@ motion_automation_parkeerplaats_is_triggered:
 motion_automation_tuin_is_triggered:
   name: Tuin motion automation is triggered
   initial: 'false'
+scene_huiskamer_last_triggered:
+  name: Last triggered huiskamer scene

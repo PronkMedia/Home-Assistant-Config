@@ -1,0 +1,248 @@
+# Huiskamer scenes
+scene_huiskamer_motion:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.keuken
+          brightness: 102
+          color_temp: 375
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.speelhoek
+          brightness: 102
+          color_temp: 375
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.aanbouw
+          brightness: 102
+          color_temp: 375
+scene_huiskamer_overdag:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.keuken
+          brightness: 205
+          color_temp: 252
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 205
+          color_temp: 252
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.speelhoek
+          brightness: 205
+          color_temp: 252
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.aanbouw
+          brightness: 205
+          color_temp: 252
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.buffetkast
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.vloerlamp
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_overdag
+scene_huiskamer_avond:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.keuken
+          brightness: 179
+          color_temp: 350
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 179
+          color_temp: 350
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.speelhoek
+          brightness: 179
+          color_temp: 350
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.aanbouw
+          brightness: 179
+          color_temp: 350
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.buffetkast
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.vloerlamp
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_avond
+scene_huiskamer_eten:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 205
+          color_temp: 300
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.keuken
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.buffetkast
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.speelhoek
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.aanbouw
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.vloerlamp
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_eten
+scene_huiskamer_koken:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.keuken
+          brightness: 254
+          color_temp: 325
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 128
+          color_temp: 325
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.buffetkast
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.speelhoek
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.aanbouw
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.vloerlamp
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_koken
+scene_huiskamer_tvkijken:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 128
+          hs_color: [37.215, 30.98]
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.buffetkast
+          brightness: 128
+          hs_color: [37.215, 30.98]
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.vloerlamp
+          brightness: 128
+          hs_color: [37.215, 30.98]
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.keuken
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.speelhoek
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.aanbouw
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_tvkijken
+scene_huiskamer_spelen:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.keuken
+          brightness: 102
+          color_temp: 292
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.eettafel
+          brightness: 153
+          color_temp: 292
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.speelhoek
+          brightness: 205
+          color_temp: 292
+      - delay:
+          milliseconds: 1
+      - service: light.turn_on
+        data:
+          entity_id: light.aanbouw
+          brightness: 205
+          color_temp: 292
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.buffetkast
+      - delay:
+          milliseconds: 1
+      - service: light.turn_off
+        entity_id: light.vloerlamp
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.scene_huiskamer_last_triggered
+          value: scene_huiskamer_spelen
+scene_huiskamer_off:
+  sequence:
+      - service: light.turn_off
+        entity_id: light.huiskamer

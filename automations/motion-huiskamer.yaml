@@ -18,7 +18,7 @@
             entity_id: sensor.motion_sensor_huiskamer_2_light
             below: 2
   action:
-    - service: script.hue_scene_huiskamer_motion
+    service: script.scene_huiskamer_motion
 - alias: Motion huiskamer undetected
   trigger:
     platform: state
@@ -31,5 +31,5 @@
     entity_id: light.huiskamer
     state: 'on'
   action:
-    - service: light.turn_off
-      entity_id: light.huiskamer
+    service: light.turn_off
+    entity_id: light.huiskamer

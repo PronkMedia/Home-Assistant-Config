@@ -1,0 +1,25 @@
+- alias: Remote huiskamer pressed 
+  trigger: 
+   platform: state 
+   entity_id: sensor.remote_button_update_api 
+  action: 
+    service_template: >
+      {% if is_state('sensor.remote_button_state_api', '1001') %} 
+        script.scene_huiskamer_tvkijken
+      {% elif is_state('sensor.remote_button_state_api', '1002') %} 
+        {% if is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_spelen') %}
+          script.scene_huiskamer_overdag
+        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_overdag') %} 
+          script.scene_huiskamer_avond
+        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_avond') %}
+          script.scene_huiskamer_eten
+        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_eten') %}
+          script.scene_huiskamer_koken
+        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_koken') %}
+          script.scene_huiskamer_tvkijken
+        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_tvkijken') %}
+          script.scene_huiskamer_spelen
+        {% endif %}
+      {% elif is_state('sensor.remote_button_state_api', '4002') %} 
+        script.scene_huiskamer_off
+      {% endif %}

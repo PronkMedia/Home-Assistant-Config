@@ -1,4 +1,4 @@
-# Motion sensors (Philips Hue SML001, Philips Hue SML002)
+# Hue sensors (Philips Hue RWL021, Philips Hue SML001, Philips Hue SML002)
 - platform: min_max
   name: temperature_lowest_huiskamer
   type: min
@@ -59,15 +59,3 @@
       friendly_name: "Buiten Light Level"
       unit_of_measurement: 'lx'
       value_template: "{{ (states('sensor.light_lowest_buiten') | float) | round(0) }}"
-- platform: rest
-  name: motion_sensor_api
-  resource: !secret api_hue_bridge
-  verify_ssl: false
-  scan_interval: 1
-  value_template: >
-    11={{ value_json["11"]["state"]["presence"] }},
-    21={{value_json["14"]["state"]["presence"]}},
-    14={{value_json["21"]["state"]["presence"]}},
-    25={{value_json["25"]["state"]["presence"]}},
-    33={{value_json["33"]["state"]["presence"]}},
-    38={{value_json["38"]["state"]["presence"]}}

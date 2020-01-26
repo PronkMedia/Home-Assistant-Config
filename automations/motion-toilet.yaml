@@ -8,7 +8,7 @@
     entity_id: light.toilet
     state: 'off'
   action:
-    service: script.hue_scene_toilet_motion
+    service: script.scene_toilet_motion
 - alias: Motion toilet undetected
   trigger:
     platform: state

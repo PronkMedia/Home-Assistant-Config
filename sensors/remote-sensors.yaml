@@ -1,0 +1,11 @@
+# Remote sensors (Philips Hue RWL021)
+- platform: template
+  sensors:
+    # Sensor 2
+    remote_button_update_api:
+      value_template: >-
+        {{ states('sensor.hue_sensor_api').split(',')[0].split('=')[1]}}
+    # Sensor 2
+    remote_button_state_api:
+      value_template: >-
+        {{ states('sensor.hue_sensor_api').split(',')[1].split('=')[1]}}

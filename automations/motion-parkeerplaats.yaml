@@ -13,7 +13,7 @@
         entity_id: sensor.motion_sensor_parkeerplaats_light
         below: 5
   action:
-    - service: script.hue_scene_parkeerplaats_motion
+    - service: script.scene_parkeerplaats_motion
     - service: input_text.set_value
       data:
         entity_id: input_text.motion_automation_parkeerplaats_is_triggered

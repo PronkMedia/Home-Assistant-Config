@@ -1,0 +1,7 @@
+# Parkeerplaats scenes
+scene_parkeerplaats_motion:
+  sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.parkeerplaats
+          brightness: 254
