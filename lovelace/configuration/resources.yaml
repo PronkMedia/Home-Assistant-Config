@@ -5,7 +5,7 @@
 - url: /local/custom_lovelace/custom-header.js?v=1.2.1
   type: module
 # Mini Graph Card
-- url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.8.2
+- url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.9.2
   type: module
 # Slider Entity Row
 - url: /local/custom_lovelace/slider-entity-row.js?v=7
