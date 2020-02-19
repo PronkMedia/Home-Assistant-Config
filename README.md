@@ -2,8 +2,8 @@
 My Home Assistant configuration & documentation.
 
 ## Software
-- HassOS 3.10
-- Home Assistant 0.105.3
+- Home Assistant Operating System 3.11
+- Home Assistant Core 0.105.5
 
 ## Hardware
 - Raspberry Pi Foundation
