@@ -20,6 +20,10 @@
         {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_tvkijken') %}
           script.scene_huiskamer_spelen
         {% endif %}
+      {% elif is_state('sensor.remote_button_state_api', '2002') %}
+        script.scene_huiskamer_brighter
+      {% elif is_state('sensor.remote_button_state_api', '3002') %}
+        script.scene_huiskamer_dimmer
       {% elif is_state('sensor.remote_button_state_api', '4002') %} 
         script.scene_huiskamer_off
       {% endif %}
