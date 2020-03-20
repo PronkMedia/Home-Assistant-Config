@@ -39,6 +39,7 @@ script: !include_dir_merge_named scripts
 
 # Groups
 group: !include_dir_merge_named groups
+light: !include groups/lights.yaml
 
 # Sensors
 binary_sensor: !include_dir_merge_list binary-sensors

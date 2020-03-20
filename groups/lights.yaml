@@ -1,0 +1,64 @@
+- platform: group
+  name: Beneden
+  entities:
+    - light.toilet
+    - light.keuken_1
+    - light.keuken_2
+    - light.eettafel_1
+    - light.eettafel_2
+    - light.buffetkast
+    - light.speelhoek_1
+    - light.speelhoek_2
+    - light.aanbouw_1
+    - light.aanbouw_2
+    - light.vloerlamp
+- platform: group
+  name: Huiskamer
+  entities:
+    - light.keuken_1
+    - light.keuken_2
+    - light.eettafel_1
+    - light.eettafel_2
+    - light.buffetkast
+    - light.speelhoek_1
+    - light.speelhoek_2
+    - light.aanbouw_1
+    - light.aanbouw_2
+    - light.vloerlamp
+- platform: group
+  name: Keuken
+  entities:
+    - light.keuken_1
+    - light.keuken_2
+- platform: group
+  name: Eettafel
+  entities:
+    - light.eettafel_1
+    - light.eettafel_2
+- platform: group
+  name: Speelhoek
+  entities:
+    - light.speelhoek_1
+    - light.speelhoek_2
+- platform: group
+  name: Aanbouw
+  entities:
+    - light.aanbouw_1
+    - light.aanbouw_2
+- platform: group
+  name: Buiten
+  entities:
+    - light.voordeur
+    - light.achterdeur
+    - light.schuur
+    - light.parkeerplaats
+- platform: group
+  name: Tuin
+  entities:
+    - light.achterdeur
+    - light.schuur
+- platform: group
+  name: Boven
+  entities:
+    - light.kinderkamer
+    - light.slaapkamer
