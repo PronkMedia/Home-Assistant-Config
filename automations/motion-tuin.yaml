@@ -7,7 +7,10 @@
     condition: and
     conditions:    
       - condition: state
-        entity_id: light.tuin
+        entity_id: light.achterdeur
+        state: 'off'
+      - condition: state
+        entity_id: light.schuur
         state: 'off'
       - condition: or
         conditions:
@@ -36,7 +39,9 @@
     state: 'true'
   action:
     - service: light.turn_off
-      entity_id: light.tuin
+      entity_id:
+        - light.achterdeur
+        - light.schuur
     - service: input_text.set_value
       data:
         entity_id: input_text.motion_automation_tuin_is_triggered

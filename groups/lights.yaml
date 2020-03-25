@@ -53,11 +53,6 @@
     - light.schuur
     - light.parkeerplaats
 - platform: group
-  name: Tuin
-  entities:
-    - light.achterdeur
-    - light.schuur
-- platform: group
   name: Boven
   entities:
     - light.kinderkamer
