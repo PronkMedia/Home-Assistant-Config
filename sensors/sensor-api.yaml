@@ -3,7 +3,8 @@
   name: hue_sensor_api
   resource: !secret api_hue_bridge
   verify_ssl: false
-  scan_interval: 1
+  scan_interval:
+    milliseconds: 500
   value_template: >
     sensor_2_update={{ value_json["2"]["state"]["lastupdated"]}},
     sensor_2_button={{ value_json["2"]["state"]["buttonevent"]}},

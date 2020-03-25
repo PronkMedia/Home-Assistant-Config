@@ -3,59 +3,27 @@ scene_huiskamer_motion:
   sequence:
     - service: light.turn_on
       data:
-        entity_id: light.keuken
-        brightness: 102
-        color_temp: 375
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.speelhoek
-        brightness: 102
-        color_temp: 375
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.aanbouw
+        entity_id:
+          - light.keuken
+          - light.speelhoek
+          - light.aanbouw
         brightness: 102
         color_temp: 375
 scene_huiskamer_overdag:
   sequence:
     - service: light.turn_on
       data:
-        entity_id: light.keuken
+        entity_id:
+          - light.keuken
+          - light.eettafel
+          - light.speelhoek
+          - light.aanbouw
         brightness: 205
         color_temp: 252
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.eettafel
-        brightness: 205
-        color_temp: 252
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.speelhoek
-        brightness: 205
-        color_temp: 252
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.aanbouw
-        brightness: 205
-        color_temp: 252
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.buffetkast
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.vloerlamp
+      entity_id:
+        - light.buffetkast
+        - light.vloerlamp
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -64,38 +32,17 @@ scene_huiskamer_avond:
   sequence:
     - service: light.turn_on
       data:
-        entity_id: light.keuken
+        entity_id:
+          - light.keuken
+          - light.eettafel
+          - light.speelhoek
+          - light.aanbouw
         brightness: 179
         color_temp: 350
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.eettafel
-        brightness: 179
-        color_temp: 350
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.speelhoek
-        brightness: 179
-        color_temp: 350
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.aanbouw
-        brightness: 179
-        color_temp: 350
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.buffetkast
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.vloerlamp
+      entity_id:
+        - light.buffetkast
+        - light.vloerlamp
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -107,26 +54,13 @@ scene_huiskamer_eten:
         entity_id: light.eettafel
         brightness: 205
         color_temp: 300
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.keuken
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.buffetkast
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.speelhoek
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.aanbouw
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.vloerlamp
+      entity_id:
+        - light.keuken
+        - light.buffetkast
+        - light.speelhoek
+        - light.aanbouw
+        - light.vloerlamp
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -138,29 +72,17 @@ scene_huiskamer_koken:
         entity_id: light.keuken
         brightness: 254
         color_temp: 325
-    - delay:
-        milliseconds: 1
     - service: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 128
         color_temp: 325
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.buffetkast
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.speelhoek
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.aanbouw
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.vloerlamp
+      entity_id:
+        - light.buffetkast
+        - light.speelhoek
+        - light.aanbouw
+        - light.vloerlamp
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -169,35 +91,17 @@ scene_huiskamer_tvkijken:
   sequence:
     - service: light.turn_on
       data:
-        entity_id: light.eettafel
+        entity_id:
+          - light.eettafel
+          - light.buffetkast
+          - light.vloerlamp
         brightness: 128
         hs_color: [37.215, 30.98]
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.buffetkast
-        brightness: 128
-        hs_color: [37.215, 30.98]
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.vloerlamp
-        brightness: 128
-        hs_color: [37.215, 30.98]
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.keuken
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.speelhoek
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.aanbouw
+      entity_id:
+        - light.keuken
+        - light.speelhoek
+        - light.aanbouw
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -209,35 +113,22 @@ scene_huiskamer_spelen:
         entity_id: light.keuken
         brightness: 102
         color_temp: 292
-    - delay:
-        milliseconds: 1
     - service: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 153
         color_temp: 292
-    - delay:
-        milliseconds: 1
     - service: light.turn_on
       data:
-        entity_id: light.speelhoek
+        entity_id:
+          - light.speelhoek
+          - light.aanbouw
         brightness: 205
         color_temp: 292
-    - delay:
-        milliseconds: 1
-    - service: light.turn_on
-      data:
-        entity_id: light.aanbouw
-        brightness: 205
-        color_temp: 292
-    - delay:
-        milliseconds: 1
     - service: light.turn_off
-      entity_id: light.buffetkast
-    - delay:
-        milliseconds: 1
-    - service: light.turn_off
-      entity_id: light.vloerlamp
+      entity_id:
+        - light.buffetkast
+        - light.vloerlamp
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
@@ -245,14 +136,27 @@ scene_huiskamer_spelen:
 scene_huiskamer_brighter:
   sequence:
     - service: light.turn_on
-      data:
-        entity_id: light.huiskamer
+      data_template:
+        entity_id: > 
+          {% if is_state('light.keuken', 'on') %}{% set splitter = "," %}light.keuken{% endif %}
+          {% if is_state('light.eettafel', 'on') %}{{ splitter }}{% set splitter = "," %}light.eettafel{% endif %}
+          {% if is_state('light.buffetkast', 'on') %}{{ splitter }}{% set splitter = "," %}light.buffetkast{% endif %}
+          {% if is_state('light.speelhoek', 'on') %}{{ splitter }}{% set splitter = "," %}light.speelhoek{% endif %}
+          {% if is_state('light.aanbouw', 'on') %}{{ splitter }}{% set splitter = "," %}light.aanbouw{% endif %}
+          {% if is_state('light.vloerlamp', 'on') %}{{ splitter }}light.vloerlamp{% endif %}
+          {% if is_state('light.huiskamer', 'off') %}light.huiskamer{% endif %}
         brightness_step_pct: 10
 scene_huiskamer_dimmer:
   sequence:
     - service: light.turn_on
-      data:
-        entity_id: light.huiskamer
+      data_template:
+        entity_id: > 
+          {% if is_state('light.keuken', 'on') %}{% set splitter = "," %}light.keuken{% endif %}
+          {% if is_state('light.eettafel', 'on') %}{{ splitter }}{% set splitter = "," %}light.eettafel{% endif %}
+          {% if is_state('light.buffetkast', 'on') %}{{ splitter }}{% set splitter = "," %}light.buffetkast{% endif %}
+          {% if is_state('light.speelhoek', 'on') %}{{ splitter }}{% set splitter = "," %}light.speelhoek{% endif %}
+          {% if is_state('light.aanbouw', 'on') %}{{ splitter }}{% set splitter = "," %}light.aanbouw{% endif %}
+          {% if is_state('light.vloerlamp', 'on') %}{{ splitter }}light.vloerlamp{% endif %}
         brightness_step_pct: -10
 scene_huiskamer_off:
   sequence:
