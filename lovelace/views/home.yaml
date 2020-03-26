@@ -6,81 +6,152 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style:
-          .: |
-            ha-card {
-              margin: 14px 14px 3px 14px;
-            }
-          "#states slider-entity-row":
-            $: |
-              ha-slider {
-                width: 125px;
-              }
+        style: |
+          ha-card {
+            margin: 14px 14px 3px 14px;
+          }
         title: Huiskamer
         entities:
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.keuken', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.keuken
-            icon: mdi:stove
+            icon: mdi:track-light
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.eettafel', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.eettafel
             icon: mdi:ceiling-light
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style:
+              .: |
+                :host {
+                  {% if is_state('light.buffetkast', 'unavailable') %}
+                    display: none;
+                  {% endif %}
+                }
+                ha-slider {
+                  width: 125px;
+                }
+              hui-generic-entity-row:
+                $: |
+                  state-badge {
+                    transform: rotate(180deg);
+                  }
             entity: light.buffetkast
-            icon: mdi:spotlight
+            icon: mdi:spotlight-beam
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.speelhoek', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.speelhoek
-            icon: mdi:castle
+            icon: mdi:track-light
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.aanbouw', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.aanbouw
             icon: mdi:track-light
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.vloerlamp', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.vloerlamp
-            icon: mdi:floor-lamp
+            icon: mdi:floor-lamp-variant
             toggle: true
             hide_when_off: true
           - type: divider
-            style:
-              height: 1px
-              margin-left: 55px
-              background-color: "#333333"
+            style: |
+              :host {
+                {% if is_state('light.huiskamer', 'unavailable') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_huiskamer
             name: Temperatuur
           - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
       - type: entities
-        style:
-          .: |
-            ha-card {
-              margin: 3px 14px;
-            }
-          "#states slider-entity-row":
-            $: |
-              ha-slider {
-                width: 125px;
-              }
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
         title: Toilet
         show_header_toggle: false
         entities:
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.toilet', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.toilet
-            icon: mdi:toilet
+            icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
           - type: divider
-            style:
-              height: 1px
-              margin-left: 55px
-              background-color: "#333333"
+            style: |
+              :host {
+                {% if is_state('light.toilet', 'unavailable') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_toilet
             name: Temperatuur
           - entity: sensor.light_toilet
@@ -94,41 +165,67 @@ cards:
         show_header_toggle: false
         entities:
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.kinderkamer', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.kinderkamer
             icon: mdi:ceiling-light
             toggle: true
             hide_when_off: true
           - type: divider
-            style:
-              height: 1px
-              margin-left: 55px
-              background-color: "#333333"
+            style: |
+              :host {
+                {% if is_state('light.kinderkamer', 'unavailable') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_baby_monitor
             name: Temperatuur
       - type: entities
-        style:
-          .: |
-            ha-card {
-              margin: 3px 14px;
-            }
-          "#states slider-entity-row":
-            $: |
-              ha-slider {
-                width: 125px;
-              }
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
         title: Slaapkamer
         show_header_toggle: false
         entities:
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.slaapkamer', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.slaapkamer
-            icon: mdi:ceiling-light
+            icon: mdi:globe-light
             toggle: true
             hide_when_off: true
           - type: divider
-            style:
-              height: 1px
-              margin-left: 55px
-              background-color: "#333333"
+            style: |
+              :host {
+                {% if is_state('light.slaapkamer', 'unavailable') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_slaapkamer
             name: Temperatuur
           - entity: sensor.light_slaapkamer
@@ -141,30 +238,73 @@ cards:
         title: Buiten
         entities:
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.voordeur', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.voordeur
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.achterdeur', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.achterdeur
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.schuur', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.schuur
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
           - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if is_state('light.parkeerplaats', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
             entity: light.parkeerplaats
             icon: mdi:outdoor-lamp
             toggle: true
             hide_when_off: true
           - type: divider
-            style:
-              height: 1px
-              margin-left: 55px
-              background-color: "#333333"
+            style: |
+              :host {
+                {% if is_state('light.buiten', 'unavailable') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_buiten
             name: Temperatuur
           - entity: sensor.light_buiten

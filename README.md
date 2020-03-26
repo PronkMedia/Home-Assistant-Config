@@ -23,6 +23,7 @@ My Home Assistant configuration & documentation.
     - 1x E14 White and Ambiance (LTW012)
     - 6x GU10 White and Ambiance (LTW013)
     - 3x E27 White and Color Ambiance (LCT015)
+    - 1x Go White and Color Ambiance (LLC020)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Google
@@ -35,8 +36,6 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ## Todo
-- Adjust light icons and naming
 - Add a new multimedia view
-- Create conditional entity rows for unavailable lights
 - Cast a new view to Google Nest Hub
 - Use `decluttering-card` to clean up current configuration
