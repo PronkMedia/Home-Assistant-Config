@@ -26,6 +26,9 @@ My Home Assistant configuration & documentation.
     - 1x Go White and Color Ambiance (LLC020)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
+- Sonos
+    - 1x Beam
+    - 2x One
 - Google
     - 1x Nest Hub
     - 1x Chromecast (3rd Generation)

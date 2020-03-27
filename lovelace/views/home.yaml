@@ -114,6 +114,31 @@ cards:
                   background-color: #333333;
                 {% endif %}
               }
+          - type: custom:slider-entity-row
+            style: |
+              :host {
+                {% if not is_state('media_player.sonos_speakers', 'playing') %}
+                  display: none;
+                {% endif %}
+              }
+              ha-slider {
+                width: 125px;
+              }
+            entity: media_player.sonos_speakers
+            name: Volume
+            icon: mdi:speaker
+          - type: divider
+            style: |
+              :host {
+                {% if not is_state('media_player.sonos_speakers', 'playing') %}
+                  display: none;
+                {% else %}
+                  display: block;
+                  height: 1px;
+                  margin-left: 55px;
+                  background-color: #333333;
+                {% endif %}
+              }
           - entity: sensor.temperature_huiskamer
             name: Temperatuur
           - entity: sensor.light_huiskamer
