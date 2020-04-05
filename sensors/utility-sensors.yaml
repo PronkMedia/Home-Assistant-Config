@@ -12,7 +12,7 @@
     total_power:
       friendly_name: Total Power
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.power_consumption_low') | float + states('sensor.power_consumption_normal') | float) | round(0) }}"
+      value_template: "{{ (states('sensor.energy_consumption_tarif_1') | float + states('sensor.energy_consumption_tarif_2') | float) | round(0) }}"
     monthly_gas_rounded:
       friendly_name: Monthly Gas (rounded)
       unit_of_measurement: m3
