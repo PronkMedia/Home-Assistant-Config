@@ -19,9 +19,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.keuken
             icon: mdi:track-light
             toggle: true
@@ -32,9 +29,6 @@ cards:
                 {% if is_state('light.eettafel', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.eettafel
             icon: mdi:ceiling-light
@@ -47,9 +41,6 @@ cards:
                   {% if is_state('light.buffetkast', 'unavailable') %}
                     display: none;
                   {% endif %}
-                }
-                ha-slider {
-                  width: 125px;
                 }
               hui-generic-entity-row:
                 $: |
@@ -67,9 +58,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.speelhoek
             icon: mdi:track-light
             toggle: true
@@ -81,9 +69,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.aanbouw
             icon: mdi:track-light
             toggle: true
@@ -94,9 +79,6 @@ cards:
                 {% if is_state('light.vloerlamp', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.vloerlamp
             icon: mdi:floor-lamp-variant
@@ -120,9 +102,6 @@ cards:
                 {% if not is_state('media_player.sonos_speakers', 'playing') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: media_player.sonos_speakers
             name: Volume
@@ -157,9 +136,6 @@ cards:
                 {% if is_state('light.toilet', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.toilet
             icon: mdi:wall-sconce-flat
@@ -196,9 +172,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.kinderkamer
             icon: mdi:ceiling-light
             toggle: true
@@ -231,9 +204,6 @@ cards:
                 {% if is_state('light.slaapkamer', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.slaapkamer
             icon: mdi:globe-light
@@ -269,9 +239,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.voordeur
             icon: mdi:outdoor-lamp
             toggle: true
@@ -282,9 +249,6 @@ cards:
                 {% if is_state('light.achterdeur', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.achterdeur
             icon: mdi:outdoor-lamp
@@ -297,9 +261,6 @@ cards:
                   display: none;
                 {% endif %}
               }
-              ha-slider {
-                width: 125px;
-              }
             entity: light.schuur
             icon: mdi:outdoor-lamp
             toggle: true
@@ -310,9 +271,6 @@ cards:
                 {% if is_state('light.parkeerplaats', 'unavailable') %}
                   display: none;
                 {% endif %}
-              }
-              ha-slider {
-                width: 125px;
               }
             entity: light.parkeerplaats
             icon: mdi:outdoor-lamp
