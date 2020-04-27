@@ -1,11 +1,13 @@
 - platform: bluetooth_tracker
+  interval_seconds: 300
+  consider_home: 0:15
   new_device_defaults:
     track_new_devices: false
 - platform: nmap_tracker
-  hosts: 192.168.1.1-255
-  home_interval: 5
-  exclude:
-   - 192.168.1.50-56
-   - 192.168.1.100
+  hosts:
+    - !secret address_phone_male
+    - !secret address_phone_female
+  interval_seconds: 300
+  consider_home: 0:15
   new_device_defaults:
     track_new_devices: false
