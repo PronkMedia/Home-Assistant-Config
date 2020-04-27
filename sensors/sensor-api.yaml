@@ -2,7 +2,6 @@
 - platform: rest
   name: hue_sensor_api
   resource: !secret api_hue_bridge
-  verify_ssl: false
   scan_interval:
     milliseconds: 500
   value_template: >
