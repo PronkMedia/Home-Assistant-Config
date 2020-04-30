@@ -12,10 +12,10 @@
       - condition: or
         conditions:
           - condition: numeric_state
-            entity_id: sensor.motion_sensor_huiskamer_1_light
+            entity_id: sensor.huiskamer_motion_sensor_1_light_level
             below: 2
           - condition: numeric_state
-            entity_id: sensor.motion_sensor_huiskamer_2_light
+            entity_id: sensor.huiskamer_motion_sensor_2_light_level
             below: 2
   action:
     service: script.scene_huiskamer_motion

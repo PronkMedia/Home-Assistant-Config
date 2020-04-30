@@ -15,10 +15,10 @@
       - condition: or
         conditions:
           - condition: numeric_state
-            entity_id: sensor.motion_sensor_tuin_1_light
+            entity_id: sensor.tuin_motion_sensor_1_light_level
             below: 5
           - condition: numeric_state
-            entity_id: sensor.motion_sensor_tuin_2_light
+            entity_id: sensor.tuin_motion_sensor_2_light_level
             below: 5
   action:
     - service: script.scene_tuin_motion

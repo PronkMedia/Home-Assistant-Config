@@ -10,7 +10,7 @@
         entity_id: light.parkeerplaats
         state: 'off'
       - condition: numeric_state
-        entity_id: sensor.motion_sensor_parkeerplaats_light
+        entity_id: sensor.parkeerplaats_motion_sensor_light_level
         below: 5
   action:
     - service: script.scene_parkeerplaats_motion
