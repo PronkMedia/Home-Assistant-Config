@@ -23,6 +23,7 @@ cards:
             icon: mdi:track-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -34,6 +35,7 @@ cards:
             icon: mdi:ceiling-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style:
               .: |
@@ -45,12 +47,13 @@ cards:
               hui-generic-entity-row:
                 $: |
                   state-badge {
-                    transform: rotate(180deg);
+                    transform: rotate(-45deg);
                   }
             entity: light.buffetkast
-            icon: mdi:spotlight-beam
+            icon: mdi:wall-sconce-variant
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -62,6 +65,7 @@ cards:
             icon: mdi:track-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -73,6 +77,7 @@ cards:
             icon: mdi:track-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -84,6 +89,7 @@ cards:
             icon: mdi:floor-lamp-variant
             toggle: true
             hide_when_off: true
+            step: 1
           - type: divider
             style: |
               :host {
@@ -106,6 +112,7 @@ cards:
             entity: media_player.sonos_speakers
             name: Volume
             icon: mdi:speaker
+            step: 1
           - type: divider
             style: |
               :host {
@@ -122,6 +129,7 @@ cards:
             name: Temperatuur
           - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
+            icon: mdi:brightness-6
       - type: entities
         style: |
           ha-card {
@@ -141,6 +149,7 @@ cards:
             icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
+            step: 1
           - type: divider
             style: |
               :host {
@@ -157,6 +166,7 @@ cards:
             name: Temperatuur
           - entity: sensor.light_toilet
             name: Verlichtingssterkte
+            icon: mdi:brightness-6
       - type: entities
         style: |
           ha-card {
@@ -176,6 +186,7 @@ cards:
             icon: mdi:ceiling-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: divider
             style: |
               :host {
@@ -209,6 +220,7 @@ cards:
             icon: mdi:globe-light
             toggle: true
             hide_when_off: true
+            step: 1
           - type: divider
             style: |
               :host {
@@ -225,11 +237,21 @@ cards:
             name: Temperatuur
           - entity: sensor.light_slaapkamer
             name: Verlichtingssterkte
+            icon: mdi:brightness-6
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px 14px 14px;
-          }
+        style:
+          .: |
+            ha-card {
+              margin: 3px 14px 14px 14px;
+            }
+          "#states div":
+            slider-entity-row:
+              $:
+                hui-generic-entity-row:
+                  $: |
+                    state-badge {
+                      transform: rotate(-90deg);
+                    }  
         title: Buiten
         entities:
           - type: custom:slider-entity-row
@@ -240,9 +262,10 @@ cards:
                 {% endif %}
               }
             entity: light.voordeur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -251,9 +274,10 @@ cards:
                 {% endif %}
               }
             entity: light.achterdeur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -262,9 +286,10 @@ cards:
                 {% endif %}
               }
             entity: light.schuur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
+            step: 1
           - type: custom:slider-entity-row
             style: |
               :host {
@@ -273,9 +298,10 @@ cards:
                 {% endif %}
               }
             entity: light.parkeerplaats
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             toggle: true
             hide_when_off: true
+            step: 1
           - type: divider
             style: |
               :host {
@@ -292,3 +318,4 @@ cards:
             name: Temperatuur
           - entity: sensor.light_buiten
             name: Verlichtingssterkte
+            icon: mdi:brightness-6

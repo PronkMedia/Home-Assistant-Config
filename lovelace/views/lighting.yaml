@@ -16,13 +16,13 @@ cards:
         entities:
           - entity: binary_sensor.scene_huiskamer_overdag
             name: Overdag
-            icon: mdi:weather-sunny
+            icon: mdi:white-balance-sunny
             tap_action:
               action: call-service
               service: script.scene_huiskamer_overdag
           - entity: binary_sensor.scene_huiskamer_eten
             name: Eten
-            icon: mdi:silverware-fork-knife
+            icon: mdi:food-variant
             tap_action:
               action: call-service
               service: script.scene_huiskamer_eten
@@ -34,13 +34,13 @@ cards:
               service: script.scene_huiskamer_tvkijken
           - entity: binary_sensor.scene_huiskamer_avond
             name: Avond
-            icon: mdi:weather-night
+            icon: mdi:brightness-2
             tap_action:
               action: call-service
               service: script.scene_huiskamer_avond
           - entity: binary_sensor.scene_huiskamer_koken
             name: Koken
-            icon: mdi:stove
+            icon: mdi:pot
             tap_action:
               action: call-service
               service: script.scene_huiskamer_koken
@@ -93,17 +93,23 @@ cards:
         entities:
           - entity: light.beneden
       - type: glance
-        style: |
-          ha-card {
-            margin: 3px 14px -35px 14px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
+        style:
+          .: |
+            ha-card {
+              margin: 3px 14px -35px 14px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          ".entities div:nth-child(3)":
+            $: |
+              state-badge {
+                transform: rotate(-45deg);
+              }
         show_state: false
         columns: 3
         entities:
           - entity: light.keuken
-            icon: mdi:stove
+            icon: mdi:track-light
             tap_action:
               action: more-info
           - entity: light.eettafel
@@ -111,11 +117,11 @@ cards:
             tap_action:
               action: more-info
           - entity: light.buffetkast
-            icon: mdi:spotlight
+            icon: mdi:wall-sconce-variant
             tap_action:
               action: more-info
           - entity: light.speelhoek
-            icon: mdi:castle
+            icon: mdi:track-light
             tap_action:
               action: more-info
           - entity: light.aanbouw
@@ -123,11 +129,11 @@ cards:
             tap_action:
               action: more-info
           - entity: light.vloerlamp
-            icon: mdi:floor-lamp
+            icon: mdi:floor-lamp-variant
             tap_action:
               action: more-info
           - entity: light.toilet
-            icon: mdi:toilet
+            icon: mdi:wall-sconce-flat
             tap_action:
               action: more-info
       - type: entities
@@ -167,7 +173,7 @@ cards:
             tap_action:
               action: more-info
           - entity: light.slaapkamer
-            icon: mdi:ceiling-light
+            icon: mdi:globe-light
             tap_action:
               action: more-info
       - type: entities
@@ -193,27 +199,33 @@ cards:
         entities:
           - entity: light.buiten
       - type: glance
-        style: |
-          ha-card {
-            z-index: 1;
-            margin: 3px 14px 14px 14px;
-          }
+        style:
+          .: |
+            ha-card {
+              z-index: 1;
+              margin: 3px 14px 14px 14px;
+            }
+          ".entities div":
+            $: |
+              state-badge {
+                transform: rotate(-90deg);
+              }
         show_state: false
         columns: 3
         entities:
           - entity: light.voordeur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             tap_action:
               action: more-info
           - entity: light.achterdeur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             tap_action:
               action: more-info
           - entity: light.schuur
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             tap_action:
               action: more-info
           - entity: light.parkeerplaats
-            icon: mdi:outdoor-lamp
+            icon: mdi:wall-sconce-flat
             tap_action:
               action: more-info
