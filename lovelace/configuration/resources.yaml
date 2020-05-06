@@ -8,7 +8,7 @@
 - url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.9.3
   type: module
 # Slider Entity Row
-- url: /local/custom_lovelace/slider-entity-row.js?v=12
+- url: /local/custom_lovelace/slider-entity-row.js?v=custom
   type: module
 # Swipe Navigation
 - url: /local/custom_lovelace/swipe-navigation.js?v=1.2.2
