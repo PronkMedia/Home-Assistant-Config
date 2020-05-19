@@ -7,3 +7,5 @@ motion_automation_tuin_is_triggered:
   initial: 'false'
 scene_huiskamer_last_triggered:
   name: Last triggered huiskamer scene
+media_source_last_selected:
+  name: Last selected media source

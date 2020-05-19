@@ -2,6 +2,8 @@ compact_mode: true
 disable_sidebar: true
 options_hide: true
 chevrons: false
+header_css: 'padding: 0 6px;'
+all_tabs_css: 'padding: 0 11px;'
 exceptions:
 - conditions:
     user: Administrator

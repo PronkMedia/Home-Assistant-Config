@@ -1,0 +1,213 @@
+title: Media
+path: media
+icon: mdi:music
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:mini-media-player
+        style: |
+          ha-card {
+            margin: 14px 14px 3px 14px;
+          }
+          .entity__info {
+            margin-top: 8px;
+            margin-left: 0 !important;
+            font-size: 24px;
+          }
+          .entity__info__name {
+            font-weight: 400 !important;
+            line-height: 32px !important;
+            letter-spacing: -0.012em;
+          }
+          .entity__info__media {
+            padding: 22px 0;
+            font-weight: 300 !important;
+            line-height: 32px !important;
+            color: #ffffff !important;
+          }
+        entity: media_player.sonos_speakers
+        artwork: none
+        hide:
+          icon: true
+          power: true
+          source: true
+      - type: glance
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+        title: TV
+        show_state: false
+        columns: 3
+        entities:
+          - entity: binary_sensor.media_source_ziggo
+            name: Ziggo
+            icon: mdi:television
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: TV
+          - entity: binary_sensor.media_source_chromecast
+            name: Chromecast
+            icon: mdi:television-play
+            tap_action:
+              action: call-service
+              service: media_player.turn_on
+              service_data:
+                entity_id: media_player.chromecast
+      - type: glance
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+        title: Radio stations
+        show_state: false
+        columns: 3
+        entities:
+          - entity: binary_sensor.media_source_radio_npo_radio_1
+            name: NPO Radio 1
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: NPO Radio 1
+          - entity: binary_sensor.media_source_radio_npo_radio_2
+            name: NPO Radio 2
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: NPO Radio 2
+          - entity: binary_sensor.media_source_radio_npo_radio_3fm
+            name: NPO 3FM
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: NPO 3FM
+          - entity: binary_sensor.media_source_radio_538
+            name: Radio 538
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 538
+          - entity: binary_sensor.media_source_radio_sky_radio
+            name: Sky Radio
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: Sky Radio 101 FM
+          - entity: binary_sensor.media_source_radio_veronica
+            name: Veronica
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: Radio Veronica
+      - type: glance
+        style: |
+          ha-card {
+            margin: 3px 14px 14px 14px;
+          }
+        title: Spotify afspeellijsten
+        show_state: false
+        columns: 3
+        entities:
+          - entity: binary_sensor.media_source_spotify_kinderliedjes
+            name: Kinderliedjes
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Kleine Kinderliedjes'
+          - entity: binary_sensor.media_source_spotify_nederlands
+            name: Nederlands
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Nederlands'
+          - entity: binary_sensor.media_source_spotify_fout
+            name: Fout
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Fout'
+          - entity: binary_sensor.media_source_spotify_oud
+            name: Oude doos
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Oud'
+          - entity: binary_sensor.media_source_spotify_fun
+            name: Fun
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Fun'
+          - entity: binary_sensor.media_source_spotify_relax
+            name: Relax
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Relax'
+          - entity: binary_sensor.media_source_spotify_unplugged
+            name: Unplugged
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Unplugged'
+          - entity: binary_sensor.media_source_spotify_eurovision
+            name: Eurovision
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'List: Eurovision'
+          - entity: binary_sensor.media_source_spotify_shaffy
+            name: Shaffy
+            icon: mdi:playlist-music
+            tap_action:
+              action: call-service
+              service: script.select_media_source
+              service_data:
+                entity_id: media_player.sonos_speakers
+                source: 'Artist: Ramses Shaffy'
