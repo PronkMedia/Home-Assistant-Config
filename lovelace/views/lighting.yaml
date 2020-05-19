@@ -73,7 +73,7 @@ cards:
           - type: divider
             style:
               height: 1px
-              margin: 0 16px
+              margin: 0 16px 8px
               background-color: "#333333"
       - type: entities
         style: |
@@ -144,7 +144,7 @@ cards:
             border-bottom-right-radius: 0;
           }
           .card-header {
-            padding: 10px 0 16px 0;
+            padding: 8px 0 16px 0;
             margin: 16px 16px 0 16px;
             border-top: 1px solid #333333;
           }
@@ -184,7 +184,7 @@ cards:
             border-bottom-right-radius: 0;
           }
           .card-header {
-            padding: 10px 0 16px 0;
+            padding: 8px 0 16px 0;
             margin: 16px 16px 0 16px;
             border-top: 1px solid #333333;
           }

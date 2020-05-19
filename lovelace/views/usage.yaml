@@ -14,7 +14,7 @@ cards:
             border-bottom-right-radius: 0;
           }
           .header {
-            margin-top: 10px;
+            margin-top: 14px;
           }
           .name > span {
             font-size: 24px !important;
