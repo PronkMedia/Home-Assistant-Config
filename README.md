@@ -3,7 +3,7 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant Operating System 3.13
-- Home Assistant Core 0.109.4
+- Home Assistant Core 0.109.6
 
 ## Hardware
 - Raspberry Pi Foundation
