@@ -39,6 +39,6 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ## Todo
-- Add a new multimedia view
+- Create automations for powering Wifi mesh points on/off when needed
 - Cast a new view to Google Nest Hub
 - Use `decluttering-card` to clean up current configuration
