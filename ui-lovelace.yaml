@@ -1,9 +1,6 @@
 # Application title
 title: Thuis
 
-# Import resources
-resources: !include lovelace/configuration/resources.yaml
-
 # Custom Header configuration
 custom_header: !include lovelace/configuration/header.yaml
 
