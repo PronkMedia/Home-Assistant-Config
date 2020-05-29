@@ -11,7 +11,7 @@
 - url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.9.0
   type: module
 # Slider Entity Row
-- url: /local/custom_lovelace/slider-entity-row.js?v=14
+- url: /local/custom_lovelace/slider-entity-row.js?v=15
   type: module
 # Swipe Navigation
 - url: /local/custom_lovelace/swipe-navigation.js?v=1.2.2
