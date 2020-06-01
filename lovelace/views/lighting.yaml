@@ -100,7 +100,7 @@ cards:
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
             }
-          ".entities div:nth-child(3)":
+          ".entities div:nth-child(4)":
             $: |
               state-badge {
                 transform: rotate(-45deg);
@@ -108,6 +108,10 @@ cards:
         show_state: false
         columns: 3
         entities:
+          - entity: light.spots
+            icon: mdi:circle-double
+            tap_action:
+              action: more-info
           - entity: light.keuken
             icon: mdi:track-light
             tap_action:

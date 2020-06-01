@@ -12,6 +12,14 @@ cards:
           }
         title: Huiskamer
         entities:
+          - entity: light.spots
+            style: |
+              :host {
+                {% if is_state('light.spots', 'unavailable') %}
+                  display: none;
+                {% endif %}
+              }
+            icon: mdi:circle-double
           - type: custom:slider-entity-row
             style: |
               :host {

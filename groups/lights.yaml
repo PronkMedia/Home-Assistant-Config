@@ -2,6 +2,7 @@
   name: Beneden
   entities:
     - light.toilet
+    - light.spots
     - light.keuken_1
     - light.keuken_2
     - light.eettafel_1
@@ -15,6 +16,7 @@
 - platform: group
   name: Huiskamer
   entities:
+    - light.spots
     - light.keuken_1
     - light.keuken_2
     - light.eettafel_1

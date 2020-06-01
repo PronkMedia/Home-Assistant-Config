@@ -4,7 +4,8 @@
     scene_huiskamer_overdag:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'on')
+        {{  is_state('light.spots', 'off')
+            and is_state('light.keuken', 'on')
             and is_state_attr('light.keuken', 'brightness', 205)
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 205)
@@ -18,7 +19,8 @@
     scene_huiskamer_avond:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'on')
+        {{  is_state('light.spots', 'off')
+            and is_state('light.keuken', 'on')
             and is_state_attr('light.keuken', 'brightness', 179)
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 179)
@@ -32,7 +34,8 @@
     scene_huiskamer_eten:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'off')
+        {{  is_state('light.spots', 'off')
+            and is_state('light.keuken', 'off')
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 205)
             and is_state('light.buffetkast', 'off')
@@ -43,7 +46,8 @@
     scene_huiskamer_koken:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'on')
+        {{  is_state('light.spots', 'on')
+            and is_state('light.keuken', 'on')
             and is_state_attr('light.keuken', 'brightness', 254)
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 128)
@@ -55,7 +59,8 @@
     scene_huiskamer_tvkijken:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'off')
+        {{  is_state('light.spots', 'off')
+            and is_state('light.keuken', 'off')
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 128)
             and is_state_attr('light.eettafel', 'hs_color', (37.215,30.98))
@@ -70,7 +75,8 @@
     scene_huiskamer_spelen:
       device_class: light
       value_template: >-
-        {{  is_state('light.keuken', 'on')
+        {{  is_state('light.spots', 'off')
+            and is_state('light.keuken', 'on')
             and is_state_attr('light.keuken', 'brightness', 102)
             and is_state('light.eettafel', 'on')
             and is_state_attr('light.eettafel', 'brightness', 153)
