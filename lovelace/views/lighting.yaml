@@ -180,6 +180,11 @@ cards:
             icon: mdi:globe-light
             tap_action:
               action: more-info
+          - entity: light.84458710bcddc2ec6925
+            name: Bureau
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: more-info
       - type: entities
         style: |
           ha-card {

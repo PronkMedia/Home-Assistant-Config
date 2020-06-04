@@ -246,6 +246,22 @@ cards:
           - entity: sensor.light_slaapkamer
             name: Verlichtingssterkte
             icon: mdi:brightness-6
+      - type: conditional
+        conditions:
+          - entity: light.84458710bcddc2ec6925
+            state_not: "unavailable"
+        card:
+          type: entities
+          style: |
+            ha-card {
+              margin: 3px 14px;
+            }
+          title: Zolder
+          show_header_toggle: false
+          entities:
+            - entity: light.84458710bcddc2ec6925
+              name: Bureau
+              icon: mdi:led-strip-variant
       - type: entities
         style:
           .: |
