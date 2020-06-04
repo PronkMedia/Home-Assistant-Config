@@ -26,7 +26,7 @@ ha-card-box-shadow: none
 # States and badges
 state-icon-color: "#8d8d8d"
 state-icon-active-color: "#ffffff"
-state-icon-unavailable-color: "#8d8d8d"
+state-icon-unavailable-color: "#595959"
 
 # Switch
 switch-checked-button-color: "#ffffff"

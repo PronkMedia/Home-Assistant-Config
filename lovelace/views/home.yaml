@@ -121,6 +121,7 @@ cards:
             name: Volume
             icon: mdi:speaker
             step: 1
+            hide_state: false
           - type: divider
             style: |
               :host {
