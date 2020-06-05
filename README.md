@@ -2,9 +2,10 @@
 My Home Assistant configuration & documentation.
 
 ## Software
-- Home Assistant Core 0.110.4
-- Home Assistant Operating System 4.9
-- Home Assistant Supervisor 227
+- Home Assistant
+    - Core 0.110.4
+    - Operating System 4.9
+    - Supervisor 227
 
 ## Hardware
 - Raspberry Pi Foundation
@@ -27,9 +28,11 @@ My Home Assistant configuration & documentation.
     - 3x E27 White and Color Ambiance (LCT015)
     - 1x Go White and Color Ambiance (LLC020)
 - BrilliantSmart
-    - 1x RGB LED lightstrip (HK17656S72)
+    - 1x Wi-Fi RGB LED lightstrip (HK17656S72)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
+- Gosund
+    - 2x Wi-Fi Smart Plug (SP111)
 - Sonos
     - 1x Beam
     - 2x One
@@ -43,6 +46,5 @@ My Home Assistant configuration & documentation.
     - 1x Baby Monitor (MBP-854 Connect)
 
 ## Todo
-- Create automations for powering Wifi mesh points on/off when needed
 - Cast a new view to Google Nest Hub
 - Use `decluttering-card` to clean up current configuration
