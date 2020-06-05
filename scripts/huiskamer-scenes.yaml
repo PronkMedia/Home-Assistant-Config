@@ -11,6 +11,10 @@ scene_huiskamer_motion:
         color_temp: 375
 scene_huiskamer_overdag:
   sequence:
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.scene_huiskamer_last_triggered
+        value: scene_huiskamer_overdag
     - service: light.turn_on
       data:
         entity_id:
@@ -25,12 +29,12 @@ scene_huiskamer_overdag:
         - light.spots
         - light.buffetkast
         - light.vloerlamp
+scene_huiskamer_avond:
+  sequence:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_overdag
-scene_huiskamer_avond:
-  sequence:
+        value: scene_huiskamer_avond
     - service: light.turn_on
       data:
         entity_id:
@@ -45,12 +49,12 @@ scene_huiskamer_avond:
         - light.spots
         - light.buffetkast
         - light.vloerlamp
+scene_huiskamer_eten:
+  sequence:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_avond
-scene_huiskamer_eten:
-  sequence:
+        value: scene_huiskamer_eten
     - service: light.turn_on
       data:
         entity_id: light.eettafel
@@ -64,12 +68,12 @@ scene_huiskamer_eten:
         - light.speelhoek
         - light.aanbouw
         - light.vloerlamp
+scene_huiskamer_koken:
+  sequence:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_eten
-scene_huiskamer_koken:
-  sequence:
+        value: scene_huiskamer_koken
     - service: light.turn_on
       data:
         entity_id: light.spots
@@ -89,12 +93,12 @@ scene_huiskamer_koken:
         - light.speelhoek
         - light.aanbouw
         - light.vloerlamp
+scene_huiskamer_tvkijken:
+  sequence:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_koken
-scene_huiskamer_tvkijken:
-  sequence:
+        value: scene_huiskamer_tvkijken  
     - service: light.turn_on
       data:
         entity_id:
@@ -109,12 +113,17 @@ scene_huiskamer_tvkijken:
         - light.keuken
         - light.speelhoek
         - light.aanbouw
+scene_huiskamer_spelen:
+  sequence:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_tvkijken
-scene_huiskamer_spelen:
-  sequence:
+        value: scene_huiskamer_spelen
+    - service: light.turn_off
+      entity_id:
+        - light.spots
+        - light.buffetkast
+        - light.vloerlamp
     - service: light.turn_on
       data:
         entity_id: light.keuken
@@ -132,15 +141,6 @@ scene_huiskamer_spelen:
           - light.aanbouw
         brightness: 205
         color_temp: 292
-    - service: light.turn_off
-      entity_id:
-        - light.spots
-        - light.buffetkast
-        - light.vloerlamp
-    - service: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_spelen
 scene_huiskamer_brighter:
   sequence:
     - service: light.turn_on
@@ -153,9 +153,7 @@ scene_huiskamer_brighter:
           {% if is_state('light.aanbouw', 'on') %}{{ splitter }}{% set splitter = "," %}light.aanbouw{% endif %}
           {% if is_state('light.vloerlamp', 'on') %}{{ splitter }}light.vloerlamp{% endif %}
           {% if is_state('light.huiskamer', 'off') %}light.huiskamer{% endif %}
-        brightness_step_pct: 10
-    - service: light.turn_on
-      entity_id: light.spots
+        brightness_step_pct: 20
 scene_huiskamer_dimmer:
   sequence:
     - service: light.turn_on
@@ -167,7 +165,7 @@ scene_huiskamer_dimmer:
           {% if is_state('light.speelhoek', 'on') %}{{ splitter }}{% set splitter = "," %}light.speelhoek{% endif %}
           {% if is_state('light.aanbouw', 'on') %}{{ splitter }}{% set splitter = "," %}light.aanbouw{% endif %}
           {% if is_state('light.vloerlamp', 'on') %}{{ splitter }}light.vloerlamp{% endif %}
-        brightness_step_pct: -10
+        brightness_step_pct: -20
     - service: light.turn_off
       entity_id: light.spots
 scene_huiskamer_off:
