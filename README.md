@@ -3,9 +3,9 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 0.111.4
-    - Operating System 4.10
-    - Supervisor 227
+    - Core 0.112.2
+    - Operating System 4.11
+    - Supervisor 228
 
 ## Hardware
 - Raspberry Pi Foundation
