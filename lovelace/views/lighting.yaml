@@ -74,7 +74,7 @@ cards:
             style:
               height: 1px
               margin: 0 16px 8px
-              background-color: "#333333"
+              background-color: var(--secondary-text-color)
       - type: entities
         style: |
           ha-card {
@@ -150,7 +150,7 @@ cards:
           .card-header {
             padding: 8px 0 16px 0;
             margin: 16px 16px 0 16px;
-            border-top: 1px solid #333333;
+            border-top: 1px solid var(--secondary-text-color);
           }
           .card-content > div {
             display: none;
@@ -195,7 +195,7 @@ cards:
           .card-header {
             padding: 8px 0 16px 0;
             margin: 16px 16px 0 16px;
-            border-top: 1px solid #333333;
+            border-top: 1px solid var(--secondary-text-color);
           }
           .card-content > div {
             display: none;

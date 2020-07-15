@@ -1,6 +1,6 @@
 # Text
 primary-text-color: "#ffffff"
-secondary-text-color: "#a0a0a0"
+secondary-text-color: "#333333"
 
 # Main interface
 primary-color: "#242424"
@@ -19,6 +19,7 @@ paper-listbox-background-color:  "#1b1b1b"
 
 # Cards
 card-background-color: "#424242"
+ha-card-header-font-size: "24px"
 ha-card-background: "#424242"
 ha-card-border-radius: "6px"
 ha-card-box-shadow: none

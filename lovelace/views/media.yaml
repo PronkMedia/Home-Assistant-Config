@@ -13,18 +13,18 @@ cards:
           .entity__info {
             margin-top: 8px;
             margin-left: 0 !important;
-            font-size: 24px;
+            font-size: var(--ha-card-header-font-size);
           }
           .entity__info__name {
-            font-weight: 400 !important;
+            font-weight: var(--paper-font-body1_-_font-weight) !important;
             line-height: 32px !important;
-            letter-spacing: -0.012em;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing);
           }
           .entity__info__media {
             padding: 22px 0;
             font-weight: 300 !important;
             line-height: 32px !important;
-            color: #ffffff !important;
+            color: var(--primary-text-color) !important;
           }
         entity: media_player.sonos_speakers
         artwork: none

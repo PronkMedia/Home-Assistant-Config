@@ -48,9 +48,9 @@ cards:
             margin-top: 10px;
           }
           .name > span {
-            font-size: 24px !important;
-            font-weight: 400 !important;
-            letter-spacing: -0.012em !important;
+            font-size: var(--ha-card-header-font-size) !important;
+            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
           .states {
@@ -75,9 +75,9 @@ cards:
             margin-top: 10px;
           }
           .name > span {
-            font-size: 24px !important;
-            font-weight: 400 !important;
-            letter-spacing: -0.012em !important;
+            font-size: var(--ha-card-header-font-size) !important;
+            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
           .states {
@@ -115,9 +115,9 @@ cards:
             margin-top: 10px;
           }
           .name > span {
-            font-size: 24px !important;
-            font-weight: 400 !important;
-            letter-spacing: -0.012em !important;
+            font-size: var(--ha-card-header-font-size) !important;
+            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
           .states {

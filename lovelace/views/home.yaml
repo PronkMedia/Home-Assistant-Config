@@ -107,7 +107,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - type: custom:slider-entity-row
@@ -131,7 +131,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - entity: sensor.temperature_huiskamer
@@ -168,7 +168,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - entity: sensor.temperature_toilet
@@ -205,7 +205,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - entity: sensor.temperature_baby_monitor
@@ -239,7 +239,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - entity: sensor.temperature_slaapkamer
@@ -260,9 +260,12 @@ cards:
           title: Zolder
           show_header_toggle: false
           entities:
-            - entity: light.84458710bcddc2ec6925
-              name: Bureau
+            - type: custom:slider-entity-row
+              entity: light.84458710bcddc2ec6925
               icon: mdi:led-strip-variant
+              toggle: true
+              hide_when_off: true
+              step: 1
       - type: entities
         style:
           .: |
@@ -336,7 +339,7 @@ cards:
                   display: block;
                   height: 1px;
                   margin-left: 55px;
-                  background-color: #333333;
+                  background-color: var(--secondary-text-color);
                 {% endif %}
               }
           - entity: sensor.temperature_buiten

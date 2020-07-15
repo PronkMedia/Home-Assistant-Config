@@ -23,7 +23,6 @@ cards:
             style:
               height: 1px
               margin-left: 55px
-              background-color: "#333333"
       - type: custom:mini-graph-card
         height: 50
         style: |
@@ -98,7 +97,6 @@ cards:
             style:
               height: 1px
               margin-left: 55px
-              background-color: "#333333"
       - type: custom:mini-graph-card
         height: 50
         style: |
