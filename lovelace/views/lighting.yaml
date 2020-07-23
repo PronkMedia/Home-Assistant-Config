@@ -40,7 +40,7 @@ cards:
               service: script.scene_huiskamer_avond
           - entity: binary_sensor.scene_huiskamer_koken
             name: Koken
-            icon: mdi:pot
+            icon: mdi:pot-steam
             tap_action:
               action: call-service
               service: script.scene_huiskamer_koken
@@ -121,7 +121,7 @@ cards:
             tap_action:
               action: more-info
           - entity: light.buffetkast
-            icon: mdi:wall-sconce-variant
+            icon: mdi:wall-sconce-round-variant
             tap_action:
               action: more-info
           - entity: light.speelhoek
@@ -137,7 +137,7 @@ cards:
             tap_action:
               action: more-info
           - entity: light.toilet
-            icon: mdi:wall-sconce-flat
+            icon: mdi:dome-light
             tap_action:
               action: more-info
       - type: entities

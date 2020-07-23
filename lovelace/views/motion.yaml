@@ -60,38 +60,15 @@ cards:
             margin: 3px 14px;
           }
         title: Bewegingsdetectie
+        state_color: true
         entities:
           - entity: group.automation_motion_huiskamer
-            style: |
-              :host { 
-                {% if is_state('group.automation_motion_huiskamer', 'on') %}
-                  --paper-item-icon-color: var(--paper-item-icon-active-color)
-                {% endif %}
-              }
             icon: mdi:sofa
           - entity: group.automation_motion_toilet
-            style: |
-              :host { 
-                {% if is_state('group.automation_motion_toilet', 'on') %}
-                  --paper-item-icon-color: var(--paper-item-icon-active-color)
-                {% endif %}
-              }
             icon: mdi:toilet
           - entity: group.automation_motion_tuin
-            style: |
-              :host { 
-                {% if is_state('group.automation_motion_tuin', 'on') %}
-                  --paper-item-icon-color: var(--paper-item-icon-active-color)
-                {% endif %}
-              }
             icon: mdi:flower
           - entity: group.automation_motion_parkeerplaats
-            style: |
-              :host { 
-                {% if is_state('group.automation_motion_parkeerplaats', 'on') %}
-                  --paper-item-icon-color: var(--paper-item-icon-active-color)
-                {% endif %}
-              }
             icon: mdi:car
           - type: divider
             style:

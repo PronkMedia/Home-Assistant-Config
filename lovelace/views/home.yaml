@@ -58,7 +58,7 @@ cards:
                     transform: rotate(-45deg);
                   }
             entity: light.buffetkast
-            icon: mdi:wall-sconce-variant
+            icon: mdi:wall-sconce-round-variant
             toggle: true
             hide_when_off: true
             step: 1
@@ -155,7 +155,7 @@ cards:
                 {% endif %}
               }
             entity: light.toilet
-            icon: mdi:wall-sconce-flat
+            icon: mdi:dome-light
             toggle: true
             hide_when_off: true
             step: 1

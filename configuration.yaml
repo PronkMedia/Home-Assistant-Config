@@ -25,9 +25,6 @@ recorder: !include configuration/recorder.yaml
 # HTTP
 http: !include configuration/http.yaml
 
-# Hue
-hue: !include configuration/hue.yaml
-
 # Automation variables
 input_text: !include configuration/input-text.yaml
 

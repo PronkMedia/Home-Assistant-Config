@@ -53,21 +53,22 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
-          "#states div:first-of-type hui-section-row":
-            $: |
-              .label {
-                color: var(--primary-text-color) !important;
-              }
-              .divider {
-                opacity: 1 !important;
-              }
-          hui-section-row:
+          "hui-section-row":
             $: |
               .label {
                 color: var(--primary-text-color) !important;
               }
               .divider {
                 margin: 0 0 0 55px !important;
+                opacity: 1 !important;
+              }
+          "#states div:first-of-type hui-section-row":
+            $: |
+              .label {
+                color: var(--primary-text-color) !important;
+              }
+              .divider {
+                margin: 8px -16px !important;
                 opacity: 1 !important;
               }
         show_header_toggle: false
