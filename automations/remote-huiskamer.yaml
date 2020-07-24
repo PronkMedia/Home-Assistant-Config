@@ -1,39 +1,86 @@
-- alias: Remote huiskamer pressed 
+- alias: Remote huiskamer pressed
+  mode: restart
   trigger: 
-   platform: state 
-   entity_id: sensor.remote_button_update_api 
-  condition:
-    condition: template
-    value_template: '{{ states("sensor.remote_button_state_api")[3:] != "3" }}'
+    platform: state 
+    entity_id: sensor.remote_button_update_api 
   action: 
-    service_template: >
-      {% if is_state('sensor.remote_button_state_api', '1001') %}
-        script.scene_huiskamer_tvkijken
-      {% elif is_state('sensor.remote_button_state_api', '1000')
-      or is_state('sensor.remote_button_state_api', '1002') %}
-        {% if is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_spelen') %}
-          script.scene_huiskamer_overdag
-        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_overdag') %} 
-          script.scene_huiskamer_avond
-        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_avond') %}
-          script.scene_huiskamer_eten
-        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_eten') %}
-          script.scene_huiskamer_koken
-        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_koken') %}
-          script.scene_huiskamer_tvkijken
-        {% elif is_state('input_text.scene_huiskamer_last_triggered', 'scene_huiskamer_tvkijken') %}
-          script.scene_huiskamer_spelen
-        {% endif %}
-      {% elif is_state('sensor.remote_button_state_api', '2000')
-      or is_state('sensor.remote_button_state_api', '2001')
-      or is_state('sensor.remote_button_state_api', '2002') %}
-        script.scene_huiskamer_brighter
-      {% elif is_state('sensor.remote_button_state_api', '3000')
-      or is_state('sensor.remote_button_state_api', '3001')
-      or is_state('sensor.remote_button_state_api', '3002') %}
-        script.scene_huiskamer_dimmer
-      {% elif is_state('sensor.remote_button_state_api', '4000')
-      or is_state('sensor.remote_button_state_api', '4001')
-      or is_state('sensor.remote_button_state_api', '4002') %}
-        script.scene_huiskamer_off
-      {% endif %}
+    - choose:
+      - conditions:
+          - condition: state
+            entity_id: sensor.remote_button_state_api
+            state: "1001"
+        sequence:
+          - service: script.scene_huiskamer_tvkijken
+      - conditions:
+          - condition: state
+            entity_id: sensor.remote_button_state_api
+            state: 
+              - "1000"
+              - "1002"
+        sequence:
+          - delay:
+              seconds: 1
+          - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_spelen"
+              sequence:
+                - service: script.scene_huiskamer_overdag
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_overdag"
+              sequence:
+                - service: script.scene_huiskamer_avond
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_avond"
+              sequence:
+                - service: script.scene_huiskamer_eten
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_eten"
+              sequence:
+                - service: script.scene_huiskamer_koken
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_koken"
+              sequence:
+                - service: script.scene_huiskamer_tvkijken
+            - conditions:
+                - condition: state
+                  entity_id: input_text.scene_huiskamer_last_triggered
+                  state: "scene_huiskamer_tvkijken"
+              sequence:
+                - service: script.scene_huiskamer_spelen
+      - conditions:
+          - condition: state
+            entity_id: sensor.remote_button_state_api
+            state: 
+              - "2000"
+              - "2001"
+              - "2002"
+        sequence:
+          - service: script.scene_huiskamer_brighter
+      - conditions:
+          - condition: state
+            entity_id: sensor.remote_button_state_api
+            state: 
+              - "3000"
+              - "3001"
+              - "3002"
+        sequence:
+          - service: script.scene_huiskamer_dimmer
+      - conditions:
+          - condition: state
+            entity_id: sensor.remote_button_state_api
+            state: 
+              - "4000"
+              - "4001"
+              - "4002"
+        sequence:
+          - service: script.scene_huiskamer_off
