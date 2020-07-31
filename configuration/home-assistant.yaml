@@ -7,4 +7,3 @@ time_zone: Europe/Amsterdam
 external_url: !secret url_external
 internal_url: !secret url_internal
 allowlist_external_dirs: !secret whitelisted_directories
-customize: !include ./customize.yaml

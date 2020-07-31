@@ -7,31 +7,46 @@ class TuyaClimate(TuyaDevice):
         super().__init__(data, api)
         self._unit = None
         self._divider = 0
+        self._ct_divider = 0
 
-    def _set_decimal(self, val):
+    def _set_decimal(self, val, divider=0):
         if val is None:
             return None
-        if self._divider == 0:
-            if val > 500 or val < -100:
-                self._divider = 100
-            else:
-                self._divider = 1
+        if divider == 0:
+            divider = self._divider
+            if divider == 0:
+                if val > 500 or val < -100:
+                    divider = 100
+                else:
+                    divider = 1
+                self._divider = divider
 
-        return round(float(val / self._divider), 2)
+        return round(float(val / divider), 2)
+
+    def set_unit(self, unit):
+        self._unit = unit
+
+    def set_temp_divider(self, divider):
+        self._divider = divider
+
+    def set_curr_temp_divider(self, divider):
+        self._ct_divider = divider
 
     def has_decimal(self):
-        return self._divider > 1
+        return self._divider >= 10
 
     def temperature_unit(self):
         if not self._unit:
+            if self._divider == 0:
+                self.max_temp()
             curr_temp = self.current_temperature()
             if curr_temp is None:
                 self._unit = "CELSIUS"
                 return self._unit
-            if curr_temp > 40 and not self.has_decimal():
+            if curr_temp > 50 and not self.has_decimal():
                 self._unit = "FAHRENHEIT"
             else:
-                self._unit = self.data.get("temp_unit")
+                self._unit = self.data.get("temp_unit", "CELSIUS")
         return self._unit
 
     def current_humidity(self):
@@ -47,16 +62,18 @@ class TuyaClimate(TuyaDevice):
         return self.data.get("support_mode")
 
     def current_temperature(self):
-        curr_temp = self._set_decimal(self.data.get("current_temperature"))
-        if not curr_temp:
+        curr_temp = self._set_decimal(self.data.get("current_temperature"), self._ct_divider)
+        if curr_temp is None:
             return self.target_temperature()
         return curr_temp
 
     def target_temperature(self):
-        return self._set_decimal(self.data.get("temperature"))
+        return self._set_decimal(self.data.get("temperature"), self._ct_divider)
 
     def target_temperature_step(self):
-        return 0.5
+        if self.has_decimal():
+            return 0.5
+        return 1.0
 
     def current_fan_mode(self):
         """Return the fan setting."""
@@ -97,11 +114,20 @@ class TuyaClimate(TuyaDevice):
 
     def set_temperature(self, temperature):
         """Set new target temperature."""
-        if self._divider == 0:
-            return
-        temp_val = round(float(temperature) * self._divider)
+        if self._ct_divider > 0:
+            divider = self._ct_divider
+        else:
+            divider = self._divider
+        if divider == 0:
+            divider = 1
+
+        if not self.has_decimal():
+            temp_val = round(float(temperature))
+            set_val = temp_val * divider
+        else:
+            temp_val = set_val = round(float(temperature) * divider)
         if self._control_device("temperatureSet", {"value": temp_val}):
-            self._update_data("temperature", temp_val)
+            self._update_data("temperature", set_val)
 
     def set_humidity(self, humidity):
         """Set new target humidity."""
