@@ -2,7 +2,7 @@
 - url: /local/custom_lovelace/card-mod.js?v=2.0.0
   type: module
 # Custom Header
-- url: /local/custom_lovelace/custom-header.js?v=1.6.7
+- url: /local/custom_lovelace/custom-header.js?v=1.6.9
   type: module
 # Mini Graph Card
 - url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.9.4
