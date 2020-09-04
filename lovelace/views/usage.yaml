@@ -25,15 +25,42 @@ cards:
           .states {
             font-size: 10px;
           }
+          .state:not(.state--small)::before {
+            content: ""; 
+              height: 10px;
+              width: 10px;
+              background-color: var(--paper-blue-400);
+              border-radius: 50%;
+              margin: 9px 6px 0 0;
+          }
+          .state--small {
+            font-size: 1em !important;
+          }
+          .graph__legend {
+            justify-content: flex-end !important;
+          }
+          .graph__legend__item {
+            width: 45%;
+          }
+          .graph {
+            margin-bottom: -1px;
+          }
         name: Slimme meter
         icon: mdi:counter
         entities:
-          - entity: sensor.power_consumption
-            name: Stroomverbruik
+          - entity: sensor.hourly_gas_consumption
+            name: Gas (verbruik)
+            color: "#337fbf"
             show_state: true
             show_indicator: true
-          - entity: sensor.hourly_gas_consumption
-            name: Gasverbruik
+          - entity: sensor.power_consumption
+            name: Stroom (verbruik)
+            color: "#e63535"
+            show_state: true
+            show_indicator: true
+          - entity: sensor.power_production
+            name: Stroom (productie)
+            color: "#7bcc00"
             show_state: true
             show_indicator: true
         show:
@@ -44,9 +71,6 @@ cards:
         lower_bound: 0
         update_interval: 10
         line_width: 1
-        line_color:
-          - "#337fbf"
-          - "#e63535"
       - type: entities
         style:
           .: |
@@ -75,28 +99,28 @@ cards:
         entities:
           - type: section
             label: Vandaag
-          - entity: sensor.daily_power
-            name: Stroomverbruik
-            icon: mdi:flash-outline
           - entity: sensor.daily_gas
             name: Gasverbruik
             icon: mdi:fire
+          - entity: sensor.daily_energy
+            name: Stroomverbruik
+            icon: mdi:flash-outline
           - type: section
             label: Huidige maand
-          - entity: sensor.monthly_power
-            name: Stroomverbruik
-            icon: mdi:flash-outline
-          - entity: sensor.monthly_gas_rounded
+          - entity: sensor.monthly_gas
             name: Gasverbruik
             icon: mdi:fire
+          - entity: sensor.monthly_energy
+            name: Stroomverbruik
+            icon: mdi:flash-outline
           - type: section
             label: Totaal
-          - entity: sensor.total_power
-            name: Stroomverbruik
-            icon: mdi:flash-outline
-          - entity: sensor.total_gas_rounded
+          - entity: sensor.total_gas
             name: Gasverbruik
             icon: mdi:fire
+          - entity: sensor.total_energy
+            name: Stroomverbruik
+            icon: mdi:flash-outline
       - type: conditional
         conditions:
           - entity: switch.energy_monitor_1
