@@ -1,4 +1,6 @@
 """Support for the Tuya lights."""
+from datetime import timedelta
+
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
     ATTR_COLOR_TEMP,
@@ -15,9 +17,26 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.util import color as colorutil
 
 from . import TuyaDevice
-from .const import CONF_SUPPORT_COLOR, DOMAIN, TUYA_DATA, TUYA_DISCOVERY_NEW
+from .const import (
+    CONF_BRIGHTNESS_RANGE_MODE,
+    CONF_MAX_COLOR_TEMP,
+    CONF_SUPPORT_COLOR,
+    DOMAIN,
+    TUYA_DATA,
+    TUYA_DISCOVERY_NEW,
+)
 
-PARALLEL_UPDATES = 0
+# PARALLEL_UPDATES = 0
+SCAN_INTERVAL = timedelta(seconds=15)
+
+TUYA_BRIGHTNESS_RANGE0 = (10, 1000)
+TUYA_BRIGHTNESS_RANGE1 = (1, 255)
+TUYA_DEF_MAX_COL_TEMP = 10000
+
+BRIGHTNESS_MODES = {
+    0: TUYA_BRIGHTNESS_RANGE0,
+    1: TUYA_BRIGHTNESS_RANGE1,
+}
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
@@ -67,9 +86,21 @@ class TuyaLight(TuyaDevice, LightEntity):
         await super().async_added_to_hass()
 
         if self._dev_conf:
-            self._tuya.set_support_color(
-                self._dev_conf.get(CONF_SUPPORT_COLOR, False)
+            # support color config
+            supp_color = self._dev_conf.get(CONF_SUPPORT_COLOR, False)
+            if supp_color:
+                self._tuya.force_support_color()
+            # brightness range config
+            self._tuya.brightness_white_range = BRIGHTNESS_MODES.get(
+                self._dev_conf.get(CONF_BRIGHTNESS_RANGE_MODE, 0),
+                TUYA_BRIGHTNESS_RANGE0
             )
+            # color temp range config
+            max_color_temp = max(
+                self._dev_conf.get(CONF_MAX_COLOR_TEMP, TUYA_DEF_MAX_COL_TEMP),
+                TUYA_DEF_MAX_COL_TEMP
+            )
+            self._tuya.color_temp_range = (1000, max_color_temp)
 
         return
 

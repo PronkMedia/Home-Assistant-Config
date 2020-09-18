@@ -1,5 +1,6 @@
 """Support for the Tuya climate devices."""
 import logging
+from datetime import timedelta
 from numbers import Number
 
 from homeassistant.components.climate import (
@@ -42,7 +43,8 @@ from .const import(
 
 DEVICE_TYPE = "climate"
 
-PARALLEL_UPDATES = 0
+# PARALLEL_UPDATES = 0
+SCAN_INTERVAL = timedelta(seconds=15)
 
 HA_STATE_TO_TUYA = {
     HVAC_MODE_HEAT_COOL: "auto",
@@ -103,6 +105,7 @@ class TuyaClimateEntity(TuyaDevice, ClimateEntity):
         self._has_operation = False
         self._temp_entity = None
         self._temp_entity_error = False
+        self._def_hvac_mode = HVAC_MODE_HEAT_COOL
 
     async def async_added_to_hass(self):
         """Create operation list when add to hass."""
@@ -124,8 +127,8 @@ class TuyaClimateEntity(TuyaDevice, ClimateEntity):
 
         modes = self._tuya.operation_list()
         if modes is None:
-            if HVAC_MODE_HEAT_COOL not in self.operations:
-                self.operations.append(HVAC_MODE_HEAT_COOL)
+            if self._def_hvac_mode not in self.operations:
+                self.operations.append(self._def_hvac_mode)
             return
 
         for mode in modes:
@@ -157,7 +160,7 @@ class TuyaClimateEntity(TuyaDevice, ClimateEntity):
             return HVAC_MODE_OFF
 
         if not self._has_operation:
-            return HVAC_MODE_HEAT_COOL
+            return self._def_hvac_mode
 
         mode = self._tuya.current_operation()
         if mode is None:
@@ -210,6 +213,7 @@ class TuyaClimateEntity(TuyaDevice, ClimateEntity):
         """Set new target operation mode."""
         if hvac_mode == HVAC_MODE_OFF:
             self._tuya.turn_off()
+            return
 
         if not self._tuya.state():
             self._tuya.turn_on()
