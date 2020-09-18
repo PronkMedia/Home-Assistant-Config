@@ -27,9 +27,9 @@ cards:
         height: 50
         style: |
           ha-card {
-            margin: -35px 14px 3px 14px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+            margin: -35px 14px -11px 14px;
+            border-radius: 0;
+            border-bottom: 1px solid var(--secondary-text-color);
           }
         entities:
           - entity: person.male
@@ -54,6 +54,18 @@ cards:
         line_color:
           - "#ff8906"
           - "#337fbf"
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+        state_color: true
+        entities:
+          - entity: automation.vacation_mode
+            name: Vakantie
+            icon: mdi:island
       - type: entities
         style: |
           ha-card {
