@@ -29,7 +29,7 @@ cards:
           ha-card {
             margin: -35px 14px -11px 14px;
             border-radius: 0;
-            border-bottom: 1px solid var(--secondary-text-color);
+            border-bottom: 1px solid var(--divider-color);
           }
         entities:
           - entity: person.male

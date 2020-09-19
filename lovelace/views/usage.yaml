@@ -42,9 +42,6 @@ cards:
           .graph__legend__item {
             width: 46%;
           }
-          .graph {
-            margin-bottom: -1px;
-          }
         name: Slimme meter
         icon: mdi:counter
         entities:
@@ -84,7 +81,6 @@ cards:
               }
               .divider {
                 margin: 0 0 0 55px !important;
-                opacity: 1 !important;
               }
           "#states div:first-of-type hui-section-row":
             $: |
@@ -93,7 +89,6 @@ cards:
               }
               .divider {
                 margin: 8px -16px !important;
-                opacity: 1 !important;
               }
         show_header_toggle: false
         entities:

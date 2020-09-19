@@ -42,6 +42,9 @@ paper-slider-pin-color: "#8d8d8d"
 paper-slider-active-color: "#ffffff"
 paper-slider-container-color: "#7b7b7b"
 
+# Divider
+divider-color: "#333333"
+
 # Colors
 google-red-500: "#e63535"
 google-yellow-500: "#ffd311"
