@@ -6,134 +6,131 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
+        style:
+          .: |
+            ha-card {
+              margin: 14px 14px 3px 14px;
+            }
+            #states div > hui-toggle-entity-row {
+              display: none;
+            }
+          "#states div:nth-child(4)":
+            slider-entity-row:
+              $:
+                hui-generic-entity-row:
+                  $: |
+                    state-badge {
+                      transform: rotate(-45deg);
+                    }
         title: Huiskamer
         entities:
           - entity: light.spots
-            style: |
-              :host {
-                {% if is_state('light.spots', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            icon: mdi:circle-double
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.keuken', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.keuken
-            icon: mdi:track-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.eettafel', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.eettafel
-            icon: mdi:ceiling-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style:
-              .: |
-                :host {
-                  {% if is_state('light.buffetkast', 'unavailable') %}
-                    display: none;
-                  {% endif %}
-                }
-              hui-generic-entity-row:
-                $: |
-                  state-badge {
-                    transform: rotate(-45deg);
-                  }
-            entity: light.buffetkast
-            icon: mdi:wall-sconce-round-variant
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.speelhoek', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.speelhoek
-            icon: mdi:track-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.aanbouw', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.aanbouw
-            icon: mdi:track-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.vloerlamp', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.vloerlamp
-            icon: mdi:floor-lamp-variant
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: divider
-            style: |
-              :host {
-                {% if is_state('light.huiskamer', 'unavailable') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if not is_state('media_player.sonos_speakers', 'playing') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: media_player.sonos_speakers
-            name: Volume
-            icon: mdi:speaker
-            step: 1
-            hide_state: false
-          - type: divider
-            style: |
-              :host {
-                {% if not is_state('media_player.sonos_speakers', 'playing') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
+          - entity: light.keuken
+          - entity: light.eettafel
+          - entity: light.buffetkast
+          - entity: light.speelhoek
+          - entity: light.aanbouw
+          - entity: light.vloerlamp
+          - type: conditional
+            conditions:
+              - entity: light.spots
+                state_not: 'unavailable'
+            row:
+              entity: light.spots
+              icon: mdi:circle-double
+          - type: conditional
+            conditions:
+              - entity: light.keuken
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.keuken
+              icon: mdi:track-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.eettafel
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.eettafel
+              icon: mdi:ceiling-light
+              toggle: true
+              hide_when_off: true
+              step: 1              
+          - type: conditional
+            conditions:
+              - entity: light.buffetkast
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.buffetkast
+              icon: mdi:wall-sconce-round-variant
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.speelhoek
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.speelhoek
+              icon: mdi:track-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.aanbouw
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.aanbouw
+              icon: mdi:track-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.vloerlamp
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.vloerlamp
+              icon: mdi:floor-lamp-variant
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.huiskamer
+                state_not: 'unavailable'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
+          - type: conditional
+            conditions:
+              - entity: media_player.sonos_speakers
+                state: 'playing'
+            row:
+              type: custom:slider-entity-row
+              entity: media_player.sonos_speakers
+              name: Volume
+              icon: mdi:speaker
+              step: 1
+              hide_state: false
+          - type: conditional
+            conditions:
+              - entity: media_player.sonos_speakers
+                state: 'playing'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
           - entity: sensor.temperature_huiskamer
             name: Temperatuur
           - entity: sensor.light_huiskamer
@@ -147,30 +144,25 @@ cards:
         title: Toilet
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.toilet', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.toilet
-            icon: mdi:dome-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: divider
-            style: |
-              :host {
-                {% if is_state('light.toilet', 'unavailable') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
+          - type: conditional
+            conditions:
+              - entity: light.toilet
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.toilet
+              icon: mdi:dome-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.toilet
+                state_not: 'unavailable'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
           - entity: sensor.temperature_toilet
             name: Temperatuur
           - entity: sensor.light_toilet
@@ -184,30 +176,25 @@ cards:
         title: Kinderkamer
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.kinderkamer', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.kinderkamer
-            icon: mdi:ceiling-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: divider
-            style: |
-              :host {
-                {% if is_state('light.kinderkamer', 'unavailable') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
+          - type: conditional
+            conditions:
+              - entity: light.kinderkamer
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.kinderkamer
+              icon: mdi:ceiling-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.kinderkamer
+                state_not: 'unavailable'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
           - entity: sensor.temperature_baby_monitor
             name: Temperatuur
       - type: entities
@@ -218,30 +205,25 @@ cards:
         title: Slaapkamer
         show_header_toggle: false
         entities:
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.slaapkamer', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.slaapkamer
-            icon: mdi:globe-light
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: divider
-            style: |
-              :host {
-                {% if is_state('light.slaapkamer', 'unavailable') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
+          - type: conditional
+            conditions:
+              - entity: light.slaapkamer
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.slaapkamer
+              icon: mdi:globe-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.slaapkamer
+                state_not: 'unavailable'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
           - entity: sensor.temperature_slaapkamer
             name: Temperatuur
           - entity: sensor.light_slaapkamer
@@ -272,6 +254,9 @@ cards:
             ha-card {
               margin: 3px 14px 14px 14px;
             }
+            #states div > hui-toggle-entity-row {
+              display: none;
+            }
           "#states div":
             slider-entity-row:
               $:
@@ -279,69 +264,65 @@ cards:
                   $: |
                     state-badge {
                       transform: rotate(-90deg);
-                    }  
+                    }
         title: Buiten
         entities:
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.voordeur', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.voordeur
-            icon: mdi:wall-sconce-flat
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.achterdeur', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.achterdeur
-            icon: mdi:wall-sconce-flat
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.schuur', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.schuur
-            icon: mdi:wall-sconce-flat
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: custom:slider-entity-row
-            style: |
-              :host {
-                {% if is_state('light.parkeerplaats', 'unavailable') %}
-                  display: none;
-                {% endif %}
-              }
-            entity: light.parkeerplaats
-            icon: mdi:wall-sconce-flat
-            toggle: true
-            hide_when_off: true
-            step: 1
-          - type: divider
-            style: |
-              :host {
-                {% if is_state('light.buiten', 'unavailable') %}
-                  display: none;
-                {% else %}
-                  display: block;
-                  height: 1px;
-                  margin-left: 55px;
-                  background-color: var(--secondary-text-color);
-                {% endif %}
-              }
+          - entity: light.voordeur
+          - entity: light.achterdeur
+          - entity: light.schuur
+          - entity: light.parkeerplaats
+          - type: conditional
+            conditions:
+              - entity: light.voordeur
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.voordeur
+              icon: mdi:wall-sconce-flat
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.achterdeur
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.achterdeur
+              icon: mdi:wall-sconce-flat
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.schuur
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.schuur
+              icon: mdi:wall-sconce-flat
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.parkeerplaats
+                state_not: 'unavailable'
+            row:
+              type: custom:slider-entity-row
+              entity: light.parkeerplaats
+              icon: mdi:wall-sconce-flat
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.buiten
+                state_not: 'unavailable'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'
           - entity: sensor.temperature_buiten
             name: Temperatuur
           - entity: sensor.light_buiten
