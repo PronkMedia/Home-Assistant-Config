@@ -16,3 +16,6 @@
 # Swipe Navigation
 - url: /local/custom_lovelace/swipe-navigation.js?v=1.2.5
   type: js
+# Text Row
+- url: /local/custom_lovelace/text-row.js?v=0.0.1
+  type: module
