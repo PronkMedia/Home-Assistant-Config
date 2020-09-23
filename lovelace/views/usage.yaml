@@ -9,7 +9,7 @@ cards:
         style: |
           ha-card {
             z-index: 1;
-            margin: 14px 14px -35px 14px;
+            margin: 14px 14px -27px 14px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -69,47 +69,45 @@ cards:
         update_interval: 10
         line_width: 1
       - type: entities
-        style:
-          .: |
-            ha-card {
-              margin: 3px 14px;
-            }
-          "hui-section-row":
-            $: |
-              .label {
-                color: var(--primary-text-color) !important;
-              }
-              .divider {
-                margin: 0 0 0 55px !important;
-              }
-          "#states div:first-of-type hui-section-row":
-            $: |
-              .label {
-                color: var(--primary-text-color) !important;
-              }
-              .divider {
-                margin: 8px -16px !important;
-              }
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
         show_header_toggle: false
         entities:
-          - type: section
-            label: Vandaag
+          - type: divider
+            style:
+              margin: '0 -16px'
+          - type: custom:text-row
+            text: Vandaag
+            style: 
+              margin: "16px 0 8px 8px"
           - entity: sensor.daily_gas
             name: Gasverbruik
             icon: mdi:fire
           - entity: sensor.daily_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
-          - type: section
-            label: Huidige maand
+          - type: divider
+            style:
+              margin-left: '55px'
+          - type: custom:text-row
+            text: Huidige maand
+            style: 
+              margin: "16px 0 8px 8px"
           - entity: sensor.monthly_gas
             name: Gasverbruik
             icon: mdi:fire
           - entity: sensor.monthly_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
-          - type: section
-            label: Totaal
+          - type: divider
+            style:
+              margin-left: '55px'
+          - type: custom:text-row
+            text: Totaal
+            style: 
+              margin: "16px 0 8px 8px"
           - entity: sensor.total_gas
             name: Gasverbruik
             icon: mdi:fire
