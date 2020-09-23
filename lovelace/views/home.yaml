@@ -14,7 +14,7 @@ cards:
             #states div > hui-toggle-entity-row {
               display: none;
             }
-          "#states div:nth-child(4)":
+          "#states div:nth-child(11)":
             slider-entity-row:
               $:
                 hui-generic-entity-row:
