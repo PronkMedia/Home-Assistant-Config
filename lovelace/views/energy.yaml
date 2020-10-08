@@ -1,5 +1,5 @@
-title: Verbruik
-path: usage
+title: Energie
+path: energy
 icon: mdi:flash-outline
 panel: true
 cards:
@@ -124,7 +124,7 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
-          title: Koelkast
+          title: Verbruik Koelkast
           show_header_toggle: false
           entities:
             - entity: sensor.energy_monitor_1_watts
@@ -146,7 +146,7 @@ cards:
             ha-card {
               margin: 3px 14px;
             }
-          title: Quooker
+          title: Verbruik Quooker
           show_header_toggle: false
           entities:
             - entity: sensor.energy_monitor_2_watts
@@ -168,7 +168,7 @@ cards:
             ha-card {
               margin: 3px 14px 10px 14px;
             }
-          title: TV apparatuur
+          title: Verbruik TV apparatuur
           show_header_toggle: false
           entities:
             - entity: sensor.energy_monitor_3_watts
