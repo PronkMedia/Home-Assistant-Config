@@ -61,6 +61,9 @@ cards:
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }
+          #states {
+            padding-top: 8px;
+          }
         state_color: true
         entities:
           - entity: automation.vacation_mode
