@@ -22,6 +22,7 @@ cards:
           }
           .entity__info__media {
             padding: 22px 0;
+            opacity: 1 !important;
             font-weight: 300 !important;
             line-height: 32px !important;
             color: var(--primary-text-color) !important;
