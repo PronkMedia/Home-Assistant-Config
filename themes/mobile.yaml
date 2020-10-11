@@ -56,19 +56,13 @@ paper-orange-400: "#ff8906"
 
 # Card-Mod Custom CSS
 card-mod-theme: mobile
-card-mod-root:
-  .: |
-    app-toolbar {
-      display: none;
-    }
-    paper-tabs {
-      padding-left: 2px;
-    }
-    paper-tab {
-      padding: 0 10px;
-    }
-  "div[sticky] paper-tabs":
-    $: |
-      paper-icon-button {
-        display: none;
-      }
+card-mod-root: |
+  app-toolbar {
+    display: none;
+  }
+  paper-tabs {
+    margin: 0 -42px !important;
+  }
+  paper-tab {
+    padding: 0 10px;
+  }
