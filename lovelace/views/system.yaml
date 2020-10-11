@@ -84,6 +84,7 @@ cards:
             font-size: 10px;
           }
         name: Systeem verbruik
+        icon: mdi:chip
         entities:
           - entity: sensor.processor_use
             name: CPU (%)
