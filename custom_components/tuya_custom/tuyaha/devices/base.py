@@ -1,8 +1,5 @@
 import time
 from datetime import datetime
-import logging
-
-_LOGGER = logging.getLogger(__name__)
 
 
 class TuyaDevice:
@@ -21,6 +18,9 @@ class TuyaDevice:
 
     def _update_data(self, key, value, force_val=False):
         if self.data:
+            # device properties not provided by Tuya API are saved in the
+            # device cache only if force_val=True. This is used to force
+            # in cache missing API values (e.g color mode for light)
             if not force_val and self.data.get(key) is None:
                 return
             self.data[key] = value
@@ -34,9 +34,15 @@ class TuyaDevice:
             self._last_update = datetime.now()
         return success
 
+    # Update device cache using discovery or query command
+    # Due to the limitation of both command it is possible
+    # to choose which one to use. Because discovery return data
+    # for all devices, is preferred method with multiple device
+    # Query can be called with higher frequency but return
+    # values for a single device
     def _update(self, use_discovery):
 
-        """Avoid get cache value after control."""
+        # Avoid get cache value after control.
         difference = (datetime.now() - self._last_update).total_seconds()
         wait_delay = difference < 0.5
 
@@ -64,28 +70,14 @@ class TuyaDevice:
             if wait_delay:
                 time.sleep(0.5)
 
-            success, response = self.api.device_control(
-                self.obj_id, "QueryDevice", namespace="query"
-            )
-            self._last_query = datetime.now()
+            try:
+                success, response = self.api.device_control(
+                    self.obj_id, "QueryDevice", namespace="query"
+                )
+            finally:
+                self._last_query = datetime.now()
             if success:
                 data = response["payload"]["data"]
-
-            # Logging FrequentlyInvoke
-            else:
-                def get_result_code():
-                    if not response:
-                        return ""
-                    return response["header"]["code"]
-
-                result_code = get_result_code()
-                if result_code == "FrequentlyInvoke":
-                    _LOGGER.info(
-                        "Method [Query] for device %s fails using poll interval %s - error: %s",
-                        self.obj_id,
-                        self.api.query_interval,
-                        response["header"].get("msg", result_code),
-                    )
 
         if data:
             if not self.data:

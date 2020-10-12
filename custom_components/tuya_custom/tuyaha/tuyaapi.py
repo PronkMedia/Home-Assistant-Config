@@ -12,10 +12,18 @@ from .devices.factory import get_tuya_device
 TUYACLOUDURL = "https://px1.tuya{}.com"
 DEFAULTREGION = "us"
 
-MIN_DISCOVERY_INTERVAL = 60.0
-DEF_DISCOVERY_INTERVAL = 305.0
-MIN_QUERY_INTERVAL = 10.0
-DEF_QUERY_INTERVAL = 60.0
+# Tuya API do not allow call to discovery command below specific limits
+# Use discovery_interval property to set correct value based on API discovery limits
+# Next 2 parameter define the default and minimum allowed value for the property
+MIN_DISCOVERY_INTERVAL = 10.0  # 10 seconds
+DEF_DISCOVERY_INTERVAL = 60.0  # 60 seconds
+
+# Tuya API do not allow call to query command below specific limits
+# Use query_interval property to set correct value based on API query limits
+# Next 2 parameter define the default and minimum allowed value for the property
+MIN_QUERY_INTERVAL = 10.0  # 10 seconds
+DEF_QUERY_INTERVAL = 30.0  # 30 seconds
+
 REFRESHTIME = 60 * 60 * 12
 
 _LOGGER = logging.getLogger(__name__)
@@ -43,29 +51,37 @@ class TuyaApi:
     def __init__(self):
         self._requestSession = None
         self._discovered_devices = None
-        self._last_discover = None
+        self._last_discovery = None
         self._force_discovery = False
-        self._discovery_interval = 0.0
-        self._query_interval = 0.0
+        self._discovery_interval = DEF_DISCOVERY_INTERVAL
+        self._query_interval = DEF_QUERY_INTERVAL
         self._discovery_fail_count = 0
 
     @property
     def discovery_interval(self):
-        return self._discovery_interval or DEF_DISCOVERY_INTERVAL
+        """The interval in seconds between 2 consecutive device discovery"""
+        return self._discovery_interval
 
     @discovery_interval.setter
     def discovery_interval(self, val):
-        if val >= MIN_DISCOVERY_INTERVAL:
-            self._discovery_interval = val
+        if val < MIN_DISCOVERY_INTERVAL:
+            raise ValueError(
+                f"Discovery interval below {MIN_DISCOVERY_INTERVAL} seconds is invalid"
+            )
+        self._discovery_interval = val
 
     @property
     def query_interval(self):
-        return self._query_interval or DEF_QUERY_INTERVAL
+        """The interval in seconds between 2 consecutive device query"""
+        return self._query_interval
 
     @query_interval.setter
     def query_interval(self, val):
-        if val >= MIN_QUERY_INTERVAL:
-            self._query_interval = val
+        if val < MIN_QUERY_INTERVAL:
+            raise ValueError(
+                f"Query interval below {MIN_QUERY_INTERVAL} seconds is invalid"
+            )
+        self._query_interval = val
 
     def init(self, username, password, countryCode, bizType=""):
         SESSION.username = username
@@ -155,46 +171,42 @@ class TuyaApi:
                 device["data"] = data
 
     def _call_discovery(self):
-        if not self._last_discover or self._force_discovery:
-            self._last_discover = datetime.now()
+        if not self._last_discovery or self._force_discovery:
             self._force_discovery = False
             return True
-        difference = (datetime.now() - self._last_discover).total_seconds()
+        difference = (datetime.now() - self._last_discovery).total_seconds()
         if difference > self.discovery_interval:
-            self._last_discover = datetime.now()
             return True
         return False
 
+    # if discovery is called before that configured polling interval has passed
+    # it return cached data retrieved by previous successful call
     def discovery(self):
         with lock:
             if self._call_discovery():
-                response = self._request("Discovery", "discovery")
+                try:
+                    response = self._request("Discovery", "discovery")
+                finally:
+                    self._last_discovery = datetime.now()
                 if response:
                     result_code = response["header"]["code"]
                     if result_code == "SUCCESS":
                         self._discovery_fail_count = 0
                         self._discovered_devices = response["payload"]["devices"]
-
-                    # Logging FrequentlyInvoke
-                    elif result_code == "FrequentlyInvoke":
-                        self._discovery_fail_count += 1
-                        _LOGGER.info(
-                            "Method [Discovery] fails %s time(s) using poll interval %s - error: %s",
-                            self._discovery_fail_count,
-                            self.discovery_interval,
-                            response["header"].get("msg", result_code),
-                        )
+                        self._load_session_devices()
             else:
                 _LOGGER.debug("Discovery: Use cached info")
         return self._discovered_devices
+
+    def _load_session_devices(self):
+        SESSION.devices = []
+        for device in self._discovered_devices:
+            SESSION.devices.extend(get_tuya_device(device, self))
 
     def discover_devices(self):
         devices = self.discovery()
         if not devices:
             return None
-        SESSION.devices = []
-        for device in devices:
-            SESSION.devices.extend(get_tuya_device(device, self))
         return devices
 
     def get_devices_by_type(self, dev_type):
@@ -248,13 +260,38 @@ class TuyaApi:
                 devId,
             )
             return
+
         response_json = response.json()
         _LOGGER.debug("Tuya request response: %s", response_json)
-        if response_json["header"]["code"] != "SUCCESS":
-            _LOGGER.debug(
-                "control device error, error code is " + response_json["header"]["code"]
-            )
+        result_code = response_json["header"]["code"]
+        if result_code != "SUCCESS":
+            if result_code == "FrequentlyInvoke":
+                self._raise_frequently_invoke(
+                    name, response_json["header"].get("msg", result_code), devId
+                )
+            else:
+                _LOGGER.debug(
+                    "control device error, error code is " + response_json["header"]["code"]
+                )
         return response_json
+
+    def _raise_frequently_invoke(self, action, error_msg, dev_id):
+        if action == "Discovery":
+            self._discovery_fail_count += 1
+            text = (
+                "Method [Discovery] fails {} time(s) using poll interval {} - error: {}"
+            )
+            message = text.format(
+                self._discovery_fail_count, self.discovery_interval, error_msg
+            )
+        else:
+            text = "Method [{}] for device {} fails {}- error: {}"
+            msg_interval = ""
+            if action == "QueryDevice":
+                msg_interval = "using poll interval {} ".format(self.query_interval)
+            message = text.format(action, dev_id, msg_interval, error_msg)
+
+        raise TuyaFrequentlyInvokeException(message)
 
 
 class TuyaAPIException(Exception):
@@ -266,4 +303,8 @@ class TuyaNetException(Exception):
 
 
 class TuyaServerException(Exception):
+    pass
+
+
+class TuyaFrequentlyInvokeException(Exception):
     pass

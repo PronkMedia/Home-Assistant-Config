@@ -3,7 +3,14 @@ import asyncio
 from datetime import timedelta
 import logging
 
-from .tuyaha.tuyaapi import TuyaApi, TuyaAPIException, TuyaNetException, TuyaServerException
+from .tuyaha.tuyaapi import (
+    TuyaApi,
+    TuyaAPIException,
+    TuyaNetException,
+    TuyaServerException,
+    TuyaFrequentlyInvokeException,
+)
+
 import voluptuous as vol
 
 from homeassistant.config_entries import SOURCE_IMPORT
@@ -25,13 +32,19 @@ from homeassistant.helpers.event import async_track_time_interval
 
 from .const import (
     CONF_BRIGHTNESS_RANGE_MODE,
-    CONF_MAX_COLOR_TEMP,
+    CONF_DISCOVERY_INTERVAL,
+    CONF_QUERY_INTERVAL,
+    CONF_MAX_KELVIN,
+    CONF_MIN_KELVIN,
+    CONF_MAX_TUYA_TEMP,
     CONF_COUNTRYCODE,
     CONF_CURR_TEMP_DIVIDER,
     CONF_EXT_TEMP_SENSOR,
     CONF_DEVICE_NAME,
     CONF_SUPPORT_COLOR,
     CONF_TEMP_DIVIDER,
+    DEFAULT_DISCOVERY_INTERVAL,
+    DEFAULT_QUERY_INTERVAL,
     DOMAIN,
     TUYA_DATA,
     TUYA_DEVICES_CONF,
@@ -76,7 +89,9 @@ TUYA_DEVICE_CONF_SCHEMA = {
                     vol.Optional(CONF_EXT_TEMP_SENSOR): cv.string,
                     vol.Optional(CONF_SUPPORT_COLOR): cv.boolean,
                     vol.Optional(CONF_BRIGHTNESS_RANGE_MODE, default=0): cv.positive_int,
-                    vol.Optional(CONF_MAX_COLOR_TEMP, default=0): cv.positive_int,
+                    vol.Optional(CONF_MIN_KELVIN): cv.positive_int,
+                    vol.Optional(CONF_MAX_KELVIN): cv.positive_int,
+                    vol.Optional(CONF_MAX_TUYA_TEMP): cv.positive_int,
                 }
             )
         ],
@@ -98,6 +113,34 @@ CONFIG_SCHEMA = vol.Schema(
     ),
     extra=vol.ALLOW_EXTRA,
 )
+
+
+def _update_discovery_interval(hass, interval):
+    tuya = hass.data[DOMAIN].get(TUYA_DATA)
+    if not tuya:
+        return
+
+    try:
+        tuya.discovery_interval = interval
+        _LOGGER.info(
+            "Tuya discovery device poll interval set to %s seconds", interval
+        )
+    except ValueError as ex:
+        _LOGGER.warning(ex)
+
+
+def _update_query_interval(hass, interval):
+    tuya = hass.data[DOMAIN].get(TUYA_DATA)
+    if not tuya:
+        return
+
+    try:
+        tuya.query_interval = interval
+        _LOGGER.info(
+            "Tuya query device poll interval set to %s seconds", interval
+        )
+    except ValueError as ex:
+        _LOGGER.warning(ex)
 
 
 async def async_setup(hass, config):
@@ -138,7 +181,7 @@ async def async_setup_entry(hass, entry):
         await hass.async_add_executor_job(
             tuya.init, username, password, country_code, platform
         )
-    except (TuyaNetException, TuyaServerException):
+    except (TuyaNetException, TuyaServerException, TuyaFrequentlyInvokeException):
         raise ConfigEntryNotReady()
 
     except TuyaAPIException as exc:
@@ -153,7 +196,23 @@ async def async_setup_entry(hass, entry):
         ENTRY_IS_SETUP: set(),
         "entities": {},
         "pending": {},
+        entry.entry_id:
+        {
+            "listener": [entry.add_update_listener(update_listener)],
+        }
     })
+
+    _update_discovery_interval(
+        hass, entry.options.get(
+            CONF_DISCOVERY_INTERVAL, DEFAULT_DISCOVERY_INTERVAL
+        )
+    )
+
+    _update_query_interval(
+        hass, entry.options.get(
+            CONF_QUERY_INTERVAL, DEFAULT_QUERY_INTERVAL
+        )
+    )
 
     async def async_load_devices(device_list):
         """Load new devices by device_list."""
@@ -181,11 +240,13 @@ async def async_setup_entry(hass, entry):
             else:
                 async_dispatcher_send(hass, TUYA_DISCOVERY_NEW.format(ha_type), dev_ids)
 
-    device_list = await hass.async_add_executor_job(tuya.get_all_devices)
-    await async_load_devices(device_list)
+    await async_load_devices(tuya.get_all_devices())
 
     def _get_updated_devices():
-        tuya.poll_devices_update()
+        try:
+            tuya.poll_devices_update()
+        except TuyaFrequentlyInvokeException as ex:
+            _LOGGER.warning(ex)
         return tuya.get_all_devices()
 
     async def async_poll_devices_update(event_time):
@@ -217,11 +278,6 @@ async def async_setup_entry(hass, entry):
 
     hass.services.async_register(DOMAIN, SERVICE_FORCE_UPDATE, async_force_update)
 
-    _LOGGER.info(
-        "Tuya platform initialized with discover poll interval set to %s seconds",
-        tuya.discovery_interval,
-    )
-
     return True
 
 
@@ -238,6 +294,9 @@ async def async_unload_entry(hass, entry):
         )
     )
     if unload_ok:
+        for listener in hass.data[DOMAIN][entry.entry_id]["listener"]:
+            listener()
+        hass.data[DOMAIN].pop(entry.entry_id)
         hass.data[DOMAIN][ENTRY_IS_SETUP] = set()
         hass.data[DOMAIN][TUYA_TRACKER]()
         hass.data[DOMAIN][TUYA_TRACKER] = None
@@ -248,6 +307,20 @@ async def async_unload_entry(hass, entry):
         hass.data.pop(DOMAIN)
 
     return unload_ok
+
+
+async def update_listener(hass, entry):
+    """Update when config_entry options update."""
+    _update_discovery_interval(
+        hass, entry.options.get(
+            CONF_DISCOVERY_INTERVAL, DEFAULT_DISCOVERY_INTERVAL
+        )
+    )
+    _update_query_interval(
+        hass, entry.options.get(
+            CONF_QUERY_INTERVAL, DEFAULT_QUERY_INTERVAL
+        )
+    )
 
 
 async def cleanup_device_registry(hass, device_id):
@@ -352,7 +425,10 @@ class TuyaDevice(Entity):
 
     def update(self):
         """Refresh Tuya device data."""
-        self._tuya.update(use_discovery=(TuyaDevice._device_count > 1))
+        try:
+            self._tuya.update(use_discovery=(TuyaDevice._device_count > 1))
+        except TuyaFrequentlyInvokeException as ex:
+            _LOGGER.warning(ex)
 
     async def _delete_callback(self, dev_id):
         """Remove this entity."""
