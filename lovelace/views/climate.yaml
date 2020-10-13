@@ -30,7 +30,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#e63535"
+        line_color: var(--label-badge-red)
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -56,7 +56,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#337fbf"
+        line_color: var(--label-badge-blue)
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -82,7 +82,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#ff8906"
+        line_color: var(--paper-orange-400)
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -108,7 +108,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#7bcc00"
+        line_color: var(--label-badge-green)
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -134,4 +134,4 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: "#ffd311"
+        line_color: var(--label-badge-yellow)

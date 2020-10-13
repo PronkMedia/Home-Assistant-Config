@@ -34,8 +34,10 @@ cards:
         entities:
           - entity: person.male
             name: !secret person_male
+            color: var(--paper-orange-400)
           - entity: person.female
             name: !secret person_female
+            color: var(--label-badge-blue)
         show:
           name: false
           icon: false
@@ -51,9 +53,6 @@ cards:
             label: Afwezig
           - value: "home"
             label: Aanwezig
-        line_color:
-          - "#ff8906"
-          - "#337fbf"
       - type: entities
         style: |
           ha-card {
@@ -103,12 +102,16 @@ cards:
         entities:
           - entity: group.motion_huiskamer
             name: Huiskamer
+            color: var(--label-badge-red)
           - entity: binary_sensor.motion_sensor_toilet_motion_api
             name: Toilet
+            color: var(--paper-orange-400)
           - entity: group.motion_tuin
             name: Tuin
+            color: var(--label-badge-blue)
           - entity: binary_sensor.motion_sensor_parkeerplaats_motion_api
             name: Parkeerplaats
+            color: var(--label-badge-green)
         show:
           name: false
           icon: false
@@ -124,8 +127,3 @@ cards:
             label: Niet gedetecteerd
           - value: "on"
             label: Gedetecteerd
-        line_color:
-          - "#e63535"
-          - "#ff8906"
-          - "#337fbf"
-          - "#7bcc00"

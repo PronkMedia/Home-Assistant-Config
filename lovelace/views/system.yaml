@@ -65,7 +65,7 @@ cards:
         points_per_hour: 30
         decimals: 1
         line_width: 1
-        line_color: "#ff8906"
+        line_color: var(--paper-orange-400)
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -88,12 +88,15 @@ cards:
         entities:
           - entity: sensor.processor_use
             name: CPU (%)
+            color: var(--label-badge-red)
             show_fill: false
           - entity: sensor.memory_use_percent
             name: RAM (%)
+            color: var(--label-badge-blue)
             show_fill: false
           - entity: sensor.disk_use_percent
             name: SD (%)
+            color: var(--label-badge-green)
             show_fill: false
         show:
           labels: true
@@ -103,10 +106,6 @@ cards:
         decimals: 0
         lower_bound: 0
         line_width: 1
-        line_color:
-          - "#e63535"
-          - "#337fbf"
-          - "#7bcc00"
       - type: custom:mini-graph-card
         style: |
           ha-card {
@@ -129,9 +128,11 @@ cards:
         entities:
           - entity: sensor.network_throughput_in
             name: Inkomend (KB/s)
+            color: var(--label-badge-blue)
             show_fill: false
           - entity: sensor.network_throughput_out
             name: Uitgaand (KB/s)
+            color: var(--paper-orange-400)
             show_fill: false
         show:
           labels: true
@@ -140,6 +141,3 @@ cards:
         points_per_hour: 30
         decimals: 0
         line_width: 1
-        line_color:
-          - "#337fbf"
-          - "#ff8906"
