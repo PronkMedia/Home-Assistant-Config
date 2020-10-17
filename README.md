@@ -42,6 +42,10 @@ My Home Assistant configuration & documentation.
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)
     - 1x USB > Serial Cable (P1)
+- GoodWe 
+    - 1x Solar Inverter (GoodWe GW2500-XS)
+- Canadian Solar
+    - 9x Solar Panel (KuBlack CS3K-310MS)
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
 

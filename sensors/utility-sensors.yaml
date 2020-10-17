@@ -16,7 +16,7 @@
     daily_energy:
       friendly_name: Daily Energy
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.daily_energy_consumption') | float - states('sensor.daily_energy_production') | float }}"
+      value_template: "{{ (states('sensor.daily_energy_consumption') | float - states('sensor.daily_energy_production') | float) | round(3) }}"
     monthly_gas:
       friendly_name: Monthly Gas
       unit_of_measurement: m3

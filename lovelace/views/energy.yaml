@@ -29,7 +29,7 @@ cards:
             content: ""; 
               height: 10px;
               width: 10px;
-              background-color: var(--paper-blue-400);
+              background-color: var(--label-badge-blue);
               border-radius: 50%;
               margin: 9px 6px 0 0;
           }
@@ -47,17 +47,17 @@ cards:
         entities:
           - entity: sensor.hourly_gas_consumption
             name: Gas (verbruik)
-            color: "#337fbf"
+            color: var(--label-badge-blue)
             show_state: true
             show_indicator: true
           - entity: sensor.power_consumption
             name: Stroom (verbruik)
-            color: "#e63535"
+            color: var(--label-badge-red)
             show_state: true
             show_indicator: true
           - entity: sensor.power_production
             name: Stroom (productie)
-            color: "#7bcc00"
+            color: var(--label-badge-green)
             show_state: true
             show_indicator: true
         show:
@@ -114,6 +114,85 @@ cards:
           - entity: sensor.total_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            z-index: 1;
+            margin: 3px 14px -27px 14px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .header {
+            margin-top: 14px;
+          }
+          .name > span {
+            font-size: var(--ha-card-header-font-size) !important;
+            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+        name: Zonnepanelen
+        icon: mdi:solar-panel-large
+        entities:
+          - entity: sensor.sems_portal_outputpower
+            color: var(--label-badge-yellow)
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        decimals: 3
+        lower_bound: 0
+        update_interval: 60
+        line_width: 1
+      - type: entities
+        style: |
+          ha-card {
+            margin: 3px 14px;
+          }
+        show_header_toggle: false
+        entities:
+          - type: divider
+            style:
+              margin: '0 -16px'
+          - type: custom:text-row
+            text: Opbrengst panelen
+            style: 
+              margin: "16px 0 8px 8px"
+          - entity: sensor.daily_energy_generation
+            name: Vandaag
+            icon: mdi:solar-power
+          - entity: sensor.monthly_energy_generation
+            name: Huidige maand
+            icon: mdi:solar-power
+          - entity: sensor.sems_portal_etotal
+            name: Totaal
+            icon: mdi:solar-power
+          - type: divider
+            style:
+              margin-left: '55px'
+          - type: custom:text-row
+            text: Omvormer informatie
+            style: 
+              margin: "16px 0 8px 8px"
+          - entity: sensor.sems_portal_status
+            name: Status
+            icon: mdi:power
+          - entity: sensor.sems_portal_capacity
+            name: Maximaal vermogen
+            icon: mdi:solar-panel
+          - entity: sensor.sems_portal_hour_total
+            name: Totale bedrijfstijd
+            icon: mdi:clock-outline
+          - type: conditional
+            conditions:
+              - entity: sensor.sems_portal_status
+                state: 'Online'
+            row:
+              entity: sensor.sems_portal_temperature
+              name: Temperatuur
       - type: conditional
         conditions:
           - entity: switch.energy_monitor_1
