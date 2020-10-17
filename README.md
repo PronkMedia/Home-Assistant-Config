@@ -3,7 +3,7 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 0.116.2
+    - Core 0.116.4
     - Operating System 4.13
     - Supervisor 247
 
