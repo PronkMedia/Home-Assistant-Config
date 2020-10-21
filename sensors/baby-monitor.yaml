@@ -1,7 +1,10 @@
 # Baby Monitor (Motorola MBP-854 Connect)
 - platform: rest
-  resource: !secret api_motorola_mbp854connect
-  force_update: true
   name: Temperature Baby Monitor
+  resource: !secret api_motorola_mbp854connect
   value_template: '{{ (value.split(": ")[1] | float) | round(1) }}'
   unit_of_measurement: "°C"
+  scan_interval:
+    seconds: 60
+  timeout: 30
+  force_update: true
