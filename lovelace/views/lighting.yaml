@@ -170,6 +170,10 @@ cards:
         show_state: false
         columns: 3
         entities:
+          - entity: light.overloop
+            icon: mdi:dome-light
+            tap_action:
+              action: more-info
           - entity: light.kinderkamer
             icon: mdi:ceiling-light
             tap_action:

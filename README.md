@@ -20,7 +20,7 @@ My Home Assistant configuration & documentation.
     - 3x Outdoor Sensor (SML002)
     - 1x Dimmer Switch (RWL021)
     - 1x Smart Plug (LOM001)
-    - 1x E27 White (LWB010)
+    - 2x E27 White (LWB010)
     - 4x E27 White (LWA001)
     - 1x E27 White and Ambiance (LTW010)
     - 1x E14 White and Ambiance (LTW012)
