@@ -11,9 +11,8 @@ My Home Assistant configuration & documentation.
 - Raspberry Pi Foundation
     - 1x Raspberry Pi 4 (Model B / 4GB)
     - 1x Raspberry Pi Official Power Supply (15.3W USB-C)
-- Pimoroni Ltd
-    - Pibow Coupé 4 Ninja Case (PIM463)
-    - Fan SHIM for Raspberry Pi (PIM461)
+- Aokin
+    - Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
 - Philips Hue
     - 1x Bridge (BSB002)
     - 4x Motion Sensor (SML001)
