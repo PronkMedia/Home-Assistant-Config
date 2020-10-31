@@ -34,3 +34,21 @@ monthly_energy_production_peak:
 monthly_energy_generation:
   source: sensor.sems_portal_etotal
   cycle: monthly
+yearly_gas_consumption:
+  source: sensor.gas_consumption
+  cycle: yearly
+yearly_energy_consumption_offpeak:
+  source: sensor.energy_consumption_tarif_1
+  cycle: yearly
+yearly_energy_consumption_peak:
+  source: sensor.energy_consumption_tarif_2
+  cycle: yearly
+yearly_energy_production_offpeak:
+  source: sensor.energy_production_tarif_1
+  cycle: yearly
+yearly_energy_production_peak:
+  source: sensor.energy_production_tarif_2
+  cycle: yearly
+yearly_energy_generation:
+  source: sensor.sems_portal_etotal
+  cycle: yearly

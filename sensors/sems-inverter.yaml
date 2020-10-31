@@ -9,19 +9,22 @@
     sems_portal_status:
       value_template: '{% if is_state("sensor.sems_portal", "1") %}Online{% else %}Offline{% endif %}'
     sems_portal_capacity:
-      value_template: '{{ states.sensor.sems_portal.attributes.capacity | float }}'
+      value_template: '{{ state_attr("sensor.sems_portal", "capacity") | float }}'
       unit_of_measurement: 'kW'
     sems_portal_outputpower:
-      value_template: '{{ states.sensor.sems_portal.attributes.outputpower | float / 1000 }}'
+      value_template: '{{ state_attr("sensor.sems_portal", "outputpower") | float / 1000 }}'
       unit_of_measurement: 'kW'
     sems_portal_temperature:
-      value_template: '{{ states.sensor.sems_portal.attributes.tempperature }}'
+      value_template: '{{ state_attr("sensor.sems_portal", "tempperature") }}'
       unit_of_measurement: "°C"
     sems_portal_hour_total:
-      value_template: '{{ states.sensor.sems_portal.attributes.hour_total | round(0) }} uur'
+      value_template: '{{ state_attr("sensor.sems_portal", "hour_total") | round(0) }} uur'
     sems_portal_eday:
-      value_template: '{{ states.sensor.sems_portal.attributes.eday | float }}'
+      value_template: '{{ state_attr("sensor.sems_portal", "eday") | float }}'
+      unit_of_measurement: 'kWh'
+    sems_portal_thismonthetotle:
+      value_template: '{{ state_attr("sensor.sems_portal", "thismonthetotle") | float }}'
       unit_of_measurement: 'kWh'
     sems_portal_etotal:
-      value_template: '{{ states.sensor.sems_portal.attributes.etotal | float }}'
+      value_template: '{{  state_attr("sensor.sems_portal", "etotal") | float }}'
       unit_of_measurement: 'kWh'
