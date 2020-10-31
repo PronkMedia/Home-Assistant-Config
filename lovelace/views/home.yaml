@@ -1,16 +1,12 @@
 title: Home
 path: home
 icon: mdi:home-variant-outline
-panel: true
 cards:
   - type: vertical-stack
     cards:
       - type: entities
         style:
           .: |
-            ha-card {
-              margin: 14px 14px 3px 14px;
-            }
             #states div > hui-toggle-entity-row {
               display: none;
             }
@@ -137,10 +133,6 @@ cards:
             name: Verlichtingssterkte
             icon: mdi:brightness-6
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Toilet
         show_header_toggle: false
         entities:
@@ -174,10 +166,6 @@ cards:
             state_not: "unavailable"
         card:
           type: entities
-          style: |
-            ha-card {
-              margin: 3px 14px;
-            }
           title: Overloop
           show_header_toggle: false
           entities:
@@ -188,10 +176,6 @@ cards:
               hide_when_off: true
               step: 1
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Kinderkamer
         show_header_toggle: false
         entities:
@@ -217,10 +201,6 @@ cards:
           - entity: sensor.temperature_baby_monitor
             name: Temperatuur
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Slaapkamer
         show_header_toggle: false
         entities:
@@ -254,10 +234,6 @@ cards:
             state_not: "unavailable"
         card:
           type: entities
-          style: |
-            ha-card {
-              margin: 3px 14px;
-            }
           title: Zolder
           show_header_toggle: false
           entities:
@@ -270,9 +246,6 @@ cards:
       - type: entities
         style:
           .: |
-            ha-card {
-              margin: 3px 14px 14px 14px;
-            }
             #states div > hui-toggle-entity-row {
               display: none;
             }

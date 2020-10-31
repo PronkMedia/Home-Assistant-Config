@@ -1,15 +1,10 @@
 title: Systeem
 path: system
 icon: mdi:server
-panel: true
 cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
         title: Home assistant informatie
         show_header_toggle: false
         entities:
@@ -23,10 +18,6 @@ cards:
             name: Laatste herstart
             icon: mdi:update
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Systeem informatie
         show_header_toggle: false
         entities:
@@ -41,15 +32,12 @@ cards:
             icon: mdi:update
       - type: custom:mini-graph-card
         style: |
-          ha-card {
-            margin: 3px 14px;
-          }
           .header {
             margin-top: 10px;
           }
           .name > span {
-            font-size: var(--ha-card-header-font-size) !important;
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
@@ -68,15 +56,12 @@ cards:
         line_color: var(--paper-orange-400)
       - type: custom:mini-graph-card
         style: |
-          ha-card {
-            margin: 3px 14px;
-          }
           .header {
             margin-top: 10px;
           }
           .name > span {
-            font-size: var(--ha-card-header-font-size) !important;
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
@@ -108,15 +93,12 @@ cards:
         line_width: 1
       - type: custom:mini-graph-card
         style: |
-          ha-card {
-            margin: 3px 14px 14px 14px;
-          }
           .header {
             margin-top: 10px;
           }
           .name > span {
-            font-size: var(--ha-card-header-font-size) !important;
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }

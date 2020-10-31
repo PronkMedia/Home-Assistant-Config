@@ -1,15 +1,10 @@
 title: Verlichting
 path: lighting
 icon: mdi:lightbulb-outline
-panel: true
 cards:
   - type: vertical-stack
     cards:
       - type: glance
-        style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
         title: Scenes
         show_state: false
         columns: 3
@@ -54,7 +49,7 @@ cards:
         style: |
           ha-card {
             z-index: 1;
-            margin: 3px 14px -35px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -76,7 +71,7 @@ cards:
       - type: entities
         style: |
           ha-card {
-            margin: 3px 14px -35px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -94,7 +89,7 @@ cards:
         style:
           .: |
             ha-card {
-              margin: 3px 14px -35px 14px;
+              margin-bottom: -26px;
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
             }
@@ -141,7 +136,7 @@ cards:
       - type: entities
         style: |
           ha-card {
-            margin: 3px 14px -35px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -163,7 +158,7 @@ cards:
       - type: glance
         style: |
           ha-card {
-            margin: 3px 14px -35px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -190,7 +185,7 @@ cards:
       - type: entities
         style: |
           ha-card {
-            margin: 3px 14px -35px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -212,10 +207,6 @@ cards:
       - type: glance
         style:
           .: |
-            ha-card {
-              z-index: 1;
-              margin: 3px 14px 14px 14px;
-            }
           ".entities div":
             $: |
               state-badge {

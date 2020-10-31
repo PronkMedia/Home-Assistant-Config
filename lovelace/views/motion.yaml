@@ -1,15 +1,10 @@
 title: Motion
 path: motion
 icon: mdi:motion-sensor
-panel: true
 cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
         title: Aanwezigheid
         show_header_toggle: false
         entities:
@@ -27,7 +22,8 @@ cards:
         height: 50
         style: |
           ha-card {
-            margin: -35px 14px -11px 14px;
+            margin-top: -26px;
+            margin-bottom: -10px;
             border-radius: 0;
             border-bottom: 1px solid var(--divider-color);
           }
@@ -56,7 +52,6 @@ cards:
       - type: entities
         style: |
           ha-card {
-            margin: 3px 14px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }
@@ -69,10 +64,6 @@ cards:
             name: Vakantie
             icon: mdi:island
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Bewegingsdetectie
         state_color: true
         entities:
@@ -92,7 +83,7 @@ cards:
         height: 50
         style: |
           ha-card {
-            margin: -35px 14px 14px 14px;
+            margin-top: -26px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }

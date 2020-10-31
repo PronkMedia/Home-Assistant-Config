@@ -1,7 +1,6 @@
 title: Energie
 path: energy
 icon: mdi:flash-outline
-panel: true
 cards:
   - type: vertical-stack
     cards:
@@ -9,16 +8,16 @@ cards:
         style: |
           ha-card {
             z-index: 1;
-            margin: 14px 14px -27px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
           .header {
-            margin-top: 14px;
+            margin-top: 10px;
           }
           .name > span {
-            font-size: var(--ha-card-header-font-size) !important;
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
@@ -69,10 +68,6 @@ cards:
         update_interval: 10
         line_width: 1
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         show_header_toggle: false
         entities:
           - type: divider
@@ -118,16 +113,16 @@ cards:
         style: |
           ha-card {
             z-index: 1;
-            margin: 3px 14px -27px 14px;
+            margin-bottom: -26px;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
           .header {
-            margin-top: 14px;
+            margin-top: 10px;
           }
           .name > span {
-            font-size: var(--ha-card-header-font-size) !important;
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
             opacity: 1 !important;
           }
@@ -148,10 +143,6 @@ cards:
         update_interval: 60
         line_width: 1
       - type: entities
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         show_header_toggle: false
         entities:
           - type: divider
@@ -161,10 +152,10 @@ cards:
             text: Opbrengst panelen
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.daily_energy_generation
+          - entity: sensor.sems_portal_eday
             name: Vandaag
             icon: mdi:solar-power
-          - entity: sensor.monthly_energy_generation
+          - entity: sensor.sems_portal_thismonthetotle
             name: Huidige maand
             icon: mdi:solar-power
           - entity: sensor.sems_portal_etotal
@@ -199,10 +190,6 @@ cards:
             state: "on"
         card:
           type: entities
-          style: |
-            ha-card {
-              margin: 3px 14px;
-            }
           title: Verbruik Koelkast
           show_header_toggle: false
           entities:
@@ -221,10 +208,6 @@ cards:
             state: "on"
         card:
           type: entities
-          style: |
-            ha-card {
-              margin: 3px 14px;
-            }
           title: Verbruik Quooker
           show_header_toggle: false
           entities:
@@ -243,10 +226,6 @@ cards:
             state: "on"
         card:
           type: entities
-          style: |
-            ha-card {
-              margin: 3px 14px 10px 14px;
-            }
           title: Verbruik TV apparatuur
           show_header_toggle: false
           entities:
@@ -269,10 +248,6 @@ cards:
             state_not: "on"
         card:
           type: markdown
-          style: |
-            ha-card {
-              margin: 3px 14px 14px 14px;
-            }
           title: Geen actieve energiemeters
           content: >
             Geen actieve energiemeters gevonden

@@ -9,6 +9,9 @@ light-primary-color: "#8d8d8d"
 # Background
 primary-background-color: "#1f1f1f"
 
+# Header
+header-height: '48px'
+
 # Sidebar menu
 sidebar-text-color: "#8d8d8d"
 sidebar-icon-color: "#8d8d8d"
@@ -57,12 +60,24 @@ paper-orange-400: "#ff8906"
 # Card-Mod Custom CSS
 card-mod-theme: mobile
 card-mod-root: |
-  app-toolbar {
-    display: none;
-  }
-  paper-tabs {
-    margin: 0 -42px !important;
+  ha-menu-button,
+  ha-button-menu {
+    display: none !important;
   }
   paper-tab {
-    padding: 0 10px;
+    padding: 0 9px !important;
   }
+card-mod-card: |
+  ha-card {
+    transition: all 0.3s ease-out, margin 0s;
+    margin: 2px 14px;
+  }
+card-mod-view-yaml: |
+  "*:first-child$": |
+    #columns {
+      margin: 2px 0 !important;
+    }
+    .column > * {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }

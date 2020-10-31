@@ -1,9 +1,6 @@
 # Automations
 automation: !include_dir_merge_list automations
 
-# Cloudflare
-cloudflare: !include configuration/cloudflare.yaml
-
 # Enable configuration section
 config:
 

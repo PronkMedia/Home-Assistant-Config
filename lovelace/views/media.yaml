@@ -1,22 +1,18 @@
 title: Media
 path: media
 icon: mdi:music
-panel: true
 cards:
   - type: vertical-stack
     cards:
       - type: custom:mini-media-player
         style: |
-          ha-card {
-            margin: 14px 14px 3px 14px;
-          }
           .entity__info {
-            margin-top: 8px;
+            margin-top: 4px;
             margin-left: 0 !important;
-            font-size: var(--ha-card-header-font-size);
+            font-size: var(--paper-font-headline_-_font-size) !important;
           }
           .entity__info__name {
-            font-weight: var(--paper-font-body1_-_font-weight) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
             line-height: 32px !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing);
           }
@@ -34,10 +30,6 @@ cards:
           power: true
           source: true
       - type: glance
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: TV
         show_state: false
         columns: 3
@@ -60,10 +52,6 @@ cards:
               service_data:
                 entity_id: media_player.chromecast
       - type: glance
-        style: |
-          ha-card {
-            margin: 3px 14px;
-          }
         title: Radio stations
         show_state: false
         columns: 3
@@ -123,10 +111,6 @@ cards:
                 entity_id: media_player.sonos_speakers
                 source: Radio Veronica
       - type: glance
-        style: |
-          ha-card {
-            margin: 3px 14px 14px 14px;
-          }
         title: Spotify afspeellijsten
         show_state: false
         columns: 3

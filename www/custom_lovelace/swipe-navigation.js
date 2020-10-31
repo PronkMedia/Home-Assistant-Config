@@ -1,4 +1,4 @@
-function swipeNavigaiton() {
+function swipeNavigation() {
   let root = document.querySelector("home-assistant");
   root = root && root.shadowRoot;
   root = root && root.querySelector("home-assistant-main");
@@ -9,7 +9,7 @@ function swipeNavigaiton() {
   root = root && root.shadowRoot;
   root = root && root.querySelector("hui-root");
   if (root == null) {
-    setTimeout(swipeNavigaiton, 300);
+    setTimeout(swipeNavigation, 300);
     return;
   }
   const config = root.lovelace.config.swipe_nav || {};
@@ -17,13 +17,7 @@ function swipeNavigaiton() {
   let rtl =
     (root.lovelace.config.custom_header &&
       root.lovelace.config.custom_header.reverse_tab_direction) ||
-    document.querySelector("home-assistant").style.direction == "rtl" ||
-    document
-      .querySelector("home-assistant")
-      .shadowRoot.querySelector("home-assistant-main")
-      .shadowRoot.querySelector("ha-panel-lovelace")
-      .shadowRoot.querySelector("hui-root")
-      .shadowRoot.querySelector("paper-tabs").dir == "rtl";
+    document.querySelector("home-assistant").style.direction == "rtl"
   let animate = config.animate !== undefined ? config.animate : "none";
   let wrap = config.wrap !== undefined ? config.wrap : true;
   let prevent_default =
@@ -46,13 +40,19 @@ function swipeNavigaiton() {
 
   const appLayout = root.shadowRoot.querySelector("ha-app-layout");
   const view = appLayout.querySelector('[id="view"]');
-  const tabContainer = appLayout.querySelector("paper-tabs");
+  const tabContainer = appLayout.querySelector("paper-tabs") || appLayout.querySelector("ha-tabs");
   let xDown, yDown, xDiff, yDiff, activeTab, firstTab, lastTab, left;
-  let tabs = Array.from(tabContainer.querySelectorAll("paper-tab"));
+  let tabs = tabContainer ? Array.from(tabContainer.querySelectorAll("paper-tab")) : [];
 
-  appLayout.addEventListener("touchstart", handleTouchStart, { passive: true });
-  appLayout.addEventListener("touchmove", handleTouchMove, { passive: false });
-  appLayout.addEventListener("touchend", handleTouchEnd, { passive: true });
+  if (tabContainer) {
+    appLayout.addEventListener("touchstart", handleTouchStart, { passive: true });
+    appLayout.addEventListener("touchmove", handleTouchMove, { passive: false });
+    appLayout.addEventListener("touchend", handleTouchEnd, { passive: true });
+  }
+
+  if (animate == "swipe") {
+    appLayout.style.overflow = "hidden";
+  }
 
   function handleTouchStart(event) {
     let ignored = [
@@ -61,10 +61,8 @@ function swipeNavigaiton() {
       "SWIPE-CARD",
       "HUI-MAP-CARD",
       "ROUND-SLIDER",
-      "HUI-THERMOSTAT-CARD",
-      "CH-HEADER",
-      "CH-HEADER-BOTTOM",
-      "XIAOMI-VACUUM-MAP-CARD"
+      "XIAOMI-VACUUM-MAP-CARD",
+      "HA-SIDEBAR"
     ];
     if (typeof event.path == "object") {
       for (let element of event.path) {
@@ -199,7 +197,7 @@ const callback = mutations => {
   mutations.forEach(({ addedNodes }) => {
     for (const node of addedNodes) {
       if (node.nodeName == "HA-PANEL-LOVELACE") {
-        swipeNavigaiton();
+        swipeNavigation();
       }
     }
   });
@@ -214,4 +212,4 @@ dashboard_observer.observe(
   { childList: true }
 );
 
-swipeNavigaiton();
+swipeNavigation();
