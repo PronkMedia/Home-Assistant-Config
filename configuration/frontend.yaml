@@ -1,2 +1,2 @@
 themes: 
-  mobile: !include ../themes/mobile.yaml
+  huis: !include ../themes/huis.yaml

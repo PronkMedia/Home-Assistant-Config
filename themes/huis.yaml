@@ -1,15 +1,13 @@
 # Text
 primary-text-color: "#ffffff"
-secondary-text-color: "#333333"
-
-# Main interface
-primary-color: "#242424"
-light-primary-color: "#8d8d8d"
+secondary-text-color: "#8d8d8d"
 
 # Background
 primary-background-color: "#1f1f1f"
 
 # Header
+app-header-background-color: "#242424"
+app-header-text-color: "#ffffff"
 header-height: '48px'
 
 # Sidebar menu
@@ -18,14 +16,15 @@ sidebar-icon-color: "#8d8d8d"
 sidebar-selected-text-color: "#ffffff"
 sidebar-selected-icon-color: "#ffffff"
 sidebar-background-color: "#1b1b1b"
-paper-listbox-background-color:  "#1b1b1b"
 
 # Cards
-card-background-color: "#424242"
 ha-card-header-font-size: "24px"
 ha-card-background: "#424242"
 ha-card-border-radius: "6px"
 ha-card-box-shadow: none
+
+# More info dialog
+mdc-theme-surface: "#424242"
 
 # States and badges
 state-icon-color: "#8d8d8d"
@@ -45,10 +44,15 @@ paper-slider-pin-color: "#8d8d8d"
 paper-slider-active-color: "#ffffff"
 paper-slider-container-color: "#7b7b7b"
 
+# Table
+table-row-background-color: "#424242"
+table-row-alternative-background-color: "#242424"
+
 # Divider
 divider-color: "#333333"
 
-# Colors
+# Accent colors
+primary-color: "#8d8d8d"
 label-badge-red: "#e63535"
 label-badge-blue: "#337fbf"
 label-badge-green: "#7bcc00"
@@ -58,7 +62,7 @@ paper-blue-400: "#337fbf"
 paper-orange-400: "#ff8906"
 
 # Card-Mod Custom CSS
-card-mod-theme: mobile
+card-mod-theme: huis
 card-mod-root: |
   ha-menu-button,
   ha-button-menu {
