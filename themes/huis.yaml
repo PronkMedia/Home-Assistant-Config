@@ -2,9 +2,6 @@
 primary-text-color: "#ffffff"
 secondary-text-color: "#8d8d8d"
 
-# Background
-primary-background-color: "#1f1f1f"
-
 # Header
 app-header-background-color: "#242424"
 app-header-text-color: "#ffffff"
@@ -45,11 +42,23 @@ paper-slider-active-color: "#ffffff"
 paper-slider-container-color: "#7b7b7b"
 
 # Table
+data-table-background-color: "#424242"
 table-row-background-color: "#424242"
 table-row-alternative-background-color: "#242424"
 
+# List
+paper-listbox-background-color: "#424242"
+
+# Code editor
+code-editor-background-color: "#424242"
+
 # Divider
 divider-color: "#333333"
+
+# Background colors
+primary-background-color: "#1f1f1f"
+secondary-background-color: "#424242"
+material-background-color: "#424242"
 
 # Accent colors
 primary-color: "#8d8d8d"
@@ -61,7 +70,7 @@ paper-green-400: "#7bcc00"
 paper-blue-400: "#337fbf"
 paper-orange-400: "#ff8906"
 
-# Card-Mod Custom CSS
+# Card-Mod custom CSS
 card-mod-theme: huis
 card-mod-root: |
   ha-menu-button,
