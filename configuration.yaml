@@ -45,9 +45,6 @@ system_health:
 # TP-Link
 tplink: !include configuration/tp-link.yaml
 
-# Tuya
-tuya_custom: !include configuration/tuya.yaml
-
 # Utility meter
 utility_meter: !include configuration/utility-meter.yaml
 

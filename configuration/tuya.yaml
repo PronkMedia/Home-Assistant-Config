@@ -1,4 +1,0 @@
-devices_config:
-  - device_name: Bureau
-    support_color: true
-    brightness_range_mode: 1
