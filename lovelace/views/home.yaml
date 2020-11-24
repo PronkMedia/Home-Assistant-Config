@@ -230,7 +230,7 @@ cards:
             icon: mdi:brightness-6
       - type: conditional
         conditions:
-          - entity: light.84458710bcddc2ec6925
+          - entity: light.4062160584f3ebf16f17
             state_not: "unavailable"
         card:
           type: entities
@@ -238,7 +238,7 @@ cards:
           show_header_toggle: false
           entities:
             - type: custom:slider-entity-row
-              entity: light.84458710bcddc2ec6925
+              entity: light.4062160584f3ebf16f17
               icon: mdi:led-strip-variant
               toggle: true
               hide_when_off: true

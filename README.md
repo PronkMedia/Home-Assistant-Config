@@ -26,8 +26,8 @@ My Home Assistant configuration & documentation.
     - 6x GU10 White and Ambiance (LTW013)
     - 3x E27 White and Color Ambiance (LCT015)
     - 1x Go White and Color Ambiance (LLC020)
-- BrilliantSmart
-    - 1x Wi-Fi RGB LED lightstrip (HK17656S72)
+- B.K.Licht
+    - 1x Wi-Fi RGB LED lightstrip (BKL1246)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Gosund
