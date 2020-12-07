@@ -1,1 +1,10 @@
 purge_keep_days: 3
+commit_interval: 10
+exclude:
+  entity_globs:
+    - sensor.power_consumption_phase_*
+    - sensor.power_production_phase_*
+    - sensor.voltage_phase_*
+    - sensor.voltage_sags_phase_*
+    - sensor.voltage_swells_phase_*
+    - sensor.current_phase_*
