@@ -93,6 +93,9 @@ cards:
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
             }
+            .entities div:nth-child(5) {
+              {% if is_state('switch.753802832462ab3c0e52', 'unavailable') %}display: none;{% endif %}
+            }
           ".entities div:nth-child(4)":
             $: |
               state-badge {
@@ -115,6 +118,11 @@ cards:
               action: more-info
           - entity: light.buffetkast
             icon: mdi:wall-sconce-round-variant
+            tap_action:
+              action: more-info
+          - entity: switch.753802832462ab3c0e52
+            name: Kerstboom
+            icon: mdi:pine-tree
             tap_action:
               action: more-info
           - entity: light.speelhoek

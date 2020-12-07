@@ -2,18 +2,18 @@
   mode: restart
   trigger: 
     platform: state 
-    entity_id: sensor.remote_button_update_api 
+    entity_id: sensor.remote_1_button_update_api 
   action: 
     - choose:
       - conditions:
           - condition: state
-            entity_id: sensor.remote_button_state_api
+            entity_id: sensor.remote_1_button_state_api
             state: "1001"
         sequence:
           - service: script.scene_huiskamer_tvkijken
       - conditions:
           - condition: state
-            entity_id: sensor.remote_button_state_api
+            entity_id: sensor.remote_1_button_state_api
             state: 
               - "1000"
               - "1002"
@@ -59,7 +59,7 @@
                 - service: script.scene_huiskamer_spelen
       - conditions:
           - condition: state
-            entity_id: sensor.remote_button_state_api
+            entity_id: sensor.remote_1_button_state_api
             state: 
               - "2000"
               - "2001"
@@ -68,7 +68,7 @@
           - service: script.scene_huiskamer_brighter
       - conditions:
           - condition: state
-            entity_id: sensor.remote_button_state_api
+            entity_id: sensor.remote_1_button_state_api
             state: 
               - "3000"
               - "3001"
@@ -77,7 +77,7 @@
           - service: script.scene_huiskamer_dimmer
       - conditions:
           - condition: state
-            entity_id: sensor.remote_button_state_api
+            entity_id: sensor.remote_1_button_state_api
             state: 
               - "4000"
               - "4001"

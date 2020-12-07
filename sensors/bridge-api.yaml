@@ -3,13 +3,15 @@
   name: hue_sensor_api
   resource: !secret api_hue_bridge
   scan_interval:
-    seconds: 1
+    milliseconds: 500
   value_template: >
-    sensor_2_update={{ value_json["2"]["state"]["lastupdated"]}},
-    sensor_2_button={{ value_json["2"]["state"]["buttonevent"]}},
-    sensor_11_motion={{ value_json["11"]["state"]["presence"]}},
-    sensor_21_motion={{value_json["14"]["state"]["presence"]}},
-    sensor_14_motion={{value_json["21"]["state"]["presence"]}},
-    sensor_25_motion={{value_json["25"]["state"]["presence"]}},
-    sensor_33_motion={{value_json["33"]["state"]["presence"]}},
-    sensor_38_motion={{value_json["38"]["state"]["presence"]}}
+    2_update={{value_json["2"]["state"]["lastupdated"]}},
+    2_button={{value_json["2"]["state"]["buttonevent"]}},
+    11_motion={{ value_json["11"]["state"]["presence"]}},
+    21_motion={{value_json["14"]["state"]["presence"]}},
+    14_motion={{value_json["21"]["state"]["presence"]}},
+    25_motion={{value_json["25"]["state"]["presence"]}},
+    33_motion={{value_json["33"]["state"]["presence"]}},
+    38_motion={{value_json["38"]["state"]["presence"]}},
+    42_update={{value_json["42"]["state"]["lastupdated"]}},
+    42_button={{value_json["42"]["state"]["buttonevent"]}}

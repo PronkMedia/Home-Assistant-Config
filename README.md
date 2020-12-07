@@ -17,7 +17,7 @@ My Home Assistant configuration & documentation.
     - 1x Bridge (BSB002)
     - 4x Motion Sensor (SML001)
     - 3x Outdoor Sensor (SML002)
-    - 1x Dimmer Switch (RWL021)
+    - 2x Dimmer Switch (RWL021)
     - 1x Smart Plug (LOM001)
     - 2x E27 White (LWB010)
     - 4x E27 White (LWA001)
@@ -31,7 +31,7 @@ My Home Assistant configuration & documentation.
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Gosund
-    - 2x Wi-Fi Smart Plug (SP111)
+    - 3x Wi-Fi Smart Plug (SP111)
 - Sonos
     - 1x Beam
     - 2x One

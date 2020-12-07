@@ -10,7 +10,7 @@ cards:
             #states div > hui-toggle-entity-row {
               display: none;
             }
-          "#states div:nth-child(11)":
+          "#states div:nth-child(12)":
             slider-entity-row:
               $:
                 hui-generic-entity-row:
@@ -18,12 +18,14 @@ cards:
                     state-badge {
                       transform: rotate(-45deg);
                     }
+        state_color: true
         title: Huiskamer
         entities:
           - entity: light.spots
           - entity: light.keuken
           - entity: light.eettafel
           - entity: light.buffetkast
+          - entity: switch.753802832462ab3c0e52
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.vloerlamp
@@ -67,6 +69,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+          - entity: switch.753802832462ab3c0e52
+            style: |
+              :host {
+                {% if not is_state('switch.753802832462ab3c0e52', 'unavailable') %}
+                  display: block !important;
+                {% endif %}
+              }
+            name: Kerstboom
+            icon: mdi:pine-tree
           - type: conditional
             conditions:
               - entity: light.speelhoek
