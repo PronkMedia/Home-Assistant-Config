@@ -152,13 +152,13 @@ cards:
             text: Opbrengst panelen
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.sems_portal_eday
+          - entity: sensor.daily_generation
             name: Vandaag
             icon: mdi:solar-power
-          - entity: sensor.sems_portal_thismonthetotle
+          - entity: sensor.monthly_generation
             name: Huidige maand
             icon: mdi:solar-power
-          - entity: sensor.sems_portal_etotal
+          - entity: sensor.total_generation
             name: Totaal
             icon: mdi:solar-power
           - type: divider
