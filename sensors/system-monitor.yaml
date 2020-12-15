@@ -3,7 +3,7 @@
   name: Processor temperature
   command: "cat /sys/class/thermal/thermal_zone0/temp"
   unit_of_measurement: "°C"
-  scan_interval: 10
+  scan_interval: 30
   value_template: '{{ value | multiply(0.001) | round(1) }}'
 - platform: command_line
   name: RPI version
@@ -27,12 +27,11 @@
     - type: last_boot
 - platform: version
 - platform: uptime
-  unit_of_measurement: minutes
 - platform: template
   sensors:
     last_reboot_ha:
       value_template: > 
-        {{(as_timestamp(now()) - (states("sensor.uptime") | int * 60 ) ) | timestamp_custom('%d-%m-%Y, %H:%M')}}
+        {{as_timestamp(states('sensor.uptime')) | timestamp_custom('%d-%m-%Y, %H:%M')}}
     last_reboot_rpi:
       value_template: > 
         {{as_timestamp(states('sensor.last_boot')) | timestamp_custom('%d-%m-%Y, %H:%M')}}

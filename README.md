@@ -3,8 +3,8 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 0.118.5
-    - Operating System 4.17
+    - Core 2020.12.0
+    - Operating System 5.8
     - Supervisor 2020.12.6
 
 ## Hardware
