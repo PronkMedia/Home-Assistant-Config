@@ -14,8 +14,9 @@
 !*/
 
 # Ignore these folders
-.storage
 .cloud
+.storage
+blueprints
 
 # Ignore these files
 ip_bans.yaml
