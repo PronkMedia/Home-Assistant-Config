@@ -3,9 +3,9 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2020.12.0
-    - Operating System 5.8
-    - Supervisor 2020.12.6
+    - Core 2021.1.1
+    - Operating System 5.10
+    - Supervisor 2020.12.7
 
 ## Hardware
 - Raspberry Pi Foundation
