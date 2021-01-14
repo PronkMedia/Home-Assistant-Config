@@ -19,12 +19,6 @@
       unit_of_measurement: "°C"
     sems_portal_hour_total:
       value_template: '{{ state_attr("sensor.sems_portal", "hour_total") | round(0) }} uur'
-    sems_portal_eday:
-      value_template: '{{ state_attr("sensor.sems_portal", "eday") | float }}'
-      unit_of_measurement: 'kWh'
-    sems_portal_thismonthetotle:
-      value_template: '{{ state_attr("sensor.sems_portal", "thismonthetotle") | float }}'
-      unit_of_measurement: 'kWh'
     sems_portal_etotal:
       value_template: '{{  state_attr("sensor.sems_portal", "etotal") | float }}'
       unit_of_measurement: 'kWh'
