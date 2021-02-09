@@ -42,7 +42,6 @@ cards:
             width: 46%;
           }
         name: Slimme meter
-        icon: mdi:counter
         entities:
           - entity: sensor.hourly_gas_consumption
             name: Gas (verbruik)
@@ -60,6 +59,7 @@ cards:
             show_state: true
             show_indicator: true
         show:
+          icon: false
           labels: false
           points: false
         points_per_hour: 30
