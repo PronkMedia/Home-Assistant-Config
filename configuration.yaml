@@ -28,6 +28,9 @@ input_text: !include configuration/input-text.yaml
 # Lovelace configuration
 lovelace: !include configuration/lovelace.yaml
 
+# Nest
+nest: !include configuration/nest.yaml
+
 # Scripts
 script: !include_dir_merge_named scripts
 

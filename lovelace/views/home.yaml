@@ -140,6 +140,8 @@ cards:
                 margin-left: '55px'
           - entity: sensor.temperature_huiskamer
             name: Temperatuur
+          - entity: sensor.family_room_humidity
+            name: Luchtvochtigheid
           - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
             icon: mdi:brightness-6

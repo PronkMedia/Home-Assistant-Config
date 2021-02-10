@@ -37,6 +37,7 @@ My Home Assistant configuration & documentation.
     - 2x One
 - Google
     - 1x Nest Hub
+    - 1x Nest Learning Thermostat (3rd Generation)
     - 1x Chromecast (3rd Generation)
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)

@@ -7,6 +7,9 @@
 # Mini Media Player
 - url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.11.0
   type: module
+# Simple Thermostat
+- url: /local/custom_lovelace/simple-thermostat.js?v=0.42.0
+  type: module
 # Slider Entity Row
 - url: /local/custom_lovelace/slider-entity-row.js?v=16
   type: module
