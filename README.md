@@ -3,7 +3,7 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2021.2.2
+    - Core 2021.2.3
     - Supervisor 2021.02.6
     - Operating System 5.11
 
@@ -49,6 +49,3 @@ My Home Assistant configuration & documentation.
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
 
-## Todo
-- Cast a new view to Google Nest Hub
-- Use `decluttering-card` to clean up current configuration
