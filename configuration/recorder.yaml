@@ -1,10 +1,28 @@
-purge_keep_days: 3
+purge_keep_days: 2
 commit_interval: 10
-exclude:
-  entity_globs:
-    - sensor.power_consumption_phase_*
-    - sensor.power_production_phase_*
-    - sensor.voltage_phase_*
-    - sensor.voltage_sags_phase_*
-    - sensor.voltage_swells_phase_*
-    - sensor.current_phase_*
+include:
+  entities:
+    - sensor.family_room_current_temperature
+    - sensor.family_room_preset_temperature
+    - sensor.family_room_heating_temperature
+    - sensor.temperature_huiskamer
+    - sensor.temperature_toilet
+    - sensor.temperature_baby_monitor
+    - sensor.temperature_slaapkamer
+    - sensor.temperature_buiten
+    - sensor.hourly_gas_consumption
+    - sensor.power_consumption
+    - sensor.power_production
+    - sensor.sems_portal_outputpower
+    - person.male
+    - person.female
+    - group.motion_huiskamer
+    - binary_sensor.motion_sensor_toilet_motion_api
+    - group.motion_tuin
+    - binary_sensor.motion_sensor_parkeerplaats_motion_api
+    - sensor.processor_temperature
+    - sensor.processor_use
+    - sensor.memory_use_percent
+    - sensor.disk_use_percent
+    - sensor.network_throughput_in
+    - sensor.network_throughput_out
