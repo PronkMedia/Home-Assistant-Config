@@ -5,7 +5,7 @@
 - url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.10.0
   type: module
 # Mini Media Player
-- url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.11.0
+- url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.12.0
   type: module
 # Simple Thermostat
 - url: /local/custom_lovelace/simple-thermostat.js?v=0.42.0
