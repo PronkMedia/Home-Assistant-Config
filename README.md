@@ -49,3 +49,8 @@ My Home Assistant configuration & documentation.
 - Motorola
     - 1x Baby Monitor (MBP-854 Connect)
 
+## Demonstration
+Click on the image below to view a demonstration video on YouTube.
+[![](http://img.youtube.com/vi/VtE0kFGLAp8/0.jpg)](http://www.youtube.com/watch?v=VtE0kFGLAp8 "View demonstration on YouTube")
+
+
