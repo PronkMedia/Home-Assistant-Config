@@ -18,6 +18,7 @@ My Home Assistant configuration & documentation.
     - 4x Motion Sensor (SML001)
     - 3x Outdoor Sensor (SML002)
     - 2x Dimmer Switch (RWL021)
+    - 1x Smart Button (ROM001)
     - 1x Smart Plug (LOM001)
     - 2x E27 White (LWB010)
     - 4x E27 White (LWA001)

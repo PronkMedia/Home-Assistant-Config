@@ -1,0 +1,7 @@
+- alias: Button huiskamer pressed
+  trigger: 
+    platform: state 
+    entity_id: sensor.button_1_update_api
+  action:
+    service: light.turn_off
+    entity_id: light.huiskamer

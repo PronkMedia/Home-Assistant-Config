@@ -14,4 +14,6 @@
     33_motion={{value_json["33"]["state"]["presence"]}},
     38_motion={{value_json["38"]["state"]["presence"]}},
     42_update={{value_json["42"]["state"]["lastupdated"]}},
-    42_button={{value_json["42"]["state"]["buttonevent"]}}
+    42_button={{value_json["42"]["state"]["buttonevent"]}},
+    56_update={{value_json["56"]["state"]["lastupdated"]}},
+    56_button={{value_json["56"]["state"]["buttonevent"]}}
