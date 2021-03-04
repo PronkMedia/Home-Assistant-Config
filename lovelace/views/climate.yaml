@@ -172,6 +172,13 @@ cards:
         line_color: var(--label-badge-green)
       - type: custom:mini-graph-card
         style: |
+          ha-card {
+            z-index: 1;
+            margin-bottom: -26px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: 1px solid var(--divider-color);
+          }
           .header {
             margin-top: 10px;
           }
@@ -193,3 +200,9 @@ cards:
         points_per_hour: 30
         line_width: 1
         line_color: var(--label-badge-yellow)
+      - type: weather-forecast
+        style: |
+          .content {
+            display: none !important;
+          }
+        entity: weather.openweathermap
