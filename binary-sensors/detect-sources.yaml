@@ -4,11 +4,15 @@
     media_source_ziggo:
       value_template: >-
         {{  is_state_attr('media_player.sonos_speakers', 'source', 'TV')
+            and is_state('media_player.55pus6704_12', 'on')
+            and is_state_attr('media_player.55pus6704_12', 'media_content_type', 'channel')
             and is_state('media_player.chromecast', 'off')
         }}
     media_source_chromecast:
       value_template: >-
         {{  is_state_attr('media_player.sonos_speakers', 'source', 'TV')
+            and is_state('media_player.55pus6704_12', 'on')
+            and not is_state_attr('media_player.55pus6704_12', 'media_content_type', 'channel')
             and not is_state('media_player.chromecast', 'off')
         }}
     media_source_radio_npo_radio_1:

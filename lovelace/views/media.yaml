@@ -29,8 +29,25 @@ cards:
           icon: true
           power: true
           source: true
-      - type: glance
+      - type: entities
+        style: |
+          ha-card {
+            z-index: 1;
+            margin-bottom: -26px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .card-content {
+            padding: 4px;
+          }
+          .card-content > div:nth-child(-n+1) {
+            display: none;
+          }
         title: TV
+        show_header_toggle: true
+        entities:
+          - entity: switch.tv
+      - type: glance
         show_state: false
         columns: 3
         entities:
@@ -39,10 +56,9 @@ cards:
             icon: mdi:television
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: wake_on_lan.send_magic_packet
               service_data:
-                entity_id: media_player.sonos_speakers
-                source: TV
+                mac: !secret mac_philips_55pus6704
           - entity: binary_sensor.media_source_chromecast
             name: Chromecast
             icon: mdi:television-play

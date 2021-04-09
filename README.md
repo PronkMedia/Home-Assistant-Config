@@ -13,6 +13,8 @@ My Home Assistant configuration & documentation.
     - 1x Raspberry Pi Official Power Supply (15.3W USB-C)
 - Aokin
     - Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
+- Philips Ambilight
+    - 1x 4K UHD LED Smart TV (55PUS6704/12)
 - Philips Hue
     - 1x Bridge (BSB002)
     - 4x Motion Sensor (SML001)
@@ -53,5 +55,3 @@ My Home Assistant configuration & documentation.
 ## Demonstration
 Click on the image below to view a demonstration video on YouTube.
 [![](http://img.youtube.com/vi/VtE0kFGLAp8/0.jpg)](http://www.youtube.com/watch?v=VtE0kFGLAp8 "View demonstration on YouTube")
-
-

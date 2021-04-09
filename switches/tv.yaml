@@ -1,0 +1,9 @@
+# TV switch (Philips 55PUS6704/12)
+- platform: wake_on_lan
+  mac: !secret mac_philips_55pus6704
+  name: TV
+  host: !secret address_philips_55pus6704
+  turn_off:
+    service: media_player.turn_off
+    target:
+      entity_id: media_player.55pus6704_12

@@ -42,6 +42,9 @@ light: !include groups/lights.yaml
 binary_sensor: !include_dir_merge_list binary-sensors
 sensor: !include_dir_merge_list sensors
 
+# Switches
+switch: !include_dir_merge_list switches
+
 # Enable system health information
 system_health:
 
@@ -56,3 +59,6 @@ device_tracker: !include configuration/device-tracker.yaml
 
 # Persons
 person: !include configuration/person.yaml
+
+# Enable Wake on LAN
+wake_on_lan:
