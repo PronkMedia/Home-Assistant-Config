@@ -213,6 +213,10 @@ cards:
                 margin-left: '55px'
           - entity: sensor.temperature_baby_monitor
             name: Temperatuur
+          - entity: sensor.shelly_ht_kinderkamer_temperature
+            name: Temperatuur
+          - entity: sensor.shelly_ht_1_humidity
+            name: Luchtvochtigheid
       - type: entities
         title: Slaapkamer
         show_header_toggle: false

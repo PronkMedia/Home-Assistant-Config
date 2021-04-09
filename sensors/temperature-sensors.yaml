@@ -1,0 +1,6 @@
+# Shelly Wi-Fi Humidity and Temperature Sensor (H&T)
+- platform: template
+  sensors:
+    shelly_ht_kinderkamer_temperature:
+      unit_of_measurement: '°C'
+      value_template: "{{ (states('sensor.shelly_ht_1_temperature') | float) | round(1) }}"

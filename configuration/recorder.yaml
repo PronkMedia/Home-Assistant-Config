@@ -8,6 +8,7 @@ include:
     - sensor.temperature_huiskamer
     - sensor.temperature_toilet
     - sensor.temperature_baby_monitor
+    - sensor.shelly_ht_kinderkamer_temperature
     - sensor.temperature_slaapkamer
     - sensor.temperature_buiten
     - sensor.hourly_gas_consumption

@@ -161,6 +161,29 @@ cards:
           .states {
             font-size: 10px;
           }
+        name: Kinderkamer
+        entities:
+         - sensor.shelly_ht_kinderkamer_temperature
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: var(--paper-orange-400)
+      - type: custom:mini-graph-card
+        style: |
+          .header {
+            margin-top: 10px;
+          }
+          .name > span {
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
         name: Slaapkamer
         entities:
          - sensor.temperature_slaapkamer
