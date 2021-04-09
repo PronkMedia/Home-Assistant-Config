@@ -211,8 +211,6 @@ cards:
               type: divider
               style: 
                 margin-left: '55px'
-          - entity: sensor.temperature_baby_monitor
-            name: Temperatuur
           - entity: sensor.shelly_ht_kinderkamer_temperature
             name: Temperatuur
           - entity: sensor.shelly_ht_1_humidity

@@ -51,8 +51,6 @@ My Home Assistant configuration & documentation.
     - 1x Solar Inverter (GoodWe GW2500-XS)
 - Canadian Solar
     - 9x Solar Panel (KuBlack CS3K-310MS)
-- Motorola
-    - 1x Baby Monitor (MBP-854 Connect)
 
 ## Demonstration
 Click on the image below to view a demonstration video on YouTube.
