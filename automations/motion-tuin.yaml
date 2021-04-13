@@ -1,4 +1,5 @@
-- alias: Motion tuin detected
+- id: motion_tuin_detected
+  alias: Motion tuin detected
   trigger:
     platform: state
     entity_id: group.motion_tuin
@@ -26,7 +27,8 @@
       data:
         entity_id: input_text.motion_automation_tuin_is_triggered
         value: 'true'
-- alias: Motion tuin undetected
+- id: motion_tuin_undetected
+  alias: Motion tuin undetected
   trigger:
     platform: state
     entity_id: group.motion_tuin

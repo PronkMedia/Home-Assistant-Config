@@ -1,4 +1,5 @@
-- alias: Button huiskamer pressed
+- id: button_huiskamer_pressed
+  alias: Button huiskamer pressed
   trigger: 
     platform: state 
     entity_id: sensor.button_1_update_api

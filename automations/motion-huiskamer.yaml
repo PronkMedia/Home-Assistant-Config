@@ -1,4 +1,5 @@
-- alias: Motion huiskamer detected
+- id: motion_huiskamer_detected
+  alias: Motion huiskamer detected
   trigger:
     platform: state
     entity_id: group.motion_huiskamer
@@ -19,7 +20,8 @@
             below: 2
   action:
     service: script.scene_huiskamer_motion
-- alias: Motion huiskamer undetected
+- id: motion_huiskamer_undetected
+  alias: Motion huiskamer undetected
   trigger:
     platform: state
     entity_id: binary_sensor.presence_huiskamer

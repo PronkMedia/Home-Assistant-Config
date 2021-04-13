@@ -1,4 +1,5 @@
-- alias: Remote kerstboom pressed
+- id: remote_kerstboom_pressed
+  alias: Remote kerstboom pressed
   mode: restart
   trigger: 
     platform: state 

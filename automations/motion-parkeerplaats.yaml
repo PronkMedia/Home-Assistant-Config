@@ -1,4 +1,5 @@
-- alias: Motion parkeerplaats detected
+- id: motion_parkeerplaats_detected
+  alias: Motion parkeerplaats detected
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_parkeerplaats_motion_api
@@ -18,7 +19,8 @@
       data:
         entity_id: input_text.motion_automation_parkeerplaats_is_triggered
         value: 'true'
-- alias: Motion parkeerplaats undetected
+- id: motion_parkeerplaats_undetected
+  alias: Motion parkeerplaats undetected
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_parkeerplaats_motion_api

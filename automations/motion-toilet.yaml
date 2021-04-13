@@ -1,4 +1,5 @@
-- alias: Motion toilet detected
+- id: motion_toilet_detected
+  alias: Motion toilet detected
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_toilet_motion_api
@@ -9,7 +10,8 @@
     state: 'off'
   action:
     service: script.scene_toilet_motion
-- alias: Motion toilet undetected
+- id: motion_toilet_undetected
+  alias: Motion toilet undetected
   trigger:
     platform: state
     entity_id: binary_sensor.motion_sensor_toilet_motion_api

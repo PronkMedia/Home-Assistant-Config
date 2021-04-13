@@ -1,4 +1,5 @@
-- alias: Remote huiskamer pressed
+- id: remote_huiskamer_pressed
+  alias: Remote huiskamer pressed
   mode: restart
   trigger: 
     platform: state 

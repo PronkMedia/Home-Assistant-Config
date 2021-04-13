@@ -1,4 +1,5 @@
-- alias: Router mesh points activation
+- id: router_mesh_points_activation
+  alias: Router mesh points activation
   trigger:
     platform: state
     entity_id: group.all_persons
@@ -9,7 +10,8 @@
       entity_id:
         - switch.00078218d8f15bd56352
         - switch.00078218d8f15bd562bd
-- alias: Router mesh points deactivation
+- id: router_mesh_points_deactivation
+  alias: Router mesh points deactivation
   trigger:
     platform: state
     entity_id: group.all_persons

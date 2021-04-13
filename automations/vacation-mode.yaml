@@ -1,4 +1,5 @@
-- alias: Vacation mode
+- id: vacation_mode
+  alias: Vacation mode
   mode: single
   trigger:
       platform: state
@@ -23,7 +24,8 @@
             seconds: "{{ range(0, 5*60+1) | random }}"
         - service: light.turn_off
           entity_id: light.huiskamer
-- alias: Vacation mode activation
+- id: vacation_mode_activation
+  alias: Vacation mode activation
   mode: single
   trigger:
     platform: state
@@ -34,7 +36,8 @@
   action:
     service: homeassistant.turn_on
     entity_id: automation.vacation_mode
-- alias: Vacation mode deactivation
+- id: vacation_mode_deactivation
+  alias: Vacation mode deactivation
   mode: single
   trigger:
     platform: state
