@@ -47,8 +47,11 @@ cards:
         entity: climate.family_room
         name: Thermostaat
         step_size: 0.1
-        icon: false
-        step_layout: row
+        header:
+          name: Thermostaat
+          icon: false
+        layout:
+          step: row
         control: false
         hide:
           temperature: true
