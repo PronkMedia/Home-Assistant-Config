@@ -1,0 +1,4 @@
+matrix_brightness:
+  min: 0
+  max: 100
+  unit_of_measurement: '%'

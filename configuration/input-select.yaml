@@ -1,0 +1,5 @@
+matrix_view:
+  options:
+    - temperature
+    - solar
+    - usage

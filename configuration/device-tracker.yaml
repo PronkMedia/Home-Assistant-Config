@@ -11,3 +11,9 @@
   consider_home: 0:15
   new_device_defaults:
     track_new_devices: false
+- platform: ping
+  hosts:
+    matrix_wifi: !secret address_matrix
+    interval_seconds: 300
+    consider_home: 0:15
+    count: 1

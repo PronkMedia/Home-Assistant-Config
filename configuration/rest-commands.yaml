@@ -1,0 +1,26 @@
+matrix:
+  url: !secret api_matrix_panel
+  method: POST
+  content_type:  'application/json'
+  payload: >-
+    {
+      "settings": {
+        "display": "{{ display }}", 
+        "brightness": "{{ brightness }}",
+        "view": "{{ view }}"
+      }, 
+      "data": {
+        "temperature": {
+          "outside": "{{ temperature_outside }}",
+          "inside": "{{ temperature_inside }}"
+        },
+        "inverter": {
+          "outputpower": "{{ inverter_outputpower }}",
+          "daytotal": "{{ inverter_daytotal }}"
+        },
+        "usage": {
+          "dayenery": "{{ usage_dayenery }}",
+          "daygas": "{{ usage_daygas }}"
+        }
+      }
+    }

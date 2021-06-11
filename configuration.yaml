@@ -22,8 +22,12 @@ recorder: !include configuration/recorder.yaml
 # HTTP
 http: !include configuration/http.yaml
 
-# Automation variables
+# input variables
+input_boolean: !include configuration/input-boolean.yaml
+input_number: !include configuration/input-number.yaml
+input_select: !include configuration/input-select.yaml
 input_text: !include configuration/input-text.yaml
+
 
 # Lovelace configuration
 lovelace: !include configuration/lovelace.yaml
@@ -59,6 +63,9 @@ device_tracker: !include configuration/device-tracker.yaml
 
 # Persons
 person: !include configuration/person.yaml
+
+# Rest commands
+rest_command: !include configuration/rest-commands.yaml
 
 # Enable Wake on LAN
 wake_on_lan:

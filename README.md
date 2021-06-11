@@ -10,9 +10,15 @@ My Home Assistant configuration & documentation.
 ## Hardware
 - Raspberry Pi Foundation
     - 1x Raspberry Pi 4 (Model B / 4GB)
-    - 1x Raspberry Pi Official Power Supply (15.3W USB-C)
+    - 1x Raspberry Pi Zero (WH)
+    - 1x Raspberry Pi Official Power Supply (15.3W | USB-C)
 - Aokin
-    - Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
+    - 1x Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
+- Adafruit
+    - 1x RGB LED Matrix Panel (32*32 4mm pitch)
+    - 1x RGB Matrix Bonnet (for Raspberry Pi)
+- LEICKE
+    - Power Supply (5V 4A 20W | 5.5mm/2.5mm)
 - Philips Ambilight
     - 1x 4K UHD LED Smart TV (55PUS6704/12)
 - Philips Hue

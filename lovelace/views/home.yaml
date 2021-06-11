@@ -10,7 +10,10 @@ cards:
             #states div > hui-toggle-entity-row {
               display: none;
             }
-          "#states div:nth-child(12)":
+            slider-entity-row {
+              overflow: visible !important;
+            }
+          "#states div:nth-child(13)":
             slider-entity-row:
               $:
                 hui-generic-entity-row:
@@ -29,6 +32,7 @@ cards:
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.vloerlamp
+          - entity: input_boolean.matrix_display
           - type: conditional
             conditions:
               - entity: light.spots
@@ -119,6 +123,115 @@ cards:
               type: divider
               style: 
                 margin-left: '55px'
+          - type: conditional
+            conditions:
+              - entity: device_tracker.matrix_wifi
+                state: 'home'
+            row:
+              entity: input_boolean.matrix_display
+              name: Matrix paneel
+              state_color: true
+              extend_paper_buttons_row:
+                buttons:
+                  - entity: automation.matrix_panel_shuffle_views
+                    icon: mdi:shuffle-variant
+                    name: false
+                    tap_action:
+                      action: call-service
+                      service: automation.toggle
+                      service_data:
+                        entity_id: automation.matrix_panel_shuffle_views
+                    style:
+                      button:
+                        padding: 0 4px 0 0;
+                        border-right: 1px solid var(--divider-color)
+                        color: >-
+                          {% if is_state('automation.matrix_panel_shuffle_views', 'on') %}
+                            var(--paper-item-icon-active-color)
+                          {% endif %}
+                        display: >-
+                          {% if is_state('input_boolean.matrix_display', 'off') %}
+                            none
+                          {% endif %}
+                  - entity: input_select.matrix_view
+                    icon: mdi:weather-partly-cloudy
+                    name: false
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.matrix_view
+                        option: temperature
+                    style:
+                      button:
+                        margin-right: -12px
+                        color: >-
+                          {% if is_state('input_select.matrix_view', 'temperature') %}
+                            var(--paper-item-icon-active-color)
+                          {% endif %}
+                        display: >-
+                          {% if is_state('input_boolean.matrix_display', 'off') %}
+                            none
+                          {% endif %}
+                  - entity: input_select.matrix_view
+                    icon: mdi:solar-power
+                    name: false
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.matrix_view
+                        option: solar
+                    style:
+                      button:
+                        margin-right: -16px
+                        color: >-
+                          {% if is_state('input_select.matrix_view', 'solar') %}
+                            var(--paper-item-icon-active-color)
+                          {% endif %}
+                        display: >-
+                          {% if is_state('input_boolean.matrix_display', 'off') %}
+                            none
+                          {% endif %}
+                  - entity: input_select.matrix_view
+                    icon: mdi:lightning-bolt-outline
+                    name: false
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.matrix_view
+                        option: usage
+                    style:
+                      button:
+                        margin-right: 12px
+                        color: >-
+                          {% if is_state('input_select.matrix_view', 'usage') %}
+                            var(--paper-item-icon-active-color)
+                          {% endif %}
+                        display: >-
+                          {% if is_state('input_boolean.matrix_display', 'off') %}
+                            none
+                          {% endif %}
+          - type: custom:slider-entity-row
+            style: |
+              :host {
+                display: block;
+                padding-left: 40px;
+                {% if is_state('device_tracker.matrix_wifi', 'not_home') or is_state('input_boolean.matrix_display', 'off') %}
+                  display: none;
+                {% endif %}
+              }
+            entity: input_number.matrix_brightness
+            full_row: true
+          - type: conditional
+            conditions:
+              - entity: device_tracker.matrix_wifi
+                state: 'home'
+            row:
+              type: divider
+              style: 
+                margin-left: '55px'  
           - type: conditional
             conditions:
               - entity: media_player.sonos_speakers

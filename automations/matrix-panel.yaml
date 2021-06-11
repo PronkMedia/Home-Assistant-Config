@@ -1,0 +1,55 @@
+- id: matrix_panel_update
+  alias: Matrix panel update
+  mode: restart
+  trigger: 
+    - platform: state
+      entity_id:
+        - input_boolean.matrix_display
+        - input_number.matrix_brightness
+        - input_select.matrix_view
+        - sensor.matrix_temperature_outside
+        - sensor.matrix_temperature_inside
+        - sensor.matrix_inverter_outputpower
+        - sensor.matrix_inverter_daytotal
+        - sensor.matrix_usage_dayenery
+        - sensor.matrix_usage_daygas
+  action: 
+    - choose:
+      - conditions:
+          - condition: numeric_state
+            entity_id: input_number.matrix_brightness
+            below: 1
+        sequence:
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.matrix_display
+          - service: input_number.set_value
+            target:
+              entity_id: input_number.matrix_brightness
+            data:
+              value: 80
+      default:
+        - service: rest_command.matrix
+          data:
+            display: "{{ states('input_boolean.matrix_display') }}"
+            brightness: "{{ states('input_number.matrix_brightness') }}"
+            view: "{{ states('input_select.matrix_view') }}"
+            temperature_outside: "{{ states('sensor.matrix_temperature_outside') }}"
+            temperature_inside: "{{ states('sensor.matrix_temperature_inside') }}"
+            inverter_outputpower: "{{ states('sensor.matrix_inverter_outputpower') }}"
+            inverter_daytotal: "{{ states('sensor.matrix_inverter_daytotal') }}"
+            usage_dayenery: "{{ states('sensor.matrix_usage_dayenery') }}"
+            usage_daygas: "{{ states('sensor.matrix_usage_daygas') }}"
+- id: matrix_panel_shuffle
+  alias: Matrix panel shuffle views
+  trigger:
+    - platform: time_pattern
+      seconds: "/30"
+  condition:
+    condition: state
+    entity_id: input_boolean.matrix_display
+    state: 'on'
+  action:
+    service: input_select.select_next
+    target:
+      entity_id: input_select.matrix_view
