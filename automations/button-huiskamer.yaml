@@ -6,6 +6,10 @@
   action:
     - service: light.turn_off
       entity_id: light.huiskamer
-    - service: media_player.turn_off
+    - service: input_boolean.turn_off
       target:
-        entity_id: media_player.55pus6704_12
+        entity_id: input_boolean.matrix_display
+    - service: remote.send_command
+      data:
+        entity_id: remote.55pus6704_12
+        command: PowerOff
