@@ -2,3 +2,5 @@ ssl_certificate: !secret cloudflare_ssl_cert
 ssl_key: !secret cloudflare_ssl_key
 ip_ban_enabled: true
 login_attempts_threshold: 3
+use_x_forwarded_for: true
+trusted_proxies: !secret cloudflare_trusted_proxies
