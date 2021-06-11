@@ -2,8 +2,10 @@
   alias: Vacation mode
   mode: single
   trigger:
-      platform: state
+    - platform: state
       entity_id: sensor.light_buiten
+    - platform: time_pattern
+      minutes: "/5"
   action:
     - choose:
         - conditions:
