@@ -143,7 +143,7 @@ cards:
           }
         name: Kinderkamer
         entities:
-         - sensor.shelly_ht_kinderkamer_temperature
+         - sensor.temperature_kinderkamer
         show:
           labels: false
           points: false

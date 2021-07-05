@@ -324,7 +324,7 @@ cards:
               type: divider
               style: 
                 margin-left: '55px'
-          - entity: sensor.shelly_ht_kinderkamer_temperature
+          - entity: sensor.temperature_kinderkamer
             name: Temperatuur
           - entity: sensor.shelly_ht_1_humidity
             name: Luchtvochtigheid
