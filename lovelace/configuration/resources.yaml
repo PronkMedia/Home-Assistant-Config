@@ -11,7 +11,7 @@
 - url: /local/custom_lovelace/paper-buttons-row.js?v=0.5.0
   type: module
 # Simple Thermostat
-- url: /local/custom_lovelace/simple-thermostat.js?v=2.4.0
+- url: /local/custom_lovelace/simple-thermostat.js?v=2.4.2
   type: module
 # Slider Entity Row
 - url: /local/custom_lovelace/slider-entity-row.js?v=17.0.1
