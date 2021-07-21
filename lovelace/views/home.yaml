@@ -133,20 +133,20 @@ cards:
               state_color: true
               extend_paper_buttons_row:
                 buttons:
-                  - entity: automation.matrix_panel_shuffle_views
-                    icon: mdi:shuffle-variant
+                  - entity: automation.matrix_panel_cycle_views
+                    icon: mdi:repeat
                     name: false
                     tap_action:
                       action: call-service
                       service: automation.toggle
                       service_data:
-                        entity_id: automation.matrix_panel_shuffle_views
+                        entity_id: automation.matrix_panel_cycle_views
                     style:
                       button:
                         padding: 0 4px 0 0;
                         border-right: 1px solid var(--divider-color)
                         color: >-
-                          {% if is_state('automation.matrix_panel_shuffle_views', 'on') %}
+                          {% if is_state('automation.matrix_panel_cycle_views', 'on') %}
                             var(--paper-item-icon-active-color)
                           {% endif %}
                         display: >-
