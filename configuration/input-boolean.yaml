@@ -1,2 +1,6 @@
 matrix_display:
   icon: mdi:text-box-outline
+automation_motion_parkeerplaats_triggered:
+  name: Parkeerplaats motion automation is triggered
+automation_motion_tuin_triggered:
+  name: Tuin motion automation is triggered
