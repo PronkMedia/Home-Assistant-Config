@@ -28,7 +28,6 @@ input_number: !include configuration/input-number.yaml
 input_select: !include configuration/input-select.yaml
 input_text: !include configuration/input-text.yaml
 
-
 # Lovelace configuration
 lovelace: !include configuration/lovelace.yaml
 

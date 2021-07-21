@@ -1,4 +1,0 @@
-# Smart meter (Landis+Gyr E360)
-- platform: dsmr
-  port: /dev/ttyUSB0
-  dsmr_version: 5
