@@ -6,7 +6,7 @@
     matrix_temperature_inside:
       value_template: "{{ state_attr('climate.family_room', 'current_temperature') }}"
     matrix_inverter_outputpower:
-      value_template: "{{ (state_attr('sensor.sems_portal', 'outputpower') | float / 1000) | round(1) }}"
+      value_template: "{{ (state_attr('sensor.inverter_goodwe', 'outputpower') | float / 1000) | round(1) }}"
     matrix_inverter_daytotal:
       value_template: "{{ states('sensor.daily_generation') | round(0) }}"
     matrix_usage_dayenery:
