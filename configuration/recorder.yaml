@@ -2,6 +2,7 @@ purge_keep_days: 2
 commit_interval: 10
 include:
   entities:
+    # Overview dashboard entities
     - sensor.family_room_current_temperature
     - sensor.family_room_preset_temperature
     - sensor.family_room_heating_temperature
@@ -26,3 +27,12 @@ include:
     - sensor.disk_use_percent
     - sensor.network_throughput_in
     - sensor.network_throughput_out
+    # Energy dashboard entities
+    - sensor.energy_consumption_tarif_1
+    - sensor.energy_consumption_tarif_2
+    - sensor.energy_production_tarif_1
+    - sensor.energy_production_tarif_2
+    - sensor.energy_monitor_1_total_consumption
+    - sensor.energy_monitor_2_total_consumption
+    - sensor.energy_monitor_3_total_consumption
+    - sensor.inverter_goodwe_energy

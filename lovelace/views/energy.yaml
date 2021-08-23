@@ -209,13 +209,13 @@ cards:
           title: Verbruik Koelkast
           show_header_toggle: false
           entities:
-            - entity: sensor.energy_monitor_1_watts
+            - entity: sensor.energy_monitor_1_current_consumption
               name: Huidig verbruik
               icon: mdi:flash-outline
-            - entity: sensor.energy_monitor_1_today_kwh
+            - entity: sensor.energy_monitor_1_today_s_consumption
               name: Verbruik vandaag
               icon: mdi:gauge
-            - entity: sensor.energy_monitor_1_total_kwh
+            - entity: sensor.energy_monitor_1_total_consumption_kwh
               name: Totaal verbruik
               icon: mdi:gauge
       - type: conditional
@@ -227,13 +227,13 @@ cards:
           title: Verbruik Quooker
           show_header_toggle: false
           entities:
-            - entity: sensor.energy_monitor_2_watts
+            - entity: sensor.energy_monitor_2_current_consumption
               name: Huidig verbruik
               icon: mdi:flash-outline
-            - entity: sensor.energy_monitor_2_today_kwh
+            - entity: sensor.energy_monitor_2_today_s_consumption
               name: Verbruik vandaag
               icon: mdi:gauge
-            - entity: sensor.energy_monitor_2_total_kwh
+            - entity: sensor.energy_monitor_2_total_consumption_kwh
               name: Totaal verbruik
               icon: mdi:gauge
       - type: conditional
@@ -245,13 +245,13 @@ cards:
           title: Verbruik TV apparatuur
           show_header_toggle: false
           entities:
-            - entity: sensor.energy_monitor_3_watts
+            - entity: sensor.energy_monitor_3_current_consumption
               name: Huidig verbruik
               icon: mdi:flash-outline
-            - entity: sensor.energy_monitor_3_today_kwh
+            - entity: sensor.energy_monitor_3_today_s_consumption
               name: Verbruik vandaag
               icon: mdi:gauge
-            - entity: sensor.energy_monitor_3_total_kwh
+            - entity: sensor.energy_monitor_3_total_consumption_kwh
               name: Totaal verbruik
               icon: mdi:gauge
       - type: conditional

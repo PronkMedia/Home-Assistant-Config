@@ -4,6 +4,9 @@ automation: !include_dir_merge_list automations
 # Enable configuration section
 config:
 
+# Enable energy dashboard
+energy:
+
 # Frontend (theme) configuration
 frontend: !include configuration/frontend.yaml
 

@@ -1,30 +1,12 @@
 # Energy monitors (TP-Link HS110)
 - platform: template
   sensors:
-    energy_monitor_1_watts:
-      value_template: '{{ state_attr("switch.energy_monitor_1", "current_power_w") | float }}'
-      unit_of_measurement: 'W'
-    energy_monitor_1_today_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_1", "today_energy_kwh") | float }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_1_total_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_1", "total_energy_kwh") | float | round(0) }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_2_watts:
-      value_template: '{{ state_attr("switch.energy_monitor_2", "current_power_w") | float }}'
-      unit_of_measurement: 'W'
-    energy_monitor_2_today_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_2", "today_energy_kwh") | float }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_2_total_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_2", "total_energy_kwh") | float | round(0) }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_3_watts:
-      value_template: '{{ state_attr("switch.energy_monitor_3", "current_power_w") | float }}'
-      unit_of_measurement: 'W'
-    energy_monitor_3_today_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_3", "today_energy_kwh") | float }}'
-      unit_of_measurement: 'kWh'
-    energy_monitor_3_total_kwh:
-      value_template: '{{ state_attr("switch.energy_monitor_3", "total_energy_kwh") | float | round(0) }}'
-      unit_of_measurement: 'kWh'
+    energy_monitor_1_total_consumption_kwh:
+      value_template: '{{ states("sensor.energy_monitor_1_total_consumption") | float | round(0) }}'
+      unit_of_measurement: kWh
+    energy_monitor_2_total_consumption_kwh:
+      value_template: '{{ states("sensor.energy_monitor_2_total_consumption") | float | round(0) }}'
+      unit_of_measurement: kWh
+    energy_monitor_3_total_consumption_kwh:
+      value_template: '{{ states("sensor.energy_monitor_3_total_consumption") | float | round(0) }}'
+      unit_of_measurement: kWh
