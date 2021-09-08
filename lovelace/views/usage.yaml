@@ -1,6 +1,6 @@
-title: Energie
-path: energy
-icon: mdi:flash-outline
+title: Usage
+path: usage
+icon: mdi:counter
 cards:
   - type: vertical-stack
     cards:
@@ -23,39 +23,62 @@ cards:
           }
           .states {
             font-size: 10px;
+            height: 80px;
+            padding: 0 20px 16px;
+          }
+          .state {
+            margin-bottom: 0.6rem !important;
           }
           .state:not(.state--small)::before {
             content: ""; 
               height: 10px;
               width: 10px;
-              background-color: var(--label-badge-blue);
+              background-color: var(--label-badge-red);
               border-radius: 50%;
-              margin: 9px 6px 0 0;
+              margin: 9px 6px 0 -2px;
+          }
+          .states--secondary {
+            position: absolute;
+            flex-flow: row wrap !important;
+            width: calc(100% - 34px);
           }
           .state--small {
             font-size: 1em !important;
+            width: 50%;
+          }
+          .state--small:first-child {
+            margin-left: 50%;
+          }
+          .state--small:nth-child(odd) {
+            left: 15%;
           }
           .graph__legend {
             justify-content: flex-end !important;
           }
           .graph__legend__item {
-            width: 46%;
+            width: 45%;
           }
         name: Slimme meter
         entities:
-          - entity: sensor.hourly_gas_consumption
-            name: Gas (verbruik)
-            color: var(--label-badge-blue)
-            show_state: true
-            show_indicator: true
+
           - entity: sensor.power_consumption
             name: Stroom (verbruik)
             color: var(--label-badge-red)
             show_state: true
             show_indicator: true
+          - entity: sensor.hourly_gas
+            name: Gas (verbruik)
+            color: var(--label-badge-yellow)
+            show_state: true
+            show_indicator: true
           - entity: sensor.power_production
             name: Stroom (productie)
             color: var(--label-badge-green)
+            show_state: true
+            show_indicator: true
+          - entity: sensor.hourly_water
+            name: Water (verbruik)
+            color: var(--label-badge-blue)
             show_state: true
             show_indicator: true
         show:
@@ -77,12 +100,15 @@ cards:
             text: Vandaag
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.daily_gas
-            name: Gasverbruik
-            icon: mdi:fire
           - entity: sensor.daily_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
+          - entity: sensor.daily_gas
+            name: Gasverbruik
+            icon: mdi:fire
+          - entity: sensor.daily_water_consumption
+            name: Waterverbruik
+            icon: mdi:water-outline
           - type: divider
             style:
               margin-left: '55px'
@@ -90,12 +116,12 @@ cards:
             text: Huidige maand
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.monthly_gas
-            name: Gasverbruik
-            icon: mdi:fire
           - entity: sensor.monthly_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
+          - entity: sensor.monthly_gas
+            name: Gasverbruik
+            icon: mdi:fire
           - type: divider
             style:
               margin-left: '55px'
@@ -103,12 +129,12 @@ cards:
             text: Lopende jaar
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.yearly_gas
-            name: Gasverbruik
-            icon: mdi:fire
           - entity: sensor.yearly_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
+          - entity: sensor.yearly_gas
+            name: Gasverbruik
+            icon: mdi:fire
           - type: divider
             style:
               margin-left: '55px'
@@ -116,12 +142,15 @@ cards:
             text: Totaal
             style: 
               margin: "16px 0 8px 8px"
-          - entity: sensor.total_gas
-            name: Gasverbruik
-            icon: mdi:fire
           - entity: sensor.total_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
+          - entity: sensor.total_gas
+            name: Gasverbruik
+            icon: mdi:fire
+          - entity: sensor.total_water
+            name: Waterverbruik
+            icon: mdi:water-outline
       - type: custom:mini-graph-card
         style: |
           ha-card {

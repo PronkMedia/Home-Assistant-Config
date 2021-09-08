@@ -12,6 +12,7 @@ My Home Assistant configuration & documentation.
     - 1x Raspberry Pi 4 (Model B / 4GB)
     - 1x Raspberry Pi Zero (WH)
     - 1x Raspberry Pi Official Power Supply (15.3W | USB-C)
+    - 1x Raspberry Pi Official Power Supply (5.1V/2.5A | MicroUSB)
 - Aokin
     - 1x Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
 - Adafruit
@@ -53,6 +54,8 @@ My Home Assistant configuration & documentation.
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)
     - 1x USB > Serial Cable (P1)
+- Smart Gateways
+    - 1x Watermeter Gateway
 - GoodWe 
     - 1x Solar Inverter (GoodWe GW2500-XS)
 - Canadian Solar

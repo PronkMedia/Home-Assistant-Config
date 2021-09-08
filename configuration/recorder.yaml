@@ -11,7 +11,8 @@ include:
     - sensor.temperature_kinderkamer
     - sensor.temperature_slaapkamer
     - sensor.temperature_buiten
-    - sensor.hourly_gas_consumption
+    - sensor.hourly_gas
+    - sensor.hourly_water
     - sensor.power_consumption
     - sensor.power_production
     - sensor.sems_portal_outputpower

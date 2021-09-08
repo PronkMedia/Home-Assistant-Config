@@ -1,3 +1,6 @@
+daily_water_consumption:
+  source: sensor.water_consumption_total
+  cycle: daily
 daily_gas_consumption:
   source: sensor.gas_consumption
   cycle: daily
@@ -16,6 +19,9 @@ daily_energy_production_peak:
 daily_energy_generation:
   source: sensor.sems_portal_etotal
   cycle: daily
+monthly_water_consumption:
+  source: sensor.water_consumption_total
+  cycle: monthly
 monthly_gas_consumption:
   source: sensor.gas_consumption
   cycle: monthly
@@ -34,6 +40,9 @@ monthly_energy_production_peak:
 monthly_energy_generation:
   source: sensor.sems_portal_etotal
   cycle: monthly
+yearly_water_consumption:
+  source: sensor.water_consumption_total
+  cycle: yearly
 yearly_gas_consumption:
   source: sensor.gas_consumption
   cycle: yearly
