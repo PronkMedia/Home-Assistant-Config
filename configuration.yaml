@@ -69,5 +69,8 @@ person: !include configuration/person.yaml
 # Rest commands
 rest_command: !include configuration/rest-commands.yaml
 
+# Text-to-Speech
+tts: !include configuration/tts.yaml
+
 # Enable Wake on LAN
 wake_on_lan:
