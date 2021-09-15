@@ -30,7 +30,7 @@ cards:
         entities:
           - entity: person.male
             name: !secret person_male
-            color: var(--paper-orange-400)
+            color: var(--warning-color)
           - entity: person.female
             name: !secret person_female
             color: var(--label-badge-blue)
@@ -96,7 +96,7 @@ cards:
             color: var(--label-badge-red)
           - entity: binary_sensor.motion_sensor_toilet_motion_api
             name: Toilet
-            color: var(--paper-orange-400)
+            color: var(--warning-color)
           - entity: group.motion_tuin
             name: Tuin
             color: var(--label-badge-blue)

@@ -68,7 +68,7 @@ cards:
             color: var(--label-badge-green)
           - entity: sensor.family_room_preset_temperature
             name: Ingesteld
-            color: var(--paper-orange-400)
+            color: var(--warning-color)
           - entity: sensor.family_room_heating_temperature
             name: Verwarming
             color: var(--label-badge-red)
@@ -149,7 +149,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: var(--paper-orange-400)
+        line_color: var(--warning-color)
       - type: custom:mini-graph-card
         style: |
           .header {

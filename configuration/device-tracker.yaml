@@ -3,14 +3,6 @@
   consider_home: 0:15
   new_device_defaults:
     track_new_devices: false
-- platform: nmap_tracker
-  hosts:
-    - !secret address_phone_male
-    - !secret address_phone_female
-  interval_seconds: 300
-  consider_home: 0:15
-  new_device_defaults:
-    track_new_devices: false
 - platform: ping
   hosts:
     matrix_wifi: !secret address_matrix

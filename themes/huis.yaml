@@ -66,9 +66,9 @@ label-badge-red: "#e63535"
 label-badge-blue: "#337fbf"
 label-badge-green: "#7bcc00"
 label-badge-yellow: "#ffd311"
-paper-green-400: "#7bcc00"
-paper-blue-400: "#337fbf"
-paper-orange-400: "#ff8906"
+info-color: "#337fbf"
+success-color: "#7bcc00"
+warning-color: "#ff8906"
 
 # Card-Mod custom CSS
 card-mod-theme: huis

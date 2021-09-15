@@ -36,4 +36,5 @@ include:
     - sensor.energy_monitor_1_total_consumption
     - sensor.energy_monitor_2_total_consumption
     - sensor.energy_monitor_3_total_consumption
+    - sensor.gas_consumption
     - sensor.inverter_goodwe_energy

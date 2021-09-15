@@ -16,7 +16,7 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
     UpdateFailed,
 )
-from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT, SensorEntity
+from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING, SensorEntity
 from homeassistant.const import (
     DEVICE_CLASS_POWER,
     POWER_WATT,
@@ -24,7 +24,6 @@ from homeassistant.const import (
     DEVICE_CLASS_ENERGY,
     ENERGY_KILO_WATT_HOUR,
 )
-from homeassistant.util.dt import utc_from_timestamp
 from homeassistant.helpers.entity import Entity
 from .const import DOMAIN, CONF_STATION_ID, DEFAULT_SCAN_INTERVAL
 
@@ -189,8 +188,8 @@ class SemsSensor(CoordinatorEntity, SensorEntity):
             },
             "name": self.name,
             "manufacturer": "GoodWe",
-            "model": self.extra_state_attributes["model_type"],
-            "sw_version": self.extra_state_attributes["firmwareversion"],
+            "model": self.extra_state_attributes.get("model_type", "unknown"),
+            "sw_version": self.extra_state_attributes.get("firmwareversion", "unknown"),
             # "via_device": (DOMAIN, self.api.bridgeid),
         }
 
@@ -262,20 +261,15 @@ class SemsStatisticsSensor(CoordinatorEntity, SensorEntity):
             },
             # "name": self.name,
             "manufacturer": "GoodWe",
-            "model": data["model_type"],
-            "sw_version": data["firmwareversion"],
+            "model": data.get("model_type", "unknown"),
+            "sw_version": data.get("firmwareversion", "unknown"),
             # "via_device": (DOMAIN, self.api.bridgeid),
         }
 
     @property
-    def last_reset(self):
-        """Last reset property, used by Metered entities / Long Term Statistics"""
-        return utc_from_timestamp(0)
-
-    @property
     def state_class(self):
         """used by Metered entities / Long Term Statistics"""
-        return STATE_CLASS_MEASUREMENT
+        return STATE_CLASS_TOTAL_INCREASING
 
     async def async_added_to_hass(self):
         """When entity is added to hass."""
