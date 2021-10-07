@@ -19,9 +19,9 @@ include:
     - person.male
     - person.female
     - group.motion_huiskamer
-    - binary_sensor.motion_sensor_toilet_motion_api
+    - binary_sensor.toilet_motion_sensor_motion
     - group.motion_tuin
-    - binary_sensor.motion_sensor_parkeerplaats_motion_api
+    - binary_sensor.parkeerplaats_motion_sensor_motion
     - sensor.processor_temperature
     - sensor.processor_use
     - sensor.memory_use_percent

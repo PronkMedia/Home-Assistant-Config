@@ -2,25 +2,22 @@
   alias: Remote huiskamer pressed
   mode: restart
   trigger: 
-    platform: state 
-    entity_id: sensor.remote_1_button_update_api 
+    platform: event
+    event_type: hue_event
+  condition:
+    condition: template
+    value_template: "{{ trigger.event.data.id == 'afstandsbediening_1' }}"
   action: 
     - choose:
       - conditions:
-          - condition: state
-            entity_id: sensor.remote_1_button_state_api
-            state: "1001"
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 1001 }}"
         sequence:
           - service: script.scene_huiskamer_tvkijken
       - conditions:
-          - condition: state
-            entity_id: sensor.remote_1_button_state_api
-            state: 
-              - "1000"
-              - "1002"
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 1002 }}"
         sequence:
-          - delay:
-              seconds: 1
           - choose:
             - conditions:
                 - condition: state
@@ -59,29 +56,17 @@
               sequence:
                 - service: script.scene_huiskamer_spelen
       - conditions:
-          - condition: state
-            entity_id: sensor.remote_1_button_state_api
-            state: 
-              - "2000"
-              - "2001"
-              - "2002"
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 2002 }}"
         sequence:
           - service: script.scene_huiskamer_brighter
       - conditions:
-          - condition: state
-            entity_id: sensor.remote_1_button_state_api
-            state: 
-              - "3000"
-              - "3001"
-              - "3002"
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 3002 }}"
         sequence:
           - service: script.scene_huiskamer_dimmer
       - conditions:
-          - condition: state
-            entity_id: sensor.remote_1_button_state_api
-            state: 
-              - "4000"
-              - "4001"
-              - "4002"
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 4002 }}"
         sequence:
           - service: script.scene_huiskamer_off

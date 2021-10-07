@@ -1,15 +1,24 @@
 - id: button_huiskamer_pressed
   alias: Button huiskamer pressed
-  trigger: 
-    platform: state 
-    entity_id: sensor.button_1_update_api
+  trigger:
+    platform: device
+    device_id: 9b88e5cced0fd2c39b6e5d08beafe7e8
+    domain: hue
+    type: remote_button_short_release
+    subtype: turn_on
   action:
     - service: light.turn_off
       entity_id: light.huiskamer
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.matrix_display
-    - service: remote.send_command
-      data:
-        entity_id: remote.55pus6704_12
-        command: PowerOff
+    - choose:
+      - conditions:
+          - condition: state
+            entity_id: media_player.55pus6704_12
+            state: 'on'
+        sequence:
+          - service: remote.send_command
+            data:
+              entity_id: remote.55pus6704_12
+              command: PowerOff

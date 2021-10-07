@@ -94,13 +94,13 @@ cards:
           - entity: group.motion_huiskamer
             name: Huiskamer
             color: var(--label-badge-red)
-          - entity: binary_sensor.motion_sensor_toilet_motion_api
+          - entity: binary_sensor.toilet_motion_sensor_motion
             name: Toilet
             color: var(--warning-color)
           - entity: group.motion_tuin
             name: Tuin
             color: var(--label-badge-blue)
-          - entity: binary_sensor.motion_sensor_parkeerplaats_motion_api
+          - entity: binary_sensor.parkeerplaats_motion_sensor_motion
             name: Parkeerplaats
             color: var(--label-badge-green)
         show:

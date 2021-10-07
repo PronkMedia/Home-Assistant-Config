@@ -2,7 +2,7 @@
   alias: Motion parkeerplaats detected
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_parkeerplaats_motion_api
+    entity_id: binary_sensor.parkeerplaats_motion_sensor_motion
     to: 'on'
   condition:
     condition: and
@@ -22,7 +22,7 @@
   alias: Motion parkeerplaats undetected
   trigger:
     platform: state
-    entity_id: binary_sensor.motion_sensor_parkeerplaats_motion_api
+    entity_id: binary_sensor.parkeerplaats_motion_sensor_motion
     to: 'off'
     for:
       minutes: 1
