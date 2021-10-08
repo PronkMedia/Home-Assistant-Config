@@ -57,6 +57,7 @@
 - platform: group
   name: Boven
   entities:
+    - light.overloop
     - light.kinderkamer
     - light.slaapkamer
     - light.4062160584f3ebf16f17
