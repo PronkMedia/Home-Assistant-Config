@@ -38,3 +38,4 @@ include:
     - sensor.energy_monitor_3_total_consumption
     - sensor.gas_consumption
     - sensor.inverter_goodwe_energy
+    - sensor.grid_fossil_fuel_percentage
