@@ -13,21 +13,21 @@
         - condition: and
           conditions:
             - condition: state
-              entity_id: switch.753802832462ab3c0e52
+              entity_id: switch.plug_christmas_tree
               state: 'off'
             - condition: template
               value_template: "{{ trigger.event.data.event == 1002 or trigger.event.data.event == 2002 }}"
         sequence:
           service: switch.turn_on
-          entity_id: switch.753802832462ab3c0e52
+          entity_id: switch.plug_christmas_tree
       - conditions:
         - condition: and
           conditions:
             - condition: state
-              entity_id: switch.753802832462ab3c0e52
+              entity_id: switch.plug_christmas_tree
               state: 'on'
             - condition: template
               value_template: "{{ trigger.event.data.event == 3002 or trigger.event.data.event == 4002 }}"
         sequence:
           service: switch.turn_off
-          entity_id: switch.753802832462ab3c0e52
+          entity_id: switch.plug_christmas_tree

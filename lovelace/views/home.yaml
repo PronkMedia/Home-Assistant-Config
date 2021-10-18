@@ -28,7 +28,7 @@ cards:
           - entity: light.keuken
           - entity: light.eettafel
           - entity: light.buffetkast
-          - entity: switch.753802832462ab3c0e52
+          - entity: switch.plug_christmas_tree
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.vloerlamp
@@ -73,10 +73,10 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
-          - entity: switch.753802832462ab3c0e52
+          - entity: switch.plug_christmas_tree
             style: |
               :host {
-                {% if not is_state('switch.753802832462ab3c0e52', 'unavailable') %}
+                {% if not is_state('switch.plug_christmas_tree', 'unavailable') %}
                   display: block !important;
                 {% endif %}
               }
@@ -111,7 +111,7 @@ cards:
             row:
               type: custom:slider-entity-row
               entity: light.vloerlamp
-              icon: mdi:floor-lamp-variant
+              icon: mdi:floor-lamp-torchiere-variant
               toggle: true
               hide_when_off: true
               step: 1
@@ -358,7 +358,7 @@ cards:
             icon: mdi:brightness-6
       - type: conditional
         conditions:
-          - entity: light.4062160584f3ebf16f17
+          - entity: light.bureau
             state_not: "unavailable"
         card:
           type: entities
@@ -366,7 +366,7 @@ cards:
           show_header_toggle: false
           entities:
             - type: custom:slider-entity-row
-              entity: light.4062160584f3ebf16f17
+              entity: light.bureau
               icon: mdi:led-strip-variant
               toggle: true
               hide_when_off: true

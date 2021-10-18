@@ -112,4 +112,4 @@
     total_generation:
       friendly_name: Total Generation
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.sems_portal_etotal') | float | round(0)}}"
+      value_template: "{{ states('sensor.sems_portal_etotal') | float(default=0) | round(0)}}"

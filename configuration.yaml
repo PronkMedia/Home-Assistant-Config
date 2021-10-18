@@ -54,9 +54,6 @@ switch: !include_dir_merge_list switches
 # Enable system health information
 system_health:
 
-# TP-Link
-tplink: !include configuration/tp-link.yaml
-
 # Utility meter
 utility_meter: !include configuration/utility-meter.yaml
 

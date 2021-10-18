@@ -1,5 +1,0 @@
-# Energy monitors (HS110)
-switch:
-  - host: !secret address_tplink_hs110_1
-  - host: !secret address_tplink_hs110_2
-  - host: !secret address_tplink_hs110_3
