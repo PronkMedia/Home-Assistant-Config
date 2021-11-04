@@ -46,7 +46,7 @@ cards:
           }
         name: Systeem temperatuur
         entities:
-         - sensor.processor_temperature
+          - sensor.processor_temperature
         show:
           labels: true
           points: false
@@ -132,13 +132,13 @@ cards:
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Huiskamer 1)
-            suffix: '%'
+            suffix: "%"
           - type: attribute
             entity: binary_sensor.huiskamer_motion_sensor_2_motion
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Huiskamer 2)
-            suffix: '%'
+            suffix: "%"
           - type: attribute
             entity: binary_sensor.toilet_motion_sensor_motion
             attribute: battery_level
@@ -146,14 +146,14 @@ cards:
             name: Hue Motion Sensor (Toilet)
             suffix: '%'
           - entity: sensor.shelly_ht_1_battery
-            name:  Shelly H&T (Kinderkamer)
+            name: Shelly H&T (Kinderkamer)
             icon: mdi:battery-50
           - type: attribute
             entity: binary_sensor.slaapkamer_motion_sensor_motion
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Slaapkamer)
-            suffix: '%'
+            suffix: "%"
           - entity: sensor.afstandsbediening_1_battery_level
             name: Hue Dimmer Switch (Huiskamer)
             icon: mdi:battery-50
@@ -168,16 +168,16 @@ cards:
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Tuin 1)
-            suffix: '%'
+            suffix: "%"
           - type: attribute
             entity: binary_sensor.tuin_motion_sensor_2_motion
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Tuin 2)
-            suffix: '%'
+            suffix: "%"
           - type: attribute
             entity: binary_sensor.parkeerplaats_motion_sensor_motion
             attribute: battery_level
             icon: mdi:battery-50
             name: Hue Motion Sensor (Parkeerplaats)
-            suffix: '%'
+            suffix: "%"

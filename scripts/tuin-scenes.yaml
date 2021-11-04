@@ -1,9 +1,9 @@
 # Tuin scenes
 scene_tuin_motion:
   sequence:
-      - service: light.turn_on
-        data:
-          entity_id:
-            - light.achterdeur
-            - light.schuur
-          brightness: 254
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.achterdeur
+          - light.schuur
+        brightness: 254

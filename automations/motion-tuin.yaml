@@ -3,16 +3,16 @@
   trigger:
     platform: state
     entity_id: group.motion_tuin
-    to: 'on'
+    to: "on"
   condition:
     condition: and
-    conditions:    
+    conditions:
       - condition: state
         entity_id: light.achterdeur
-        state: 'off'
+        state: "off"
       - condition: state
         entity_id: light.schuur
-        state: 'off'
+        state: "off"
       - condition: or
         conditions:
           - condition: numeric_state
@@ -31,13 +31,13 @@
   trigger:
     platform: state
     entity_id: group.motion_tuin
-    to: 'off'
+    to: "off"
     for:
       minutes: 1
   condition:
     condition: state
     entity_id: input_boolean.automation_motion_tuin_triggered
-    state: 'on'
+    state: "on"
   action:
     - service: light.turn_off
       entity_id:

@@ -2,23 +2,28 @@
 - platform: template
   sensors:
     sems_portal_status:
-      value_template: '{% if is_state_attr("sensor.inverter_goodwe", "status", 1) %}Online{% else %}Offline{% endif %}'
+      value_template: >
+        {% if is_state_attr("sensor.inverter_goodwe", "status", 1) %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
     sems_portal_capacity:
-      value_template: '{{ state_attr("sensor.inverter_goodwe", "capacity") | float(default=0) }}'
-      unit_of_measurement: 'kW'
+      value_template: "{{ state_attr(\"sensor.inverter_goodwe\", \"capacity\") | float(default=0) }}"
+      unit_of_measurement: kW
     sems_portal_outputpower:
-      value_template: '{{ state_attr("sensor.inverter_goodwe", "outputpower") | float(default=0) / 1000 }}'
-      unit_of_measurement: 'kW'
+      value_template: "{{ state_attr(\"sensor.inverter_goodwe\", \"outputpower\") | float(default=0) / 1000 }}"
+      unit_of_measurement: kW
     sems_portal_temperature:
-      value_template: '{{ state_attr("sensor.inverter_goodwe", "tempperature") }}'
-      unit_of_measurement: "°C"
+      value_template: "{{ state_attr(\"sensor.inverter_goodwe\", \"tempperature\") }}"
+      unit_of_measurement: °C
     sems_portal_hour_total:
-      value_template: '{{ state_attr("sensor.inverter_goodwe", "hour_total") | round(0, default=0) }} uur'
+      value_template: "{{ state_attr(\"sensor.inverter_goodwe\", \"hour_total\") | round(0, default=0) }} uur"
     sems_portal_etotal:
-      value_template: > 
+      value_template: >
         {% if states("sensor.inverter_goodwe") in ["unknown", "unavailable"] or state_attr("sensor.inverter_goodwe", "etotal") == 0 %}
           unavailable
         {% else %}
           {{ state_attr("sensor.inverter_goodwe", "etotal") | float }}
         {% endif %}
-      unit_of_measurement: 'kWh'
+      unit_of_measurement: kWh

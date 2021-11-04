@@ -2,13 +2,23 @@
 - platform: template
   sensors:
     family_room_preset_temperature:
-      value_template: "{{ state_attr('climate.family_room', 'temperature') | float }}"
-      unit_of_measurement: "°C"
+      value_template: "{{ state_attr(\"climate.family_room\", \"temperature\") | float }}"
+      unit_of_measurement: °C
     family_room_heating_temperature:
-      value_template: "{% if is_state_attr('climate.family_room', 'hvac_action', 'heating') %}{{ states('sensor.family_room_preset_temperature') }}{% else %}0{% endif %}"
-      unit_of_measurement: "°C"
+      value_template: >
+        {% if is_state_attr("climate.family_room", "hvac_action", "heating") %}
+          {{ states("sensor.family_room_preset_temperature") }}
+        {% else %}
+          0
+        {% endif %}
+      unit_of_measurement: °C
     family_room_current_temperature:
-      value_template: "{{ state_attr('climate.family_room', 'current_temperature') | float }}"
-      unit_of_measurement: "°C"
+      value_template: "{{ state_attr(\"climate.family_room\", \"current_temperature\") | float }}"
+      unit_of_measurement: °C
     family_room_heating_state:
-      value_template: "{% if is_state_attr('climate.family_room', 'hvac_action', 'heating') %}Aan{% else %}Uit{% endif %}"
+      value_template: >
+        {% if is_state_attr("climate.family_room", "hvac_action", "heating") %}
+          Aan
+        {% else %}
+          Uit
+        {% endif %}

@@ -5,7 +5,7 @@ secondary-text-color: "#8d8d8d"
 # Header
 app-header-background-color: "#242424"
 app-header-text-color: "#ffffff"
-header-height: '48px'
+header-height: 48px
 
 # Sidebar menu
 sidebar-text-color: "#8d8d8d"
@@ -15,9 +15,9 @@ sidebar-selected-icon-color: "#ffffff"
 sidebar-background-color: "#1b1b1b"
 
 # Cards
-ha-card-header-font-size: "24px"
+ha-card-header-font-size: 24px
 ha-card-background: "#424242"
-ha-card-border-radius: "6px"
+ha-card-border-radius: 6px
 ha-card-box-shadow: none
 
 # More info dialog

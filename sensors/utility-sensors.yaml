@@ -5,111 +5,111 @@
   round: 0
   unit_time: h
   unit: L/h
-  time_window: "00:05:00"
+  time_window: 00:05:00
 - platform: derivative
   name: Hourly gas
   source: sensor.gas_consumption
   unit_time: h
   unit: m³/h
-  time_window: "00:05:00"
+  time_window: 00:05:00
 - platform: template
   sensors:
     hourly_water:
       unit_of_measurement: m³/h
-      value_template: "{{ (states('sensor.hourly_water_consumption') | float / 1000) | round(3) }}"
+      value_template: "{{ (states(\"sensor.hourly_water_consumption\") | float / 1000) | round(3) }}"
     daily_water:
       friendly_name: Daily Water
       unit_of_measurement: m³
-      value_template: "{{ (states('sensor.daily_water_consumption') | float / 1000) | round(3) }}"
+      value_template: "{{ (states(\"sensor.daily_water_consumption\") | float / 1000) | round(3) }}"
     daily_gas:
       friendly_name: Daily Gas
       unit_of_measurement: m³
-      value_template: "{{ states('sensor.daily_gas_consumption') }}"
+      value_template: "{{ states(\"sensor.daily_gas_consumption\") }}"
     daily_energy_consumption:
       friendly_name: Daily Energy Consumption
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.daily_energy_consumption_offpeak') | float + states('sensor.daily_energy_consumption_peak') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.daily_energy_consumption_offpeak\") | float + states(\"sensor.daily_energy_consumption_peak\") | float) | round(3) }}"
     daily_energy_production:
       friendly_name: Daily Energy Production
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.daily_energy_production_offpeak') | float + states('sensor.daily_energy_production_peak') | float) | round(3)  }}"
+      value_template: "{{ (states(\"sensor.daily_energy_production_offpeak\") | float + states(\"sensor.daily_energy_production_peak\") | float) | round(3)  }}"
     daily_energy:
       friendly_name: Daily Energy
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.daily_energy_consumption') | float - states('sensor.daily_energy_production') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.daily_energy_consumption\") | float - states(\"sensor.daily_energy_production\") | float) | round(3) }}"
     daily_generation:
       friendly_name: Daily Generation
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.daily_energy_generation') }}"
+      value_template: "{{ states(\"sensor.daily_energy_generation\") }}"
     monthly_water:
       friendly_name: Monthly Water
       unit_of_measurement: m³
-      value_template: "{{ (states('sensor.monthly_water_consumption') | float / 1000) | round(0) }}"
+      value_template: "{{ (states(\"sensor.monthly_water_consumption\") | float / 1000) | round(0) }}"
     monthly_gas:
       friendly_name: Monthly Gas
       unit_of_measurement: m³
-      value_template: "{{ states('sensor.monthly_gas_consumption') | float | round(0) }}"
+      value_template: "{{ states(\"sensor.monthly_gas_consumption\") | float | round(0) }}"
     monthly_energy_consumption:
       friendly_name: Monthly Energy Consumption
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.monthly_energy_consumption_offpeak') | float + states('sensor.monthly_energy_consumption_peak') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.monthly_energy_consumption_offpeak\") | float + states(\"sensor.monthly_energy_consumption_peak\") | float) | round(3) }}"
     monthly_energy_production:
       friendly_name: Monthly Energy Production
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.monthly_energy_production_offpeak') | float + states('sensor.monthly_energy_production_peak') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.monthly_energy_production_offpeak\") | float + states(\"sensor.monthly_energy_production_peak\") | float) | round(3) }}"
     monthly_energy:
       friendly_name: Monthly Energy
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.monthly_energy_consumption') | float - states('sensor.monthly_energy_production') | float) | round(0) }}"
+      value_template: "{{ (states(\"sensor.monthly_energy_consumption\") | float - states(\"sensor.monthly_energy_production\") | float) | round(0) }}"
     monthly_generation:
       friendly_name: Monthly Generation
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.monthly_energy_generation') | float | round(0) }}"
+      value_template: "{{ states(\"sensor.monthly_energy_generation\") | float | round(0) }}"
     yearly_water:
       friendly_name: Yearly Water
       unit_of_measurement: m³
-      value_template: "{{ (states('sensor.yearly_water_consumption') | float / 1000) | round(0) }}"
+      value_template: "{{ (states(\"sensor.yearly_water_consumption\") | float / 1000) | round(0) }}"
     yearly_gas:
       friendly_name: Yearly Gas
       unit_of_measurement: m³
-      value_template: "{{ states('sensor.yearly_gas_consumption') | float | round(0) }}"
+      value_template: "{{ states(\"sensor.yearly_gas_consumption\") | float | round(0) }}"
     yearly_energy_consumption:
       friendly_name: Yearly Energy Consumption
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.yearly_energy_consumption_offpeak') | float + states('sensor.yearly_energy_consumption_peak') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.yearly_energy_consumption_offpeak\") | float + states(\"sensor.yearly_energy_consumption_peak\") | float) | round(3) }}"
     yearly_energy_production:
       friendly_name: Yearly Energy Production
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.yearly_energy_production_offpeak') | float + states('sensor.yearly_energy_production_peak') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.yearly_energy_production_offpeak\") | float + states(\"sensor.yearly_energy_production_peak\") | float) | round(3) }}"
     yearly_energy:
       friendly_name: Yearly Energy
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.yearly_energy_consumption') | float - states('sensor.yearly_energy_production') | float) | round(0) }}"
+      value_template: "{{ (states(\"sensor.yearly_energy_consumption\") | float - states(\"sensor.yearly_energy_production\") | float) | round(0) }}"
     yearly_generation:
       friendly_name: Yearly Generation
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.yearly_energy_generation') | float | round(0)}}"
+      value_template: "{{ states(\"sensor.yearly_energy_generation\") | float | round(0) }}"
     total_water:
       friendly_name: Total Water
       unit_of_measurement: m³
-      value_template: "{{ (states('sensor.water_consumption_total') | float / 1000) | round(0) }}"
+      value_template: "{{ (states(\"sensor.water_consumption_total\") | float / 1000) | round(0) }}"
     total_gas:
       friendly_name: Total Gas
       unit_of_measurement: m³
-      value_template: "{{ states('sensor.gas_consumption') | float | round(0) }}"
+      value_template: "{{ states(\"sensor.gas_consumption\") | float | round(0) }}"
     total_energy_consumption:
       friendly_name: Total Energy Consumption
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.energy_consumption_tarif_1') | float + states('sensor.energy_consumption_tarif_2') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.energy_consumption_tarif_1\") | float + states(\"sensor.energy_consumption_tarif_2\") | float) | round(3) }}"
     total_energy_production:
       friendly_name: Total Energy Production
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.energy_production_tarif_1') | float + states('sensor.energy_production_tarif_2') | float) | round(3) }}"
+      value_template: "{{ (states(\"sensor.energy_production_tarif_1\") | float + states(\"sensor.energy_production_tarif_2\") | float) | round(3) }}"
     total_energy:
       friendly_name: Total Energy
       unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.total_energy_consumption') | float - states('sensor.total_energy_production') | float) | round(0) }}"
+      value_template: "{{ (states(\"sensor.total_energy_consumption\") | float - states(\"sensor.total_energy_production\") | float) | round(0) }}"
     total_generation:
       friendly_name: Total Generation
       unit_of_measurement: kWh
-      value_template: "{{ states('sensor.sems_portal_etotal') | float(default=0) | round(0)}}"
+      value_template: "{{ states(\"sensor.sems_portal_etotal\") | float(default=0) | round(0) }}"

@@ -79,7 +79,7 @@ cards:
           points: false
           state: false
         points_per_hour: 30
-        lower_bound: '17'
+        lower_bound: 17
         line_width: 1
       - type: custom:mini-graph-card
         style: |
@@ -97,7 +97,7 @@ cards:
           }
         name: Huiskamer
         entities:
-         - sensor.temperature_huiskamer
+          - sensor.temperature_huiskamer
         show:
           labels: false
           points: false
@@ -120,7 +120,7 @@ cards:
           }
         name: Toilet
         entities:
-         - sensor.temperature_toilet
+          - sensor.temperature_toilet
         show:
           labels: false
           points: false
@@ -143,7 +143,7 @@ cards:
           }
         name: Kinderkamer
         entities:
-         - sensor.temperature_kinderkamer
+          - sensor.temperature_kinderkamer
         show:
           labels: false
           points: false
@@ -166,7 +166,7 @@ cards:
           }
         name: Slaapkamer
         entities:
-         - sensor.temperature_slaapkamer
+          - sensor.temperature_slaapkamer
         show:
           labels: false
           points: false
@@ -196,7 +196,7 @@ cards:
           }
         name: Buiten
         entities:
-         - sensor.temperature_buiten
+          - sensor.temperature_buiten
         show:
           labels: false
           points: false

@@ -30,7 +30,7 @@ cards:
             margin-bottom: 0.6rem !important;
           }
           .state:not(.state--small)::before {
-            content: ""; 
+            content: "";
               height: 10px;
               width: 10px;
               background-color: var(--label-badge-red);
@@ -60,7 +60,6 @@ cards:
           }
         name: Slimme meter
         entities:
-
           - entity: sensor.power_consumption
             name: Stroom (verbruik)
             color: var(--label-badge-red)
@@ -95,11 +94,11 @@ cards:
         entities:
           - type: divider
             style:
-              margin: '0 -16px'
+              margin: 0 -16px
           - type: custom:text-row
             text: Vandaag
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.daily_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
@@ -111,11 +110,11 @@ cards:
             icon: mdi:water-outline
           - type: divider
             style:
-              margin-left: '55px'
+              margin-left: 55px
           - type: custom:text-row
             text: Huidige maand
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.monthly_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
@@ -127,11 +126,11 @@ cards:
             icon: mdi:water-outline
           - type: divider
             style:
-              margin-left: '55px'
+              margin-left: 55px
           - type: custom:text-row
             text: Lopende jaar
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.yearly_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
@@ -140,11 +139,11 @@ cards:
             icon: mdi:fire
           - type: divider
             style:
-              margin-left: '55px'
+              margin-left: 55px
           - type: custom:text-row
             text: Totaal
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.total_energy
             name: Stroomverbruik
             icon: mdi:flash-outline
@@ -192,11 +191,11 @@ cards:
         entities:
           - type: divider
             style:
-              margin: '0 -16px'
+              margin: 0 -16px
           - type: custom:text-row
             text: Opbrengst panelen
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.daily_generation
             name: Vandaag
             icon: mdi:solar-power
@@ -211,11 +210,11 @@ cards:
             icon: mdi:solar-power
           - type: divider
             style:
-              margin-left: '55px'
+              margin-left: 55px
           - type: custom:text-row
             text: Omvormer informatie
-            style: 
-              margin: "16px 0 8px 8px"
+            style:
+              margin: 16px 0 8px 8px
           - entity: sensor.sems_portal_status
             name: Status
             icon: mdi:power
@@ -228,7 +227,7 @@ cards:
           - type: conditional
             conditions:
               - entity: sensor.sems_portal_status
-                state: 'Online'
+                state: "Online"
             row:
               entity: sensor.sems_portal_temperature
               name: Temperatuur

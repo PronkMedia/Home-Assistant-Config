@@ -98,7 +98,7 @@ scene_huiskamer_tvkijken:
     - service: input_text.set_value
       data:
         entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_tvkijken  
+        value: scene_huiskamer_tvkijken
     - service: light.turn_on
       data:
         entity_id:
@@ -146,25 +146,91 @@ scene_huiskamer_brighter:
     - service: light.turn_on
       data_template:
         entity_id: >
-          {% if is_state('light.keuken', 'on') %}{% set splitter = "," %}light.keuken{% endif %}
-          {% if is_state('light.eettafel', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.eettafel{% endif %}
-          {% if is_state('light.buffetkast', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.buffetkast{% endif %}
-          {% if is_state('light.speelhoek', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.speelhoek{% endif %}
-          {% if is_state('light.aanbouw', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.aanbouw{% endif %}
-          {% if is_state('light.vloerlamp', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}light.vloerlamp{% endif %}
-          {% if is_state('light.huiskamer', 'off') %}light.huiskamer{% endif %}
+          {% if is_state("light.keuken", "on") %}
+            {% set splitter = "," %}
+            light.keuken
+          {% endif %}
+          {% if is_state("light.eettafel", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.eettafel
+          {% endif %}
+          {% if is_state("light.buffetkast", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.buffetkast
+          {% endif %}
+          {% if is_state("light.speelhoek", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.speelhoek
+          {% endif %}
+          {% if is_state("light.aanbouw", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.aanbouw
+          {% endif %}
+          {% if is_state("light.vloerlamp", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            light.vloerlamp
+          {% endif %}
+          {% if is_state("light.huiskamer", "off") %}
+            light.huiskamer
+          {% endif %}
         brightness_step_pct: 20
 scene_huiskamer_dimmer:
   sequence:
     - service: light.turn_on
       data_template:
-        entity_id: > 
-          {% if is_state('light.keuken', 'on') %}{% set splitter = "," %}light.keuken{% endif %}
-          {% if is_state('light.eettafel', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.eettafel{% endif %}
-          {% if is_state('light.buffetkast', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.buffetkast{% endif %}
-          {% if is_state('light.speelhoek', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.speelhoek{% endif %}
-          {% if is_state('light.aanbouw', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}{% set splitter = "," %}light.aanbouw{% endif %}
-          {% if is_state('light.vloerlamp', 'on') %}{% if splitter is defined %}{{ splitter }}{% endif %}light.vloerlamp{% endif %}
+        entity_id: >
+          {% if is_state("light.keuken", "on") %}
+            {% set splitter = "," %}
+            light.keuken
+          {% endif %}
+          {% if is_state("light.eettafel", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.eettafel
+          {% endif %}
+          {% if is_state("light.buffetkast", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.buffetkast
+          {% endif %}
+          {% if is_state("light.speelhoek", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.speelhoek
+          {% endif %}
+          {% if is_state("light.aanbouw", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            {% set splitter = "," %}
+            light.aanbouw
+          {% endif %}
+          {% if is_state("light.vloerlamp", "on") %}
+            {% if splitter is defined %}
+              {{ splitter }}
+            {% endif %}
+            light.vloerlamp
+          {% endif %}
         brightness_step_pct: -20
     - service: light.turn_off
       entity_id: light.spots

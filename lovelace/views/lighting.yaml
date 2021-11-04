@@ -94,7 +94,9 @@ cards:
               border-bottom-right-radius: 0;
             }
             .entities div:nth-child(5) {
-              {% if is_state('switch.plug_christmas_tree', 'unavailable') %}display: none;{% endif %}
+              {% if is_state("switch.plug_christmas_tree", "unavailable") %}
+                display: none;
+              {% endif %}
             }
           ".entities div:nth-child(4)":
             $: |

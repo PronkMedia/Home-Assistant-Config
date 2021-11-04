@@ -1,7 +1,7 @@
 - id: matrix_panel_update
   alias: Matrix panel update
   mode: restart
-  trigger: 
+  trigger:
     - platform: state
       entity_id:
         - input_boolean.matrix_display
@@ -13,50 +13,50 @@
         - sensor.matrix_inverter_daytotal
         - sensor.matrix_usage_dayenery
         - sensor.matrix_usage_daygas
-  action: 
+  action:
     - choose:
-      - conditions:
-          - condition: numeric_state
-            entity_id: input_number.matrix_brightness
-            below: 1
-        sequence:
-          - service: input_boolean.turn_off
-            target:
-              entity_id: input_boolean.matrix_display
-          - service: input_number.set_value
-            target:
+        - conditions:
+            - condition: numeric_state
               entity_id: input_number.matrix_brightness
-            data:
-              value: 100
-      - conditions:
-          condition: not
-          conditions:
-            - condition: state
-              entity_id: input_boolean.matrix_display
-              state: 'off'
-              for:
-                minutes: 1
-        sequence:
-          - service: rest_command.matrix
-            data:
-              display: "{{ states('input_boolean.matrix_display') }}"
-              brightness: "{{ states('input_number.matrix_brightness') }}"
-              view: "{{ states('input_select.matrix_view') }}"
-              temperature_outside: "{{ states('sensor.matrix_temperature_outside') }}"
-              temperature_inside: "{{ states('sensor.matrix_temperature_inside') }}"
-              inverter_outputpower: "{{ states('sensor.matrix_inverter_outputpower') }}"
-              inverter_daytotal: "{{ states('sensor.matrix_inverter_daytotal') }}"
-              usage_dayenery: "{{ states('sensor.matrix_usage_dayenery') }}"
-              usage_daygas: "{{ states('sensor.matrix_usage_daygas') }}"
+              below: 1
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.matrix_display
+            - service: input_number.set_value
+              target:
+                entity_id: input_number.matrix_brightness
+              data:
+                value: 100
+        - conditions:
+            condition: not
+            conditions:
+              - condition: state
+                entity_id: input_boolean.matrix_display
+                state: "off"
+                for:
+                  minutes: 1
+          sequence:
+            - service: rest_command.matrix
+              data:
+                display: "{{ states(\"input_boolean.matrix_display\") }}"
+                brightness: "{{ states(\"input_number.matrix_brightness\") }}"
+                view: "{{ states(\"input_select.matrix_view\") }}"
+                temperature_outside: "{{ states(\"sensor.matrix_temperature_outside\") }}"
+                temperature_inside: "{{ states(\"sensor.matrix_temperature_inside\") }}"
+                inverter_outputpower: "{{ states(\"sensor.matrix_inverter_outputpower\") }}"
+                inverter_daytotal: "{{ states(\"sensor.matrix_inverter_daytotal\") }}"
+                usage_dayenery: "{{ states(\"sensor.matrix_usage_dayenery\") }}"
+                usage_daygas: "{{ states(\"sensor.matrix_usage_daygas\") }}"
 - id: matrix_panel_cycle
   alias: Matrix panel cycle views
   trigger:
     - platform: time_pattern
-      seconds: "/15"
+      seconds: /15
   condition:
     condition: state
     entity_id: input_boolean.matrix_display
-    state: 'on'
+    state: "on"
   action:
     service: input_select.select_next
     target:
@@ -66,11 +66,11 @@
   trigger:
     platform: state
     entity_id: group.motion_huiskamer
-    to: 'on'
+    to: "on"
   condition:
     condition: state
     entity_id: input_boolean.matrix_display
-    state: 'off'
+    state: "off"
   action:
     service: input_boolean.turn_on
     target:
@@ -80,13 +80,13 @@
   trigger:
     platform: state
     entity_id: group.motion_huiskamer
-    to: 'off'
+    to: "off"
     for:
       minutes: 15
   condition:
     condition: state
     entity_id: input_boolean.matrix_display
-    state: 'on'
+    state: "on"
   action:
     service: input_boolean.turn_off
     target:

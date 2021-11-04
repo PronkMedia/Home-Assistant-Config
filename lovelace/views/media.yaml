@@ -139,7 +139,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Kleine Kinderliedjes'
+                source: "List: Kleine Kinderliedjes"
           - entity: binary_sensor.media_source_spotify_nederlands
             name: Nederlands
             icon: mdi:playlist-music
@@ -148,7 +148,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Nederlands'
+                source: "List: Nederlands"
           - entity: binary_sensor.media_source_spotify_fout
             name: Fout
             icon: mdi:playlist-music
@@ -157,7 +157,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Fout'
+                source: "List: Fout"
           - entity: binary_sensor.media_source_spotify_oud
             name: Oude doos
             icon: mdi:playlist-music
@@ -166,7 +166,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Oud'
+                source: "List: Oud"
           - entity: binary_sensor.media_source_spotify_fun
             name: Fun
             icon: mdi:playlist-music
@@ -175,7 +175,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Fun'
+                source: "List: Fun"
           - entity: binary_sensor.media_source_spotify_relax
             name: Relax
             icon: mdi:playlist-music
@@ -184,7 +184,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Relax'
+                source: "List: Relax"
           - entity: binary_sensor.media_source_spotify_unplugged
             name: Unplugged
             icon: mdi:playlist-music
@@ -193,7 +193,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Unplugged'
+                source: "List: Unplugged"
           - entity: binary_sensor.media_source_spotify_eurovision
             name: Eurovision
             icon: mdi:playlist-music
@@ -202,7 +202,7 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'List: Eurovision'
+                source: "List: Eurovision"
           - entity: binary_sensor.media_source_spotify_shaffy
             name: Shaffy
             icon: mdi:playlist-music
@@ -211,4 +211,4 @@ cards:
               service: script.select_media_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 'Artist: Ramses Shaffy'
+                source: "Artist: Ramses Shaffy"

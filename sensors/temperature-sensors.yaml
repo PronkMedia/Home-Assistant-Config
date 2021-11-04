@@ -2,5 +2,5 @@
 - platform: template
   sensors:
     temperature_kinderkamer:
-      unit_of_measurement: '°C'
-      value_template: "{{ (states('sensor.shelly_ht_1_temperature') | float) | round(1) }}"
+      unit_of_measurement: °C
+      value_template: "{{ (states(\"sensor.shelly_ht_1_temperature\") | float) | round(1) }}"

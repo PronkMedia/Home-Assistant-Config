@@ -13,12 +13,12 @@
       target:
         entity_id: input_boolean.matrix_display
     - choose:
-      - conditions:
-          - condition: state
-            entity_id: media_player.55pus6704_12
-            state: 'on'
-        sequence:
-          - service: remote.send_command
-            data:
-              entity_id: remote.55pus6704_12
-              command: PowerOff
+        - conditions:
+            - condition: state
+              entity_id: media_player.55pus6704_12
+              state: "on"
+          sequence:
+            - service: remote.send_command
+              data:
+                entity_id: remote.55pus6704_12
+                command: PowerOff

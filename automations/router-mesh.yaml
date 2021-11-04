@@ -3,7 +3,7 @@
   trigger:
     platform: state
     entity_id: group.all_persons
-    to: 'home'
+    to: "home"
   action:
     service: switch.turn_on
     data:
@@ -15,7 +15,7 @@
   trigger:
     platform: state
     entity_id: group.all_persons
-    to: 'not_home'
+    to: "not_home"
     for:
       minutes: 15
   action:

@@ -1,72 +1,72 @@
 - id: remote_huiskamer_pressed
   alias: Remote huiskamer pressed
   mode: restart
-  trigger: 
+  trigger:
     platform: event
     event_type: hue_event
   condition:
     condition: template
-    value_template: "{{ trigger.event.data.id == 'afstandsbediening_1' }}"
-  action: 
+    value_template: "{{ trigger.event.data.id == \"afstandsbediening_1\" }}"
+  action:
     - choose:
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger.event.data.event == 1001 }}"
-        sequence:
-          - service: script.scene_huiskamer_tvkijken
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger.event.data.event == 1002 }}"
-        sequence:
-          - choose:
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_spelen"
-              sequence:
-                - service: script.scene_huiskamer_overdag
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_overdag"
-              sequence:
-                - service: script.scene_huiskamer_avond
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_avond"
-              sequence:
-                - service: script.scene_huiskamer_eten
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_eten"
-              sequence:
-                - service: script.scene_huiskamer_koken
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_koken"
-              sequence:
-                - service: script.scene_huiskamer_tvkijken
-            - conditions:
-                - condition: state
-                  entity_id: input_text.scene_huiskamer_last_triggered
-                  state: "scene_huiskamer_tvkijken"
-              sequence:
-                - service: script.scene_huiskamer_spelen
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger.event.data.event == 2002 }}"
-        sequence:
-          - service: script.scene_huiskamer_brighter
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger.event.data.event == 3002 }}"
-        sequence:
-          - service: script.scene_huiskamer_dimmer
-      - conditions:
-          - condition: template
-            value_template: "{{ trigger.event.data.event == 4002 }}"
-        sequence:
-          - service: script.scene_huiskamer_off
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.event.data.event == 1001 }}"
+          sequence:
+            - service: script.scene_huiskamer_tvkijken
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.event.data.event == 1002 }}"
+          sequence:
+            - choose:
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_spelen
+                  sequence:
+                    - service: script.scene_huiskamer_overdag
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_overdag
+                  sequence:
+                    - service: script.scene_huiskamer_avond
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_avond
+                  sequence:
+                    - service: script.scene_huiskamer_eten
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_eten
+                  sequence:
+                    - service: script.scene_huiskamer_koken
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_koken
+                  sequence:
+                    - service: script.scene_huiskamer_tvkijken
+                - conditions:
+                    - condition: state
+                      entity_id: input_text.scene_huiskamer_last_triggered
+                      state: scene_huiskamer_tvkijken
+                  sequence:
+                    - service: script.scene_huiskamer_spelen
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.event.data.event == 2002 }}"
+          sequence:
+            - service: script.scene_huiskamer_brighter
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.event.data.event == 3002 }}"
+          sequence:
+            - service: script.scene_huiskamer_dimmer
+        - conditions:
+            - condition: template
+              value_template: "{{ trigger.event.data.event == 4002 }}"
+          sequence:
+            - service: script.scene_huiskamer_off

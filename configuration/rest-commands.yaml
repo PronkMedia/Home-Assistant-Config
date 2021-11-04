@@ -1,14 +1,14 @@
 matrix:
   url: !secret api_matrix_panel
   method: POST
-  content_type:  'application/json'
-  payload: >-
+  content_type: application/json
+  payload: >
     {
       "settings": {
-        "display": "{{ display }}", 
+        "display": "{{ display }}",
         "brightness": "{{ brightness }}",
         "view": "{{ view }}"
-      }, 
+      },
       "data": {
         "temperature": {
           "outside": "{{ temperature_outside }}",
