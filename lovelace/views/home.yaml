@@ -28,7 +28,7 @@ cards:
           - entity: light.keuken
           - entity: light.eettafel
           - entity: light.buffetkast
-          - entity: switch.plug_christmas_tree
+          - entity: switch.plug_christmas_tree_socket
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.vloerlamp
@@ -73,10 +73,10 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
-          - entity: switch.plug_christmas_tree
+          - entity: switch.plug_christmas_tree_socket
             style: |
               :host {
-                {% if not is_state("switch.plug_christmas_tree", "unavailable") %}
+                {% if not is_state("switch.plug_christmas_tree_socket", "unavailable") %}
                   display: block !important;
                 {% endif %}
               }

@@ -94,7 +94,7 @@ cards:
               border-bottom-right-radius: 0;
             }
             .entities div:nth-child(5) {
-              {% if is_state("switch.plug_christmas_tree", "unavailable") %}
+              {% if is_state("switch.plug_christmas_tree_socket", "unavailable") %}
                 display: none;
               {% endif %}
             }
@@ -122,7 +122,7 @@ cards:
             icon: mdi:wall-sconce-round-variant
             tap_action:
               action: more-info
-          - entity: switch.plug_christmas_tree
+          - entity: switch.plug_christmas_tree_socket
             name: Kerstboom
             icon: mdi:pine-tree
             tap_action:
