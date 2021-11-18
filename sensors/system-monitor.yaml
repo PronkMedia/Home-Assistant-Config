@@ -34,10 +34,10 @@
     last_reboot_rpi:
       value_template: "{{ as_timestamp(states(\"sensor.last_boot\")) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
     network_throughput_in:
-      value_template: "{{ states(\"sensor.network_throughput_in_eth0\") | float | multiply(1000) | round(0) }}"
+      value_template: "{{ states(\"sensor.network_throughput_in_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
       unit_of_measurement: KB/s
     network_throughput_out:
-      value_template: "{{ states(\"sensor.network_throughput_out_eth0\") | float | multiply(1000) | round(0) }}"
+      value_template: "{{ states(\"sensor.network_throughput_out_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
       unit_of_measurement: KB/s
 - platform: filesize
   file_paths: !secret file_paths
