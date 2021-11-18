@@ -175,6 +175,29 @@ cards:
         line_color: var(--label-badge-green)
       - type: custom:mini-graph-card
         style: |
+          .header {
+            margin-top: 10px;
+          }
+          .name > span {
+            font-size: var(--paper-font-headline_-_font-size) !important;
+            font-weight: var(--paper-font-headline_-_font-weight) !important;
+            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+            opacity: 1 !important;
+          }
+          .states {
+            font-size: 10px;
+          }
+        name: Zolder
+        entities:
+          - sensor.temperature_zolder
+        show:
+          labels: false
+          points: false
+        points_per_hour: 30
+        line_width: 1
+        line_color: var(--label-badge-red)
+      - type: custom:mini-graph-card
+        style: |
           ha-card {
             z-index: 1;
             margin-bottom: -26px;
@@ -202,7 +225,7 @@ cards:
           points: false
         points_per_hour: 30
         line_width: 1
-        line_color: var(--label-badge-yellow)
+        line_color: var(--label-badge-blue)
       - type: weather-forecast
         style: |
           .content {

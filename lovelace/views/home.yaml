@@ -359,21 +359,33 @@ cards:
           - entity: sensor.light_slaapkamer
             name: Verlichtingssterkte
             icon: mdi:brightness-6
-      - type: conditional
-        conditions:
-          - entity: light.bureau
-            state_not: "unavailable"
-        card:
-          type: entities
-          title: Zolder
-          show_header_toggle: false
-          entities:
-            - type: custom:slider-entity-row
+      - type: entities
+        title: Zolder
+        show_header_toggle: false
+        entities:
+          - type: conditional
+            conditions:
+              - entity: light.bureau
+                state_not: "unavailable"
+            row:
+              type: custom:slider-entity-row
               entity: light.bureau
               icon: mdi:led-strip-variant
               toggle: true
               hide_when_off: true
               step: 1
+          - type: conditional
+            conditions:
+              - entity: light.bureau
+                state_not: "unavailable"
+            row:
+              type: divider
+              style:
+                margin-left: 55px
+          - entity: sensor.temperature_zolder
+            name: Temperatuur
+          - entity: sensor.shelly_ht_2_humidity
+            name: Luchtvochtigheid
       - type: entities
         style:
           .: |

@@ -43,7 +43,7 @@ My Home Assistant configuration & documentation.
 - Gosund
     - 3x Wi-Fi Smart Plug (SP111)
 - Shelly
-    - 1x Wi-Fi Humidity and Temperature Sensor (H&T)
+    - 2x Wi-Fi Humidity and Temperature Sensor (H&T)
 - Sonos
     - 1x Beam
     - 2x One

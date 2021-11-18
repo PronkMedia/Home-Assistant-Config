@@ -154,6 +154,9 @@ cards:
             icon: mdi:battery-50
             name: Hue Motion Sensor (Slaapkamer)
             suffix: "%"
+          - entity: sensor.shelly_ht_2_battery
+            name: Shelly H&T (Zolder)
+            icon: mdi:battery-50
           - entity: sensor.afstandsbediening_1_battery_level
             name: Hue Dimmer Switch (Huiskamer)
             icon: mdi:battery-50

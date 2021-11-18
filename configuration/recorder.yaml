@@ -10,6 +10,7 @@ include:
     - sensor.temperature_toilet
     - sensor.temperature_kinderkamer
     - sensor.temperature_slaapkamer
+    - sensor.temperature_zolder
     - sensor.temperature_buiten
     - sensor.hourly_gas
     - sensor.hourly_water
