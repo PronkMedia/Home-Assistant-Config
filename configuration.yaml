@@ -45,8 +45,10 @@ group: !include_dir_merge_named groups
 light: !include groups/lights.yaml
 
 # Sensors
-binary_sensor: !include_dir_merge_list binary-sensors
 sensor: !include_dir_merge_list sensors
+
+# Template (sensors)
+template: !include_dir_merge_list templates/
 
 # Switches
 switch: !include_dir_merge_list switches

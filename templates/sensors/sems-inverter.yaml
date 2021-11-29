@@ -1,0 +1,28 @@
+# Solar inverter (GoodWe GW2500-XS)
+- sensor:
+    - name: SEMS Portal (status)
+      state: >
+        {% if is_state_attr("sensor.inverter_goodwe", "status", 1) %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+    - name: SEMS Portal (capacity)
+      unit_of_measurement: kW
+      state: "{{ state_attr(\"sensor.inverter_goodwe\", \"capacity\") | float(default=0) }}"
+    - name: SEMS Portal (outputpower)
+      unit_of_measurement: kW
+      state: "{{ state_attr(\"sensor.inverter_goodwe\", \"outputpower\") | float(default=0) / 1000 }}"
+    - name: SEMS Portal (temperature)
+      unit_of_measurement: °C
+      state: "{{ state_attr(\"sensor.inverter_goodwe\", \"tempperature\") }}"
+    - name: SEMS Portal (hour total)
+      state: "{{ state_attr(\"sensor.inverter_goodwe\", \"hour_total\") | round(0, default=0) }} uur"
+    - name: SEMS Portal (etotal)
+      unit_of_measurement: kWh
+      state: >
+        {% if states("sensor.inverter_goodwe") in ["unknown", "unavailable"] or state_attr("sensor.inverter_goodwe", "etotal") == 0 %}
+          unavailable
+        {% else %}
+          {{ state_attr("sensor.inverter_goodwe", "etotal") | float }}
+        {% endif %}

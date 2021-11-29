@@ -1,84 +1,83 @@
 # Media source detection
-- platform: template
-  sensors:
-    media_source_ziggo:
-      value_template: >
+- binary_sensor:
+    - name: Media source (ziggo)
+      state: >
         {{
           is_state_attr("media_player.sonos_speakers", "source", "TV")
           and is_state("media_player.55pus6704_12", "on")
           and is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
           and is_state("media_player.chromecast", "off")
         }}
-    media_source_chromecast:
-      value_template: >
+    - name: Media source (chromecast)
+      state: >
         {{
           is_state_attr("media_player.sonos_speakers", "source", "TV")
           and is_state("media_player.55pus6704_12", "on")
           and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
           and not is_state("media_player.chromecast", "off")
         }}
-    media_source_radio_npo_radio_1:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 1\") }}"
-    media_source_radio_npo_radio_2:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 2\") }}"
-    media_source_radio_npo_radio_3fm:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO 3FM\") }}"
-    media_source_radio_538:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"538\") }}"
-    media_source_radio_sky_radio:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Sky Radio 101 FM\") }}"
-    media_source_radio_veronica:
-      value_template: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Radio Veronica\") }}"
-    media_source_spotify_kinderliedjes:
-      value_template: >
+    - name: Media source radio (npo radio 1)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 1\") }}"
+    - name: Media source radio (npo radio 2)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 2\") }}"
+    - name: Media source radio (npo radio 3fm)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO 3FM\") }}"
+    - name: Media source radio (538)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"538\") }}"
+    - name: Media source radio (sky radio)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Sky Radio 101 FM\") }}"
+    - name: Media source radio (veronica)
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Radio Veronica\") }}"
+    - name: Media source spotify (kinderliedjes)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Kleine Kinderliedjes")
         }}
-    media_source_spotify_nederlands:
-      value_template: >
+    - name: Media source spotify (nederlands)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Nederlands")
         }}
-    media_source_spotify_fout:
-      value_template: >
+    - name: Media source spotify (fout)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Fout")
         }}
-    media_source_spotify_oud:
-      value_template: >
+    - name: Media source spotify (oud)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Oud")
         }}
-    media_source_spotify_fun:
-      value_template: >
+    - name: Media source spotify (fun)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Fun")
         }}
-    media_source_spotify_relax:
-      value_template: >
+    - name: Media source spotify (relax)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Relax")
         }}
-    media_source_spotify_unplugged:
-      value_template: >
+    - name: Media source spotify (unplugged)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Unplugged")
         }}
-    media_source_spotify_eurovision:
-      value_template: >
+    - name: Media source spotify (eurovision)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "List: Eurovision")
         }}
-    media_source_spotify_shaffy:
-      value_template: >
+    - name: Media source spotify (shaffy)
+      state: >
         {{
           state_attr("media_player.sonos_speakers", "source") == None
           and is_state("input_text.media_source_last_selected", "Artist: Ramses Shaffy")

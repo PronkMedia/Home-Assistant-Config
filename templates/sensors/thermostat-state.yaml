@@ -1,0 +1,28 @@
+# Thermostat state
+- trigger:
+    - platform: state
+      entity_id: climate.family_room
+    - platform: time_pattern
+      minutes: /5
+  sensor:
+    - name: Family room (preset temperature)
+      unit_of_measurement: °C
+      state: "{{ state_attr(\"climate.family_room\", \"temperature\") | float }}"
+    - name: Family room (heating temperature)
+      unit_of_measurement: °C
+      state: >
+        {% if is_state_attr("climate.family_room", "hvac_action", "heating") %}
+          {{ states("sensor.family_room_preset_temperature") }}
+        {% else %}
+          0
+        {% endif %}
+    - name: Family room (current temperature)
+      unit_of_measurement: °C
+      state: "{{ state_attr(\"climate.family_room\", \"current_temperature\") | float }}"
+    - name: Family room (heating state)
+      state: >
+        {% if is_state_attr("climate.family_room", "hvac_action", "heating") %}
+          Aan
+        {% else %}
+          Uit
+        {% endif %}

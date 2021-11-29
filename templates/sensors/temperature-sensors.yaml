@@ -1,0 +1,8 @@
+# Shelly Wi-Fi Humidity and Temperature Sensor (H&T)
+- sensor:
+    - name: Temperature kinderkamer
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.shelly_ht_1_temperature\") | float) | round(1) }}"
+    - name: Temperature zolder
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.shelly_ht_2_temperature\") | float) | round(1) }}"

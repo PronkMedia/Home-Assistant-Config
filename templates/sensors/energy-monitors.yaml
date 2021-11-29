@@ -1,0 +1,11 @@
+# Energy monitors (TP-Link HS110)
+- sensor:
+    - name: Energy monitor 1 (total consumption kwh)
+      unit_of_measurement: kWh
+      state: "{{ states(\"sensor.energy_monitor_1_total_consumption\") | float(default=0) | round(0) }}"
+    - name: Energy monitor 2 (total consumption kwh)
+      unit_of_measurement: kWh
+      state: "{{ states(\"sensor.energy_monitor_2_total_consumption\") | float(default=0) | round(0) }}"
+    - name: Energy monitor 3 (total consumption kwh)
+      unit_of_measurement: kWh
+      state: "{{ states(\"sensor.energy_monitor_3_total_consumption\") | float(default=0) | round(0) }}"

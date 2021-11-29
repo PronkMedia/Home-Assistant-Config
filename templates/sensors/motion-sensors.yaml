@@ -1,0 +1,26 @@
+# Hue sensors (Philips Hue SML001, Philips Hue SML002)
+- sensor:
+    - name: Temperature (toilet)
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.toilet_motion_sensor_temperature\") | float(default=0)) | round(1) }}"
+    - name: Light (toilet)
+      unit_of_measurement: lx
+      state: "{{ (states(\"sensor.toilet_motion_sensor_light_level\") | float(default=0)) | round(0) }}"
+    - name: Temperature (huiskamer)
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.temperature_lowest_huiskamer\") | float(default=0)) | round(1) }}"
+    - name: Light (huiskamer)
+      unit_of_measurement: lx
+      state: "{{ (states(\"sensor.light_lowest_huiskamer\") | float(default=0)) | round(0) }}"
+    - name: Temperature (slaapkamer)
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.slaapkamer_motion_sensor_temperature\") | float(default=0)) | round(1) }}"
+    - name: Light (slaapkamer)
+      unit_of_measurement: lx
+      state: "{{ (states(\"sensor.slaapkamer_motion_sensor_light_level\") | float(default=0)) | round(0) }}"
+    - name: Temperature (buiten)
+      unit_of_measurement: °C
+      state: "{{ (states(\"sensor.temperature_lowest_buiten\") | float(default=0)) | round(1) }}"
+    - name: Light (buiten)
+      unit_of_measurement: lx
+      state: "{{ (states(\"sensor.light_lowest_buiten\") | float(default=0)) | round(0) }}"

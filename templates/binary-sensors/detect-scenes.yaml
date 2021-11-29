@@ -1,9 +1,7 @@
-# Scene detection
-- platform: template
-  sensors:
-    scene_huiskamer_overdag:
-      device_class: light
-      value_template: >
+# Light scene detection
+- binary_sensor:
+    - name: Scene (huiskamer overdag)
+      state: >
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "on")
@@ -17,9 +15,8 @@
           and is_state_attr("light.aanbouw", "brightness", 205)
           and is_state("light.vloerlamp", "off")
         }}
-    scene_huiskamer_avond:
-      device_class: light
-      value_template: >
+    - name: Scene (huiskamer avond)
+      state: >
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "on")
@@ -33,9 +30,8 @@
           and is_state_attr("light.aanbouw", "brightness", 179)
           and is_state("light.vloerlamp", "off")
         }}
-    scene_huiskamer_eten:
-      device_class: light
-      value_template: >
+    - name: Scene (huiskamer eten)
+      state: >
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "off")
@@ -46,9 +42,8 @@
           and is_state("light.aanbouw", "off")
           and is_state("light.vloerlamp", "off")
         }}
-    scene_huiskamer_koken:
-      device_class: light
-      value_template: >
+    - name: Scene (huiskamer koken)
+      state: >
         {{
           is_state("light.spots", "on")
           and is_state("light.keuken", "on")
@@ -60,9 +55,8 @@
           and is_state("light.aanbouw", "off")
           and is_state("light.vloerlamp", "off")
         }}
-    scene_huiskamer_tvkijken:
-      device_class: light
-      value_template: >
+    - name: Scene (huiskamer tvkijken)
+      state: >
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "off")
@@ -77,9 +71,8 @@
           and is_state_attr("light.vloerlamp", "brightness", 128)
           and is_state_attr("light.eettafel", "hs_color", (37.215,30.98))
         }}
-    scene_huiskamer_spelen:
-      device_class: light
-      value_template: >
+    - name: Scene (huiskamer spelen)
+      state: >
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "on")

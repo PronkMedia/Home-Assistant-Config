@@ -1,0 +1,12 @@
+# System monitoring
+- sensor:
+    - name: Last reboot (ha)
+      state: "{{ as_timestamp(states(\"sensor.uptime\")) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
+    - name: Last reboot (rpi)
+      state: "{{ as_timestamp(states(\"sensor.last_boot\")) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
+    - name: Network throughput (in)
+      unit_of_measurement: KB/s
+      state: "{{ states(\"sensor.network_throughput_in_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
+    - name: Network throughput (out)
+      unit_of_measurement: KB/s
+      state: "{{ states(\"sensor.network_throughput_out_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
