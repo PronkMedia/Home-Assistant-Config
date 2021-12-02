@@ -81,6 +81,7 @@ cards:
           state: false
         points_per_hour: 30
         lower_bound: 17
+        update_interval: 10
         line_width: 1
       - type: custom:mini-graph-card
         style: |
