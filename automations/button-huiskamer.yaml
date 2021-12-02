@@ -12,6 +12,11 @@
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.matrix_display
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.family_room
+      data:
+        temperature: 18
     - choose:
         - conditions:
             - condition: state
