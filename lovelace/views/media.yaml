@@ -1,6 +1,6 @@
 title: Media
 path: media
-icon: mdi:music
+icon: mdi:monitor-speaker
 cards:
   - type: vertical-stack
     cards:
@@ -12,16 +12,20 @@ cards:
             font-size: var(--paper-font-headline_-_font-size) !important;
           }
           .entity__info__name {
+            padding-bottom: 22px;
             font-weight: var(--paper-font-headline_-_font-weight) !important;
             line-height: 32px !important;
             letter-spacing: var(--paper-font-headline_-_letter-spacing);
           }
           .entity__info__media {
-            padding: 22px 0;
+            padding-bottom: 22px;
             opacity: 1 !important;
             font-weight: 300 !important;
             line-height: 32px !important;
             color: var(--primary-text-color) !important;
+            {% if is_state_attr("media_player.sonos_speakers", "source", "TV") %}
+              display: none;
+            {% endif %}
           }
         entity: media_player.sonos_speakers
         artwork: none
@@ -67,6 +71,237 @@ cards:
               service: media_player.turn_on
               service_data:
                 entity_id: media_player.chromecast
+      - type: conditional
+        conditions:
+          - entity: media_player.55pus6704_12
+            state: "on"
+        card:
+          type: entities
+          style:
+            .: |
+              ha-card {
+                margin-top: -36px;
+              }
+            "#states div":
+              hui-buttons-row:
+                $:
+                  hui-buttons-base:
+                    $: |
+                      state-badge {
+                        color: var(--state-icon-active-color);
+                      }
+          show_header_toggle: false
+          entities:
+            - type: divider
+            - type: buttons
+              entities:
+                - type: button
+                  icon: mdi:numeric-1-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit1
+                - type: button
+                  icon: mdi:numeric-2-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit2
+                - type: button
+                  icon: mdi:numeric-3-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit3
+                - type: button
+                  show_icon: false
+                - type: button
+                  icon: mdi:volume-plus
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: VolumeUp
+                - type: button
+                  icon: mdi:plus-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: ChannelStepUp
+                - type: button
+                  icon: mdi:television-box
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: WatchTV
+            - type: buttons
+              entities:
+                - type: button
+                  icon: mdi:numeric-4-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit4
+                - type: button
+                  icon: mdi:numeric-5-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit5
+                - type: button
+                  icon: mdi:numeric-6-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit6
+                - type: button
+                  show_icon: false
+                - type: button
+                  icon: mdi:volume-minus
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: VolumeDown
+                - type: button
+                  icon: mdi:minus-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: ChannelStepDown
+                - type: button
+                  icon: mdi:open-in-app
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Source
+            - type: buttons
+              entities:
+                - type: button
+                  icon: mdi:numeric-7-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit7
+                - type: button
+                  icon: mdi:numeric-8-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit8
+                - type: button
+                  icon: mdi:numeric-9-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit9
+                - type: button
+                  show_icon: false
+                - type: button
+                  icon: mdi:keyboard-backspace
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Back
+                - type: button
+                  icon: mdi:arrow-up-bold-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: CursorUp
+                - type: button
+                  icon: mdi:check-circle-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Confirm
+            - type: buttons
+              entities:
+                - type: button
+                  icon: mdi:text-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Teletext
+                - type: button
+                  icon: mdi:numeric-0-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: Digit0
+                - type: button
+                  icon: mdi:file-table-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: TvGuide
+                - type: button
+                  icon: mdi:svg
+                  show_icon: false
+                - type: button
+                  icon: mdi:arrow-left-bold-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: CursorLeft
+                - type: button
+                  icon: mdi:arrow-down-bold-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: CursorDown
+                - type: button
+                  icon: mdi:arrow-right-bold-box-outline
+                  tap_action:
+                    action: call-service
+                    service: remote.send_command
+                    service_data:
+                      entity_id: remote.55pus6704_12
+                      command: CursorRight
       - type: glance
         title: Radio stations
         show_state: false
@@ -77,7 +312,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: NPO Radio 1
@@ -86,7 +321,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: NPO Radio 2
@@ -95,7 +330,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: NPO 3FM
@@ -104,7 +339,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: 538
@@ -113,7 +348,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: Sky Radio 101 FM
@@ -122,7 +357,7 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: Radio Veronica
@@ -136,7 +371,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Kleine Kinderliedjes"
@@ -145,7 +380,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Nederlands"
@@ -154,7 +389,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Fout"
@@ -163,7 +398,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Oud"
@@ -172,7 +407,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Fun"
@@ -181,7 +416,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Relax"
@@ -190,7 +425,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Unplugged"
@@ -199,7 +434,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "List: Eurovision"
@@ -208,7 +443,7 @@ cards:
             icon: mdi:playlist-music
             tap_action:
               action: call-service
-              service: script.select_media_source
+              service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: "Artist: Ramses Shaffy"

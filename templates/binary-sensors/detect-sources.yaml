@@ -29,56 +29,20 @@
     - name: Media source radio (veronica)
       state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Radio Veronica\") }}"
     - name: Media source spotify (kinderliedjes)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Kleine Kinderliedjes")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Kleine Kinderliedjes\") }}"
     - name: Media source spotify (nederlands)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Nederlands")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Nederlands\") }}"
     - name: Media source spotify (fout)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Fout")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Fout\") }}"
     - name: Media source spotify (oud)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Oud")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Oud\") }}"
     - name: Media source spotify (fun)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Fun")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Fun\") }}"
     - name: Media source spotify (relax)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Relax")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Relax\") }}"
     - name: Media source spotify (unplugged)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Unplugged")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Unplugged\") }}"
     - name: Media source spotify (eurovision)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "List: Eurovision")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Eurovision\") }}"
     - name: Media source spotify (shaffy)
-      state: >
-        {{
-          state_attr("media_player.sonos_speakers", "source") == None
-          and is_state("input_text.media_source_last_selected", "Artist: Ramses Shaffy")
-        }}
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"Artist: Ramses Shaffy\") }}"
