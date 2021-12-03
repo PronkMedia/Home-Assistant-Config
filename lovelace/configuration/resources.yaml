@@ -14,7 +14,7 @@
 - url: /local/custom_lovelace/simple-thermostat.js?v=2.4.3
   type: module
 # Slider Entity Row
-- url: /local/custom_lovelace/slider-entity-row.js?v=17.0.1
+- url: /local/custom_lovelace/slider-entity-row.js?v=17.2.1
   type: module
 # Swipe Navigation
 - url: /local/custom_lovelace/swipe-navigation.js?v=1.3.6
