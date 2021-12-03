@@ -46,19 +46,20 @@ cards:
               action: call-service
               service: script.scene_huiskamer_spelen
       - type: entities
-        style: |
-          ha-card {
-            z-index: 1;
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          .card-content {
-            padding: 0;
-          }
-          .card-content > div:nth-child(-n+3) {
-            display: none;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              z-index: 1;
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .card-content {
+              padding: 0;
+            }
+            .card-content > div:nth-child(-n+3) {
+              display: none;
+            }
         title: Alle lampen
         show_header_toggle: true
         entities:
@@ -69,40 +70,42 @@ cards:
             style:
               margin: 0 16px 8px
       - type: entities
-        style: |
-          ha-card {
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          .card-content > div {
-            display: none;
-          }
-          .name {
-            font-size: 14px;
-          }
-        title: Beneden
-        show_header_toggle: true
-        entities:
-          - entity: light.beneden
-      - type: glance
-        style:
-          .: |
+        card_mod:
+          style: |
             ha-card {
               margin-bottom: -26px;
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
             }
-            .entities div:nth-child(5) {
-              {% if is_state("switch.plug_christmas_tree_socket", "unavailable") %}
-                display: none;
-              {% endif %}
+            .card-content > div {
+              display: none;
             }
-          ".entities div:nth-child(4)":
-            $: |
-              state-badge {
-                transform: rotate(-45deg);
+            .name {
+              font-size: 14px;
+            }
+        title: Beneden
+        show_header_toggle: true
+        entities:
+          - entity: light.beneden
+      - type: glance
+        card_mod:
+          style:
+            .: |
+              ha-card {
+                margin-bottom: -26px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
               }
+              .entities div:nth-child(5) {
+                {% if is_state("switch.plug_christmas_tree_socket", "unavailable") %}
+                  display: none;
+                {% endif %}
+              }
+            ".entities div:nth-child(4)":
+              $: |
+                state-badge {
+                  transform: rotate(-45deg);
+                }
         show_state: false
         columns: 3
         entities:
@@ -144,34 +147,36 @@ cards:
             tap_action:
               action: more-info
       - type: entities
-        style: |
-          ha-card {
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          .card-header {
-            padding: 8px 0 16px 0;
-            margin: 16px 16px 0 16px;
-            border-top: 1px solid var(--divider-color);
-          }
-          .card-content > div {
-            display: none;
-          }
-          .name {
-            font-size: 14px;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .card-header {
+              padding: 8px 0 16px 0;
+              margin: 16px 16px 0 16px;
+              border-top: 1px solid var(--divider-color);
+            }
+            .card-content > div {
+              display: none;
+            }
+            .name {
+              font-size: 14px;
+            }
         title: Boven
         show_header_toggle: true
         entities:
           - entity: light.boven
       - type: glance
-        style: |
-          ha-card {
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
         show_state: false
         columns: 3
         entities:
@@ -193,35 +198,37 @@ cards:
             tap_action:
               action: more-info
       - type: entities
-        style: |
-          ha-card {
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          .card-header {
-            padding: 8px 0 16px 0;
-            margin: 16px 16px 0 16px;
-            border-top: 1px solid var(--divider-color);
-          }
-          .card-content > div {
-            display: none;
-          }
-          .name {
-            font-size: 14px;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .card-header {
+              padding: 8px 0 16px 0;
+              margin: 16px 16px 0 16px;
+              border-top: 1px solid var(--divider-color);
+            }
+            .card-content > div {
+              display: none;
+            }
+            .name {
+              font-size: 14px;
+            }
         title: Buiten
         show_header_toggle: true
         entities:
           - entity: light.buiten
       - type: glance
-        style:
-          .: |
-          ".entities div":
-            $: |
-              state-badge {
-                transform: rotate(-90deg);
-              }
+        card_mod:
+          style:
+            .: |
+            ".entities div":
+              $: |
+                state-badge {
+                  transform: rotate(-90deg);
+                }
         show_state: false
         columns: 3
         entities:

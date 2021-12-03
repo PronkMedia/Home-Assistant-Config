@@ -5,22 +5,23 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        style:
-          .: |
-            #states div > hui-toggle-entity-row {
-              display: none;
-            }
-            slider-entity-row {
-              overflow: visible !important;
-            }
-          "#states div:nth-child(13)":
-            slider-entity-row:
-              $:
-                hui-generic-entity-row:
-                  $: |
-                    state-badge {
-                      transform: rotate(-45deg);
-                    }
+        card_mod:
+          style:
+            .: |
+              #states div > hui-toggle-entity-row {
+                display: none;
+              }
+              slider-entity-row {
+                overflow: visible !important;
+              }
+            "#states div:nth-child(13)":
+              slider-entity-row:
+                $:
+                  hui-generic-entity-row:
+                    $: |
+                      state-badge {
+                        transform: rotate(-45deg);
+                      }
         state_color: true
         title: Huiskamer
         entities:
@@ -74,12 +75,13 @@ cards:
               hide_when_off: true
               step: 1
           - entity: switch.plug_christmas_tree_socket
-            style: |
-              :host {
-                {% if not is_state("switch.plug_christmas_tree_socket", "unavailable") %}
-                  display: block !important;
-                {% endif %}
-              }
+            card_mod:
+              style: |
+                :host {
+                  {% if not is_state("switch.plug_christmas_tree_socket", "unavailable") %}
+                    display: block !important;
+                  {% endif %}
+                }
             name: Kerstboom
             icon: mdi:pine-tree
           - type: conditional
@@ -214,17 +216,18 @@ cards:
                             none
                           {% endif %}
           - type: custom:slider-entity-row
-            style: |
-              :host {
-                display: block;
-                padding-left: 40px;
-                {% 
-                  if is_state("device_tracker.matrix_wifi", "not_home")
-                  or is_state("input_boolean.matrix_display", "off")
-                %}
-                  display: none;
-                {% endif %}
-              }
+            card_mod:
+              style: |
+                :host {
+                  display: block;
+                  padding-left: 40px;
+                  {%
+                    if is_state("device_tracker.matrix_wifi", "not_home")
+                    or is_state("input_boolean.matrix_display", "off")
+                  %}
+                    display: none;
+                  {% endif %}
+                }
             entity: input_number.matrix_brightness
             full_row: true
           - type: conditional
@@ -387,19 +390,20 @@ cards:
           - entity: sensor.shelly_ht_2_humidity
             name: Luchtvochtigheid
       - type: entities
-        style:
-          .: |
-            #states div > hui-toggle-entity-row {
-              display: none;
-            }
-          "#states div":
-            slider-entity-row:
-              $:
-                hui-generic-entity-row:
-                  $: |
-                    state-badge {
-                      transform: rotate(-90deg);
-                    }
+        card_mod:
+          style:
+            .: |
+              #states div > hui-toggle-entity-row {
+                display: none;
+              }
+            "#states div":
+              slider-entity-row:
+                $:
+                  hui-generic-entity-row:
+                    $: |
+                      state-badge {
+                        transform: rotate(-90deg);
+                      }
         title: Buiten
         entities:
           - entity: light.voordeur

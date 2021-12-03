@@ -31,19 +31,20 @@ cards:
             name: Laatste herstart
             icon: mdi:update
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Systeem temperatuur
         entities:
           - sensor.processor_temperature
@@ -55,19 +56,20 @@ cards:
         line_width: 1
         line_color: var(--warning-color)
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Systeem verbruik
         icon: mdi:chip
         entities:
@@ -92,19 +94,20 @@ cards:
         lower_bound: 0
         line_width: 1
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Netwerk verbruik
         icon: mdi:server-network
         entities:

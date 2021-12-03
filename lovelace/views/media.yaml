@@ -5,28 +5,29 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:mini-media-player
-        style: |
-          .entity__info {
-            margin-top: 4px;
-            margin-left: 0 !important;
-            font-size: var(--paper-font-headline_-_font-size) !important;
-          }
-          .entity__info__name {
-            padding-bottom: 22px;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            line-height: 32px !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing);
-          }
-          .entity__info__media {
-            padding-bottom: 22px;
-            opacity: 1 !important;
-            font-weight: 300 !important;
-            line-height: 32px !important;
-            color: var(--primary-text-color) !important;
-            {% if is_state_attr("media_player.sonos_speakers", "source", "TV") %}
-              display: none;
-            {% endif %}
-          }
+        card_mod:
+          style: |
+            .entity__info {
+              margin-top: 4px;
+              margin-left: 0 !important;
+              font-size: var(--paper-font-headline_-_font-size) !important;
+            }
+            .entity__info__name {
+              padding-bottom: 22px;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              line-height: 32px !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing);
+            }
+            .entity__info__media {
+              padding-bottom: 22px;
+              opacity: 1 !important;
+              font-weight: 300 !important;
+              line-height: 32px !important;
+              color: var(--primary-text-color) !important;
+              {% if is_state_attr("media_player.sonos_speakers", "source", "TV") %}
+                display: none;
+              {% endif %}
+            }
         entity: media_player.sonos_speakers
         artwork: none
         hide:
@@ -34,19 +35,20 @@ cards:
           power: true
           source: true
       - type: entities
-        style: |
-          ha-card {
-            z-index: 1;
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          .card-content {
-            padding: 4px;
-          }
-          .card-content > div:nth-child(-n+1) {
-            display: none;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              z-index: 1;
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .card-content {
+              padding: 4px;
+            }
+            .card-content > div:nth-child(-n+1) {
+              display: none;
+            }
         title: TV
         show_header_toggle: true
         entities:
@@ -77,19 +79,20 @@ cards:
             state: "on"
         card:
           type: entities
-          style:
-            .: |
-              ha-card {
-                margin-top: -36px;
-              }
-            "#states div":
-              hui-buttons-row:
-                $:
-                  hui-buttons-base:
-                    $: |
-                      state-badge {
-                        color: var(--state-icon-active-color);
-                      }
+          card_mod:
+            style:
+              .: |
+                ha-card {
+                  margin-top: -36px;
+                }
+              "#states div":
+                hui-buttons-row:
+                  $:
+                    hui-buttons-base:
+                      $: |
+                        state-badge {
+                          color: var(--state-icon-active-color);
+                        }
           show_header_toggle: false
           entities:
             - type: divider

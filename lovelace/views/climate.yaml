@@ -5,46 +5,47 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:simple-thermostat
-        style: |
-          ha-card {
-            z-index: 1;
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-          }
-          ha-card .body {
-            margin: 12px 0;
-            justify-items: flex-start;
-          }
-          .body .sensors {
-            font-size: inherit;
-          }
-          .sensors .sensor-heading {
-            font-weight: var(--paper-font-body1_-_font-weight);
-            justify-content: flex-start;
-          }
-          .body .current-wrapper {
-            justify-content: flex-start;
-          }
-          .current-wrapper .current--value {
-            display: block;
-            font-size: var(--paper-font-headline_-_font-size);
-            font-weight: 300;
-            margin-top: 10px;
-          }
-          .current-wrapper .current--unit {
-            font-size: 14px;
-            opacity: .6;
-            margin-left: -.2rem;
-            font-weight: var(--paper-font-body1_-_font-weight);
-          }
-          .current-wrapper .current--value.updating {
-            color: var(--primary-text-color);
-            opacity: .6;
-          }
-          .current--value.updating .current--unit {
-            opacity: 1;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              z-index: 1;
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            ha-card .body {
+              margin: 12px 0;
+              justify-items: flex-start;
+            }
+            .body .sensors {
+              font-size: inherit;
+            }
+            .sensors .sensor-heading {
+              font-weight: var(--paper-font-body1_-_font-weight);
+              justify-content: flex-start;
+            }
+            .body .current-wrapper {
+              justify-content: flex-start;
+            }
+            .current-wrapper .current--value {
+              display: block;
+              font-size: var(--paper-font-headline_-_font-size);
+              font-weight: 300;
+              margin-top: 10px;
+            }
+            .current-wrapper .current--unit {
+              font-size: 14px;
+              opacity: .6;
+              margin-left: -.2rem;
+              font-weight: var(--paper-font-body1_-_font-weight);
+            }
+            .current-wrapper .current--value.updating {
+              color: var(--primary-text-color);
+              opacity: .6;
+            }
+            .current--value.updating .current--unit {
+              opacity: 1;
+            }
         entity: climate.family_room
         name: Thermostaat
         step_size: 0.1
@@ -84,19 +85,20 @@ cards:
         update_interval: 10
         line_width: 1
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Huiskamer
         entities:
           - sensor.temperature_huiskamer
@@ -107,19 +109,20 @@ cards:
         line_width: 1
         line_color: var(--label-badge-red)
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Toilet
         entities:
           - sensor.temperature_toilet
@@ -130,19 +133,20 @@ cards:
         line_width: 1
         line_color: var(--label-badge-blue)
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Kinderkamer
         entities:
           - sensor.temperature_kinderkamer
@@ -153,19 +157,20 @@ cards:
         line_width: 1
         line_color: var(--warning-color)
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Slaapkamer
         entities:
           - sensor.temperature_slaapkamer
@@ -176,19 +181,20 @@ cards:
         line_width: 1
         line_color: var(--label-badge-green)
       - type: custom:mini-graph-card
-        style: |
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Zolder
         entities:
           - sensor.temperature_zolder
@@ -199,26 +205,27 @@ cards:
         line_width: 1
         line_color: var(--label-badge-red)
       - type: custom:mini-graph-card
-        style: |
-          ha-card {
-            z-index: 1;
-            margin-bottom: -26px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom: 1px solid var(--divider-color);
-          }
-          .header {
-            margin-top: 10px;
-          }
-          .name > span {
-            font-size: var(--paper-font-headline_-_font-size) !important;
-            font-weight: var(--paper-font-headline_-_font-weight) !important;
-            letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-            opacity: 1 !important;
-          }
-          .states {
-            font-size: 10px;
-          }
+        card_mod:
+          style: |
+            ha-card {
+              z-index: 1;
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+              border-bottom: 1px solid var(--divider-color);
+            }
+            .header {
+              margin-top: 10px;
+            }
+            .name > span {
+              font-size: var(--paper-font-headline_-_font-size) !important;
+              font-weight: var(--paper-font-headline_-_font-weight) !important;
+              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+            }
         name: Buiten
         entities:
           - sensor.temperature_buiten
@@ -229,8 +236,9 @@ cards:
         line_width: 1
         line_color: var(--label-badge-blue)
       - type: weather-forecast
-        style: |
-          .content {
-            display: none !important;
-          }
+        card_mod:
+          style: |
+            .content {
+              display: none !important;
+            }
         entity: weather.openweathermap
