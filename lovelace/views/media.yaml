@@ -65,14 +65,14 @@ cards:
               service: wake_on_lan.send_magic_packet
               service_data:
                 mac: !secret mac_philips_55pus6704
-          - entity: binary_sensor.media_source_chromecast
+          - entity: binary_sensor.media_source_chromecast_ultra
             name: Chromecast
             icon: mdi:television-play
             tap_action:
               action: call-service
               service: media_player.turn_on
               service_data:
-                entity_id: media_player.chromecast
+                entity_id: media_player.chromecast_ultra
       - type: conditional
         conditions:
           - entity: media_player.55pus6704_12

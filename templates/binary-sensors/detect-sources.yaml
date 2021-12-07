@@ -6,15 +6,14 @@
           is_state_attr("media_player.sonos_speakers", "source", "TV")
           and is_state("media_player.55pus6704_12", "on")
           and is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
-          and is_state("media_player.chromecast", "off")
         }}
-    - name: Media source (chromecast)
+    - name: Media source (chromecast ultra)
       state: >
         {{
           is_state_attr("media_player.sonos_speakers", "source", "TV")
           and is_state("media_player.55pus6704_12", "on")
+          and is_state("media_player.chromecast_ultra", "playing")
           and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
-          and not is_state("media_player.chromecast", "off")
         }}
     - name: Media source radio (npo radio 1)
       state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 1\") }}"
