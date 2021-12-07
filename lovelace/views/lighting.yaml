@@ -97,7 +97,7 @@ cards:
                 border-bottom-right-radius: 0;
               }
               .entities div:nth-child(5) {
-                {% if is_state("switch.plug_christmas_tree_socket", "unavailable") %}
+                {% if is_state("light.twinkly_strings", "unavailable") %}
                   display: none;
                 {% endif %}
               }
@@ -125,7 +125,7 @@ cards:
             icon: mdi:wall-sconce-round-variant
             tap_action:
               action: more-info
-          - entity: switch.plug_christmas_tree_socket
+          - entity: light.twinkly_strings
             name: Kerstboom
             icon: mdi:pine-tree
             tap_action:
@@ -224,7 +224,12 @@ cards:
         card_mod:
           style:
             .: |
-            ".entities div":
+              .entities div:nth-child(3) {
+                {% if is_state("light.twinkly_icicle", "unavailable") %}
+                  display: none;
+                {% endif %}
+              }
+            ".entities div:not(:nth-child(3))":
               $: |
                 state-badge {
                   transform: rotate(-90deg);
@@ -238,6 +243,11 @@ cards:
               action: more-info
           - entity: light.achterdeur
             icon: mdi:wall-sconce-flat
+            tap_action:
+              action: more-info
+          - entity: light.twinkly_icicle
+            name: Kerstverlichting
+            icon: mdi:string-lights
             tap_action:
               action: more-info
           - entity: light.schuur

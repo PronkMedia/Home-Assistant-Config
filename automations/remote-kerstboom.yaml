@@ -6,28 +6,50 @@
     event_type: hue_event
   condition:
     condition: template
-    value_template: "{{ trigger.event.data.id == \"afstandsbediening_2\" }}"
+    value_template: >
+      {{
+        trigger.event.data.id == "afstandsbediening_2"
+        and (
+          (trigger.event.data.event | string)[3:4] == "2"
+          or (trigger.event.data.event | string)[3:4] == "3"
+        )
+      }}
+  variables:
+    light_entity: >
+      {% if (trigger.event.data.event | string)[3:4] == "2" %}
+        light.twinkly_strings
+      {% else %}
+        light.twinkly_icicle
+      {% endif %}
   action:
-    - choose:
-        - conditions:
-            - condition: and
-              conditions:
-                - condition: state
-                  entity_id: switch.plug_christmas_tree_socket
-                  state: "off"
-                - condition: template
-                  value_template: "{{ trigger.event.data.event == 1002 or trigger.event.data.event == 2002 }}"
-          sequence:
-            service: switch.turn_on
-            entity_id: switch.plug_christmas_tree_socket
-        - conditions:
-            - condition: and
-              conditions:
-                - condition: state
-                  entity_id: switch.plug_christmas_tree_socket
-                  state: "on"
-                - condition: template
-                  value_template: "{{ trigger.event.data.event == 3002 or trigger.event.data.event == 4002 }}"
-          sequence:
-            service: switch.turn_off
-            entity_id: switch.plug_christmas_tree_socket
+    choose:
+      - conditions:
+          condition: template
+          value_template: "{{ (trigger.event.data.event | string)[:1] == \"1\" }}"
+        sequence:
+          service: light.turn_on
+          data_template:
+            entity_id: "{{ light_entity }}"
+      - conditions:
+          condition: template
+          value_template: "{{ (trigger.event.data.event | string)[:1] == \"2\" }}"
+        sequence:
+          service: light.turn_on
+          data_template:
+            entity_id: "{{ light_entity }}"
+            brightness_step_pct: 20
+      - conditions:
+          condition: template
+          value_template: "{{ (trigger.event.data.event | string)[:1] == \"3\" }}"
+        sequence:
+          service: light.turn_on
+          data_template:
+            entity_id: "{{ light_entity }}"
+            brightness_step_pct: -20
+      - conditions:
+          condition: template
+          value_template: "{{ (trigger.event.data.event | string)[:1] == \"4\" }}"
+        sequence:
+          service: light.turn_off
+          data_template:
+            entity_id: "{{ light_entity }}"

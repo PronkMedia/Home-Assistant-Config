@@ -8,7 +8,9 @@
     subtype: turn_on
   action:
     - service: light.turn_off
-      entity_id: light.huiskamer
+      entity_id:
+        - light.huiskamer
+        - light.kerstverlichting
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.matrix_display

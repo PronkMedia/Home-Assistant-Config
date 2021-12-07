@@ -29,7 +29,7 @@ cards:
           - entity: light.keuken
           - entity: light.eettafel
           - entity: light.buffetkast
-          - entity: switch.plug_christmas_tree_socket
+          - entity: light.twinkly_strings
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.vloerlamp
@@ -74,16 +74,18 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
-          - entity: switch.plug_christmas_tree_socket
-            card_mod:
-              style: |
-                :host {
-                  {% if not is_state("switch.plug_christmas_tree_socket", "unavailable") %}
-                    display: block !important;
-                  {% endif %}
-                }
-            name: Kerstboom
-            icon: mdi:pine-tree
+          - type: conditional
+            conditions:
+              - entity: light.twinkly_strings
+                state_not: "unavailable"
+            row:
+              type: custom:slider-entity-row
+              entity: light.twinkly_strings
+              name: Kerstboom
+              icon: mdi:pine-tree
+              toggle: true
+              hide_when_off: true
+              step: 1
           - type: conditional
             conditions:
               - entity: light.speelhoek
@@ -396,7 +398,7 @@ cards:
               #states div > hui-toggle-entity-row {
                 display: none;
               }
-            "#states div":
+            "#states div:not(:nth-child(8))":
               slider-entity-row:
                 $:
                   hui-generic-entity-row:
@@ -408,6 +410,7 @@ cards:
         entities:
           - entity: light.voordeur
           - entity: light.achterdeur
+          - entity: light.twinkly_icicle
           - entity: light.schuur
           - entity: light.parkeerplaats
           - type: conditional
@@ -429,6 +432,18 @@ cards:
               type: custom:slider-entity-row
               entity: light.achterdeur
               icon: mdi:wall-sconce-flat
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.twinkly_icicle
+                state_not: "unavailable"
+            row:
+              type: custom:slider-entity-row
+              entity: light.twinkly_icicle
+              name: Kerstverlichting
+              icon: mdi:string-lights
               toggle: true
               hide_when_off: true
               step: 1

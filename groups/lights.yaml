@@ -8,6 +8,7 @@
     - light.eettafel_1
     - light.eettafel_2
     - light.buffetkast
+    - light.twinkly_strings
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
@@ -22,6 +23,7 @@
     - light.eettafel_1
     - light.eettafel_2
     - light.buffetkast
+    - light.twinkly_strings
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
@@ -48,10 +50,16 @@
     - light.aanbouw_1
     - light.aanbouw_2
 - platform: group
+  name: Kerstverlichting
+  entities:
+    - light.twinkly_strings
+    - light.twinkly_icicle
+- platform: group
   name: Buiten
   entities:
     - light.voordeur
     - light.achterdeur
+    - light.twinkly_icicle
     - light.schuur
     - light.parkeerplaats
 - platform: group
