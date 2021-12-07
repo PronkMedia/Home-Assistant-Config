@@ -110,7 +110,7 @@ cards:
         columns: 3
         entities:
           - entity: light.spots
-            icon: mdi:circle-double
+            icon: mdi:light-recessed
             tap_action:
               action: more-info
           - entity: light.keuken
@@ -118,7 +118,7 @@ cards:
             tap_action:
               action: more-info
           - entity: light.eettafel
-            icon: mdi:ceiling-light
+            icon: mdi:ceiling-light-multiple
             tap_action:
               action: more-info
           - entity: light.buffetkast

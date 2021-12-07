@@ -40,7 +40,7 @@ cards:
                 state_not: "unavailable"
             row:
               entity: light.spots
-              icon: mdi:circle-double
+              icon: mdi:light-recessed
           - type: conditional
             conditions:
               - entity: light.keuken
@@ -59,7 +59,7 @@ cards:
             row:
               type: custom:slider-entity-row
               entity: light.eettafel
-              icon: mdi:ceiling-light
+              icon: mdi:ceiling-light-multiple
               toggle: true
               hide_when_off: true
               step: 1
