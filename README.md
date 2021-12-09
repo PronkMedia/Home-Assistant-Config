@@ -36,12 +36,15 @@ My Home Assistant configuration & documentation.
     - 6x GU10 White and Ambiance (LTW013)
     - 3x E27 White and Color Ambiance (LCT015)
     - 1x Go White and Color Ambiance (LLC020)
+- Twinkly
+    - 1x Strings Multicolor 100 LEDs (RGB, Generation II)
+    - 1x Icicle Special Edition 190 LEDs (RGB+W, Generation II)
 - B.K.Licht
     - 1x Wi-Fi RGB LED lightstrip (BKL1246)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Gosund
-    - 3x Wi-Fi Smart Plug (SP111)
+    - 2x Wi-Fi Smart Plug (SP111)
 - Shelly
     - 2x Wi-Fi Humidity and Temperature Sensor (H&T)
 - Sonos
