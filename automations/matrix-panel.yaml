@@ -36,6 +36,9 @@
                 state: "off"
                 for:
                   minutes: 1
+              - condition: state
+                entity_id: device_tracker.matrix_wifi
+                state: "not_home"
           sequence:
             - service: rest_command.matrix
               data:
@@ -68,9 +71,14 @@
     entity_id: group.motion_huiskamer
     to: "on"
   condition:
-    condition: state
-    entity_id: input_boolean.matrix_display
-    state: "off"
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.matrix_display
+        state: "off"
+      - condition: state
+        entity_id: device_tracker.matrix_wifi
+        state: "home"
   action:
     service: input_boolean.turn_on
     target:
