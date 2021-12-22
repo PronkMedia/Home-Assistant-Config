@@ -3,7 +3,7 @@
     - name: Matrix temperature (outside)
       state: "{{ states(\"sensor.temperature_lowest_buiten\") | round(1, default=0) }}"
     - name: Matrix temperature (inside)
-      state: "{{ state_attr(\"climate.family_room\", \"current_temperature\") }}"
+      state: "{{ state_attr(\"climate.thermostat\", \"current_temperature\") }}"
     - name: Matrix inverter (outputpower)
       state: "{{ (state_attr(\"sensor.inverter_goodwe\", \"outputpower\") | float(default=0) / 1000) | round(1) }}"
     - name: Matrix inverter (daytotal)

@@ -46,7 +46,7 @@ cards:
             .current--value.updating .current--unit {
               opacity: 1;
             }
-        entity: climate.family_room
+        entity: climate.thermostat
         name: Thermostaat
         step_size: 0.1
         header:
@@ -59,19 +59,19 @@ cards:
           temperature: true
           state: true
         sensors:
-          - entity: sensor.family_room_current_temperature
+          - entity: sensor.thermostat_current_temperature
             name: Temperatuur
-          - entity: sensor.family_room_heating_state
+          - entity: sensor.thermostat_heating_state
             name: Verwarming
       - type: custom:mini-graph-card
         entities:
-          - entity: sensor.family_room_current_temperature
+          - entity: sensor.thermostat_current_temperature
             name: Huidig
             color: var(--label-badge-green)
-          - entity: sensor.family_room_preset_temperature
+          - entity: sensor.thermostat_preset_temperature
             name: Ingesteld
             color: var(--warning-color)
-          - entity: sensor.family_room_heating_temperature
+          - entity: sensor.thermostat_heating_temperature
             name: Verwarming
             color: var(--label-badge-red)
         show:

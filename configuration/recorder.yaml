@@ -3,9 +3,9 @@ commit_interval: 10
 include:
   entities:
     # Overview dashboard entities
-    - sensor.family_room_current_temperature
-    - sensor.family_room_preset_temperature
-    - sensor.family_room_heating_temperature
+    - sensor.thermostat_current_temperature
+    - sensor.thermostat_preset_temperature
+    - sensor.thermostat_heating_temperature
     - sensor.temperature_huiskamer
     - sensor.temperature_toilet
     - sensor.temperature_kinderkamer
