@@ -9,8 +9,8 @@
   name: light_lowest_huiskamer
   type: min
   entity_ids:
-    - sensor.huiskamer_motion_sensor_1_light_level
-    - sensor.huiskamer_motion_sensor_2_light_level
+    - sensor.huiskamer_motion_sensor_1_illuminance
+    - sensor.huiskamer_motion_sensor_2_illuminance
 - platform: min_max
   name: temperature_lowest_buiten
   type: min
@@ -22,6 +22,6 @@
   name: light_lowest_buiten
   type: min
   entity_ids:
-    - sensor.tuin_motion_sensor_1_light_level
-    - sensor.tuin_motion_sensor_2_light_level
-    - sensor.parkeerplaats_motion_sensor_light_level
+    - sensor.tuin_motion_sensor_1_illuminance
+    - sensor.tuin_motion_sensor_2_illuminance
+    - sensor.parkeerplaats_motion_sensor_illuminance

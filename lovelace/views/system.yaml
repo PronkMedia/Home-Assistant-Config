@@ -130,33 +130,21 @@ cards:
         title: Batterij informatie
         show_header_toggle: false
         entities:
-          - type: attribute
-            entity: binary_sensor.huiskamer_motion_sensor_1_motion
-            attribute: battery_level
-            icon: mdi:battery-50
+          - entity: sensor.huiskamer_motion_sensor_1_battery
             name: Hue Motion Sensor (Huiskamer 1)
-            suffix: "%"
-          - type: attribute
-            entity: binary_sensor.huiskamer_motion_sensor_2_motion
-            attribute: battery_level
             icon: mdi:battery-50
+          - entity: sensor.huiskamer_motion_sensor_2_battery
             name: Hue Motion Sensor (Huiskamer 2)
-            suffix: "%"
-          - type: attribute
-            entity: binary_sensor.toilet_motion_sensor_motion
-            attribute: battery_level
-            icon: mdi:battery-50
+            icon: mdi:battery-50          
+          - entity: sensor.toilet_motion_sensor_battery
             name: Hue Motion Sensor (Toilet)
-            suffix: '%'
+            icon: mdi:battery-50            
           - entity: sensor.shelly_ht_1_battery
             name: Shelly H&T (Kinderkamer)
             icon: mdi:battery-50
-          - type: attribute
-            entity: binary_sensor.slaapkamer_motion_sensor_motion
-            attribute: battery_level
-            icon: mdi:battery-50
+          - entity: sensor.slaapkamer_motion_sensor_battery
             name: Hue Motion Sensor (Slaapkamer)
-            suffix: "%"
+            icon: mdi:battery-50  
           - entity: sensor.shelly_ht_2_battery
             name: Shelly H&T (Zolder)
             icon: mdi:battery-50
@@ -174,21 +162,12 @@ cards:
           - entity: sensor.hue_smart_button_1_battery_level
             name: Hue Smart Button (Huiskamer)
             icon: mdi:battery-50
-          - type: attribute
-            entity: binary_sensor.tuin_motion_sensor_1_motion
-            attribute: battery_level
-            icon: mdi:battery-50
+          - entity: sensor.tuin_motion_sensor_1_battery
             name: Hue Motion Sensor (Tuin 1)
-            suffix: "%"
-          - type: attribute
-            entity: binary_sensor.tuin_motion_sensor_2_motion
-            attribute: battery_level
-            icon: mdi:battery-50
+            icon: mdi:battery-50  
+          - entity: sensor.tuin_motion_sensor_2_battery
             name: Hue Motion Sensor (Tuin 2)
-            suffix: "%"
-          - type: attribute
-            entity: binary_sensor.parkeerplaats_motion_sensor_motion
-            attribute: battery_level
             icon: mdi:battery-50
+          - entity: sensor.parkeerplaats_motion_sensor_battery
             name: Hue Motion Sensor (Parkeerplaats)
-            suffix: "%"
+            icon: mdi:battery-50

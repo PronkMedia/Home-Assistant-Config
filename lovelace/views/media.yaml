@@ -84,14 +84,21 @@ cards:
               .: |
                 ha-card {
                   margin-top: -36px;
+                  padding-bottom: 20px;
                 }
               "#states div":
                 hui-buttons-row:
                   $:
                     hui-buttons-base:
                       $: |
+                        .ha-scrollbar {
+                          margin-bottom: -20px;
+                        }
+                        ha-chip:nth-child(3) {
+                          margin-right: 12px;
+                        }
                         state-badge {
-                          color: var(--state-icon-active-color);
+                          color: var(--state-icon-active-color) !important;
                         }
           show_header_toggle: false
           entities:
@@ -122,8 +129,6 @@ cards:
                     service_data:
                       entity_id: remote.55pus6704_12
                       command: Digit3
-                - type: button
-                  show_icon: false
                 - type: button
                   icon: mdi:volume-plus
                   tap_action:
@@ -175,8 +180,6 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit6
                 - type: button
-                  show_icon: false
-                - type: button
                   icon: mdi:volume-minus
                   tap_action:
                     action: call-service
@@ -227,8 +230,6 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit9
                 - type: button
-                  show_icon: false
-                - type: button
                   icon: mdi:keyboard-backspace
                   tap_action:
                     action: call-service
@@ -278,9 +279,6 @@ cards:
                     service_data:
                       entity_id: remote.55pus6704_12
                       command: TvGuide
-                - type: button
-                  icon: mdi:svg
-                  show_icon: false
                 - type: button
                   icon: mdi:arrow-left-bold-box-outline
                   tap_action:

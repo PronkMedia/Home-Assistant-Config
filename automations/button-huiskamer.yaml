@@ -4,8 +4,8 @@
     platform: device
     device_id: 9b88e5cced0fd2c39b6e5d08beafe7e8
     domain: hue
-    type: remote_button_short_release
-    subtype: turn_on
+    type: short_release
+    subtype: 1
   action:
     - service: light.turn_off
       entity_id:
