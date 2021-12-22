@@ -1,6 +1,7 @@
 - id: vacation_mode
   alias: Vacation mode
   mode: single
+  max_exceeded: silent
   trigger:
     - platform: state
       entity_id: sensor.light_buiten
