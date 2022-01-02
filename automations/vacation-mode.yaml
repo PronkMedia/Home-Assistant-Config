@@ -8,25 +8,25 @@
     - platform: time_pattern
       minutes: /5
   action:
-    - choose:
-        - conditions:
-            - condition: and
-              conditions:
-                - condition: numeric_state
-                  entity_id: sensor.light_buiten
-                  below: 100
-                - condition: time
-                  after: "07:00:00"
-                  before: "22:30:00"
-          sequence:
-            - delay:
-                seconds: "{{ range(0, 5*60+1) | random }}"
-            - service: script.scene_huiskamer_tvkijken
-      default:
+    choose:
+      conditions:
+        condition: and
+        conditions:
+          - condition: numeric_state
+            entity_id: sensor.light_buiten
+            below: 100
+          - condition: time
+            after: "07:00:00"
+            before: "22:30:00"
+      sequence:
         - delay:
             seconds: "{{ range(0, 5*60+1) | random }}"
-        - service: light.turn_off
-          entity_id: light.huiskamer
+        - service: script.scene_huiskamer_tvkijken
+    default:
+      - delay:
+          seconds: "{{ range(0, 5*60+1) | random }}"
+      - service: light.turn_off
+        entity_id: light.huiskamer
 - id: vacation_mode_activation
   alias: Vacation mode activation
   mode: single
