@@ -138,6 +138,9 @@ cards:
           - entity: sensor.yearly_gas
             name: Gasverbruik
             icon: mdi:fire
+          - entity: sensor.yearly_water
+            name: Waterverbruik
+            icon: mdi:water-outline
           - type: divider
             style:
               margin-left: 55px
