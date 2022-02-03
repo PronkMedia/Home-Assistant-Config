@@ -1,0 +1,33 @@
+- id: doorbell_pressed_detection
+  alias: Doorbell pressed detection
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ring_doorbell_ding
+    to: "on"
+  condition:
+    condition: numeric_state
+    entity_id: sensor.parkeerplaats_motion_sensor_illuminance
+    below: 5
+  action:
+    - service: script.scene_voordeur_motion
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.automation_motion_voordeur_triggered
+- id: doorbell_unpressed_detection
+  alias: Doorbell unpressed detection
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ring_doorbell_ding
+    to: "off"
+    for:
+      minutes: 5
+  condition:
+    condition: state
+    entity_id: input_boolean.automation_motion_voordeur_triggered
+    state: "on"
+  action:
+    - service: light.turn_off
+      entity_id: light.voordeur
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.automation_motion_voordeur_triggered
