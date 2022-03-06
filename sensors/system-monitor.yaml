@@ -25,7 +25,6 @@
     - type: throughput_network_out
       arg: eth0
     - type: last_boot
-- platform: version
 - platform: uptime
 - platform: filesize
   file_paths: !secret file_paths

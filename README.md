@@ -3,9 +3,9 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2021.12.7
-    - Supervisor 2021.12.2
-    - Operating System 7.0
+    - Core 2022.2.9
+    - Supervisor 2022.01.1
+    - Operating System 7.4
 
 ## Hardware
 - Raspberry Pi Foundation

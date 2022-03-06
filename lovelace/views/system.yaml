@@ -135,16 +135,16 @@ cards:
             icon: mdi:battery-50
           - entity: sensor.huiskamer_motion_sensor_2_battery
             name: Hue Motion Sensor (Huiskamer 2)
-            icon: mdi:battery-50          
+            icon: mdi:battery-50
           - entity: sensor.toilet_motion_sensor_battery
             name: Hue Motion Sensor (Toilet)
-            icon: mdi:battery-50            
+            icon: mdi:battery-50
           - entity: sensor.shelly_ht_1_battery
             name: Shelly H&T (Kinderkamer)
             icon: mdi:battery-50
           - entity: sensor.slaapkamer_motion_sensor_battery
             name: Hue Motion Sensor (Slaapkamer)
-            icon: mdi:battery-50  
+            icon: mdi:battery-50
           - entity: sensor.shelly_ht_2_battery
             name: Shelly H&T (Zolder)
             icon: mdi:battery-50
@@ -164,7 +164,7 @@ cards:
             icon: mdi:battery-50
           - entity: sensor.tuin_motion_sensor_1_battery
             name: Hue Motion Sensor (Tuin 1)
-            icon: mdi:battery-50  
+            icon: mdi:battery-50
           - entity: sensor.tuin_motion_sensor_2_battery
             name: Hue Motion Sensor (Tuin 2)
             icon: mdi:battery-50
