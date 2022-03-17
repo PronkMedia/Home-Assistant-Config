@@ -34,7 +34,8 @@ My Home Assistant configuration & documentation.
     - 1x E27 White and Ambiance (LTW010)
     - 1x E14 White and Ambiance (LTW012)
     - 6x GU10 White and Ambiance (LTW013)
-    - 3x E27 White and Color Ambiance (LCT015)
+    - 2x E27 Filament Globe XL G125 White and Ambiance (LTO002)
+    - 1x E27 White and Color Ambiance (LCT015)
     - 1x Go White and Color Ambiance (LLC020)
 - Twinkly
     - 1x Strings Multicolor 100 LEDs (RGB, Generation II)

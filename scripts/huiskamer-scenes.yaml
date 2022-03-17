@@ -19,10 +19,14 @@ scene_huiskamer_overdag:
       data:
         entity_id:
           - light.keuken
-          - light.eettafel
           - light.speelhoek
           - light.aanbouw
         brightness: 205
+        color_temp: 252
+    - service: light.turn_on
+      data:
+        entity_id: light.eettafel
+        brightness: 153
         color_temp: 252
     - service: light.turn_off
       entity_id:
@@ -39,10 +43,14 @@ scene_huiskamer_avond:
       data:
         entity_id:
           - light.keuken
-          - light.eettafel
           - light.speelhoek
           - light.aanbouw
         brightness: 179
+        color_temp: 350
+    - service: light.turn_on
+      data:
+        entity_id: light.eettafel
+        brightness: 128
         color_temp: 350
     - service: light.turn_off
       entity_id:
@@ -58,7 +66,7 @@ scene_huiskamer_eten:
     - service: light.turn_on
       data:
         entity_id: light.eettafel
-        brightness: 205
+        brightness: 191
         color_temp: 300
     - service: light.turn_off
       entity_id:
@@ -85,7 +93,7 @@ scene_huiskamer_koken:
     - service: light.turn_on
       data:
         entity_id: light.eettafel
-        brightness: 128
+        brightness: 102
         color_temp: 325
     - service: light.turn_off
       entity_id:
@@ -106,7 +114,7 @@ scene_huiskamer_tvkijken:
           - light.buffetkast
           - light.vloerlamp
         brightness: 128
-        hs_color: [37.215, 30.98]
+        color_temp: 285
     - service: light.turn_off
       entity_id:
         - light.spots
