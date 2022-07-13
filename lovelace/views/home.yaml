@@ -14,14 +14,6 @@ cards:
               slider-entity-row {
                 overflow: visible !important;
               }
-            "#states div:nth-child(13)":
-              slider-entity-row:
-                $:
-                  hui-generic-entity-row:
-                    $: |
-                      state-badge {
-                        transform: rotate(-45deg);
-                      }
         state_color: true
         title: Huiskamer
         entities:
@@ -74,6 +66,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+            card_mod:
+              style:
+                slider-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        state-badge {
+                          transform: rotate(-45deg);
+                        }
           - type: conditional
             conditions:
               - entity: light.twinkly_strings
@@ -398,14 +399,6 @@ cards:
               #states div > hui-toggle-entity-row {
                 display: none;
               }
-            "#states div:not(:nth-child(8))":
-              slider-entity-row:
-                $:
-                  hui-generic-entity-row:
-                    $: |
-                      state-badge {
-                        transform: rotate(-90deg);
-                      }
         title: Buiten
         entities:
           - entity: light.voordeur
@@ -424,6 +417,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+            card_mod:
+              style:
+                slider-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        state-badge {
+                          transform: rotate(-90deg);
+                        }
           - type: conditional
             conditions:
               - entity: light.achterdeur
@@ -435,6 +437,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+            card_mod:
+              style:
+                slider-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        state-badge {
+                          transform: rotate(-90deg);
+                        }
           - type: conditional
             conditions:
               - entity: light.twinkly_icicle
@@ -458,6 +469,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+            card_mod:
+              style:
+                slider-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        state-badge {
+                          transform: rotate(-90deg);
+                        }
           - type: conditional
             conditions:
               - entity: light.parkeerplaats
@@ -469,6 +489,15 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+            card_mod:
+              style:
+                slider-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        state-badge {
+                          transform: rotate(-90deg);
+                        }
           - type: conditional
             conditions:
               - entity: light.buiten

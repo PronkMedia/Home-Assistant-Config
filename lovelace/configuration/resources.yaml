@@ -1,6 +1,3 @@
-# Card Mod
-- url: /local/custom_lovelace/card-mod.js?v=3.1.4
-  type: module
 # Mini Graph Card
 - url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.10.0
   type: module

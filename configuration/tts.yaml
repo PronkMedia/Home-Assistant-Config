@@ -1,3 +1,2 @@
 platform: google_translate
-base_url: !secret url_external
 time_memory: 60

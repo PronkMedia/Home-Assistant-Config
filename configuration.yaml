@@ -34,9 +34,6 @@ input_text: !include configuration/input-text.yaml
 # Lovelace configuration
 lovelace: !include configuration/lovelace.yaml
 
-# Nest
-nest: !include configuration/nest.yaml
-
 # Scripts
 script: !include_dir_merge_named scripts
 
@@ -53,6 +50,9 @@ template: !include_dir_merge_list templates/
 # Switches
 switch: !include_dir_merge_list switches
 
+# MQTT
+mqtt: !include configuration/mqtt.yaml
+
 # Enable system health information
 system_health:
 
@@ -67,6 +67,9 @@ person: !include configuration/person.yaml
 
 # Rest commands
 rest_command: !include configuration/rest-commands.yaml
+
+# Media Sources
+media_source:
 
 # Text-to-Speech
 tts: !include configuration/tts.yaml

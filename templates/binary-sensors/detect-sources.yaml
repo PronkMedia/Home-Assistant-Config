@@ -16,17 +16,17 @@
           and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
         }}
     - name: Media source radio (npo radio 1)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 1\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO Radio 1\") }}"
     - name: Media source radio (npo radio 2)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO Radio 2\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO Radio 2\") }}"
     - name: Media source radio (npo radio 3fm)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"NPO 3FM\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO 3FM\") }}"
     - name: Media source radio (538)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"538\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Radio 538\") }}"
     - name: Media source radio (sky radio)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Sky Radio 101 FM\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Sky Radio\") }}"
     - name: Media source radio (veronica)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"source\", \"Radio Veronica\") }}"
+      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Radio Veronica\") }}"
     - name: Media source spotify (kinderliedjes)
       state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Kleine Kinderliedjes\") }}"
     - name: Media source spotify (nederlands)

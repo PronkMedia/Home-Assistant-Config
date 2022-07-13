@@ -1,0 +1,5 @@
+sensor:
+  - name: Water Consumption Total
+    state_topic: watermeter/reading/current_value
+    unit_of_measurement: L
+    force_update: true

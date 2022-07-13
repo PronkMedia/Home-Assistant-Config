@@ -11,7 +11,7 @@ cards:
           - entity: sensor.current_version
             name: Huidige versie
             icon: mdi:home-assistant
-          - entity: sensor.home_assistant_v2_db
+          - entity: sensor.home_assistant_v2_db_size
             name: Database grootte
             icon: mdi:database
           - entity: sensor.last_reboot_ha
