@@ -30,6 +30,9 @@ cards:
             .state {
               margin-bottom: 0.6rem !important;
             }
+            .state:not(.state--small) svg {
+              display: none;
+            }
             .state:not(.state--small)::before {
               content: "";
                 height: 10px;
