@@ -8,9 +8,21 @@ cards:
         title: Home assistant informatie
         show_header_toggle: false
         entities:
-          - entity: sensor.current_version
-            name: Huidige versie
+          - type: attribute
+            entity: update.home_assistant_core_update
+            attribute: installed_version
+            name: Core versie
             icon: mdi:home-assistant
+          - type: attribute
+            entity: update.home_assistant_supervisor_update
+            attribute: installed_version
+            name: Supervisor versie
+            icon: mdi:police-badge
+          - type: attribute
+            entity: update.home_assistant_operating_system_update
+            attribute: installed_version
+            name: OS versie
+            icon: mdi:police-station
           - entity: sensor.home_assistant_v2_db_size
             name: Database grootte
             icon: mdi:database
