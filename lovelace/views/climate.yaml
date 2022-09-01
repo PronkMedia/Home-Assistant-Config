@@ -241,4 +241,4 @@ cards:
             .content {
               display: none !important;
             }
-        entity: weather.openweathermap
+        entity: weather.huis
