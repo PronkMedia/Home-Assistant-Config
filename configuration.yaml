@@ -71,6 +71,9 @@ rest_command: !include configuration/rest-commands.yaml
 # Media Sources
 media_source:
 
+# Stream (camera)
+stream:
+
 # Text-to-Speech
 tts: !include configuration/tts.yaml
 

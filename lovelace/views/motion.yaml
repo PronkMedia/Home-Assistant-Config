@@ -16,7 +16,6 @@ cards:
             icon: mdi:human-female
           - type: divider
             style:
-              height: 1px
               margin-left: 55px
       - type: custom:mini-graph-card
         height: 50
@@ -66,6 +65,28 @@ cards:
             name: Vakantie
             icon: mdi:island
       - type: entities
+        card_mod:
+          style:
+            hui-picture-header-footer:
+              $: |
+                img {
+                  content:url({{ states("input_text.doorbell_snapshot_location") }});
+                }
+        title: Voordeur
+        entities:
+          - entity: sensor.ring_doorbell_last_ding
+            name: Laatste bezoeker
+            icon: mdi:doorbell-video
+          - type: divider
+            style:
+              margin: 0 -16px
+        footer:
+          type: picture
+          image: .
+          entity: camera.ring_doorbell
+          tap_action:
+            action: more-info
+      - type: entities
         title: Bewegingsdetectie
         state_color: true
         entities:
@@ -79,7 +100,6 @@ cards:
             icon: mdi:car
           - type: divider
             style:
-              height: 1px
               margin-left: 55px
       - type: custom:mini-graph-card
         height: 50

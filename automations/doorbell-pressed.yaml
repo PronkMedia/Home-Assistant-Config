@@ -4,15 +4,39 @@
     platform: state
     entity_id: binary_sensor.ring_doorbell_ding
     to: "on"
-  condition:
-    condition: numeric_state
-    entity_id: sensor.parkeerplaats_motion_sensor_illuminance
-    below: 5
   action:
-    - service: script.scene_voordeur_motion
-    - service: input_boolean.turn_on
-      target:
-        entity_id: input_boolean.automation_motion_voordeur_triggered
+    - parallel:
+      - sequence:
+        - variables:
+            snapshot_id: "{{ range(10000, 99999) | random }}"
+            snapshot_date: "{{ now().strftime('%Y-%m-%d_%H-%M-%S') }}"
+            snapshot_filename: "snapshot_{{ snapshot_date }}_id-{{ snapshot_id }}.jpg"
+            snapshot_path_external: !secret path_doorbell_snapshot_external
+            snapshot_path_internal: !secret path_doorbell_snapshot_internal
+            snapshot_location_external: "{{ snapshot_path_external }}{{ snapshot_filename }}"
+            snapshot_location_internal: "{{ snapshot_path_internal }}{{ snapshot_filename }}"
+        - service: camera.snapshot
+          data:
+            filename: "{{ snapshot_location_internal }}"
+          target:
+            entity_id: camera.ring_doorbell
+        - delay:
+            seconds: 10
+        - service: camera.snapshot
+          data:
+            filename: "{{ snapshot_location_internal }}"
+          target:
+            entity_id: camera.ring_doorbell
+        - service: input_text.set_value
+          data:
+            entity_id: input_text.doorbell_snapshot_location
+            value: "{{ snapshot_location_external }}"
+      - sequence:
+        - condition: "{{ states(\"sensor.parkeerplaats_motion_sensor_illuminance\") | float(default=0) < 5 }}"
+        - service: script.scene_voordeur_motion
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.automation_motion_voordeur_triggered
 - id: doorbell_unpressed_detection
   alias: Doorbell unpressed detection
   trigger:

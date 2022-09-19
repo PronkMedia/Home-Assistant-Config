@@ -1,0 +1,4 @@
+# Doorbell (Ring Video Doorbell Wired)
+- sensor:
+    - name: Ring doorbell last ding
+      state: "{{ as_timestamp(state_attr(\"binary_sensor.ring_doorbell_ding\", \"lastDingTime\"), default=0) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
