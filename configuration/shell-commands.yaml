@@ -1,0 +1,1 @@
+remove_old_files: "find {{ path }} -mtime +{{ days_to_keep }} -exec rm {} ;"

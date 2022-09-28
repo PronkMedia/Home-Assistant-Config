@@ -31,6 +31,10 @@
           data:
             entity_id: input_text.doorbell_snapshot_location
             value: "{{ snapshot_location_external }}"
+        - service: shell_command.remove_old_files
+          data:
+            days_to_keep: 30
+            path: "{{ snapshot_path_internal }}"
       - sequence:
         - condition: "{{ states(\"sensor.parkeerplaats_motion_sensor_illuminance\") | float(default=0) < 5 }}"
         - service: script.scene_voordeur_motion
