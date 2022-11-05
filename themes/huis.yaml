@@ -18,6 +18,7 @@ sidebar-background-color: "#1b1b1b"
 ha-card-header-font-size: 24px
 ha-card-background: "#424242"
 ha-card-border-radius: 6px
+ha-card-border-width: 0
 ha-card-box-shadow: none
 
 # More info dialog

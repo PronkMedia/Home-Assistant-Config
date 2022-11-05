@@ -38,5 +38,6 @@ include:
     - sensor.energy_monitor_2_total_consumption
     - sensor.energy_monitor_3_total_consumption
     - sensor.gas_consumption
+    - sensor.water_consumption_total_m3
     - sensor.inverter_goodwe_energy
     - sensor.grid_fossil_fuel_percentage

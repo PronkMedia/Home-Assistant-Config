@@ -1,5 +1,11 @@
 sensor:
   - name: Water Consumption Total
+    force_update: true
     state_topic: watermeter/reading/current_value
     unit_of_measurement: L
-    force_update: true
+  - name: Water Consumption Total (m3)
+    device_class: water
+    state_class: total_increasing
+    state_topic: watermeter/reading/current_value
+    unit_of_measurement: m³
+    value_template: "{{ value | float / 1000 }}"
