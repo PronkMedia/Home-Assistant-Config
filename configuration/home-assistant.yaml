@@ -1,4 +1,5 @@
 name: Huis
+country: !secret home_country
 latitude: !secret home_latitude
 longitude: !secret home_longitude
 elevation: 0
