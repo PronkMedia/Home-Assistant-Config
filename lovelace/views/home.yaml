@@ -264,6 +264,13 @@ cards:
             name: Temperatuur
           - entity: sensor.thermostat_humidity
             name: Luchtvochtigheid
+          - type: conditional
+            conditions:
+              - entity: sensor.air_quality_sensor_pm2_5
+                state_not: "unavailable"
+            row:
+              entity: sensor.air_quality_sensor_pm2_5
+              name: Luchtkwaliteit
           - entity: sensor.light_huiskamer
             name: Verlichtingssterkte
             icon: mdi:brightness-6

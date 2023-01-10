@@ -48,6 +48,10 @@ My Home Assistant configuration & documentation.
     - 2x Wi-Fi Smart Plug (SP111)
 - Shelly
     - 2x Wi-Fi Humidity and Temperature Sensor (H&T)
+- Wemos
+    - 1x D1 Mini (ESP8266)
+- IKEA
+    - 1x VINDRIKTNING Air quality sensor
 - Sonos
     - 1x Beam
     - 2x One
