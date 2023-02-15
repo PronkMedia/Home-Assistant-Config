@@ -31,6 +31,11 @@
           data:
             entity_id: input_text.doorbell_snapshot_location
             value: "{{ snapshot_location_external }}"
+        - delay:
+            seconds: 5
+        - service: switch.turn_off
+          target:
+            entity_id: switch.ring_doorbell_live_stream
         - service: shell_command.remove_old_files
           data:
             days_to_keep: 30
