@@ -26,14 +26,11 @@ mdc-theme-surface: "#424242"
 
 # States and badges
 state-icon-color: "#8d8d8d"
-state-icon-active-color: "#ffffff"
+state-active-color: "#ffffff"
+state-light-active-color: "#ffffff"
+state-media_player-active-color: "#ffffff"
+state-binary_sensor-active-color: "#ffffff"
 state-icon-unavailable-color: "#595959"
-rgb-state-automation-color: "255,255,255"
-rgb-state-binary-sensor-color: "255,255,255"
-rgb-state-group-color: "255,255,255"
-rgb-state-input-boolean-color: "255,255,255"
-rgb-state-light-color: "255,255,255"
-rgb-state-media-player-color: "255,255,255"
 
 # Switch
 switch-checked-button-color: "#ffffff"
