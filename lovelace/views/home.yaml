@@ -146,18 +146,14 @@ cards:
                       service: automation.toggle
                       service_data:
                         entity_id: automation.matrix_panel_cycle_views
-                    style:
+                    styles:
                       button:
                         padding: 0 4px 0 0;
                         border-right: 1px solid var(--divider-color)
-                        color: >
-                          {% if is_state("automation.matrix_panel_cycle_views", "on") %}
-                            var(--paper-item-icon-active-color)
-                          {% endif %}
-                        display: >
-                          {% if is_state("input_boolean.matrix_display", "off") %}
-                            none
-                          {% endif %}
+                    state_styles:
+                      "on":
+                        button:
+                          color: var(--state-active-color)
                   - entity: input_select.matrix_view
                     icon: mdi:weather-partly-cloudy
                     name: false
@@ -167,17 +163,13 @@ cards:
                       service_data:
                         entity_id: input_select.matrix_view
                         option: temperature
-                    style:
+                    styles:
                       button:
                         margin-right: -12px
-                        color: >
-                          {% if is_state("input_select.matrix_view", "temperature") %}
-                            var(--paper-item-icon-active-color)
-                          {% endif %}
-                        display: >
-                          {% if is_state("input_boolean.matrix_display", "off") %}
-                            none
-                          {% endif %}
+                    state_styles:
+                      "temperature":
+                        button:
+                          color: var(--state-active-color)
                   - entity: input_select.matrix_view
                     icon: mdi:solar-power
                     name: false
@@ -187,17 +179,13 @@ cards:
                       service_data:
                         entity_id: input_select.matrix_view
                         option: solar
-                    style:
+                    styles:
                       button:
                         margin-right: -16px
-                        color: >
-                          {% if is_state("input_select.matrix_view", "solar") %}
-                            var(--paper-item-icon-active-color)
-                          {% endif %}
-                        display: >
-                          {% if is_state("input_boolean.matrix_display", "off") %}
-                            none
-                          {% endif %}
+                    state_styles:
+                      "solar":
+                        button:
+                          color: var(--state-active-color)
                   - entity: input_select.matrix_view
                     icon: mdi:lightning-bolt-outline
                     name: false
@@ -207,17 +195,24 @@ cards:
                       service_data:
                         entity_id: input_select.matrix_view
                         option: usage
-                    style:
+                    styles:
                       button:
                         margin-right: 12px
-                        color: >
-                          {% if is_state("input_select.matrix_view", "usage") %}
-                            var(--paper-item-icon-active-color)
-                          {% endif %}
-                        display: >-
+                    state_styles:
+                      "usage":
+                        button:
+                          color: var(--state-active-color)
+            card_mod:
+              style:
+                hui-toggle-entity-row:
+                  $:
+                    hui-generic-entity-row:
+                      $: |
+                        paper-buttons-row {
                           {% if is_state("input_boolean.matrix_display", "off") %}
-                            none
+                            display: none;
                           {% endif %}
+                        }
           - type: custom:slider-entity-row
             card_mod:
               style: |
