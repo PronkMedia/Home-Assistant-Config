@@ -1,6 +1,7 @@
 # Text
 primary-text-color: "#ffffff"
 secondary-text-color: "#8d8d8d"
+disabled-text-color: "#7b7b7b"
 
 # Header
 app-header-background-color: "#242424"
