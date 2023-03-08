@@ -85,11 +85,6 @@ card-mod-root: |
   paper-tab {
     padding: 0 9px !important;
   }
-card-mod-card: |
-  ha-card {
-    transition: all 0.3s ease-out, margin 0s;
-    margin: 2px 14px;
-  }
 card-mod-view-yaml: |
   "*:first-child$": |
     #columns {
@@ -98,4 +93,14 @@ card-mod-view-yaml: |
     .column > * {
       margin-left: 0px !important;
       margin-right: 0px !important;
+    }
+card-mod-card: |
+  ha-card {
+    transition: all 0.3s ease-out, margin 0s;
+    margin: 2px 14px;
+  }
+card-mod-row-yaml: |
+  "slider-entity-row$": |
+    hui-generic-entity-row .wrapper {
+      flex: 100;
     }

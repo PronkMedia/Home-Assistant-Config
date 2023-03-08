@@ -67,11 +67,10 @@ cards:
       - type: entities
         card_mod:
           style:
-            hui-picture-header-footer:
-              $: |
-                img {
-                  content:url({{ states("input_text.doorbell_snapshot_location") }});
-                }
+            hui-picture-header-footer$: |
+              img {
+                content:url({{ states("input_text.doorbell_snapshot_location") }});
+              }
         title: Voordeur
         entities:
           - entity: sensor.ring_doorbell_last_ding

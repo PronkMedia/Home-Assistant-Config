@@ -6,14 +6,13 @@ cards:
     cards:
       - type: entities
         card_mod:
-          style:
-            .: |
-              #states div > hui-toggle-entity-row {
-                display: none;
-              }
-              slider-entity-row {
-                overflow: visible !important;
-              }
+          style: |
+            #states div > hui-toggle-entity-row {
+              display: none;
+            }
+            slider-entity-row {
+              overflow: visible !important;
+            }
         state_color: true
         title: Huiskamer
         entities:
@@ -207,12 +206,17 @@ cards:
                 hui-toggle-entity-row:
                   $:
                     hui-generic-entity-row:
-                      $: |
-                        paper-buttons-row {
-                          {% if is_state("input_boolean.matrix_display", "off") %}
-                            display: none;
-                          {% endif %}
-                        }
+                      $:
+                        paper-buttons-row:
+                          $: |
+                            div.flex-box {
+                              {% if is_state("input_boolean.matrix_display", "off") %}
+                                display: none;
+                              {% endif %}
+                            }
+                            div paper-button {
+                              color: var(--state-icon-color);
+                            }
           - type: custom:slider-entity-row
             card_mod:
               style: |
@@ -396,11 +400,10 @@ cards:
             name: Luchtvochtigheid
       - type: entities
         card_mod:
-          style:
-            .: |
-              #states div > hui-toggle-entity-row {
-                display: none;
-              }
+          style: |
+            #states div > hui-toggle-entity-row {
+              display: none;
+            }
         title: Buiten
         entities:
           - entity: light.voordeur
