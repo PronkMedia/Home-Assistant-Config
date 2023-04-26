@@ -14,7 +14,7 @@
 - url: /local/custom_lovelace/slider-entity-row.js?v=17.3.0
   type: module
 # Swipe Navigation
-- url: /local/custom_lovelace/swipe-navigation.js?v=1.10.1
+- url: /local/custom_lovelace/swipe-navigation.js?v=1.11.1
   type: module
 # Text Row
 - url: /local/custom_lovelace/text-row.js?v=0.0.1
