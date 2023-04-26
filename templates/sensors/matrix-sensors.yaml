@@ -10,7 +10,7 @@
       state: "{{ states(\"sensor.daily_generation\") | round(0, default=0) }}"
     - name: Matrix usage (dayenery)
       state: >
-        {% if states("sensor.daily_energy") | float(default=0) <= -10 %}
+        {% if states("sensor.daily_energy") | float(default=0) <= -9.9501 %}
           {% set decimals = 0 %}
         {% else %}
           {% set decimals = 1 %}
