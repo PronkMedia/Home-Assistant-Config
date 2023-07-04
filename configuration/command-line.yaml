@@ -1,0 +1,18 @@
+# System monitoring
+- sensor:
+    name: Processor temperature
+    command: cat /sys/class/thermal/thermal_zone0/temp
+    unit_of_measurement: °C
+    scan_interval: 60
+    value_template: "{{ value | multiply(0.001) | round(1) }}"
+- sensor:
+    name: RPI version
+    command: cat /sys/firmware/devicetree/base/model
+    scan_interval: 3600
+    value_template: "{{ value.split(\"Model\")[0] }}"
+- sensor:  
+    name: RPI memory
+    command: cat /proc/meminfo | grep MemTotal
+    unit_of_measurement: MB
+    scan_interval: 3600
+    value_template: "{{ value.split()[1] | multiply(0.001) | round(0) }}"
