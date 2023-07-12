@@ -14,8 +14,8 @@ include:
     - sensor.temperature_buiten
     - sensor.hourly_gas
     - sensor.hourly_water
-    - sensor.power_consumption
-    - sensor.power_production
+    - sensor.electricity_meter_power_consumption
+    - sensor.electricity_meter_power_production
     - sensor.sems_portal_outputpower
     - person.male
     - person.female
@@ -29,14 +29,14 @@ include:
     - sensor.network_throughput_in_enp0s2
     - sensor.network_throughput_out_enp0s2
     # Energy dashboard entities
-    - sensor.energy_consumption_tarif_1
-    - sensor.energy_consumption_tarif_2
-    - sensor.energy_production_tarif_1
-    - sensor.energy_production_tarif_2
+    - sensor.electricity_meter_energy_consumption_tarif_1
+    - sensor.electricity_meter_energy_consumption_tarif_2
+    - sensor.electricity_meter_energy_production_tarif_1
+    - sensor.electricity_meter_energy_production_tarif_2
     - sensor.energy_monitor_1_total_consumption
     - sensor.energy_monitor_2_total_consumption
     - sensor.energy_monitor_3_total_consumption
-    - sensor.gas_consumption
+    - sensor.gas_meter_gas_consumption
     - sensor.water_consumption_total_m3
     - sensor.inverter_goodwe_energy
     - sensor.grid_fossil_fuel_percentage

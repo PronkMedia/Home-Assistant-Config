@@ -2,19 +2,19 @@ daily_water_consumption:
   source: sensor.water_consumption_total
   cycle: daily
 daily_gas_consumption:
-  source: sensor.gas_consumption
+  source: sensor.gas_meter_gas_consumption
   cycle: daily
 daily_energy_consumption_offpeak:
-  source: sensor.energy_consumption_tarif_1
+  source: sensor.electricity_meter_energy_consumption_tarif_1
   cycle: daily
 daily_energy_consumption_peak:
-  source: sensor.energy_consumption_tarif_2
+  source: sensor.electricity_meter_energy_consumption_tarif_2
   cycle: daily
 daily_energy_production_offpeak:
-  source: sensor.energy_production_tarif_1
+  source: sensor.electricity_meter_energy_production_tarif_1
   cycle: daily
 daily_energy_production_peak:
-  source: sensor.energy_production_tarif_2
+  source: sensor.electricity_meter_energy_production_tarif_2
   cycle: daily
 daily_energy_generation:
   source: sensor.sems_portal_etotal
@@ -23,19 +23,19 @@ monthly_water_consumption:
   source: sensor.water_consumption_total
   cycle: monthly
 monthly_gas_consumption:
-  source: sensor.gas_consumption
+  source: sensor.gas_meter_gas_consumption
   cycle: monthly
 monthly_energy_consumption_offpeak:
-  source: sensor.energy_consumption_tarif_1
+  source: sensor.electricity_meter_energy_consumption_tarif_1
   cycle: monthly
 monthly_energy_consumption_peak:
-  source: sensor.energy_consumption_tarif_2
+  source: sensor.electricity_meter_energy_consumption_tarif_2
   cycle: monthly
 monthly_energy_production_offpeak:
-  source: sensor.energy_production_tarif_1
+  source: sensor.electricity_meter_energy_production_tarif_1
   cycle: monthly
 monthly_energy_production_peak:
-  source: sensor.energy_production_tarif_2
+  source: sensor.electricity_meter_energy_production_tarif_2
   cycle: monthly
 monthly_energy_generation:
   source: sensor.sems_portal_etotal
@@ -44,19 +44,19 @@ yearly_water_consumption:
   source: sensor.water_consumption_total
   cycle: yearly
 yearly_gas_consumption:
-  source: sensor.gas_consumption
+  source: sensor.gas_meter_gas_consumption
   cycle: yearly
 yearly_energy_consumption_offpeak:
-  source: sensor.energy_consumption_tarif_1
+  source: sensor.electricity_meter_energy_consumption_tarif_1
   cycle: yearly
 yearly_energy_consumption_peak:
-  source: sensor.energy_consumption_tarif_2
+  source: sensor.electricity_meter_energy_consumption_tarif_2
   cycle: yearly
 yearly_energy_production_offpeak:
-  source: sensor.energy_production_tarif_1
+  source: sensor.electricity_meter_energy_production_tarif_1
   cycle: yearly
 yearly_energy_production_peak:
-  source: sensor.energy_production_tarif_2
+  source: sensor.electricity_meter_energy_production_tarif_2
   cycle: yearly
 yearly_energy_generation:
   source: sensor.sems_portal_etotal

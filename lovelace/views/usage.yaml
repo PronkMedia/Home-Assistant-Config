@@ -64,7 +64,7 @@ cards:
             }
         name: Slimme meter
         entities:
-          - entity: sensor.power_consumption
+          - entity: sensor.electricity_meter_power_consumption
             name: Stroom (verbruik)
             color: var(--label-badge-red)
             show_state: true
@@ -74,7 +74,7 @@ cards:
             color: var(--label-badge-yellow)
             show_state: true
             show_indicator: true
-          - entity: sensor.power_production
+          - entity: sensor.electricity_meter_power_production
             name: Stroom (productie)
             color: var(--label-badge-green)
             show_state: true
