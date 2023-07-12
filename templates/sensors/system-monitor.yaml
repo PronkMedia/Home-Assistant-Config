@@ -1,12 +1,14 @@
 # System monitoring
 - sensor:
     - name: Last reboot (ha)
-      state: "{{ as_timestamp(states(\"sensor.uptime\")) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
-    - name: Last reboot (rpi)
-      state: "{{ as_timestamp(states(\"sensor.last_boot\")) | timestamp_custom(\"%d-%m-%Y, %H:%M\") }}"
-    - name: Network throughput (in)
-      unit_of_measurement: KB/s
-      state: "{{ states(\"sensor.network_throughput_in_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
-    - name: Network throughput (out)
-      unit_of_measurement: KB/s
-      state: "{{ states(\"sensor.network_throughput_out_eth0\") | float(default=0) | multiply(1000) | round(0) }}"
+      state: '{{ as_timestamp(states("sensor.uptime")) | timestamp_custom("%d-%m-%Y, %H:%M") }}'
+    - name: Last reboot (host)
+      state: '{{ as_timestamp(states("sensor.last_boot")) | timestamp_custom("%d-%m-%Y, %H:%M") }}'
+    - name: Memory total
+      unique_id: memory_total
+      unit_of_measurement: MB
+      state: '{{ states("sensor.memory_free") | float + states("sensor.memory_use") | float }}'
+    - name: Disk Total
+      unique_id: disk_total
+      unit_of_measurement: GB
+      state: '{{ states("sensor.disk_free") | float + states("sensor.disk_use") | float }}'

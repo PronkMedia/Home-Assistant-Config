@@ -2,11 +2,9 @@
   id: male
   user_id: 72a9d38f50b0474f8c17483b33c27abb
   device_trackers:
-    - device_tracker.male_phone_bt
     - device_tracker.male_phone_wifi
 - name: female
   id: female
   user_id: 5edde02e224d457082a3906c78805bc6
   device_trackers:
-    - device_tracker.female_phone_bt
     - device_tracker.female_phone_wifi

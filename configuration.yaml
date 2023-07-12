@@ -47,9 +47,6 @@ light: !include groups/lights.yaml
 # Sensors
 sensor: !include_dir_merge_list sensors
 
-# Command line (sensors)
-command_line: !include configuration/command-line.yaml
-
 # Template (sensors)
 template: !include_dir_merge_list templates/
 

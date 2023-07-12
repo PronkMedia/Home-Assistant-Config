@@ -3,18 +3,19 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2023.6.3
-    - Supervisor 2023.06.4
+    - Core 2023.7.1
+    - Supervisor 2023.07.1
     - Operating System 10.3
 
 ## Hardware
+- Intel
+    - 1x NUC Kit (NUC7PJYHN)
+- Crucial
+    - 1x 16GB RAM Kit(2x8GB, CT2K8G4SFS824A)
+    - 1x Crucial MX500 SSD (250GB, CT250MX500SSD1)
 - Raspberry Pi Foundation
-    - 1x Raspberry Pi 4 (Model B / 4GB)
     - 1x Raspberry Pi Zero (WH)
-    - 1x Raspberry Pi Official Power Supply (15.3W | USB-C)
     - 1x Raspberry Pi Official Power Supply (5.1V/2.5A | MicroUSB)
-- Aokin
-    - 1x Raspberry Pi 4 Model B Case (with cooling fan and heatsinks)
 - Adafruit
     - 1x RGB LED Matrix Panel (32*32 4mm pitch)
     - 1x RGB Matrix Bonnet (for Raspberry Pi)

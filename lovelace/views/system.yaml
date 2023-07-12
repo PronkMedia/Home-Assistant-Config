@@ -5,7 +5,7 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        title: Home assistant informatie
+        title: Home Assistant informatie
         show_header_toggle: false
         entities:
           - type: attribute
@@ -30,16 +30,16 @@ cards:
             name: Laatste herstart
             icon: mdi:update
       - type: entities
-        title: Systeem informatie
+        title: Virtuele Machine informatie
         show_header_toggle: false
         entities:
-          - entity: sensor.rpi_version
-            name: Hardware
-            icon: mdi:raspberry-pi
-          - entity: sensor.rpi_memory
-            name: Geheugen
+          - entity: sensor.memory_total
+            name: Toegewezen geheugen
             icon: mdi:memory
-          - entity: sensor.last_reboot_rpi
+          - entity: sensor.disk_total
+            name: Toegewezen schijfruimte
+            icon: mdi:harddisk
+          - entity: sensor.last_reboot_host
             name: Laatste herstart
             icon: mdi:update
       - type: custom:mini-graph-card
@@ -57,33 +57,8 @@ cards:
             .states {
               font-size: 10px;
             }
-        name: Systeem temperatuur
-        entities:
-          - sensor.processor_temperature
-        show:
-          labels: true
-          points: false
-        points_per_hour: 30
-        decimals: 1
-        line_width: 1
-        line_color: var(--warning-color)
-      - type: custom:mini-graph-card
-        card_mod:
-          style: |
-            .header {
-              margin-top: 10px;
-            }
-            .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
-              opacity: 1 !important;
-            }
-            .states {
-              font-size: 10px;
-            }
         name: Systeem verbruik
-        icon: mdi:chip
+        icon: mdi:server
         entities:
           - entity: sensor.processor_use
             name: CPU (%)
@@ -123,11 +98,11 @@ cards:
         name: Netwerk verbruik
         icon: mdi:server-network
         entities:
-          - entity: sensor.network_throughput_in
+          - entity: sensor.network_throughput_in_enp0s2
             name: Inkomend (KB/s)
             color: var(--label-badge-blue)
             show_fill: false
-          - entity: sensor.network_throughput_out
+          - entity: sensor.network_throughput_out_enp0s2
             name: Uitgaand (KB/s)
             color: var(--warning-color)
             show_fill: false
