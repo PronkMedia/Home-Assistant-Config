@@ -1,3 +1,4 @@
+server_port: !secret server_port
 ssl_certificate: !secret cloudflare_ssl_cert
 ssl_key: !secret cloudflare_ssl_key
 ip_ban_enabled: true
