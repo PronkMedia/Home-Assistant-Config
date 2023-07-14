@@ -5,19 +5,15 @@
     entity_id: group.motion_huiskamer
     to: "on"
   condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: light.huiskamer
-        state: "off"
-      - condition: or
-        conditions:
-          - condition: numeric_state
-            entity_id: sensor.huiskamer_motion_sensor_1_illuminance
-            below: 2
-          - condition: numeric_state
-            entity_id: sensor.huiskamer_motion_sensor_2_illuminance
-            below: 2
+    - condition: state
+      entity_id: light.huiskamer
+      state: "off"
+    - condition: numeric_state
+      entity_id: sensor.huiskamer_motion_sensor_1_illuminance
+      below: 1
+    - condition: numeric_state
+      entity_id: sensor.huiskamer_motion_sensor_2_illuminance
+      below: 1
   action:
     service: script.scene_huiskamer_motion
 - id: motion_huiskamer_undetected
