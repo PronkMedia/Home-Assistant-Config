@@ -3,7 +3,7 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2023.7.1
+    - Core 2023.7.2
     - Supervisor 2023.07.1
     - Operating System 10.3
 
@@ -12,7 +12,7 @@ My Home Assistant configuration & documentation.
     - 1x NUC Kit (NUC7PJYHN)
 - Crucial
     - 1x 16GB RAM Kit(2x8GB, CT2K8G4SFS824A)
-    - 1x Crucial MX500 SSD (250GB, CT250MX500SSD1)
+    - 1x MX500 SSD (250GB, CT250MX500SSD1)
 - Raspberry Pi Foundation
     - 1x Raspberry Pi Zero (WH)
     - 1x Raspberry Pi Official Power Supply (5.1V/2.5A | MicroUSB)
