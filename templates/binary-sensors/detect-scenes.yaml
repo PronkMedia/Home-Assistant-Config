@@ -27,7 +27,7 @@
         {{
           is_state("light.spots", "off")
           and is_state("light.keuken", "off")
-          and is_state_attr("light.eettafel", "brightness", 191)
+          and is_state_attr("light.eettafel", "brightness", 192)
           and is_state("light.buffetkast", "off")
           and is_state("light.speelhoek", "off")
           and is_state("light.aanbouw", "off")
