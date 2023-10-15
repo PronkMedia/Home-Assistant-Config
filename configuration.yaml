@@ -4,6 +4,9 @@ automation: !include_dir_merge_list automations
 # Enable configuration section
 config:
 
+# Enable My Home Assistant documentation links
+my:
+
 # Enable energy dashboard
 energy:
 
