@@ -16,32 +16,32 @@
           and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
         }}
     - name: Media source radio (npo radio 1)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO Radio 1\") }}"
-    - name: Media source radio (npo radio 2)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO Radio 2\") }}"
-    - name: Media source radio (npo radio 3fm)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"NPO 3FM\") }}"
-    - name: Media source radio (538)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Radio 538\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "NPO Radio 1") }}'
+    - name: Media source radio (joe nederland)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "JOE Nederland") }}'
+    - name: Media source radio (qmusic)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Qmusic") }}'
+    - name: Media source radio (decibel)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Decibel") }}'
     - name: Media source radio (sky radio)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Sky Radio\") }}"
-    - name: Media source radio (veronica)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_channel\", \"Radio Veronica\") }}"
-    - name: Media source spotify (kinderliedjes)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Kleine Kinderliedjes\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Sky Radio") }}'
+    - name: Media source radio (538)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Radio 538") }}'
+    - name: Media source spotify (favorieten)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Favorieten") }}'
     - name: Media source spotify (nederlands)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Nederlands\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Nederlands") }}'
     - name: Media source spotify (fout)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Fout\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Fout") }}'
     - name: Media source spotify (oud)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Oud\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Oud") }}'
     - name: Media source spotify (fun)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Fun\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Fun") }}'
     - name: Media source spotify (relax)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Relax\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Relax") }}'
     - name: Media source spotify (unplugged)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Unplugged\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Unplugged") }}'
     - name: Media source spotify (eurovision)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"List: Eurovision\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Eurovision") }}'
     - name: Media source spotify (shaffy)
-      state: "{{ is_state_attr(\"media_player.sonos_speakers\", \"media_playlist\", \"Artist: Ramses Shaffy\") }}"
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "Artist: Ramses Shaffy") }}'

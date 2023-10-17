@@ -6,7 +6,7 @@ cards:
     cards:
       - type: custom:mini-media-player
         card_mod:
-          style: 
+          style:
             .: |
               .entity__info {
                 margin-top: 4px;
@@ -324,33 +324,33 @@ cards:
               service_data:
                 entity_id: media_player.sonos_speakers
                 source: NPO Radio 1
-          - entity: binary_sensor.media_source_radio_npo_radio_2
-            name: NPO Radio 2
+          - entity: binary_sensor.media_source_radio_joe_nederland
+            name: JOE Nederland
             icon: mdi:radio
             tap_action:
               action: call-service
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: NPO Radio 2
-          - entity: binary_sensor.media_source_radio_npo_radio_3fm
-            name: NPO 3FM
+                source: JOE Nederland
+          - entity: binary_sensor.media_source_radio_qmusic
+            name: Qmusic
             icon: mdi:radio
             tap_action:
               action: call-service
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: NPO 3FM
-          - entity: binary_sensor.media_source_radio_538
-            name: Radio 538
+                source: Qmusic
+          - entity: binary_sensor.media_source_radio_decibel
+            name: Decibel
             icon: mdi:radio
             tap_action:
               action: call-service
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: 538
+                source: Decibel
           - entity: binary_sensor.media_source_radio_sky_radio
             name: Sky Radio
             icon: mdi:radio
@@ -359,30 +359,30 @@ cards:
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: Sky Radio 101 FM
-          - entity: binary_sensor.media_source_radio_veronica
-            name: Veronica
+                source: Sky Radio
+          - entity: binary_sensor.media_source_radio_538
+            name: Radio 538
             icon: mdi:radio
             tap_action:
               action: call-service
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: Radio Veronica
+                source: Radio 538
       - type: glance
         title: Spotify afspeellijsten
         show_state: false
         columns: 3
         entities:
-          - entity: binary_sensor.media_source_spotify_kinderliedjes
-            name: Kinderliedjes
+          - entity: binary_sensor.media_source_spotify_favorieten
+            name: Favorieten
             icon: mdi:playlist-music
             tap_action:
               action: call-service
               service: media_player.select_source
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: "List: Kleine Kinderliedjes"
+                source: "List: Favorieten"
           - entity: binary_sensor.media_source_spotify_nederlands
             name: Nederlands
             icon: mdi:playlist-music
