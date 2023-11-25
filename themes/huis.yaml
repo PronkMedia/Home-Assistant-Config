@@ -40,11 +40,13 @@ switch-unchecked-button-color: "#b9b9b9"
 switch-unchecked-track-color: "#7b7b7b"
 
 # Slider
-paper-slider-knob-color: "#ffffff"
-paper-slider-knob-start-color: "#b9b9b9"
-paper-slider-pin-color: "#8d8d8d"
-paper-slider-active-color: "#ffffff"
-paper-slider-container-color: "#7b7b7b"
+md-slider-label-container-color: "#7b7b7b"
+md-slider-handle-color: "#ffffff"
+md-slider-hover-handle-color: "#ffffff"
+md-slider-pressed-handle-color: "#ffffff"
+md-slider-focus-handle-color: "#ffffff"
+md-slider-active-track-color: "#ffffff"
+md-slider-inactive-track-color: "#7b7b7b"
 
 # Table
 data-table-background-color: "#424242"
@@ -76,7 +78,7 @@ success-color: "#7bcc00"
 warning-color: "#ff8906"
 
 # Card-Mod custom CSS
-card-mod-theme: huis
+card-mod-theme: Huis
 card-mod-root: |
   ha-menu-button,
   ha-button-menu {
