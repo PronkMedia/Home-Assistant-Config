@@ -48,6 +48,9 @@ md-slider-focus-handle-color: "#ffffff"
 md-slider-active-track-color: "#ffffff"
 md-slider-inactive-track-color: "#7b7b7b"
 
+# Button
+md-assist-chip-pressed-state-layer-opacity: 0
+
 # Table
 data-table-background-color: "#424242"
 table-row-background-color: "#424242"

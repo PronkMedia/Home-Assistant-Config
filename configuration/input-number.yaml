@@ -2,3 +2,9 @@ matrix_brightness:
   min: 0
   max: 100
   unit_of_measurement: "%"
+hourly_gas:
+  min: 0
+  max: 5
+  step: 0.001
+  mode: box
+  unit_of_measurement: m³/h

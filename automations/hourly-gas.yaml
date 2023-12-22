@@ -1,0 +1,37 @@
+- id: hourly_gas_calculation
+  alias: Hourly gas calculation
+  trigger:
+    - platform: state
+      entity_id: sensor.gas_meter_gas_consumption
+    - platform: time_pattern
+      minutes: /5
+  action:
+    - choose:
+        - conditions: >
+            {{
+              states("sensor.gas_meter_gas_consumption") == states("input_text.gas_meter_gas_consumption_previous")
+              and now() - states('input_text.hourly_gas_calculation_last_triggered') | as_datetime > timedelta(seconds=299)
+            }}
+          sequence:
+            service: input_number.set_value
+            target:
+              entity_id: input_number.hourly_gas
+            data:
+              value: 0
+        - conditions: '{{ states("sensor.gas_meter_gas_consumption") != states("input_text.gas_meter_gas_consumption_previous") }}'
+          sequence:
+            - service: input_number.set_value
+              target:
+                entity_id: input_number.hourly_gas
+              data:
+                value: '{{ (states("sensor.gas_meter_gas_consumption") | float - states("input_text.gas_meter_gas_consumption_previous") | float) | multiply(12) | round(3) }}'
+            - service: input_text.set_value
+              target:
+                entity_id: input_text.gas_meter_gas_consumption_previous
+              data:
+                value: '{{ states("sensor.gas_meter_gas_consumption") }}'
+    - service: input_text.set_value
+      target:
+        entity_id: input_text.hourly_gas_calculation_last_triggered
+      data:
+        value: '{{ state_attr("automation.hourly_gas_calculation", "last_triggered") }}'

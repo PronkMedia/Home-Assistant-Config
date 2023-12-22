@@ -65,9 +65,6 @@ system_health:
 # Utility meter
 utility_meter: !include configuration/utility-meter.yaml
 
-# Device tracker
-device_tracker: !include configuration/device-tracker.yaml
-
 # Persons
 person: !include configuration/person.yaml
 

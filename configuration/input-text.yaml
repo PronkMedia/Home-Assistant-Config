@@ -1,3 +1,5 @@
 scene_huiskamer_last_triggered:
   name: Last triggered huiskamer scene
 doorbell_snapshot_location:
+gas_meter_gas_consumption_previous:
+hourly_gas_calculation_last_triggered:

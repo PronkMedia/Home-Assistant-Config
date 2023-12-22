@@ -69,7 +69,7 @@ cards:
             color: var(--label-badge-red)
             show_state: true
             show_indicator: true
-          - entity: sensor.hourly_gas
+          - entity: input_number.hourly_gas
             name: Gas (verbruik)
             color: var(--label-badge-yellow)
             show_state: true

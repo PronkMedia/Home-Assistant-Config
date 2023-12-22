@@ -98,13 +98,14 @@ cards:
                     hui-buttons-base:
                       $: |
                         .ha-scrollbar {
-                          margin-bottom: -20px;
+                          margin-bottom: -16px;
                         }
-                        ha-chip:nth-child(3) {
+                        ha-assist-chip:nth-child(3) {
                           margin-right: 12px;
                         }
                         state-badge {
                           margin-left: 0px !important;
+                          margin-right: -16px !important;
                           color: var(--state-icon-active-color) !important;
                         }
           show_header_toggle: false
