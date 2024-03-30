@@ -9,3 +9,5 @@ external_url: !secret url_external
 internal_url: !secret url_internal
 allowlist_external_dirs: !secret whitelisted_directories
 media_dirs: !secret media_directories
+auth_mfa_modules:
+  - type: totp
