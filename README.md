@@ -11,8 +11,10 @@ My Home Assistant configuration & documentation.
 - Intel
     - 1x NUC Kit (NUC7PJYHN)
 - Crucial
-    - 1x 16GB RAM Kit(2x8GB, CT2K8G4SFS824A)
+    - 1x 16GB RAM Kit (2x8GB, CT2K8G4SFS824A)
     - 1x MX500 SSD (250GB, CT250MX500SSD1)
+- Orico
+    - 1x USB Bluetooth adapter (BTA-403)
 - Raspberry Pi Foundation
     - 1x Raspberry Pi Zero (WH)
     - 1x Raspberry Pi Official Power Supply (5.1V/2.5A | MicroUSB)

@@ -10,6 +10,9 @@ my:
 # Enable energy dashboard
 energy:
 
+# Enable Bluetooth
+bluetooth:
+
 # Frontend (theme) configuration
 frontend: !include configuration/frontend.yaml
 
