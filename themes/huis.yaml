@@ -82,14 +82,19 @@ warning-color: "#ff8906"
 
 # Card-Mod custom CSS
 card-mod-theme: Huis
-card-mod-root: |
-  ha-menu-button,
-  ha-button-menu {
-    display: none !important;
-  }
-  paper-tab {
-    padding: 0 9px !important;
-  }
+card-mod-root-yaml: |
+  ha-menu-button$: |
+    ha-icon-button {
+      display: none;
+    }
+  ha-tabs$: |
+    paper-icon-button {
+      display: none;
+    }
+  ha-button-menu$: |
+    div {
+      display: none;
+    }
 card-mod-view-yaml: |
   "*:first-child$": |
     #columns {
