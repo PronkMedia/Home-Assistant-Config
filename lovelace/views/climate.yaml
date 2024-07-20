@@ -242,3 +242,4 @@ cards:
               display: none !important;
             }
         entity: weather.huis
+        forecast_type: daily

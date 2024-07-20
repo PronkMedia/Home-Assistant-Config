@@ -3,9 +3,9 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2024.4.3
-    - Supervisor 2024.04.0
-    - Operating System 12.2
+    - Core 2024.7.3
+    - Supervisor 2024.06.2
+    - Operating System 12.4
 
 ## Hardware
 - Intel
