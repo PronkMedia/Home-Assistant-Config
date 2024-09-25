@@ -19,10 +19,10 @@ cards:
           - entity: light.spots
           - entity: light.keuken
           - entity: light.eettafel
-          - entity: light.buffetkast
           - entity: light.twinkly_strings
           - entity: light.speelhoek
           - entity: light.aanbouw
+          - entity: light.tv
           - entity: light.vloerlamp
           - entity: input_boolean.matrix_display
           - type: conditional
@@ -56,26 +56,6 @@ cards:
               step: 1
           - type: conditional
             conditions:
-              - entity: light.buffetkast
-                state_not: "unavailable"
-            row:
-              type: custom:slider-entity-row
-              entity: light.buffetkast
-              icon: mdi:wall-sconce-round-variant
-              toggle: true
-              hide_when_off: true
-              step: 1
-            card_mod:
-              style:
-                slider-entity-row:
-                  $:
-                    hui-generic-entity-row:
-                      $: |
-                        state-badge {
-                          transform: rotate(-45deg);
-                        }
-          - type: conditional
-            conditions:
               - entity: light.twinkly_strings
                 state_not: "unavailable"
             row:
@@ -105,6 +85,17 @@ cards:
               type: custom:slider-entity-row
               entity: light.aanbouw
               icon: mdi:track-light
+              toggle: true
+              hide_when_off: true
+              step: 1
+          - type: conditional
+            conditions:
+              - entity: light.tv
+                state_not: "unavailable"
+            row:
+              type: custom:slider-entity-row
+              entity: light.tv
+              icon: mdi:lamp
               toggle: true
               hide_when_off: true
               step: 1

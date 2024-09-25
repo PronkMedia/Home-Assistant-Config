@@ -7,12 +7,12 @@
     - light.keuken_2
     - light.eettafel_1
     - light.eettafel_2
-    - light.buffetkast
     - light.twinkly_strings
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
     - light.aanbouw_2
+    - light.tv
     - light.vloerlamp
 - platform: group
   name: Huiskamer
@@ -22,12 +22,12 @@
     - light.keuken_2
     - light.eettafel_1
     - light.eettafel_2
-    - light.buffetkast
     - light.twinkly_strings
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
     - light.aanbouw_2
+    - light.tv
     - light.vloerlamp
 - platform: group
   name: Keuken

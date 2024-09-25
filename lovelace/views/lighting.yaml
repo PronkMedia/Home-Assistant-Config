@@ -96,16 +96,11 @@ cards:
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
               }
-              .entities div:nth-child(5) {
+              .entities div:nth-child(4) {
                 {% if is_state("light.twinkly_strings", "unavailable") %}
                   display: none;
                 {% endif %}
               }
-            ".entities div:nth-child(4)":
-              $: |
-                state-badge {
-                  transform: rotate(-45deg);
-                }
         show_state: false
         columns: 3
         entities:
@@ -121,10 +116,6 @@ cards:
             icon: mdi:ceiling-light-multiple
             tap_action:
               action: more-info
-          - entity: light.buffetkast
-            icon: mdi:wall-sconce-round-variant
-            tap_action:
-              action: more-info
           - entity: light.twinkly_strings
             name: Kerstboom
             icon: mdi:pine-tree
@@ -136,6 +127,10 @@ cards:
               action: more-info
           - entity: light.aanbouw
             icon: mdi:track-light
+            tap_action:
+              action: more-info
+          - entity: light.tv
+            icon: mdi:lamp
             tap_action:
               action: more-info
           - entity: light.vloerlamp

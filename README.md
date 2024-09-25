@@ -32,6 +32,7 @@ My Home Assistant configuration & documentation.
     - 2x Dimmer Switch (RWL021)
     - 1x Smart Button (ROM001)
     - 1x Smart Plug (LOM001)
+    - 1x E27 Filament A60 White (LWA021)
     - 2x E27 White (LWB010)
     - 4x E27 White (LWA001)
     - 1x E27 White and Ambiance (LTW010)
@@ -39,7 +40,6 @@ My Home Assistant configuration & documentation.
     - 6x GU10 White and Ambiance (LTW013)
     - 2x E27 Filament Globe XL G125 White and Ambiance (LTO002)
     - 1x E27 White and Color Ambiance (LCT015)
-    - 1x Go White and Color Ambiance (LLC020)
 - Twinkly
     - 1x Strings Multicolor 100 LEDs (RGB, Generation II)
     - 1x Icicle Special Edition 190 LEDs (RGB+W, Generation II)
