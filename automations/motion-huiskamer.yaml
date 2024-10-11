@@ -1,10 +1,10 @@
 - id: motion_huiskamer_detected
   alias: Motion huiskamer detected
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: group.motion_huiskamer
     to: "on"
-  condition:
+  conditions:
     - condition: state
       entity_id: light.huiskamer
       state: "off"
@@ -14,20 +14,20 @@
     - condition: numeric_state
       entity_id: sensor.huiskamer_motion_sensor_2_illuminance
       below: 1
-  action:
-    service: script.scene_huiskamer_motion
+  actions:
+    action: script.scene_huiskamer_motion
 - id: motion_huiskamer_undetected
   alias: Motion huiskamer undetected
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: binary_sensor.presence_huiskamer
     to: "off"
     for:
       minutes: 1
-  condition:
+  conditions:
     condition: state
     entity_id: light.huiskamer
     state: "on"
-  action:
-    service: light.turn_off
+  actions:
+    action: light.turn_off
     entity_id: light.huiskamer

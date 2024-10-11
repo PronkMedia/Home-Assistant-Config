@@ -1,7 +1,7 @@
 # Voordeur scenes
 scene_voordeur_motion:
   sequence:
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.voordeur
         brightness: 254

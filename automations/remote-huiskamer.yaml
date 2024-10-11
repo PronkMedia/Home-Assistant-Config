@@ -1,10 +1,10 @@
 - id: remote_huiskamer_pressed
   alias: Remote huiskamer pressed
   mode: restart
-  trigger:
-    platform: event
+  triggers:
+    trigger: event
     event_type: hue_event
-  condition: >
+  conditions: >
     {{
       trigger.event.data.id == "afstandsbediening_1_button"
       and (
@@ -12,7 +12,7 @@
         or trigger.event.data.type == "repeat"
       )
     }}
-  action:
+  actions:
     choose:
       - conditions: >
           {{
@@ -20,8 +20,8 @@
             and trigger.event.data.type == "repeat"
           }}
         sequence:
-          service: script.scene_huiskamer_tvkijken
-      - conditions: "{{ trigger.event.data.type == \"short_release\" }}"
+          action: script.scene_huiskamer_tvkijken
+      - conditions: '{{ trigger.event.data.type == "short_release" }}'
         sequence:
           choose:
             - conditions: "{{ trigger.event.data.subtype == 1 }}"
@@ -32,43 +32,43 @@
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_spelen
                     sequence:
-                      service: script.scene_huiskamer_overdag
+                      action: script.scene_huiskamer_overdag
                   - conditions:
                       condition: state
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_overdag
                     sequence:
-                      service: script.scene_huiskamer_avond
+                      action: script.scene_huiskamer_avond
                   - conditions:
                       condition: state
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_avond
                     sequence:
-                      service: script.scene_huiskamer_eten
+                      action: script.scene_huiskamer_eten
                   - conditions:
                       condition: state
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_eten
                     sequence:
-                      service: script.scene_huiskamer_koken
+                      action: script.scene_huiskamer_koken
                   - conditions:
                       condition: state
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_koken
                     sequence:
-                      service: script.scene_huiskamer_tvkijken
+                      action: script.scene_huiskamer_tvkijken
                   - conditions:
                       condition: state
                       entity_id: input_text.scene_huiskamer_last_triggered
                       state: scene_huiskamer_tvkijken
                     sequence:
-                      service: script.scene_huiskamer_spelen
+                      action: script.scene_huiskamer_spelen
             - conditions: "{{ trigger.event.data.subtype == 2 }}"
               sequence:
-                service: script.scene_huiskamer_brighter
+                action: script.scene_huiskamer_brighter
             - conditions: "{{ trigger.event.data.subtype == 3 }}"
               sequence:
-                service: script.scene_huiskamer_dimmer
+                action: script.scene_huiskamer_dimmer
             - conditions: "{{ trigger.event.data.subtype == 4 }}"
               sequence:
-                service: script.scene_huiskamer_off
+                action: script.scene_huiskamer_off

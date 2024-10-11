@@ -1,10 +1,10 @@
 - id: motion_parkeerplaats_detected
   alias: Motion parkeerplaats detected
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: binary_sensor.parkeerplaats_motion_sensor_motion
     to: "on"
-  condition:
+  conditions:
     condition: and
     conditions:
       - condition: state
@@ -13,26 +13,26 @@
       - condition: numeric_state
         entity_id: sensor.parkeerplaats_motion_sensor_illuminance
         below: 5
-  action:
-    - service: script.scene_parkeerplaats_motion
-    - service: input_boolean.turn_on
+  actions:
+    - action: script.scene_parkeerplaats_motion
+    - action: input_boolean.turn_on
       target:
         entity_id: input_boolean.automation_motion_parkeerplaats_triggered
 - id: motion_parkeerplaats_undetected
   alias: Motion parkeerplaats undetected
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: binary_sensor.parkeerplaats_motion_sensor_motion
     to: "off"
     for:
       minutes: 1
-  condition:
+  conditions:
     condition: state
     entity_id: input_boolean.automation_motion_parkeerplaats_triggered
     state: "on"
-  action:
-    - service: light.turn_off
+  actions:
+    - action: light.turn_off
       entity_id: light.parkeerplaats
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       target:
         entity_id: input_boolean.automation_motion_parkeerplaats_triggered

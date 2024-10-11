@@ -1,13 +1,13 @@
 # Thermostat state
 - trigger:
-    - platform: state
+    - trigger: state
       entity_id: climate.thermostat
-    - platform: time_pattern
+    - trigger: time_pattern
       minutes: /5
   sensor:
     - name: Thermostat (preset temperature)
       unit_of_measurement: °C
-      state: "{{ state_attr(\"climate.thermostat\", \"temperature\") | float }}"
+      state: '{{ state_attr("climate.thermostat", "temperature") | float }}'
     - name: Thermostat (heating temperature)
       unit_of_measurement: °C
       state: >
@@ -18,7 +18,7 @@
         {% endif %}
     - name: Thermostat (current temperature)
       unit_of_measurement: °C
-      state: "{{ state_attr(\"climate.thermostat\", \"current_temperature\") | float }}"
+      state: '{{ state_attr("climate.thermostat", "current_temperature") | float }}'
     - name: Thermostat (heating state)
       state: >
         {% if is_state_attr("climate.thermostat", "hvac_action", "heating") %}

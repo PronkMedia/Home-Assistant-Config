@@ -1,20 +1,20 @@
 - id: button_huiskamer_pressed
   alias: Button huiskamer pressed
-  trigger:
-    platform: device
+  triggers:
+    trigger: device
     device_id: 9b88e5cced0fd2c39b6e5d08beafe7e8
     domain: hue
     type: short_release
     subtype: 1
-  action:
-    - service: light.turn_off
+  actions:
+    - action: light.turn_off
       entity_id:
         - light.huiskamer
         - light.kerstverlichting
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       target:
         entity_id: input_boolean.matrix_display
-    - service: climate.set_temperature
+    - action: climate.set_temperature
       target:
         entity_id: climate.thermostat
       data:
@@ -25,7 +25,7 @@
           entity_id: media_player.55pus6704_12
           state: "on"
         sequence:
-          service: remote.send_command
+          action: remote.send_command
           data:
             entity_id: remote.55pus6704_12
             command: PowerOff

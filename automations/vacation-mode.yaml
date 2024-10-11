@@ -2,12 +2,12 @@
   alias: Vacation mode
   mode: single
   max_exceeded: silent
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: sensor.light_buiten
-    - platform: time_pattern
+    - trigger: time_pattern
       minutes: /5
-  action:
+  actions:
     choose:
       conditions:
         condition: and
@@ -21,31 +21,31 @@
       sequence:
         - delay:
             seconds: "{{ range(0, 5*60+1) | random }}"
-        - service: script.scene_huiskamer_tvkijken
+        - action: script.scene_huiskamer_tvkijken
     default:
       - delay:
           seconds: "{{ range(0, 5*60+1) | random }}"
-      - service: light.turn_off
+      - action: light.turn_off
         entity_id: light.huiskamer
 - id: vacation_mode_activation
   alias: Vacation mode activation
   mode: single
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: group.all_persons
     to: "not_home"
     for:
       hours: 24
-  action:
-    service: homeassistant.turn_on
+  actions:
+    action: homeassistant.turn_on
     entity_id: automation.vacation_mode
 - id: vacation_mode_deactivation
   alias: Vacation mode deactivation
   mode: single
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: group.all_persons
     to: "home"
-  action:
-    service: homeassistant.turn_off
+  actions:
+    action: homeassistant.turn_off
     entity_id: automation.vacation_mode

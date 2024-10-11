@@ -1,10 +1,10 @@
 - id: remote_kerstboom_pressed
   alias: Remote kerstboom pressed
   mode: restart
-  trigger:
-    platform: event
+  triggers:
+    trigger: event
     event_type: hue_event
-  condition: >
+  conditions: >
     {{
       trigger.event.data.id == "afstandsbediening_2_button"
       and (
@@ -19,27 +19,27 @@
       {% else %}
         light.twinkly_icicle
       {% endif %}
-  action:
+  actions:
     choose:
       - conditions: "{{ trigger.event.data.subtype == 1 }}"
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data_template:
             entity_id: "{{ light_entity }}"
       - conditions: "{{ trigger.event.data.subtype == 2 }}"
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data_template:
             entity_id: "{{ light_entity }}"
             brightness_step_pct: 20
       - conditions: "{{ trigger.event.data.subtype == 3 }}"
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data_template:
             entity_id: "{{ light_entity }}"
             brightness_step_pct: -20
       - conditions: "{{ trigger.event.data.subtype == 4 }}"
         sequence:
-          service: light.turn_off
+          action: light.turn_off
           data_template:
             entity_id: "{{ light_entity }}"

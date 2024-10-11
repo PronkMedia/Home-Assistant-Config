@@ -1,7 +1,7 @@
 # Tuin scenes
 scene_tuin_motion:
   sequence:
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id:
           - light.achterdeur

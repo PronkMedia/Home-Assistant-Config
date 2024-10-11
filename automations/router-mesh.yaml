@@ -1,25 +1,25 @@
 - id: router_mesh_points_activation
   alias: Router mesh points activation
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: group.all_persons
     to: "home"
-  action:
-    service: switch.turn_on
+  actions:
+    action: switch.turn_on
     data:
       entity_id:
         - switch.wifi_mesh_boven_socket
         - switch.wifi_mesh_tuin_socket
 - id: router_mesh_points_deactivation
   alias: Router mesh points deactivation
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: group.all_persons
     to: "not_home"
     for:
       minutes: 15
-  action:
-    service: switch.turn_off
+  actions:
+    action: switch.turn_off
     data:
       entity_id:
         - switch.wifi_mesh_boven_socket

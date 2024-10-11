@@ -1,66 +1,66 @@
 - id: doorbell_pressed_detection
   alias: Doorbell pressed detection
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: binary_sensor.ring_doorbell_ding
     to: "on"
-  action:
+  actions:
     - parallel:
-      - sequence:
-        - variables:
-            snapshot_id: "{{ range(10000, 99999) | random }}"
-            snapshot_date: "{{ now().strftime('%Y-%m-%d_%H-%M-%S') }}"
-            snapshot_filename: "snapshot_{{ snapshot_date }}_id-{{ snapshot_id }}.jpg"
-            snapshot_path_external: !secret path_doorbell_snapshot_external
-            snapshot_path_internal: !secret path_doorbell_snapshot_internal
-            snapshot_location_external: "{{ snapshot_path_external }}{{ snapshot_filename }}"
-            snapshot_location_internal: "{{ snapshot_path_internal }}{{ snapshot_filename }}"
-        - service: camera.snapshot
-          data:
-            filename: "{{ snapshot_location_internal }}"
-          target:
-            entity_id: camera.ring_doorbell
-        - delay:
-            seconds: 10
-        - service: camera.snapshot
-          data:
-            filename: "{{ snapshot_location_internal }}"
-          target:
-            entity_id: camera.ring_doorbell
-        - service: input_text.set_value
-          data:
-            entity_id: input_text.doorbell_snapshot_location
-            value: "{{ snapshot_location_external }}"
-        - delay:
-            seconds: 5
-        - service: switch.turn_off
-          target:
-            entity_id: switch.ring_doorbell_live_stream
-        - service: shell_command.remove_old_files
-          data:
-            days_to_keep: 30
-            path: "{{ snapshot_path_internal }}"
-      - sequence:
-        - condition: "{{ states(\"sensor.parkeerplaats_motion_sensor_illuminance\") | float(default=0) < 5 }}"
-        - service: script.scene_voordeur_motion
-        - service: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.automation_motion_voordeur_triggered
+        - sequence:
+            - variables:
+                snapshot_id: "{{ range(10000, 99999) | random }}"
+                snapshot_date: "{{ now().strftime('%Y-%m-%d_%H-%M-%S') }}"
+                snapshot_filename: "snapshot_{{ snapshot_date }}_id-{{ snapshot_id }}.jpg"
+                snapshot_path_external: !secret path_doorbell_snapshot_external
+                snapshot_path_internal: !secret path_doorbell_snapshot_internal
+                snapshot_location_external: "{{ snapshot_path_external }}{{ snapshot_filename }}"
+                snapshot_location_internal: "{{ snapshot_path_internal }}{{ snapshot_filename }}"
+            - action: camera.snapshot
+              data:
+                filename: "{{ snapshot_location_internal }}"
+              target:
+                entity_id: camera.ring_doorbell
+            - delay:
+                seconds: 10
+            - action: camera.snapshot
+              data:
+                filename: "{{ snapshot_location_internal }}"
+              target:
+                entity_id: camera.ring_doorbell
+            - action: input_text.set_value
+              data:
+                entity_id: input_text.doorbell_snapshot_location
+                value: "{{ snapshot_location_external }}"
+            - delay:
+                seconds: 5
+            - action: switch.turn_off
+              target:
+                entity_id: switch.ring_doorbell_live_stream
+            - action: shell_command.remove_old_files
+              data:
+                days_to_keep: 30
+                path: "{{ snapshot_path_internal }}"
+        - sequence:
+            - condition: '{{ states("sensor.parkeerplaats_motion_sensor_illuminance") | float(default=0) < 5 }}'
+            - action: script.scene_voordeur_motion
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.automation_motion_voordeur_triggered
 - id: doorbell_unpressed_detection
   alias: Doorbell unpressed detection
-  trigger:
-    platform: state
+  triggers:
+    trigger: state
     entity_id: binary_sensor.ring_doorbell_ding
     to: "off"
     for:
       minutes: 5
-  condition:
+  conditions:
     condition: state
     entity_id: input_boolean.automation_motion_voordeur_triggered
     state: "on"
-  action:
-    - service: light.turn_off
+  actions:
+    - action: light.turn_off
       entity_id: light.voordeur
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       target:
         entity_id: input_boolean.automation_motion_voordeur_triggered

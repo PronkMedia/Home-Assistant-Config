@@ -1,7 +1,7 @@
 # Toilet scenes
 scene_toilet_motion:
   sequence:
-    - service: light.turn_on
+    - action: light.turn_on
       data:
         entity_id: light.toilet
         brightness: 254
