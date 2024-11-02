@@ -16,17 +16,17 @@
           and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
         }}
     - name: Media source radio (npo radio 1)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "NPO Radio 1") }}'
-    - name: Media source radio (joe nederland)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "JOE Nederland") }}'
-    - name: Media source radio (qmusic)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Qmusic") }}'
-    - name: Media source radio (decibel)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Decibel") }}'
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://http://icecast.omroep.nl/radio1-bb-aac") }}'
+    - name: Media source radio (npo radio 2)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://http://icecast.omroep.nl/radio2-bb-aac") }}'
     - name: Media source radio (sky radio)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Sky Radio") }}'
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://https://28563.live.streamtheworld.com:443/SKYRADIOAAC.aac") }}'
+    - name: Media source radio (joe nederland)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://https://icecast-qmusicnl-cdp.triple-it.nl/Joe_nl_high.aac") }}'
+    - name: Media source radio (qmusic)
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "x-rincon-mp3radio://https://icecast-qmusicnl-cdp.triple-it.nl/Qmusic_nl_live.mp3") }}'
     - name: Media source radio (538)
-      state: '{{ is_state_attr("media_player.sonos_speakers", "media_channel", "Radio 538") }}'
+      state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://https://22723.live.streamtheworld.com:443/RADIO538AAC.aac") }}'
     - name: Media source spotify (favorieten)
       state: '{{ is_state_attr("media_player.sonos_speakers", "media_playlist", "List: Favorieten") }}'
     - name: Media source spotify (nederlands)

@@ -114,6 +114,7 @@ cards:
             - type: buttons
               entities:
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-1-box-outline
                   tap_action:
                     action: call-service
@@ -122,6 +123,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit1
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-2-box-outline
                   tap_action:
                     action: call-service
@@ -130,6 +132,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit2
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-3-box-outline
                   tap_action:
                     action: call-service
@@ -138,6 +141,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit3
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:volume-plus
                   tap_action:
                     action: call-service
@@ -146,6 +150,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: VolumeUp
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:plus-box-outline
                   tap_action:
                     action: call-service
@@ -154,6 +159,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: ChannelStepUp
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:television-box
                   tap_action:
                     action: call-service
@@ -164,6 +170,7 @@ cards:
             - type: buttons
               entities:
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-4-box-outline
                   tap_action:
                     action: call-service
@@ -172,6 +179,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit4
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-5-box-outline
                   tap_action:
                     action: call-service
@@ -180,6 +188,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit5
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-6-box-outline
                   tap_action:
                     action: call-service
@@ -188,6 +197,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit6
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:volume-minus
                   tap_action:
                     action: call-service
@@ -196,6 +206,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: VolumeDown
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:minus-box-outline
                   tap_action:
                     action: call-service
@@ -204,6 +215,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: ChannelStepDown
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:open-in-app
                   tap_action:
                     action: call-service
@@ -214,6 +226,7 @@ cards:
             - type: buttons
               entities:
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-7-box-outline
                   tap_action:
                     action: call-service
@@ -222,6 +235,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit7
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-8-box-outline
                   tap_action:
                     action: call-service
@@ -230,6 +244,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit8
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-9-box-outline
                   tap_action:
                     action: call-service
@@ -238,6 +253,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit9
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:keyboard-backspace
                   tap_action:
                     action: call-service
@@ -246,6 +262,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Back
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:arrow-up-bold-box-outline
                   tap_action:
                     action: call-service
@@ -254,6 +271,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: CursorUp
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:check-circle-outline
                   tap_action:
                     action: call-service
@@ -264,6 +282,7 @@ cards:
             - type: buttons
               entities:
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:text-box-outline
                   tap_action:
                     action: call-service
@@ -272,6 +291,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Teletext
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:numeric-0-box-outline
                   tap_action:
                     action: call-service
@@ -280,6 +300,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: Digit0
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:file-table-box-outline
                   tap_action:
                     action: call-service
@@ -288,6 +309,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: TvGuide
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:arrow-left-bold-box-outline
                   tap_action:
                     action: call-service
@@ -296,6 +318,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: CursorLeft
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:arrow-down-bold-box-outline
                   tap_action:
                     action: call-service
@@ -304,6 +327,7 @@ cards:
                       entity_id: remote.55pus6704_12
                       command: CursorDown
                 - type: button
+                  entity: remote.55pus6704_12
                   icon: mdi:arrow-right-bold-box-outline
                   tap_action:
                     action: call-service
@@ -321,55 +345,61 @@ cards:
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: media_player.play_media
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: NPO Radio 1
-          - entity: binary_sensor.media_source_radio_joe_nederland
-            name: JOE Nederland
+                media_content_type: music
+                media_content_id: aac://http://icecast.omroep.nl/radio1-bb-aac
+          - entity: binary_sensor.media_source_radio_npo_radio_2
+            name: NPO Radio 2
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: media_player.play_media
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: JOE Nederland
-          - entity: binary_sensor.media_source_radio_qmusic
-            name: Qmusic
-            icon: mdi:radio
-            tap_action:
-              action: call-service
-              service: media_player.select_source
-              service_data:
-                entity_id: media_player.sonos_speakers
-                source: Qmusic
-          - entity: binary_sensor.media_source_radio_decibel
-            name: Decibel
-            icon: mdi:radio
-            tap_action:
-              action: call-service
-              service: media_player.select_source
-              service_data:
-                entity_id: media_player.sonos_speakers
-                source: Decibel
+                media_content_type: music
+                media_content_id: aac://http://icecast.omroep.nl/radio2-bb-aac
           - entity: binary_sensor.media_source_radio_sky_radio
             name: Sky Radio
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: media_player.play_media
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: Sky Radio
+                media_content_type: music
+                media_content_id: aac://https://28563.live.streamtheworld.com:443/SKYRADIOAAC.aac
+          - entity: binary_sensor.media_source_radio_joe_nederland
+            name: JOE Nederland
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: media_player.play_media
+              service_data:
+                entity_id: media_player.sonos_speakers
+                media_content_type: music
+                media_content_id: aac://https://icecast-qmusicnl-cdp.triple-it.nl/Joe_nl_high.aac
+          - entity: binary_sensor.media_source_radio_qmusic
+            name: Qmusic
+            icon: mdi:radio
+            tap_action:
+              action: call-service
+              service: media_player.play_media
+              service_data:
+                entity_id: media_player.sonos_speakers
+                media_content_type: music
+                media_content_id: x-rincon-mp3radio://https://icecast-qmusicnl-cdp.triple-it.nl/Qmusic_nl_live.mp3
           - entity: binary_sensor.media_source_radio_538
             name: Radio 538
             icon: mdi:radio
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: media_player.play_media
               service_data:
                 entity_id: media_player.sonos_speakers
-                source: Radio 538
+                media_content_type: music
+                media_content_id: aac://https://22723.live.streamtheworld.com:443/RADIO538AAC.aac
       - type: glance
         title: Spotify afspeellijsten
         show_state: false
