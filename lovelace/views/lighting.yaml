@@ -96,7 +96,7 @@ cards:
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
               }
-              .entities div:nth-child(4) {
+              .entities div:nth-child(6) {
                 {% if is_state("light.twinkly_strings", "unavailable") %}
                   display: none;
                 {% endif %}
@@ -116,17 +116,17 @@ cards:
             icon: mdi:ceiling-light-multiple
             tap_action:
               action: more-info
-          - entity: light.twinkly_strings
-            name: Kerstboom
-            icon: mdi:pine-tree
-            tap_action:
-              action: more-info
           - entity: light.speelhoek
             icon: mdi:track-light
             tap_action:
               action: more-info
           - entity: light.aanbouw
             icon: mdi:track-light
+            tap_action:
+              action: more-info
+          - entity: light.twinkly_strings
+            name: Kerstboom
+            icon: mdi:pine-tree
             tap_action:
               action: more-info
           - entity: light.tv
