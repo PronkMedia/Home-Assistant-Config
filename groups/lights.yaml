@@ -66,6 +66,5 @@
   name: Boven
   entities:
     - light.overloop
-    - light.kinderkamer
     - light.slaapkamer
     - light.bureau

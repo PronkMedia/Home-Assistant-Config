@@ -179,10 +179,6 @@ cards:
             icon: mdi:dome-light
             tap_action:
               action: more-info
-          - entity: light.kinderkamer
-            icon: mdi:ceiling-light
-            tap_action:
-              action: more-info
           - entity: light.slaapkamer
             icon: mdi:globe-light
             tap_action:

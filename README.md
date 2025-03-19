@@ -35,7 +35,6 @@ My Home Assistant configuration & documentation.
     - 1x E27 Filament A60 White (LWA021)
     - 2x E27 White (LWB010)
     - 4x E27 White (LWA001)
-    - 1x E27 White and Ambiance (LTW010)
     - 1x E14 White and Ambiance (LTW012)
     - 6x GU10 White and Ambiance (LTW013)
     - 2x E27 Filament Globe XL G125 White and Ambiance (LTO002)
