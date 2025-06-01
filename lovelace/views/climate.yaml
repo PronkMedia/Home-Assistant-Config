@@ -21,7 +21,7 @@ cards:
               font-size: inherit;
             }
             .sensors .sensor-heading {
-              font-weight: var(--paper-font-body1_-_font-weight);
+              font-weight: var(--ha-font-weight-normal);
               justify-content: flex-start;
             }
             .body .current-wrapper {
@@ -29,7 +29,7 @@ cards:
             }
             .current-wrapper .current--value {
               display: block;
-              font-size: var(--paper-font-headline_-_font-size);
+              font-size: var(--ha-font-size-2xl);
               font-weight: 300;
               margin-top: 10px;
             }
@@ -37,7 +37,7 @@ cards:
               font-size: 14px;
               opacity: .6;
               margin-left: -.2rem;
-              font-weight: var(--paper-font-body1_-_font-weight);
+              font-weight: var(--ha-font-weight-normal);
             }
             .current-wrapper .current--value.updating {
               color: var(--primary-text-color);
@@ -90,10 +90,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -114,10 +117,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -138,10 +144,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -162,10 +171,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -186,10 +198,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -217,10 +232,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {

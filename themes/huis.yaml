@@ -87,13 +87,17 @@ card-mod-root-yaml: |
     ha-icon-button {
       display: none;
     }
-  ha-tabs$: |
-    paper-icon-button {
-      display: none;
-    }
   ha-button-menu$: |
     div {
       display: none;
+    }
+  sl-tab-group$: |
+    .tab-group {
+      padding: 0 10px;
+    }
+  sl-tab$: |
+    .tab {
+      padding: 12px !important;
     }
 card-mod-view-yaml: |
   "*:first-child$": |

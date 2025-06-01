@@ -48,10 +48,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {
@@ -86,10 +89,13 @@ cards:
             .header {
               margin-top: 10px;
             }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
             .name > span {
-              font-size: var(--paper-font-headline_-_font-size) !important;
-              font-weight: var(--paper-font-headline_-_font-weight) !important;
-              letter-spacing: var(--paper-font-headline_-_letter-spacing) !important;
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
               opacity: 1 !important;
             }
             .states {

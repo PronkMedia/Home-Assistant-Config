@@ -11,13 +11,12 @@ cards:
               .entity__info {
                 margin-top: 4px;
                 margin-left: 0 !important;
-                font-size: var(--paper-font-headline_-_font-size) !important;
+                font-size: var(--ha-font-size-2xl) !important;
               }
               .entity__info__name {
                 padding-bottom: 22px;
-                font-weight: var(--paper-font-headline_-_font-weight) !important;
+                font-weight: var(--ha-font-weight-normal) !important;
                 line-height: 32px !important;
-                letter-spacing: var(--paper-font-headline_-_letter-spacing);
               }
               .entity__info__media {
                 padding-bottom: 22px;
