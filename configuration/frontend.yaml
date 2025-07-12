@@ -1,5 +1,5 @@
 extra_module_url:
   # Card Mod
-  - /local/custom_lovelace/card-mod.js?v=3.4.4
+  - /local/custom_lovelace/card-mod.js?v=3.4.5
 themes:
   Huis: !include ../themes/huis.yaml
