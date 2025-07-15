@@ -1,5 +1,5 @@
 # Mini Graph Card
-- url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.12.1
+- url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.13.0
   type: module
 # Mini Media Player
 - url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.16.9
