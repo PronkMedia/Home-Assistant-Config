@@ -95,9 +95,12 @@ card-mod-root-yaml: |
     .tab-group {
       padding: 0 10px;
     }
+    .tab-group__scroll-button {
+      display: none !important;
+    }
   sl-tab$: |
     .tab {
-      padding: 12px !important;
+      padding: 14px !important;
     }
 card-mod-view-yaml: |
   "*:first-child$": |

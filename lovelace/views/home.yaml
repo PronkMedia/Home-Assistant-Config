@@ -126,6 +126,8 @@ cards:
               entity: input_boolean.matrix_display
               name: Matrix paneel
               state_color: true
+              tap_action:
+                action: none
               extend_paper_buttons_row:
                 buttons:
                   - entity: automation.matrix_panel_cycle_views
