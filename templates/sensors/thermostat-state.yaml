@@ -3,11 +3,13 @@
     - trigger: state
       entity_id: climate.thermostat
     - trigger: time_pattern
-      minutes: /5
+      hours: /12
   sensor:
     - name: Thermostat (preset temperature)
       unit_of_measurement: °C
       state: '{{ state_attr("climate.thermostat", "temperature") | float }}'
+      attributes:
+        last_update: "{{ now().isoformat() }}"
     - name: Thermostat (heating temperature)
       unit_of_measurement: °C
       state: >
@@ -16,6 +18,8 @@
         {% else %}
           0
         {% endif %}
+      attributes:
+        last_update: "{{ now().isoformat() }}"
     - name: Thermostat (current temperature)
       unit_of_measurement: °C
       state: '{{ state_attr("climate.thermostat", "current_temperature") | float }}'
