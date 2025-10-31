@@ -40,13 +40,9 @@ switch-unchecked-button-color: "#b9b9b9"
 switch-unchecked-track-color: "#7b7b7b"
 
 # Slider
-md-slider-label-container-color: "#7b7b7b"
-md-slider-handle-color: "#ffffff"
-md-slider-hover-handle-color: "#ffffff"
-md-slider-pressed-handle-color: "#ffffff"
-md-slider-focus-handle-color: "#ffffff"
-md-slider-active-track-color: "#ffffff"
-md-slider-inactive-track-color: "#7b7b7b"
+disabled-color: "#8d8d8d"
+ha-slider-indicator-color: "#ffffff"
+ha-slider-thumb-color: "#ffffff"
 
 # Button
 md-assist-chip-pressed-state-layer-opacity: 0
@@ -120,4 +116,5 @@ card-mod-row-yaml: |
   "slider-entity-row$": |
     hui-generic-entity-row .wrapper {
       flex: 100;
+      gap: 14px;
     }

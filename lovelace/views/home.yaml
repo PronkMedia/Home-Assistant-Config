@@ -10,9 +10,6 @@ cards:
             #states div > hui-toggle-entity-row {
               display: none;
             }
-            slider-entity-row {
-              overflow: visible !important;
-            }
         state_color: true
         title: Huiskamer
         entities:
@@ -213,13 +210,17 @@ cards:
               style: |
                 :host {
                   display: block;
-                  padding-left: 40px;
+                  padding-left: 56px;
                   {%
                     if is_state("device_tracker.matrix_wifi", "not_home")
                     or is_state("input_boolean.matrix_display", "off")
                   %}
                     display: none;
                   {% endif %}
+                }
+                :host div.wrapper {
+                  flex: 100;
+                  gap: 14px;
                 }
             entity: input_number.matrix_brightness
             full_row: true
