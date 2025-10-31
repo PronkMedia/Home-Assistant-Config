@@ -2,7 +2,7 @@
 - url: /local/custom_lovelace/mini-graph-card-bundle.js?v=0.13.0
   type: module
 # Mini Media Player
-- url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.16.9
+- url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.16.10
   type: module
 # Paper Buttons Row
 - url: /local/custom_lovelace/paper-buttons-row.js?v=2.3.1
