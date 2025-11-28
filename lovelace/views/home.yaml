@@ -7,7 +7,7 @@ cards:
       - type: entities
         card_mod:
           style: |
-            #states div > hui-toggle-entity-row {
+            #states > div:nth-child(-n+9) {
               display: none;
             }
         state_color: true
@@ -374,7 +374,7 @@ cards:
       - type: entities
         card_mod:
           style: |
-            #states div > hui-toggle-entity-row {
+            #states > div:nth-child(-n+5) {
               display: none;
             }
         title: Buiten
