@@ -40,7 +40,7 @@ My Home Assistant configuration & documentation.
     - 2x E27 Filament Globe XL G125 White and Ambiance (LTO002)
     - 1x E27 White and Color Ambiance (LCT015)
 - Twinkly
-    - 1x Strings Multicolor 100 LEDs (RGB, Generation II)
+    - 1x Candies Pearls 200 LEDs (RGB, Generation II)
     - 1x Icicle Special Edition 190 LEDs (RGB+W, Generation II)
 - B.K.Licht
     - 1x Wi-Fi RGB LED lightstrip (BKL1246)

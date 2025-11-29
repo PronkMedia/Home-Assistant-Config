@@ -7,7 +7,7 @@
     - light.keuken_2
     - light.eettafel_1
     - light.eettafel_2
-    - light.twinkly_strings
+    - light.twinkly_candies
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
@@ -22,7 +22,7 @@
     - light.keuken_2
     - light.eettafel_1
     - light.eettafel_2
-    - light.twinkly_strings
+    - light.twinkly_candies
     - light.speelhoek_1
     - light.speelhoek_2
     - light.aanbouw_1
@@ -52,7 +52,7 @@
 - platform: group
   name: Kerstverlichting
   entities:
-    - light.twinkly_strings
+    - light.twinkly_candies
     - light.twinkly_icicle
 - platform: group
   name: Buiten

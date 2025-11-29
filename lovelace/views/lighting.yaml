@@ -97,7 +97,7 @@ cards:
                 border-bottom-right-radius: 0;
               }
               .entities div:nth-child(6) {
-                {% if is_state("light.twinkly_strings", "unavailable") %}
+                {% if is_state("light.twinkly_candies", "unavailable") %}
                   display: none;
                 {% endif %}
               }
@@ -124,7 +124,7 @@ cards:
             icon: mdi:track-light
             tap_action:
               action: more-info
-          - entity: light.twinkly_strings
+          - entity: light.twinkly_candies
             name: Kerstboom
             icon: mdi:pine-tree
             tap_action:

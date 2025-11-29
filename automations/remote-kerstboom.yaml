@@ -15,7 +15,7 @@
   variables:
     light_entity: >
       {% if trigger.event.data.type == "short_release" %}
-        light.twinkly_strings
+        light.twinkly_candies
       {% else %}
         light.twinkly_icicle
       {% endif %}

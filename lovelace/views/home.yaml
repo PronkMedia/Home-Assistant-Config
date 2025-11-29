@@ -16,7 +16,7 @@ cards:
           - entity: light.spots
           - entity: light.keuken
           - entity: light.eettafel
-          - entity: light.twinkly_strings
+          - entity: light.twinkly_candies
           - entity: light.speelhoek
           - entity: light.aanbouw
           - entity: light.tv
@@ -75,11 +75,11 @@ cards:
               step: 1
           - type: conditional
             conditions:
-              - entity: light.twinkly_strings
+              - entity: light.twinkly_candies
                 state_not: "unavailable"
             row:
               type: custom:slider-entity-row
-              entity: light.twinkly_strings
+              entity: light.twinkly_candies
               name: Kerstboom
               icon: mdi:pine-tree
               toggle: true
