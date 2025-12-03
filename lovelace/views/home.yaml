@@ -40,6 +40,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.eettafel
@@ -51,6 +52,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.speelhoek
@@ -62,6 +64,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.aanbouw
@@ -73,6 +76,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.twinkly_candies
@@ -85,6 +89,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.tv
@@ -96,6 +101,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.vloerlamp
@@ -107,6 +113,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.huiskamer
@@ -280,6 +287,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.toilet
@@ -308,6 +316,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
       - type: entities
         title: Kinderkamer
         show_header_toggle: false
@@ -331,6 +340,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.slaapkamer
@@ -359,6 +369,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.bureau
@@ -395,6 +406,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
             card_mod:
               style:
                 slider-entity-row:
@@ -415,6 +427,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
             card_mod:
               style:
                 slider-entity-row:
@@ -436,6 +449,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
           - type: conditional
             conditions:
               - entity: light.schuur
@@ -447,6 +461,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
             card_mod:
               style:
                 slider-entity-row:
@@ -467,6 +482,7 @@ cards:
               toggle: true
               hide_when_off: true
               step: 1
+              min: 1
             card_mod:
               style:
                 slider-entity-row:
