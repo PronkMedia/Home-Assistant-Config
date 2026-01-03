@@ -3,8 +3,8 @@ My Home Assistant configuration & documentation.
 
 ## Software
 - Home Assistant
-    - Core 2025.11.3
-    - Supervisor 2025.11.4
+    - Core 2025.12.5
+    - Supervisor 2025.12.3
     - Operating System 16.3
 
 ## Hardware
