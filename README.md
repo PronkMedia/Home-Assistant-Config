@@ -42,8 +42,8 @@ My Home Assistant configuration & documentation.
 - Twinkly
     - 1x Candies Pearls 200 LEDs (RGB, Generation II)
     - 1x Icicle Special Edition 190 LEDs (RGB+W, Generation II)
-- B.K.Licht
-    - 1x Wi-Fi RGB LED lightstrip (BKL1246)
+- LSC Smart Connect
+    - 1x Wi-Fi Smart LED Strip (RGBIC + CCTIC)
 - TP-Link
     - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
 - Gosund
