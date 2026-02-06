@@ -1,2 +1,9 @@
-mode: yaml
+resource_mode: yaml
 resources: !include ../lovelace/configuration/resources.yaml
+dashboards:
+  lovelace:
+    mode: yaml
+    filename: ui-lovelace.yaml
+    title: Overview
+    icon: mdi:view-dashboard
+    show_in_sidebar: true

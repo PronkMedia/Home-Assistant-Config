@@ -83,20 +83,17 @@ card-mod-root-yaml: |
     ha-icon-button {
       display: none;
     }
-  ha-button-menu$: |
-    div {
-      display: none;
-    }
-  sl-tab-group$: |
+  ha-tab-group$: |
     .tab-group {
       padding: 0 10px;
     }
-    .tab-group__scroll-button {
-      display: none !important;
-    }
-  sl-tab$: |
+  ha-tab-group-tab$: |
     .tab {
-      padding: 14px !important;
+      padding: 12px 14px 10px !important;
+    }
+  ha-icon-button$: |
+    mwc-icon-button {
+      display: none;
     }
 card-mod-view-yaml: |
   "*:first-child$": |
