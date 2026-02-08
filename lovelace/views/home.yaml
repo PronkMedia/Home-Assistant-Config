@@ -378,6 +378,25 @@ cards:
               type: divider
               style:
                 margin-left: 55px
+          - type: conditional
+            conditions:
+              - entity: climate.infrared_heater
+                state_not: "unavailable"
+            row:
+              type: custom:slider-entity-row
+              name: Verwarming
+              entity: climate.infrared_heater
+              icon: mdi:radiator
+              toggle: true
+              hide_when_off: true
+          - type: conditional
+            conditions:
+              - entity: climate.infrared_heater
+                state_not: "unavailable"
+            row:
+              type: divider
+              style:
+                margin-left: 55px
           - entity: sensor.temperature_zolder
             name: Temperatuur
           - entity: sensor.shelly_ht_2_humidity

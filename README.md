@@ -56,6 +56,8 @@ My Home Assistant configuration & documentation.
 - Sonos
     - 1x Beam
     - 2x One
+- FlinQ
+    - 1x Smart Indoor Infrarood Heater (450 W)
 - Google
     - 1x Nest Hub
     - 1x Nest Learning Thermostat (3rd Generation)
