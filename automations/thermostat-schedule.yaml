@@ -1,0 +1,17 @@
+- id: thermostat_schedule
+  alias: Thermostat schedule
+  mode: single
+  triggers:
+    - trigger: time
+      at: "22:30:00"
+  conditions:
+    - condition: numeric_state
+      entity_id: climate.thermostat
+      attribute: temperature
+      above: 18
+  actions:
+    - action: climate.set_temperature
+      target:
+        entity_id: climate.thermostat
+      data:
+        temperature: 18

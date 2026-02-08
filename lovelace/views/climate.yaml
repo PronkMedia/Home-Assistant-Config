@@ -64,6 +64,14 @@ cards:
           - entity: sensor.thermostat_heating_state
             name: Verwarming
       - type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              margin-top: -26px;
+              margin-bottom: -10px;
+              border-radius: 0;
+              border-bottom: 1px solid var(--divider-color);
+            }
         entities:
           - entity: sensor.thermostat_current_temperature
             name: Huidig
@@ -84,6 +92,21 @@ cards:
         lower_bound: 15
         update_interval: 10
         line_width: 1
+      - type: entities
+        card_mod:
+          style: |
+            ha-card {
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+            #states {
+              padding-top: 8px;
+            }
+        state_color: true
+        entities:
+          - entity: automation.thermostat_schedule
+            name: Automatisch schema volgen
+            icon: mdi:thermostat-auto
       - type: custom:mini-graph-card
         card_mod:
           style: |
