@@ -55,9 +55,7 @@ My Home Assistant configuration & documentation.
 - FlinQ
     - 1x Smart Indoor Infrarood Heater (450 W)
 - Google
-    - 1x Nest Hub
     - 1x Nest Learning Thermostat (3rd Generation)
-    - 1x Chromecast (3rd Generation)
     - 1x Chromecast (Ultra)
 - Ring
     - 1x Video Doorbell Wired
