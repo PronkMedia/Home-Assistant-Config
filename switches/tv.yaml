@@ -2,7 +2,7 @@
 - platform: wake_on_lan
   mac: !secret mac_philips_55pus6704
   name: TV
-  host: !secret address_philips_55pus6704
+  host: !secret host_philips_55pus6704
   turn_off:
     service: media_player.turn_off
     target:
