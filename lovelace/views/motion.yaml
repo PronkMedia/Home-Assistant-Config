@@ -85,6 +85,63 @@ cards:
           entity: camera.ring_doorbell
           tap_action:
             action: more-info
+      - type: conditional
+        conditions:
+          - condition: or
+            conditions:
+              - entity: switch.wifi_mesh_tuin_socket
+                state_not: "unavailable"
+              - entity: switch.wifi_mesh_boven_socket
+                state_not: "unavailable"
+        card:
+          type: entities
+          title: Status wifi mesh-nodes
+          show_header_toggle: false
+          state_color: true
+          entities:
+            - type: conditional
+              conditions:
+                - entity: switch.wifi_mesh_tuin_socket
+                  state_not: "unavailable"
+                - entity: input_boolean.mesh_nodes_presence_activation
+                  state: "on"
+              row:
+                entity: switch.wifi_mesh_tuin_socket
+                type: simple-entity
+                icon: mdi:access-point
+            - type: conditional
+              conditions:
+                - entity: switch.wifi_mesh_tuin_socket
+                  state_not: "unavailable"
+                - entity: input_boolean.mesh_nodes_presence_activation
+                  state: "off"
+              row:
+                entity: switch.wifi_mesh_tuin_socket
+                icon: mdi:access-point
+            - type: conditional
+              conditions:
+                - entity: switch.wifi_mesh_boven_socket
+                  state_not: "unavailable"
+                - entity: input_boolean.mesh_nodes_presence_activation
+                  state: "on"
+              row:
+                entity: switch.wifi_mesh_boven_socket
+                type: simple-entity
+                icon: mdi:access-point
+            - type: conditional
+              conditions:
+                - entity: switch.wifi_mesh_boven_socket
+                  state_not: "unavailable"
+                - entity: input_boolean.mesh_nodes_presence_activation
+                  state: "off"
+              row:
+                entity: switch.wifi_mesh_boven_socket
+                icon: mdi:access-point
+            - type: divider
+              style:
+                margin-left: 55px
+            - entity: input_boolean.mesh_nodes_presence_activation
+              icon: mdi:home-switch
       - type: entities
         title: Bewegingsdetectie
         state_color: true

@@ -1,9 +1,19 @@
 - id: router_mesh_points_activation
   alias: Router mesh points activation
   triggers:
-    trigger: state
-    entity_id: group.all_persons
-    to: "home"
+    - trigger: state
+      entity_id: group.all_persons
+      to: "home"
+    - trigger: state
+      entity_id: input_boolean.mesh_nodes_presence_activation
+      to: "on"
+  conditions:
+    - condition: state
+      entity_id: group.all_persons
+      state: "home"
+    - condition: state
+      entity_id: input_boolean.mesh_nodes_presence_activation
+      state: "on"
   actions:
     action: switch.turn_on
     data:
@@ -13,11 +23,21 @@
 - id: router_mesh_points_deactivation
   alias: Router mesh points deactivation
   triggers:
-    trigger: state
-    entity_id: group.all_persons
-    to: "not_home"
-    for:
-      minutes: 15
+    - trigger: state
+      entity_id: group.all_persons
+      to: "not_home"
+      for:
+        minutes: 15
+    - trigger: state
+      entity_id: input_boolean.mesh_nodes_presence_activation
+      to: "on"
+  conditions:
+    - condition: state
+      entity_id: group.all_persons
+      state: "not_home"
+    - condition: state
+      entity_id: input_boolean.mesh_nodes_presence_activation
+      state: "on"
   actions:
     action: switch.turn_off
     data:
