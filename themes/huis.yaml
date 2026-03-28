@@ -88,12 +88,15 @@ card-mod-root-yaml: |
     .tab-group {
       padding: 0 10px;
     }
+    wa-button {
+      display: none !important;
+    }
   ha-tab-group-tab$: |
     .tab {
       padding: 12px 14px 10px !important;
     }
   ha-icon-button$: |
-    mwc-icon-button {
+    ha-button {
       display: none;
     }
 card-mod-view-yaml: |
