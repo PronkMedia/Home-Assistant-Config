@@ -187,7 +187,7 @@ cards:
         name: Zonnepanelen
         icon: mdi:solar-panel-large
         entities:
-          - entity: sensor.sems_portal_outputpower
+          - entity: sensor.inverter_goodwe
             color: var(--label-badge-yellow)
         show:
           labels: false
@@ -229,10 +229,10 @@ cards:
           - entity: sensor.sems_portal_status
             name: Status
             icon: mdi:power
-          - entity: sensor.sems_portal_capacity
+          - entity: sensor.inverter_goodwe_capacity
             name: Maximaal vermogen
             icon: mdi:solar-panel
-          - entity: sensor.sems_portal_hour_total
+          - entity: sensor.sems_portal_total_hours
             name: Totale bedrijfstijd
             icon: mdi:clock-outline
           - type: conditional
@@ -240,7 +240,7 @@ cards:
               - entity: sensor.sems_portal_status
                 state: "Online"
             row:
-              entity: sensor.sems_portal_temperature
+              entity: sensor.inverter_goodwe_temperature
               name: Temperatuur
       - type: conditional
         conditions:

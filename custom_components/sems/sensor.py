@@ -4,181 +4,646 @@ For more details about this platform, please refer to the documentation at
 https://github.com/TimSoethout/goodwe-sems-home-assistant
 """
 
-from datetime import timedelta
 import logging
-# from typing import Coroutine
+import re
+from collections.abc import Callable
+from dataclasses import dataclass
+from decimal import Decimal
+from typing import Any
 
-import homeassistant
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
     SensorStateClass,
 )
-from homeassistant.components.switch import SwitchEntity
-from homeassistant.const import CONF_SCAN_INTERVAL, UnitOfEnergy, UnitOfPower, Platform
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_registry
-from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-    UpdateFailed,
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import (
+    PERCENTAGE,
+    Platform,
+    UnitOfElectricCurrent,
+    UnitOfElectricPotential,
+    UnitOfEnergy,
+    UnitOfFrequency,
+    UnitOfPower,
+    UnitOfTemperature,
+    UnitOfTime,
 )
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import CONF_STATION_ID, DEFAULT_SCAN_INTERVAL, DOMAIN
+from . import SemsConfigEntry, SemsCoordinator, SemsData
+from .const import (
+    AC_CURRENT_EMPTY,
+    AC_EMPTY,
+    AC_FEQ_EMPTY,
+    DOMAIN,
+    GOODWE_SPELLING,
+    STATUS_LABELS,
+)
+from .device import device_info_for_inverter
 
 _LOGGER = logging.getLogger(__name__)
 
+type SemsValuePath = list[str | int]
 
-async def async_setup_entry(hass, config_entry, async_add_entities):
+
+def convert_status_to_label(status: Any) -> str:
+    """Convert numeric status code to human-readable label."""
+    return STATUS_LABELS.get(int(status), "Unknown")
+
+
+@dataclass(slots=True)
+class SemsSensorType:
+    """SEMS sensor definition."""
+
+    device_info: DeviceInfo
+    unique_id: str
+    value_path: SemsValuePath
+    name: str | None = None  # Name is None when it is determined by device class / UOM.
+    device_class: SensorDeviceClass | None = None
+    native_unit_of_measurement: str | None = None
+    state_class: SensorStateClass | None = None
+    empty_value: Any = None
+    data_type_converter: Callable = Decimal
+    custom_value_handler: Callable[[Any, dict[str, Any]], Any] | None = None
+
+
+@dataclass(slots=True)
+class SemsHomekitSensorType(SemsSensorType):
+    """SEMS HomeKit/powerflow sensor definition."""
+
+
+@dataclass(slots=True)
+class SemsLegacyPowerflowSensorType(SemsHomekitSensorType):
+    """SEMS legacy HomeKit/powerflow sensor definition."""
+
+
+@dataclass(slots=True)
+class SemsInverterSensorType(SemsSensorType):
+    """SEMS inverter sensor definition."""
+
+
+def get_homekit_sn(homekit_data: dict[str, Any] | None) -> str | None:
+    """Return the HomeKit serial number from coordinator data, if available."""
+
+    if homekit_data is None:
+        return None
+    value = homekit_data.get("sn")
+    return value if isinstance(value, str) else None
+
+
+def get_has_existing_homekit_entity(
+    homekit_data: dict[str, Any] | None, hass: HomeAssistant, config_entry: ConfigEntry
+) -> bool:
+    """Return whether a HomeKit entity already exists for this config entry."""
+
+    home_kit_sn = get_homekit_sn(homekit_data)
+    if home_kit_sn is not None:
+        ent_reg = er.async_get(hass)
+        entities = er.async_entries_for_config_entry(ent_reg, config_entry.entry_id)
+        for entity in entities:
+            if entity.unique_id == home_kit_sn:
+                return True
+    return False
+
+
+def sensor_options_for_data(
+    data: SemsData, has_existing_homekit_entity: bool = False
+) -> list[SemsSensorType]:
+    """Build a list of sensor definitions for the given coordinator data."""
+
+    sensors: list[SemsSensorType] = []
+    currency = data.currency
+    _LOGGER.debug("Detected currency: %s", currency)
+
+    for serial_number, inverter_data in data.inverters.items():
+        # serial_number = inverter["sn"]
+        path_to_inverter: SemsValuePath = [serial_number]
+        # device_data = get_value_from_path(data, path_to_inverter)
+
+        device_info = device_info_for_inverter(serial_number, inverter_data)
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-status",
+                [*path_to_inverter, "status"],
+                "Status",
+                data_type_converter=convert_status_to_label,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-capacity",
+                [*path_to_inverter, "capacity"],
+                "Capacity",
+                SensorDeviceClass.POWER,
+                UnitOfPower.KILO_WATT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-power",
+                # "Power",
+                [*path_to_inverter, "pac"],
+                device_class=SensorDeviceClass.POWER,
+                native_unit_of_measurement=UnitOfPower.WATT,
+                state_class=SensorStateClass.MEASUREMENT,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-energy",
+                [*path_to_inverter, "etotal"],
+                device_class=SensorDeviceClass.ENERGY,
+                native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+                state_class=SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-hour-total",
+                [*path_to_inverter, "hour_total"],
+                "Total Hours",
+                native_unit_of_measurement=UnitOfTime.HOURS,
+                state_class=SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-temperature",
+                [*path_to_inverter, GOODWE_SPELLING.temperature],
+                device_class=SensorDeviceClass.TEMPERATURE,
+                native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+                state_class=SensorStateClass.MEASUREMENT,
+                empty_value=0,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-eday",
+                [*path_to_inverter, "eday"],
+                "Energy Today",
+                SensorDeviceClass.ENERGY,
+                UnitOfEnergy.KILO_WATT_HOUR,
+                SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-{GOODWE_SPELLING.thisMonthTotalE}",
+                [*path_to_inverter, GOODWE_SPELLING.thisMonthTotalE],
+                "Energy This Month",
+                SensorDeviceClass.ENERGY,
+                UnitOfEnergy.KILO_WATT_HOUR,
+                SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-{GOODWE_SPELLING.lastMonthTotalE}",
+                [*path_to_inverter, GOODWE_SPELLING.lastMonthTotalE],
+                "Energy Last Month",
+                SensorDeviceClass.ENERGY,
+                UnitOfEnergy.KILO_WATT_HOUR,
+                SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-iday",
+                [*path_to_inverter, "iday"],
+                "Income Today",
+                SensorDeviceClass.MONETARY,
+                currency,
+                SensorStateClass.TOTAL,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-itotal",
+                [*path_to_inverter, "itotal"],
+                "Income Total",
+                SensorDeviceClass.MONETARY,
+                currency,
+                SensorStateClass.TOTAL,
+            ),
+        ]
+        # Multiple strings
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-vpv{idx}",
+                [*path_to_inverter, f"vpv{idx}"],
+                f"PV String {idx} Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+                SensorStateClass.MEASUREMENT,
+                0,
+            )
+            for idx in range(1, 5)
+            if get_value_from_path(data.inverters, [*path_to_inverter, f"vpv{idx}"])
+            is not None
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-ipv{idx}",
+                [*path_to_inverter, f"ipv{idx}"],
+                f"PV String {idx} Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+                SensorStateClass.MEASUREMENT,
+                0,
+            )
+            for idx in range(1, 5)
+            if get_value_from_path(data.inverters, [*path_to_inverter, f"ipv{idx}"])
+            is not None
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-vac{idx}",
+                [*path_to_inverter, f"vac{idx}"],
+                f"Grid {idx} AC Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+                SensorStateClass.MEASUREMENT,
+                AC_EMPTY,
+            )
+            for idx in range(1, 4)
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-iac{idx}",
+                [*path_to_inverter, f"iac{idx}"],
+                f"Grid {idx} AC Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+                SensorStateClass.MEASUREMENT,
+                AC_CURRENT_EMPTY,
+            )
+            for idx in range(1, 4)
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-fac{idx}",
+                [*path_to_inverter, f"fac{idx}"],
+                f"Grid {idx} AC Frequency",
+                SensorDeviceClass.FREQUENCY,
+                UnitOfFrequency.HERTZ,
+                SensorStateClass.MEASUREMENT,
+                AC_FEQ_EMPTY,
+            )
+            for idx in range(1, 4)
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-vbattery1",
+                [*path_to_inverter, "vbattery1"],
+                "Battery Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-ibattery1",
+                [*path_to_inverter, "ibattery1"],
+                "Battery Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+                SensorStateClass.MEASUREMENT,
+            ),
+        ]
+        battery_count = get_value_from_path(
+            data.inverters, [*path_to_inverter, "battery_count"]
+        )
+        if isinstance(battery_count, int):
+            for idx in range(battery_count):
+                path_to_battery: SemsValuePath = [
+                    *path_to_inverter,
+                    "more_batterys",
+                    idx,
+                ]
+                sensors += [
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-pbattery",
+                        [*path_to_battery, "pbattery"],
+                        f"Battery {idx} Power",
+                        SensorDeviceClass.POWER,
+                        UnitOfPower.WATT,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-vbattery",
+                        [*path_to_battery, "vbattery"],
+                        f"Battery {idx} Voltage",
+                        SensorDeviceClass.VOLTAGE,
+                        UnitOfElectricPotential.VOLT,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-ibattery",
+                        [*path_to_battery, "ibattery"],
+                        f"Battery {idx} Current",
+                        SensorDeviceClass.CURRENT,
+                        UnitOfElectricCurrent.AMPERE,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-soc",
+                        [*path_to_battery, "soc"],
+                        f"Battery {idx} State of Charge",
+                        SensorDeviceClass.BATTERY,
+                        PERCENTAGE,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-soh",
+                        [*path_to_battery, "soh"],
+                        f"Battery {idx} State of Health",
+                        SensorDeviceClass.BATTERY,
+                        PERCENTAGE,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-bms_temperature",
+                        [*path_to_battery, "bms_temperature"],
+                        f"Battery {idx} BMS Temperature",
+                        SensorDeviceClass.TEMPERATURE,
+                        UnitOfTemperature.CELSIUS,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-bms_discharge_i_max",
+                        [*path_to_battery, "bms_discharge_i_max"],
+                        f"Battery {idx} BMS Discharge Max Current",
+                        SensorDeviceClass.CURRENT,
+                        UnitOfElectricCurrent.AMPERE,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                    SemsInverterSensorType(
+                        device_info,
+                        f"{serial_number}-{idx}-bms_charge_i_max",
+                        [*path_to_battery, "bms_charge_i_max"],
+                        f"Battery {idx} BMS Charge Max Current",
+                        SensorDeviceClass.CURRENT,
+                        UnitOfElectricCurrent.AMPERE,
+                        SensorStateClass.MEASUREMENT,
+                    ),
+                ]
+        _LOGGER.debug("Sensors for inverter %s: %s", serial_number, sensors)
+
+    # HomeKit powerflow + SEMS charts live in `SemsData.homekit`.
+    if data.homekit is not None:
+        homekit_sn = get_homekit_sn(data.homekit) or "GW-HOMEKIT-NO-SERIAL"
+        serial_backwards_compatibility = (
+            "homeKit"  # the old code uses homeKit for the serial number
+        )
+        device_info = DeviceInfo(
+            identifiers={
+                # Serial numbers are unique identifiers within a specific domain
+                (DOMAIN, serial_backwards_compatibility)
+            },
+            name="HomeKit",
+            manufacturer="GoodWe",
+        )
+
+        def status_value_handler(
+            status_path: SemsValuePath,
+        ) -> Callable[[Any, dict[str, Any]], Any]:
+            """Return a handler that applies a sign depending on grid status."""
+
+            def value_status_handler(value: Any, data: dict[str, Any]) -> Any:
+                """Apply the grid status sign to the given value."""
+                if value is None or value == "":
+                    return None
+                grid_status = get_value_from_path(data, status_path)
+                if grid_status is None:
+                    return value
+                try:
+                    return Decimal(str(value)) * int(grid_status)
+                except (TypeError, ValueError):
+                    return value
+
+            return value_status_handler
+
+        sensors += [
+            SemsLegacyPowerflowSensorType(
+                device_info,
+                f"{homekit_sn}-homekit",  # backwards compatibility otherwise would be f"{serial_number}-load"
+                ["load"],
+                "HomeKit Load",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-load",
+                ["load"],
+                "HomeKit Load",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+                custom_value_handler=status_value_handler(["loadStatus"]),
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-pv",
+                ["pv"],
+                "HomeKit PV",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-grid",
+                ["grid"],
+                "HomeKit Grid",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-load-status",
+                ["loadStatus"],
+                "HomeKit Load Status",
+                None,
+                None,
+                SensorStateClass.MEASUREMENT,
+                # Note: for the dedicated "load-status" sensor we intentionally use
+                # gridStatus here instead of loadStatus. The "HomeKit Load" power
+                # sensor above uses loadStatus to determine the sign of the load
+                # power value itself, while this sensor exposes the load state using
+                # the same import/export (sign) convention as the grid power sensor.
+                custom_value_handler=status_value_handler(["gridStatus"]),
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-battery",
+                [GOODWE_SPELLING.battery],
+                "HomeKit Battery",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+                custom_value_handler=status_value_handler(
+                    [GOODWE_SPELLING.batteryStatus]
+                ),
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-genset",
+                ["genset"],
+                "HomeKit generator",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+            ),
+            SemsHomekitSensorType(
+                device_info,
+                f"{homekit_sn}-soc",
+                ["soc"],
+                "HomeKit State of Charge",
+                SensorDeviceClass.BATTERY,
+                PERCENTAGE,
+                SensorStateClass.MEASUREMENT,
+            ),
+        ]
+        if data.homekit.get(GOODWE_SPELLING.hasEnergyStatisticsCharts):
+            if data.homekit.get("Charts_buy") is not None:
+                sensors += [
+                    SemsHomekitSensorType(
+                        device_info,
+                        f"{homekit_sn}-import-energy",
+                        ["Charts_buy"],
+                        "SEMS Import",
+                        SensorDeviceClass.ENERGY,
+                        UnitOfEnergy.KILO_WATT_HOUR,
+                        SensorStateClass.TOTAL_INCREASING,
+                    ),
+                    SemsHomekitSensorType(
+                        device_info,
+                        f"{homekit_sn}-export-energy",
+                        ["Charts_sell"],
+                        "SEMS Export",
+                        SensorDeviceClass.ENERGY,
+                        UnitOfEnergy.KILO_WATT_HOUR,
+                        SensorStateClass.TOTAL_INCREASING,
+                    ),
+                ]
+            if data.homekit.get("Totals_buy") is not None:
+                sensors += [
+                    SemsHomekitSensorType(
+                        device_info,
+                        f"{homekit_sn}-import-energy-total",
+                        ["Totals_buy"],
+                        "SEMS Total Import",
+                        SensorDeviceClass.ENERGY,
+                        UnitOfEnergy.KILO_WATT_HOUR,
+                        SensorStateClass.TOTAL_INCREASING,
+                    ),
+                    SemsHomekitSensorType(
+                        device_info,
+                        f"{homekit_sn}-export-energy-total",
+                        ["Totals_sell"],
+                        "SEMS Total Export",
+                        SensorDeviceClass.ENERGY,
+                        UnitOfEnergy.KILO_WATT_HOUR,
+                        SensorStateClass.TOTAL_INCREASING,
+                    ),
+                ]
+    return sensors
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: SemsConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
     """Add sensors for passed config_entry in HA."""
-    # _LOGGER.debug("hass.data[DOMAIN] %s", hass.data[DOMAIN])
-    # semsApi = hass.data[DOMAIN][config_entry.entry_id]
-    # stationId = config_entry.data[CONF_STATION_ID]
-
-    # _LOGGER.debug("config_entry %s", config_entry.data)
-    # update_interval = timedelta(
-    #     seconds=config_entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
-    # )
-
-    # async def async_update_data():
-    #     """Fetch data from API endpoint.
-
-    #     This is the place to pre-process the data to lookup tables
-    #     so entities can quickly look up their data.
-    #     """
-    #     try:
-    #         # Note: asyncio.TimeoutError and aiohttp.ClientError are already
-    #         # handled by the data update coordinator.
-    #         # async with async_timeout.timeout(10):
-    #         result = await hass.async_add_executor_job(semsApi.getData, stationId)
-    #         _LOGGER.debug("Resulting result: %s", result)
-
-    #         inverters = result["inverter"]
-
-    #         # found = []
-    #         # _LOGGER.debug("Found inverters: %s", inverters)
-    #         data = {}
-    #         if inverters is None:
-    #             # something went wrong, probably token could not be fetched
-    #             raise UpdateFailed(
-    #                 "Error communicating with API, probably token could not be fetched, see debug logs"
-    #             )
-    #         for inverter in inverters:
-    #             name = inverter["invert_full"]["name"]
-    #             # powerstation_id = inverter["invert_full"]["powerstation_id"]
-    #             sn = inverter["invert_full"]["sn"]
-    #             _LOGGER.debug("Found inverter attribute %s %s", name, sn)
-    #             data[sn] = inverter["invert_full"]
-
-    #         hasPowerflow = result["hasPowerflow"]
-    #         hasEnergeStatisticsCharts = result["hasEnergeStatisticsCharts"]
-
-    #         if hasPowerflow:
-    #             if hasEnergeStatisticsCharts:
-    #                 StatisticsCharts = {
-    #                     f"Charts_{key}": val
-    #                     for key, val in result["energeStatisticsCharts"].items()
-    #                 }
-    #                 StatisticsTotals = {
-    #                     f"Totals_{key}": val
-    #                     for key, val in result["energeStatisticsTotals"].items()
-    #                 }
-    #                 powerflow = {
-    #                     **result["powerflow"],
-    #                     **StatisticsCharts,
-    #                     **StatisticsTotals,
-    #                 }
-    #             else:
-    #                 powerflow = result["powerflow"]
-
-    # powerflow["sn"] = result["homKit"]["sn"]
-
-    # # Goodwe 'Power Meter' (not HomeKit) doesn't have a sn
-    # # Let's put something in, otherwise we can't see the data.
-    # if powerflow["sn"] is None:
-    #     powerflow["sn"] = "GW-HOMEKIT-NO-SERIAL"
-
-    # #_LOGGER.debug("homeKit sn: %s", result["homKit"]["sn"])
-    # # This seems more accurate than the Chart_sum
-    # powerflow["all_time_generation"] = result["kpi"]["total_power"]
-
-    #             data["homeKit"] = powerflow
-
-    #         # _LOGGER.debug("Resulting data: %s", data)
-    #         return data
-    #     # except ApiError as err:
-    #     except Exception as err:
-    #         # logging.exception("Something awful happened!")
-    #         raise UpdateFailed(f"Error communicating with API: {err}") from err
-
-    # coordinator = DataUpdateCoordinator(
-    #     hass,
-    #     _LOGGER,
-    #     # Name of the data. For logging purposes.
-    #     name="SEMS API",
-    #     update_method=async_update_data,
-    #     # Polling interval. Will only be polled if there are subscribers.
-    #     update_interval=update_interval,
-    # )
-    coordinator = hass.data[DOMAIN][config_entry.entry_id]
-
-    #
-    # Fetch initial data so we have data when entities subscribe
-    #
-    # If the refresh fails, async_config_entry_first_refresh will
-    # raise ConfigEntryNotReady and setup will try again later
-    #
-    # If you do not want to retry setup on failure, use
-    # coordinator.async_refresh() instead
-    #
-    await coordinator.async_config_entry_first_refresh()
+    coordinator = config_entry.runtime_data.coordinator
 
     # _LOGGER.debug("Initial coordinator data: %s", coordinator.data)
 
-    for _idx, ent in enumerate(coordinator.data):
-        _migrate_to_new_unique_id(hass, ent)
-
-    async_add_entities(
-        SemsSensor(coordinator, ent)
-        for idx, ent in enumerate(coordinator.data)
-        # Don't make SemsSensor for homeKit, since it is not an inverter; unsure how this could work before...
-        if ent != "homeKit"
-    )
-    async_add_entities(
-        SemsStatisticsSensor(coordinator, ent)
-        for idx, ent in enumerate(coordinator.data)
-        # Don't make SemsStatisticsSensor for homeKit, since it is not an inverter; unsure how this could work before...
-        if ent != "homeKit"
-    )
-    async_add_entities(
-        SemsPowerflowSensor(coordinator, ent)
-        for idx, ent in enumerate(coordinator.data)
-        if ent == "homeKit"
-    )
-    async_add_entities(
-        SemsTotalImportSensor(coordinator, ent)
-        for idx, ent in enumerate(coordinator.data)
-        if ent == "homeKit"
-    )
-    async_add_entities(
-        SemsTotalExportSensor(coordinator, ent)
-        for idx, ent in enumerate(coordinator.data)
-        if ent == "homeKit"
+    # Backwards compatibility note: keep IDs stable for existing entity registry entries.
+    homekit_sn = get_homekit_sn(coordinator.data.homekit) or "GW-HOMEKIT-NO-SERIAL"
+    _migrate_unique_ids(
+        hass,
+        {
+            # Migrate old power sensor unique ids to new unique ids (with `-power`)
+            **{
+                inverter_sn: f"{inverter_sn}-power"
+                for inverter_sn in coordinator.data.inverters
+            },
+            # Migrate 8.0.0 powerflow unique id to legacy homekit-sn-based unique ids
+            "powerflow-import-energy": f"{homekit_sn}-import-energy",
+            "powerflow-export-energy": f"{homekit_sn}-export-energy",
+            "powerflow-import-energy-total": f"{homekit_sn}-import-energy-total",
+            "powerflow-export-energy-total": f"{homekit_sn}-export-energy-total",
+        },
     )
 
+    has_existing_homekit_entity = get_has_existing_homekit_entity(
+        coordinator.data.homekit, hass, config_entry
+    )
 
-# Migrate old power sensor unique ids to new unique ids (with `-power`)
-def _migrate_to_new_unique_id(hass: HomeAssistant, sn: str) -> None:
-    """Migrate old unique ids to new unique ids."""
-    ent_reg = entity_registry.async_get(hass)
+    sensor_options: list[SemsSensorType] = sensor_options_for_data(
+        coordinator.data, has_existing_homekit_entity
+    )
+    sensors = []
+    for sensor_option in sensor_options:
+        sensor_class: type[SemsSensor]
+        if isinstance(sensor_option, SemsLegacyPowerflowSensorType):
+            sensor_class = SemsLegacyPowerflowSensor
+        elif isinstance(sensor_option, SemsHomekitSensorType):
+            sensor_class = SemsHomekitSensor
+        else:
+            sensor_class = SemsInverterSensor
 
-    old_unique_id = sn
-    new_unique_id = f"{old_unique_id}-power"
-    _LOGGER.debug("Old unique id: %s; new unique id: %s", old_unique_id, new_unique_id)
-    entity_id = ent_reg.async_get_entity_id(Platform.SENSOR, DOMAIN, old_unique_id)
-    _LOGGER.debug("Entity ID: %s", entity_id)
-    if entity_id is not None:
+        sensors.append(
+            sensor_class(
+                coordinator,
+                sensor_option.device_info,
+                sensor_option.unique_id,
+                sensor_option.name,
+                sensor_option.value_path,
+                sensor_option.data_type_converter,
+                sensor_option.device_class,
+                sensor_option.native_unit_of_measurement,
+                sensor_option.state_class,
+                sensor_option.empty_value,
+                sensor_option.custom_value_handler,
+            )
+        )
+    async_add_entities(sensors)
+
+    # async_add_entities(
+    #     SemsSensor(coordinator, ent)
+    #     for idx, ent in enumerate(coordinator.data)
+    #     # Don't make SemsSensor for homeKit, since it is not an inverter; unsure how this could work before...
+    #     if ent != "homeKit"
+    # )
+    # async_add_entities(
+    #     SemsStatisticsSensor(coordinator, ent)
+    #     for idx, ent in enumerate(coordinator.data)
+
+
+def _migrate_unique_ids(hass: HomeAssistant, migrations: dict[str, str]) -> None:
+    """Migrate unique IDs based on the provided mapping."""
+    ent_reg = er.async_get(hass)
+
+    for old_unique_id, new_unique_id in migrations.items():
+        entity_id = ent_reg.async_get_entity_id(Platform.SENSOR, DOMAIN, old_unique_id)
+        _LOGGER.debug("Entity ID: %s", entity_id)
+        if entity_id is None:
+            continue
         try:
             ent_reg.async_update_entity(entity_id, new_unique_id=new_unique_id)
         except ValueError:
@@ -195,434 +660,258 @@ def _migrate_to_new_unique_id(hass: HomeAssistant, sn: str) -> None:
             )
 
 
-class SemsSensor(CoordinatorEntity, SensorEntity):
-    """SemsSensor using CoordinatorEntity.
+def get_value_from_path(data: dict[str, Any], path: SemsValuePath) -> Any:
+    """Return the value at a nested path in a dict, or `None` if missing."""
 
-    The CoordinatorEntity class provides:
-      should_poll
-      async_update
-      async_added_to_hass
-      available
-    """
-
-    # Sensor has name determined by device class (e.g. Inverter 123456 Power)
-    _attr_has_entity_name = True
-
-    def __init__(self, coordinator, sn) -> None:
-        """Pass coordinator to CoordinatorEntity."""
-        super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.sn = sn
-        self._attr_unique_id = f"{self.coordinator.data[self.sn]['sn']}-power"
-        _LOGGER.debug("Creating SemsSensor with id %s", self.sn)
-        self._attr_unique_id = f"{self.coordinator.data[self.sn]['sn']}-power"
-        _LOGGER.debug(
-            "Creating SemsSensor with id %s and data %s",
-            self.sn,
-            self.coordinator.data[self.sn],
-        )
-
-    _attr_device_class = SensorDeviceClass.POWER
-    _attr_native_unit_of_measurement = UnitOfPower.WATT
-    _attr_should_poll = False
-
-    @property
-    def native_value(self):
-        """Return the value reported by the sensor."""
-        data = self.coordinator.data[self.sn]
-        return data["pac"] if data["status"] == 1 else 0
-
-    def _statusText(self, status) -> str:
-        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
-        return labels.get(status, "Unknown")
-
-    # For backwards compatibility
-    @property
-    def extra_state_attributes(self):
-        """Return the state attributes of the monitored installation."""
-        data = self.coordinator.data[self.sn]
-        attributes = {k: v for k, v in data.items() if k is not None and v is not None}
-        attributes["statusText"] = self._statusText(data["status"])
-        return attributes
-
-    @property
-    def is_on(self) -> bool:
-        """Return entity status."""
-        return self.coordinator.data[self.sn]["status"] == 1
-
-    @property
-    def available(self):
-        """Return if entity is available."""
-        return self.coordinator.last_update_success
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Return device information."""
-        return DeviceInfo(
-            identifiers={(DOMAIN, self.sn)},
-            name=f"Inverter {self.coordinator.data[self.sn]['name']}",
-            manufacturer="GoodWe",
-            model=self.extra_state_attributes.get("model_type", "unknown"),
-            sw_version=self.extra_state_attributes.get("firmwareversion", "unknown"),
-            configuration_url=f"https://semsportal.com/PowerStation/PowerStatusSnMin/{self.coordinator.data[self.sn]['powerstation_id']}",
-        )
-
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self.async_write_ha_state)
-        )
-
-    async def async_update(self):
-        """Update the entity.
-
-        Only used by the generic entity update service.
-        """
-        await self.coordinator.async_request_refresh()
+    value: Any = data
+    try:
+        for key in path:
+            value = value[key]
+    except (KeyError, TypeError):
+        return None
+    return value
 
 
-class SemsStatisticsSensor(CoordinatorEntity, SensorEntity):
-    """Sensor in kWh to enable HA statistics, in the end usable in the power component."""
+class SemsSensor(CoordinatorEntity[SemsCoordinator], SensorEntity):
+    """Representation of a GoodWe SEMS sensor backed by the shared coordinator."""
+
+    str_clean_regex = re.compile(r"(\d+\.?\d*)")
 
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator, sn) -> None:
-        """Pass coordinator to CoordinatorEntity."""
+    def __init__(
+        self,
+        coordinator: SemsCoordinator,
+        device_info: DeviceInfo,
+        unique_id: str,
+        name: str | None,
+        value_path: SemsValuePath,
+        data_type_converter: Callable,
+        device_class: SensorDeviceClass | None = None,
+        native_unit_of_measurement: str | None = None,
+        state_class: SensorStateClass | None = None,
+        empty_value=None,
+        custom_value_handler=None,
+    ) -> None:
+        """Initialize a SEMS sensor."""
+
         super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.sn = sn
-        _LOGGER.debug("Creating SemsStatisticsSensor with id %s", self.sn)
+        self._value_path = value_path
+        self._data_type_converter = data_type_converter
+        self._empty_value = empty_value
+
+        self._attr_unique_id = unique_id
+        self._attr_device_info = device_info
+        self._attr_device_class = device_class
+        self._attr_native_unit_of_measurement = native_unit_of_measurement
+        self._attr_state_class = state_class
+
+        # When `name` is None, Home Assistant determines the name from
+        # device class / unit (using has_entity_name).
+        if name is not None:
+            self._attr_name = name
+
+        self._custom_value_handler = custom_value_handler
+
+        raw_value = self._get_native_value_from_coordinator()
+
+        # Disable-by-default must be decided before registry entry is created.
+        if raw_value is None or (
+            self._empty_value is not None and raw_value == self._empty_value
+        ):
+            _LOGGER.debug(
+                "Disabling SemsSensor `%s` by default since initial value is None or empty (`%s`)",
+                unique_id,
+                raw_value,
+            )
+            self._attr_entity_registry_enabled_default = False
+
         _LOGGER.debug(
-            "Creating SemsSensor with id %s and data %s",
-            self.sn,
-            self.coordinator.data[self.sn],
+            "Created SemsSensor with id `%s`, `%s`, value path `%s`",  # , data `%s`",
+            unique_id,
+            name,
+            value_path,
         )
 
-    @property
-    def device_class(self):
-        return SensorDeviceClass.ENERGY
+    def _get_native_value_from_coordinator(self) -> Any:
+        """Get the raw value from coordinator data."""
+
+        data = self._get_data_dict()
+        if data is None:
+            return None
+        return get_value_from_path(data, self._value_path)
+
+    def _get_data_dict(self) -> dict[str, Any] | None:
+        """Return the dict to read values from."""
+
+        return self.coordinator.data.inverters
 
     @property
-    def unit_of_measurement(self):
-        return UnitOfEnergy.KILO_WATT_HOUR
+    def native_value(self) -> Any:
+        """Return the current value."""
+
+        value = self._get_native_value_from_coordinator()
+
+        if isinstance(value, str):
+            if match := self.str_clean_regex.search(value):
+                value = match.group(1)
+            else:
+                # If no match found (e.g., empty string), treat as unavailable
+                value = None
+
+        if value is None:
+            return None
+        if self._empty_value is not None and value == self._empty_value:
+            return None
+
+        if self._custom_value_handler is not None:
+            data = self._get_data_dict()
+            if data is None:
+                return None
+            return self._custom_value_handler(value, data)
+
+        try:
+            return self._data_type_converter(value)
+        except (TypeError, ValueError):
+            return value
 
     # @property
-    # def name(self) -> str:
-    #     """Return the name of the sensor."""
-    #     return f"Inverter {self.coordinator.data[self.sn]['name']} Energy"
+    # def suggested_display_precision(self):
+    #     """Return the suggested number of decimal digits for display."""
+    #     return 2
+
+
+class SemsInverterSensor(SemsSensor):
+    """Sensor that reads from inverter data."""
+
+    def _get_data_dict(self) -> dict[str, Any] | None:
+        """Return inverter dict."""
+
+        return self.coordinator.data.inverters
 
     @property
-    def unique_id(self) -> str:
-        return f"{self.coordinator.data[self.sn]['sn']}-energy"
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return inverter attributes for backwards compatibility."""
 
-    @property
-    def state(self):
-        """Return the state of the device."""
-        _LOGGER.debug(
-            "SemsStatisticsSensor state, coordinator data: %s", self.coordinator.data
-        )
-        _LOGGER.debug("SemsStatisticsSensor self.sn: %s", self.sn)
-        _LOGGER.debug(
-            "SemsStatisticsSensor state, self data: %s", self.coordinator.data[self.sn]
-        )
-        data = self.coordinator.data[self.sn]
-        return data["etotal"]
+        if not (unique_id := self._attr_unique_id) or not unique_id.endswith("-power"):
+            return None
 
-    @property
-    def should_poll(self) -> bool:
-        """No need to poll. Coordinator notifies entity of updates."""
-        return False
+        if not self._value_path:
+            return None
 
-    @property
-    def device_info(self):
-        # _LOGGER.debug("self.device_state_attributes: %s", self.device_state_attributes)
-        data = self.coordinator.data[self.sn]
-        return {
-            "identifiers": {
-                # Serial numbers are unique identifiers within a specific domain
-                (DOMAIN, self.sn)
-            },
-            # "name": self.name,
-            "manufacturer": "GoodWe",
-            "model": data.get("model_type", "unknown"),
-            "sw_version": data.get("firmwareversion", "unknown"),
-            # "via_device": (DOMAIN, self.api.bridgeid),
+        inverter_sn = self._value_path[0]
+        if not isinstance(inverter_sn, str):
+            return None
+
+        inverter_data = self.coordinator.data.inverters.get(inverter_sn)
+        if inverter_data is None:
+            return None
+
+        attributes = {
+            key: value
+            for key, value in inverter_data.items()
+            if key is not None and value is not None
         }
 
-    @property
-    def state_class(self):
-        """used by Metered entities / Long Term Statistics"""
-        return SensorStateClass.TOTAL_INCREASING
-
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self.async_write_ha_state)
-        )
-
-    async def async_update(self):
-        """Update the entity.
-
-        Only used by the generic entity update service.
-        """
-        await self.coordinator.async_request_refresh()
-
-
-class SemsTotalImportSensor(CoordinatorEntity, SensorEntity):
-    """Sensor in kWh to enable HA statistics, in the end usable in the power component."""
-
-    _attr_has_entity_name = True
-
-    def __init__(self, coordinator, sn):
-        """Pass coordinator to CoordinatorEntity."""
-        super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.sn = sn
-        _LOGGER.debug("Creating SemsStatisticsSensor with id %s", self.sn)
-
-    @property
-    def device_class(self):
-        return SensorDeviceClass.ENERGY
-
-    @property
-    def unit_of_measurement(self):
-        return UnitOfEnergy.KILO_WATT_HOUR
-
-    @property
-    def name(self) -> str:
-        """Return the name of the sensor."""
-        return "HomeKit Import"
-
-    @property
-    def unique_id(self) -> str:
-        return f"{self.coordinator.data[self.sn]['sn']}-import-energy"
-
-    @property
-    def state(self):
-        """Return the state of the device."""
-        data = self.coordinator.data[self.sn]
-        return data["Charts_buy"]
-
-    def statusText(self, status) -> str:
-        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
-        return labels[status] if status in labels else "Unknown"
-
-    @property
-    def should_poll(self) -> bool:
-        """No need to poll. Coordinator notifies entity of updates."""
-        return False
-
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {
-                # Serial numbers are unique identifiers within a specific domain
-                (DOMAIN, self.sn)
-            },
-            "name": "Homekit",
-            "manufacturer": "GoodWe",
-        }
-
-    @property
-    def state_class(self):
-        """used by Metered entities / Long Term Statistics"""
-        return SensorStateClass.TOTAL_INCREASING
-
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self.async_write_ha_state)
-        )
-
-    async def async_update(self):
-        """Update the entity.
-
-        Only used by the generic entity update service.
-        """
-        await self.coordinator.async_request_refresh()
-
-
-class SemsTotalExportSensor(CoordinatorEntity, SensorEntity):
-    """Sensor in kWh to enable HA statistics, in the end usable in the power component."""
-
-    _attr_has_entity_name = True
-
-    def __init__(self, coordinator, sn):
-        """Pass coordinator to CoordinatorEntity."""
-        super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.sn = sn
-        _LOGGER.debug("Creating SemsStatisticsSensor with id %s", self.sn)
-
-    @property
-    def device_class(self):
-        return SensorDeviceClass.ENERGY
-
-    @property
-    def unit_of_measurement(self):
-        return UnitOfEnergy.KILO_WATT_HOUR
-
-    @property
-    def name(self) -> str:
-        """Return the name of the sensor."""
-        return "HomeKit Export"
-
-    @property
-    def unique_id(self) -> str:
-        return f"{self.coordinator.data[self.sn]['sn']}-export-energy"
-
-    @property
-    def state(self):
-        """Return the state of the device."""
-        data = self.coordinator.data[self.sn]
-        return data["Charts_sell"]
-
-    def statusText(self, status) -> str:
-        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
-        return labels[status] if status in labels else "Unknown"
-
-    @property
-    def should_poll(self) -> bool:
-        """No need to poll. Coordinator notifies entity of updates."""
-        return False
-
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {
-                # Serial numbers are unique identifiers within a specific domain
-                (DOMAIN, self.sn)
-            },
-            "name": "Homekit",
-            "manufacturer": "GoodWe",
-        }
-
-    @property
-    def state_class(self):
-        """used by Metered entities / Long Term Statistics"""
-        return SensorStateClass.TOTAL_INCREASING
-
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self.async_write_ha_state)
-        )
-
-    async def async_update(self):
-        """Update the entity.
-
-        Only used by the generic entity update service.
-        """
-        await self.coordinator.async_request_refresh()
-
-
-class SemsPowerflowSensor(CoordinatorEntity, SensorEntity):
-    """SemsPowerflowSensor using CoordinatorEntity.
-
-    The CoordinatorEntity class provides:
-      should_poll
-      async_update
-      async_added_to_hass
-      available
-    """
-
-    _attr_has_entity_name = True
-
-    def __init__(self, coordinator, sn):
-        """Pass coordinator to CoordinatorEntity."""
-        super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.sn = sn
-
-    @property
-    def device_class(self):
-        return SensorDeviceClass.POWER_FACTOR
-
-    @property
-    def unit_of_measurement(self):
-        return UnitOfPower.WATT
-
-    @property
-    def name(self) -> str:
-        """Return the name of the sensor."""
-        return f"HomeKit {self.coordinator.data[self.sn]['sn']}"
-
-    @property
-    def unique_id(self) -> str:
-        return f"{self.coordinator.data[self.sn]['sn']}-homekit"
-
-    @property
-    def state(self):
-        """Return the state of the device."""
-        data = self.coordinator.data[self.sn]
-        load = data["load"]
-
-        if load:
-            load = load.replace("(W)", "")
-
-        return load if data["gridStatus"] == 1 else 0
-
-    def statusText(self, status) -> str:
-        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
-        return labels[status] if status in labels else "Unknown"
-
-    # For backwards compatibility
-    @property
-    def extra_state_attributes(self):
-        """Return the state attributes of the monitored installation."""
-        data = self.coordinator.data[self.sn]
-
-        attributes = {k: v for k, v in data.items() if k is not None and v is not None}
-
-        attributes["pv"] = data["pv"].replace("(W)", "")
-        attributes["bettery"] = data["bettery"].replace("(W)", "")
-        attributes["load"] = data["load"].replace("(W)", "")
-        attributes["grid"] = data["grid"].replace("(W)", "")
-
-        attributes["statusText"] = self.statusText(data["gridStatus"])
-
-        if data["loadStatus"] == -1:
-            attributes["PowerFlowDirection"] = "Export %s" % data["grid"]
-        if data["loadStatus"] == 1:
-            attributes["PowerFlowDirection"] = "Import %s" % data["grid"]
+        status = inverter_data.get("status")
+        if status is None:
+            attributes["statusText"] = "Unknown"
+        else:
+            try:
+                attributes["statusText"] = STATUS_LABELS.get(int(status), "Unknown")
+            except (TypeError, ValueError):
+                attributes["statusText"] = "Unknown"
 
         return attributes
 
-    @property
-    def is_on(self) -> bool:
-        """Return entity status."""
-        self.coordinator.data[self.sn]["gridStatus"] == 1
+
+class SemsHomekitSensor(SemsSensor):
+    """Sensor that reads from HomeKit/powerflow data."""
+
+    def _get_data_dict(self) -> dict[str, Any] | None:
+        """Return HomeKit dict."""
+
+        return self.coordinator.data.homekit
+
+
+class SemsLegacyPowerflowSensor(SemsHomekitSensor):
+    """HomeKit sensor exposing legacy attributes on `-homekit`."""
 
     @property
-    def should_poll(self) -> bool:
-        """No need to poll. Coordinator notifies entity of updates."""
-        return False
+    def native_value(self) -> Any:
+        """Return legacy HomeKit load value based on grid status."""
+
+        value = super().native_value
+
+        unique_id = self._attr_unique_id
+        if not unique_id or not unique_id.endswith("-homekit"):
+            return value
+
+        if value is None:
+            return None
+
+        data = self._get_data_dict()
+        if data is None:
+            return value
+
+        grid_status = data.get("gridStatus")
+        if grid_status is None:
+            return value
+
+        try:
+            return Decimal(str(value)) if int(grid_status) == 1 else Decimal("0")
+        except (TypeError, ValueError):
+            return value
+
+    @staticmethod
+    def _status_text(status: Any) -> str:
+        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
+        if status is None:
+            return "Unknown"
+        try:
+            return labels[int(status)]
+        except (TypeError, ValueError, KeyError):
+            return "Unknown"
+
+    @staticmethod
+    def _strip_watt_suffix(value: Any) -> Any:
+        if isinstance(value, str):
+            return value.replace("(W)", "")
+        return value
 
     @property
-    def available(self):
-        """Return if entity is available."""
-        return self.coordinator.last_update_success
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return legacy HomeKit attributes for backwards compatibility."""
 
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {
-                # Serial numbers are unique identifiers within a specific domain
-                (DOMAIN, self.sn)
-            },
-            "name": "Homekit",
-            "manufacturer": "GoodWe",
+        unique_id = self._attr_unique_id
+        if not unique_id or not unique_id.endswith("-homekit"):
+            return None
+
+        data = self.coordinator.data.homekit
+        if data is None:
+            return None
+
+        attributes = {
+            key: value
+            for key, value in data.items()
+            if key is not None and value is not None
         }
 
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.async_on_remove(
-            self.coordinator.async_add_listener(self.async_write_ha_state)
-        )
+        for key in ("pv", "bettery", "load", "grid"):
+            if key in data:
+                attributes[key] = self._strip_watt_suffix(data.get(key))
 
-    async def async_update(self):
-        """Update the entity.
+        attributes["statusText"] = self._status_text(data.get("gridStatus"))
 
-        Only used by the generic entity update service.
-        """
-        await self.coordinator.async_request_refresh()
+        load_status = data.get("loadStatus")
+        try:
+            load_status_int = int(load_status) if load_status is not None else None
+        except (TypeError, ValueError):
+            load_status_int = None
+
+        if load_status_int == -1:
+            attributes["PowerFlowDirection"] = f"Export {data.get('grid')}"
+        if load_status_int == 1:
+            attributes["PowerFlowDirection"] = f"Import {data.get('grid')}"
+
+        return attributes

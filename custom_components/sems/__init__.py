@@ -2,128 +2,83 @@
 
 from __future__ import annotations
 
-import asyncio
-from datetime import timedelta
 import logging
+from dataclasses import dataclass
+from datetime import timedelta
+from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
-from homeassistant.core import callback
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from homeassistant.helpers.entity_registry import async_migrate_entries
 
 from .const import (
     CONF_SCAN_INTERVAL,
     CONF_STATION_ID,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    GOODWE_SPELLING,
     PLATFORMS,
 )
 from .sems_api import SemsApi
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
+
+
+@dataclass(slots=True)
+class SemsRuntimeData:
+    """Runtime data stored on the config entry."""
+
+    api: SemsApi
+    coordinator: SemsDataUpdateCoordinator
+
+
+type SemsConfigEntry = ConfigEntry[SemsRuntimeData]
+
+
+@dataclass(slots=True)
+class SemsData:
+    """Runtime SEMS data returned by the coordinator."""
+
+    inverters: dict[str, dict[str, Any]]
+    homekit: dict[str, Any] | None = None
+    currency: str | None = None
+
 
 async def async_setup(hass: HomeAssistant, config: dict):
     """Set up the sems component."""
-    # Ensure our name space for storing objects is a known type. A dict is
-    # common/preferred as it allows a separate instance of your class for each
-    # instance that has been created in the UI.
-    hass.data.setdefault(DOMAIN, {})
-
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+async def async_setup_entry(hass: HomeAssistant, entry: SemsConfigEntry) -> bool:
     """Set up sems from a config entry."""
-    semsApi = SemsApi(hass, entry.data[CONF_USERNAME], entry.data[CONF_PASSWORD])
-    coordinator = SemsDataUpdateCoordinator(hass, semsApi, entry)
-    await coordinator.async_config_entry_first_refresh()
-    hass.data[DOMAIN][entry.entry_id] = coordinator
+    sems_api = SemsApi(hass, entry.data[CONF_USERNAME], entry.data[CONF_PASSWORD])
+    coordinator = SemsDataUpdateCoordinator(hass, sems_api, entry)
+    entry.runtime_data = SemsRuntimeData(api=sems_api, coordinator=coordinator)
 
+    await coordinator.async_config_entry_first_refresh()
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 
 
-# async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
-#     """Set up this integration using UI."""
-#     if hass.data.get(DOMAIN) is None:
-#         hass.data.setdefault(DOMAIN, {})
-#         _LOGGER.info(STARTUP_MESSAGE)
-
-#     username = entry.data.get(CONF_USERNAME)
-#     password = entry.data.get(CONF_PASSWORD)
-
-#     conn = Connection(username, password)
-#     client = MyenergiClient(conn)
-
-#     coordinator = MyenergiDataUpdateCoordinator(hass, client=client, entry=entry)
-#     await coordinator.async_config_entry_first_refresh()
-
-#     hass.data[DOMAIN][entry.entry_id] = coordinator
-
-#     for platform in PLATFORMS:
-#         if entry.options.get(platform, True):
-#             coordinator.platforms.append(platform)
-#             hass.async_add_job(
-#                 hass.config_entries.async_forward_entry_setup(entry, platform)
-#             )
-
-#     entry.add_update_listener(async_reload_entry)
-#     return True
-
-
-async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: SemsConfigEntry) -> bool:
     """Unload a config entry."""
-    unload_ok = all(
-        await asyncio.gather(
-            *[
-                hass.config_entries.async_forward_entry_unload(entry, platform)
-                for platform in PLATFORMS
-            ]
-        )
-    )
-    if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
-
-    return unload_ok
+    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
-# async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-#     """Handle removal of an entry."""
-#     coordinator = hass.data[DOMAIN][entry.entry_id]
-#     unloaded = all(
-#         await asyncio.gather(
-#             *[
-#                 hass.config_entries.async_forward_entry_unload(entry, platform)
-#                 for platform in PLATFORMS
-#                 if platform in coordinator.platforms
-#             ]
-#         )
-#     )
-#     if unloaded:
-#         hass.data[DOMAIN].pop(entry.entry_id)
-
-#     return unloaded
-
-
-# async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
-#     """Reload config entry."""
-#     await async_unload_entry(hass, entry)
-#     await async_setup_entry(hass, entry)
-
-
-class SemsDataUpdateCoordinator(DataUpdateCoordinator):
+class SemsDataUpdateCoordinator(DataUpdateCoordinator[SemsData]):
     """Class to manage fetching data from the API."""
 
-    def __init__(self, hass: HomeAssistant, semsApi: SemsApi, entry) -> None:
+    def __init__(
+        self, hass: HomeAssistant, sems_api: SemsApi, entry: ConfigEntry
+    ) -> None:
         """Initialize."""
-        self.semsApi = semsApi
-        self.platforms = []
-        self.stationId = entry.data[CONF_STATION_ID]
-        self.hass = hass
+        self.sems_api = sems_api
+        self.station_id = entry.data[CONF_STATION_ID]
 
         update_interval = timedelta(
             seconds=entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
@@ -136,70 +91,87 @@ class SemsDataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=update_interval,
         )
 
-    async def _async_update_data(self):
+    async def _async_update_data(self) -> SemsData:
         """Fetch data from API endpoint.
 
         This is the place to pre-process the data to lookup tables
         so entities can quickly look up their data.
         """
+        # Note: asyncio.TimeoutError and aiohttp.ClientError are already
+        # handled by the data update coordinator.
+        # async with async_timeout.timeout(10):
         try:
-            # Note: asyncio.TimeoutError and aiohttp.ClientError are already
-            # handled by the data update coordinator.
-            # async with async_timeout.timeout(10):
             result = await self.hass.async_add_executor_job(
-                self.semsApi.getData, self.stationId
+                self.sems_api.getData, self.station_id
             )
+        except Exception as err:
+            raise UpdateFailed(f"Error communicating with API: {err}") from err
+        else:
             _LOGGER.debug("semsApi.getData result: %s", result)
 
-            # _LOGGER.warning("SEMS - Try get getPowerStationIds")
-            # powerStationIds = await self.hass.async_add_executor_job(
-            #     self.semsApi.getPowerStationIds
-            # )
-            # _LOGGER.warning(
-            #     "SEMS - getPowerStationIds: Found power station IDs: %s",
-            #     powerStationIds,
-            # )
-
-            inverters = result["inverter"]
-
-            # found = []
-            # _LOGGER.debug("Found inverters: %s", inverters)
-            data = {}
-            if inverters is None:
-                # something went wrong, probably token could not be fetched
+            inverters = result.get("inverter")
+            inverters_by_sn: dict[str, dict[str, Any]] = {}
+            if not inverters or not isinstance(inverters, list):
                 raise UpdateFailed(
-                    "Error communicating with API, probably token could not be fetched, see debug logs"
+                    "Error communicating with API: invalid or missing inverter data. See debug logs."
                 )
+
+            # Get Inverter Data
             for inverter in inverters:
-                name = inverter["invert_full"]["name"]
-                # powerstation_id = inverter["invert_full"]["powerstation_id"]
-                sn = inverter["invert_full"]["sn"]
+                inverter_full = inverter.get("invert_full")
+                if not isinstance(inverter_full, dict):
+                    continue
+
+                name = inverter_full.get("name")
+                sn = inverter_full.get("sn")
+                if not isinstance(sn, str):
+                    continue
+
                 _LOGGER.debug("Found inverter attribute %s %s", name, sn)
-                data[sn] = inverter["invert_full"]
+                inverters_by_sn[sn] = inverter_full
 
-            hasPowerflow = result["hasPowerflow"]
-            hasEnergeStatisticsCharts = result["hasEnergeStatisticsCharts"]
+            # Add currency
+            kpi = result.get("kpi")
+            if not isinstance(kpi, dict):
+                kpi = {}
+            currency = kpi.get("currency")
 
-            if hasPowerflow:
+            has_powerflow = bool(result.get("hasPowerflow"))
+            has_energy_statistics_charts = bool(
+                result.get(GOODWE_SPELLING.hasEnergyStatisticsCharts)
+            )
+
+            homekit: dict[str, Any] | None = None
+
+            if has_powerflow:
                 _LOGGER.debug("Found powerflow data")
-                if hasEnergeStatisticsCharts:
-                    StatisticsCharts = {
-                        f"Charts_{key}": val
-                        for key, val in result["energeStatisticsCharts"].items()
-                    }
-                    StatisticsTotals = {
-                        f"Totals_{key}": val
-                        for key, val in result["energeStatisticsTotals"].items()
-                    }
-                    powerflow = {
-                        **result["powerflow"],
-                        **StatisticsCharts,
-                        **StatisticsTotals,
-                    }
-                else:
-                    powerflow = result["powerflow"]
+                powerflow = result.get("powerflow")
+                if not isinstance(powerflow, dict):
+                    powerflow = {}
 
-                powerflow["sn"] = result["homKit"]["sn"]
+                if has_energy_statistics_charts:
+                    charts = result.get(GOODWE_SPELLING.energyStatisticsCharts)
+                    if not isinstance(charts, dict):
+                        charts = {}
+                    totals = result.get(GOODWE_SPELLING.energyStatisticsTotals)
+                    if not isinstance(totals, dict):
+                        totals = {}
+
+                    powerflow = {
+                        **powerflow,
+                        **{f"Charts_{key}": val for key, val in charts.items()},
+                        **{f"Totals_{key}": val for key, val in totals.items()},
+                    }
+
+                # Add the flag so sensors can check if energy statistics are available
+                powerflow[GOODWE_SPELLING.hasEnergyStatisticsCharts] = (
+                    has_energy_statistics_charts
+                )
+
+                homekit_data = result.get(GOODWE_SPELLING.homeKit)
+                if not isinstance(homekit_data, dict):
+                    homekit_data = {}
+                powerflow["sn"] = homekit_data.get("sn")
 
                 # Goodwe 'Power Meter' (not HomeKit) doesn't have a sn
                 # Let's put something in, otherwise we can't see the data.
@@ -208,72 +180,16 @@ class SemsDataUpdateCoordinator(DataUpdateCoordinator):
 
                 # _LOGGER.debug("homeKit sn: %s", result["homKit"]["sn"])
                 # This seems more accurate than the Chart_sum
-                powerflow["all_time_generation"] = result["kpi"]["total_power"]
+                powerflow["all_time_generation"] = kpi.get("total_power")
 
-                data["homeKit"] = powerflow
+                homekit = powerflow
 
+            data = SemsData(
+                inverters=inverters_by_sn, homekit=homekit, currency=currency
+            )
             _LOGGER.debug("Resulting data: %s", data)
             return data
-        # except ApiError as err:
-        except Exception as err:
-            # logging.exception("Something awful happened!")
-            raise UpdateFailed(f"Error communicating with API: {err}") from err
 
 
-# # migrate to _power ids for inverter entry
-# async def async_migrate_entry(hass, config_entry):
-#     """Migrate old entry."""
-#     _LOGGER.debug(
-#         "Migrating configuration from version %s.%s",
-#         config_entry.version,
-#         config_entry.minor_version,
-#     )
-
-#     if config_entry.version < 7:
-#         # get existing entities for device
-#         semsApi = SemsApi(
-#             hass, config_entry.data[CONF_USERNAME], config_entry.data[CONF_PASSWORD]
-#         )
-#         coordinator = SemsDataUpdateCoordinator(hass, semsApi, config_entry)
-#         await coordinator.async_config_entry_first_refresh()
-
-#         _LOGGER.debug(f"found inverter {coordinator.data}")
-
-#         for idx, ent in enumerate(coordinator.data):
-#             _LOGGER.debug("Found inverter: %s", ent)
-
-#             old_unique_id = f"{ent}"
-#             new_unique_id = f"{old_unique_id}-XXX"
-#             _LOGGER.debug(
-#                 "Old unique id: %s; new unique id: %s", old_unique_id, new_unique_id
-#             )
-
-#             @callback
-#             def update_unique_id(entity_entry):
-#                 """Update unique ID of entity entry."""
-#                 return {
-#                     "new_unique_id": entity_entry.unique_id.replace(
-#                         old_unique_id, new_unique_id
-#                     )
-#                 }
-
-#             if old_unique_id != new_unique_id:
-#                 await async_migrate_entries(
-#                     hass, config_entry.entry_id, update_unique_id
-#                 )
-
-#                 hass.config_entries.async_update_entry(
-#                     config_entry, unique_id=new_unique_id
-#                 )
-#                 # version = 7
-#                 _LOGGER.info(
-#                     "Migrated unique id from %s to %s", old_unique_id, new_unique_id
-#                 )
-
-#     _LOGGER.info(
-#         "Migration from version %s.%s successful",
-#         config_entry.version,
-#         config_entry.minor_version,
-#     )
-
-#     return True
+# Type alias to make type inference working for pylance
+type SemsCoordinator = SemsDataUpdateCoordinator

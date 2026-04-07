@@ -20,7 +20,7 @@
       state: '{{ (states("sensor.daily_energy_consumption") | float - states("sensor.daily_energy_production") | float) | round(3) }}'
     - name: Daily generation
       unit_of_measurement: kWh
-      state: '{{ states("sensor.daily_energy_generation") }}'
+      state: '{{ states("sensor.daily_energy_generation") | float | round(1) }}'
     - name: Monthly water
       unit_of_measurement: m³
       state: '{{ (states("sensor.monthly_water_consumption") | float / 1000) | round(0) }}'
@@ -74,4 +74,4 @@
       state: '{{ (states("sensor.total_energy_consumption") | float - states("sensor.total_energy_production") | float) | round(0) }}'
     - name: Total generation
       unit_of_measurement: kWh
-      state: '{{ states("sensor.sems_portal_etotal") | float(default=0) | round(0) }}'
+      state: '{{ states("sensor.inverter_goodwe_energy") | float(default=0) | round(0) }}'

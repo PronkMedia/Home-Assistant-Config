@@ -6,16 +6,12 @@ import logging
 from typing import Any
 
 from homeassistant import config_entries
+from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 
-from .const import DOMAIN, SEMS_CONFIG_SCHEMA, CONF_STATION_ID
+from .const import CONF_STATION_ID, DOMAIN, SEMS_CONFIG_SCHEMA
 from .sems_api import SemsApi
-
-from homeassistant.const import (
-    CONF_PASSWORD,
-    CONF_USERNAME,
-)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -73,7 +69,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
-    ) -> dict[str, Any]:
+    ) -> config_entries.ConfigFlowResult:
         """Handle the initial step."""
         if user_input is None:
             return self.async_show_form(step_id="user", data_schema=SEMS_CONFIG_SCHEMA)

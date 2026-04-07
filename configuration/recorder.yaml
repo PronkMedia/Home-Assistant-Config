@@ -16,7 +16,6 @@ include:
     - sensor.hourly_water
     - sensor.electricity_meter_power_consumption
     - sensor.electricity_meter_power_production
-    - sensor.sems_portal_outputpower
     - person.male
     - person.female
     - group.motion_huiskamer
@@ -33,10 +32,11 @@ include:
     - sensor.electricity_meter_energy_consumption_tarif_2
     - sensor.electricity_meter_energy_production_tarif_1
     - sensor.electricity_meter_energy_production_tarif_2
+    - sensor.energy_grid_electricity_meter_power_consumption_electricity_meter_power_production_net_power
     - sensor.energy_monitor_1_total_consumption
     - sensor.energy_monitor_2_total_consumption
     - sensor.energy_monitor_3_total_consumption
     - sensor.gas_meter_gas_consumption
     - sensor.water_consumption_total_m3
+    - sensor.inverter_goodwe
     - sensor.inverter_goodwe_energy
-    - sensor.grid_fossil_fuel_percentage
