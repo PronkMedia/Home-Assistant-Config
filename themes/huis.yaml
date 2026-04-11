@@ -77,6 +77,13 @@ info-color: "#337fbf"
 success-color: "#7bcc00"
 warning-color: "#ff8906"
 
+# Energy colors
+energy-gas-color: "#ffd311"
+energy-grid-consumption-color: "#e63535"
+energy-grid-return-color: "#7bcc00"
+energy-solar-color: "#7bcc00"
+energy-water-color: "#337fbf"
+
 # Card-Mod custom CSS
 card-mod-theme: Huis
 card-mod-root-yaml: |

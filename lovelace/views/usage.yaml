@@ -4,6 +4,17 @@ icon: mdi:counter
 cards:
   - type: vertical-stack
     cards:
+      - type: energy-distribution
+        card_mod:
+          style: |
+            span.label {
+              max-width: 100px;
+              color: var(--primary-text-color);
+              font-size: var(--ha-font-size-m);
+              line-height: 1.4;
+              opacity: .6;
+            }
+        title: Verbruiksoverzicht
       - type: custom:mini-graph-card
         card_mod:
           style: |
@@ -37,7 +48,7 @@ cards:
               content: "";
                 height: 10px;
                 width: 10px;
-                background-color: var(--label-badge-red);
+                background-color: var(--energy-grid-consumption-color);
                 border-radius: 50%;
                 margin: 9px 6px 0 -2px;
             }
@@ -66,22 +77,22 @@ cards:
         entities:
           - entity: sensor.electricity_meter_power_consumption
             name: Stroom (verbruik)
-            color: var(--label-badge-red)
+            color: var(--energy-grid-consumption-color)
             show_state: true
             show_indicator: true
           - entity: input_number.hourly_gas
             name: Gas (verbruik)
-            color: var(--label-badge-yellow)
+            color: var(--energy-gas-color)
             show_state: true
             show_indicator: true
           - entity: sensor.electricity_meter_power_production
             name: Stroom (productie)
-            color: var(--label-badge-green)
+            color: var(--energy-grid-return-color)
             show_state: true
             show_indicator: true
           - entity: sensor.hourly_water
             name: Water (verbruik)
-            color: var(--label-badge-blue)
+            color: var(--energy-water-color)
             show_state: true
             show_indicator: true
         show:
