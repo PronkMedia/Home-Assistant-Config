@@ -11,10 +11,6 @@ scene_huiskamer_motion:
         color_temp_kelvin: 2700
 scene_huiskamer_overdag:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_overdag
     - action: light.turn_on
       data:
         entity_id:
@@ -35,10 +31,6 @@ scene_huiskamer_overdag:
         - light.vloerlamp
 scene_huiskamer_avond:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_avond
     - action: light.turn_on
       data:
         entity_id:
@@ -59,10 +51,6 @@ scene_huiskamer_avond:
         - light.vloerlamp
 scene_huiskamer_eten:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_eten
     - action: light.turn_on
       data:
         entity_id: light.eettafel
@@ -78,10 +66,6 @@ scene_huiskamer_eten:
         - light.vloerlamp
 scene_huiskamer_koken:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_koken
     - action: light.turn_on
       data:
         entity_id: light.spots
@@ -103,10 +87,6 @@ scene_huiskamer_koken:
         - light.vloerlamp
 scene_huiskamer_tvkijken:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_tvkijken
     - action: light.turn_on
       data:
         entity_id:
@@ -127,10 +107,6 @@ scene_huiskamer_tvkijken:
         - light.aanbouw
 scene_huiskamer_spelen:
   sequence:
-    - action: input_text.set_value
-      data:
-        entity_id: input_text.scene_huiskamer_last_triggered
-        value: scene_huiskamer_spelen
     - action: light.turn_off
       entity_id:
         - light.spots
@@ -153,100 +129,3 @@ scene_huiskamer_spelen:
           - light.aanbouw
         brightness: 205
         color_temp_kelvin: 3500
-scene_huiskamer_brighter:
-  sequence:
-    - action: light.turn_on
-      data_template:
-        entity_id: >
-          {% if is_state("light.keuken", "on") %}
-            {% set splitter = "," %}
-            light.keuken
-          {% endif %}
-          {% if is_state("light.eettafel", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.eettafel
-          {% endif %}
-          {% if is_state("light.speelhoek", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.speelhoek
-          {% endif %}
-          {% if is_state("light.aanbouw", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.aanbouw
-          {% endif %}
-          {% if is_state("light.tv", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.tv
-          {% endif %}
-          {% if is_state("light.vloerlamp", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            light.vloerlamp
-          {% endif %}
-          {% if is_state("light.huiskamer", "off") %}
-            light.huiskamer
-          {% endif %}
-        brightness_step_pct: 20
-scene_huiskamer_dimmer:
-  sequence:
-    - action: light.turn_on
-      data_template:
-        entity_id: >
-          {% if is_state("light.keuken", "on") %}
-            {% set splitter = "," %}
-            light.keuken
-          {% endif %}
-          {% if is_state("light.eettafel", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.eettafel
-          {% endif %}
-          {% if is_state("light.speelhoek", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.speelhoek
-          {% endif %}
-          {% if is_state("light.aanbouw", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.aanbouw
-          {% endif %}
-          {% if is_state("light.tv", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            {% set splitter = "," %}
-            light.tv
-          {% endif %}
-          {% if is_state("light.vloerlamp", "on") %}
-            {% if splitter is defined %}
-              {{ splitter }}
-            {% endif %}
-            light.vloerlamp
-          {% endif %}
-        brightness_step_pct: -20
-    - action: light.turn_off
-      entity_id: light.spots
-scene_huiskamer_off:
-  sequence:
-    - action: light.turn_off
-      entity_id: light.huiskamer
