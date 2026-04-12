@@ -8,7 +8,7 @@ scene_huiskamer_motion:
           - light.speelhoek
           - light.aanbouw
         brightness: 102
-        color_temp: 375
+        color_temp_kelvin: 2700
 scene_huiskamer_overdag:
   sequence:
     - action: input_text.set_value
@@ -22,12 +22,12 @@ scene_huiskamer_overdag:
           - light.speelhoek
           - light.aanbouw
         brightness: 205
-        color_temp: 252
+        color_temp_kelvin: 4000
     - action: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 153
-        color_temp: 252
+        color_temp_kelvin: 4000
     - action: light.turn_off
       entity_id:
         - light.spots
@@ -46,12 +46,12 @@ scene_huiskamer_avond:
           - light.speelhoek
           - light.aanbouw
         brightness: 179
-        color_temp: 350
+        color_temp_kelvin: 2900
     - action: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 128
-        color_temp: 350
+        color_temp_kelvin: 2900
     - action: light.turn_off
       entity_id:
         - light.spots
@@ -67,7 +67,7 @@ scene_huiskamer_eten:
       data:
         entity_id: light.eettafel
         brightness: 192
-        color_temp: 300
+        color_temp_kelvin: 3300
     - action: light.turn_off
       entity_id:
         - light.spots
@@ -89,12 +89,12 @@ scene_huiskamer_koken:
       data:
         entity_id: light.keuken
         brightness: 254
-        color_temp: 325
+        color_temp_kelvin: 3000
     - action: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 102
-        color_temp: 325
+        color_temp_kelvin: 3000
     - action: light.turn_off
       entity_id:
         - light.speelhoek
@@ -113,7 +113,7 @@ scene_huiskamer_tvkijken:
           - light.eettafel
           - light.vloerlamp
         brightness: 128
-        color_temp: 285
+        color_temp_kelvin: 3500
     - action: light.turn_on
       data:
         entity_id:
@@ -140,19 +140,19 @@ scene_huiskamer_spelen:
       data:
         entity_id: light.keuken
         brightness: 102
-        color_temp: 292
+        color_temp_kelvin: 3500
     - action: light.turn_on
       data:
         entity_id: light.eettafel
         brightness: 153
-        color_temp: 292
+        color_temp_kelvin: 3500
     - action: light.turn_on
       data:
         entity_id:
           - light.speelhoek
           - light.aanbouw
         brightness: 205
-        color_temp: 292
+        color_temp_kelvin: 3500
 scene_huiskamer_brighter:
   sequence:
     - action: light.turn_on
