@@ -9,7 +9,6 @@ cards:
           style: |
             ha-card {
               z-index: 1;
-              margin-bottom: -26px;
               border-bottom-left-radius: 0;
               border-bottom-right-radius: 0;
             }
@@ -17,10 +16,10 @@ cards:
               margin: 12px 0;
               justify-items: flex-start;
             }
-            .body .sensors {
+            .body .entities {
               font-size: inherit;
             }
-            .sensors .sensor-heading {
+            .entities .entity-heading {
               font-weight: var(--ha-font-weight-normal);
               justify-content: flex-start;
             }
@@ -31,7 +30,7 @@ cards:
               display: block;
               font-size: var(--ha-font-size-2xl);
               font-weight: 300;
-              margin-top: 10px;
+              margin-top: 4px;
             }
             .current-wrapper .current--unit {
               font-size: 14px;
