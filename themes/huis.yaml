@@ -23,7 +23,7 @@ ha-card-border-width: 0
 ha-card-box-shadow: none
 
 # More info dialog
-mdc-theme-surface: "#424242"
+ha-dialog-surface-background: "#424242"
 
 # States and badges
 state-icon-color: "#8d8d8d"
@@ -35,10 +35,11 @@ state-binary_sensor-active-color: "#ffffff"
 state-icon-unavailable-color: "#595959"
 
 # Switch
-switch-checked-button-color: "#ffffff"
-switch-checked-track-color: "#7b7b7b"
-switch-unchecked-button-color: "#b9b9b9"
-switch-unchecked-track-color: "#7b7b7b"
+wa-form-control-border-width: 0px
+ha-switch-checked-thumb-background-color: "#ffffff"
+ha-switch-checked-background-color: "#7b7b7b"
+ha-switch-thumb-background-color: "#b9b9b9"
+ha-switch-background-color: "#7b7b7b"
 
 # Slider
 disabled-color: "#8d8d8d"
