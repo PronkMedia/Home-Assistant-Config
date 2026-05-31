@@ -56,6 +56,7 @@ table-row-alternative-background-color: "#242424"
 
 # List
 paper-listbox-background-color: "#424242"
+md-list-item-label-text-color: "#424242"
 
 # Code editor
 code-editor-background-color: "#424242"
