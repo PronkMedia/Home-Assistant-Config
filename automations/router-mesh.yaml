@@ -18,8 +18,8 @@
     action: switch.turn_on
     data:
       entity_id:
-        - switch.wifi_mesh_boven_socket
-        - switch.wifi_mesh_tuin_socket
+        - switch.energy_monitor_4_mesh_beneden
+        - switch.energy_monitor_6_mesh_boven
 - id: router_mesh_points_deactivation
   alias: Router mesh points deactivation
   triggers:
@@ -42,5 +42,5 @@
     action: switch.turn_off
     data:
       entity_id:
-        - switch.wifi_mesh_boven_socket
-        - switch.wifi_mesh_tuin_socket
+        - switch.energy_monitor_4_mesh_beneden
+        - switch.energy_monitor_6_mesh_boven

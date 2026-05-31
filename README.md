@@ -44,9 +44,8 @@ My Home Assistant configuration & documentation.
 - LSC Smart Connect
     - 1x Wi-Fi Smart LED Strip (RGBIC + CCTIC)
 - TP-Link
-    - 3x Wi-Fi Smart Plug with Energy Monitoring (HS110)
-- Gosund
-    - 2x Wi-Fi Smart Plug (SP111)
+    - 3x Wi-Fi Smart Plug with Energy Monitoring (Kasa HS110)
+    - 3x Wi-Fi Smart Plug with Energy Monitoring (Tapo P110)
 - Shelly
     - 2x Wi-Fi Humidity and Temperature Sensor (H&T)
 - Sonos
