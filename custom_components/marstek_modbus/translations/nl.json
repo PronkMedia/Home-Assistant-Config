@@ -1,0 +1,759 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Verbind met Marstek Venus Modbus",
+        "description": "Voer de Modbus TCP-verbindingsgegevens in",
+        "data": {
+          "host": "IP-adres",
+          "port": "Poort",
+          "unit_id": "Unit-ID",
+          "device_version": "Apparaatversie"
+        }
+      }
+    },
+    "error": {
+      "permission_denied": "Toegang geweigerd",
+      "connection_refused": "Verbinding geweigerd door het apparaat",
+      "timed_out": "Verbindingstijd verstreken",
+      "invalid_host": "Ongeldig IP-adres of hostnaam",
+      "invalid_unit_id": "Ongeldige Modbus Unit-ID (moet 1-255 zijn)",
+      "unit_id_no_response": "Geen reactie van Unit-ID. Controleer of het apparaat deze Unit-ID gebruikt",
+      "cannot_connect": "Kan geen verbinding maken"
+    },
+    "abort": {
+      "already_configured": "Dit apparaat is al geconfigureerd"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configureer sensor scan-intervallen",
+        "description": "Pas de pollingfrequentie per categorie aan",
+        "data": {
+          "unit_id": "Modbus Unit-ID"
+        }
+      },
+      "menu": {
+        "title": "Marstek opties",
+        "description": "Kies welke instellingen te configureren",
+        "menu_options": {
+          "connection": "Verbindingsgegevens",
+          "polling": "Polling-intervallen"
+        }
+      },
+      "polling": {
+        "title": "Configureer polling-intervallen",
+        "description": "Pas de pollingfrequentie per categorie aan",
+        "data": {
+          "high": "High-prioriteit interval (s)",
+          "low": "Low-prioriteit interval (s)"
+        },
+        "data_description": {
+          "high": "Interval voor sensoren met hoge prioriteit",
+          "low": "Interval voor sensoren met lage prioriteit"
+        }
+      },
+      "connection": {
+        "title": "Verbindingsgegevens bewerken",
+        "description": "Wijzig de Modbus TCP host, poort en unit id",
+        "data": {
+          "host": "IP-adres",
+          "port": "Poort",
+          "unit_id": "Unit-ID"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "device_name": {
+        "name": "Apparaatnaam"
+      },
+      "sn_code": {
+        "name": "Serienummer"
+      },
+      "software_version": {
+        "name": "Softwareversie"
+      },
+      "bms_version": {
+        "name": "BMS-versie"
+      },
+      "ems_version": {
+        "name": "EMS-versie"
+      },
+      "firmware_version": {
+        "name": "Firmwareversie"
+      },
+      "vms_version": {
+        "name": "VMS-versie"
+      },
+      "comm_module_firmware": {
+        "name": "Communicatiemodule Firmware"
+      },
+      "ble_mac_address": {
+        "name": "Bluetooth-MAC"
+      },
+      "battery_soc": {
+        "name": "Batterij SoC"
+      },
+      "battery_soc_1": {
+        "name": "Batterij pack 1 SoC"
+      },
+      "battery_soc_2": {
+        "name": "Batterij pack 2 SoC"
+      },
+      "battery_soc_3": {
+        "name": "Batterij pack 3 SoC"
+      },
+      "battery_soc_4": {
+        "name": "Batterij pack 4 SoC"
+      },
+      "battery_soc_5": {
+        "name": "Batterij pack 5 SoC"
+      },
+      "battery_soc_6": {
+        "name": "Batterij pack 6 SoC"
+      },
+      "battery_total_energy": {
+        "name": "Batterij Totale Energie"
+      },
+      "battery_voltage": {
+        "name": "Batterijspanning"
+      },
+      "battery_current": {
+        "name": "Batterijstroom"
+      },
+      "battery_power": {
+        "name": "Batterijvermogen"
+      },
+      "internal_temperature": {
+        "name": "Interne Temperatuur"
+      },
+      "internal_mos1_temperature": {
+        "name": "Interne MOS1 Temperatuur"
+      },
+      "internal_mos2_temperature": {
+        "name": "Interne MOS2 Temperatuur"
+      },
+      "ac_voltage": {
+        "name": "AC-spanning"
+      },
+      "ac_current": {
+        "name": "AC-stroom"
+      },
+      "ac_power": {
+        "name": "AC-vermogen"
+      },
+      "ac_frequency": {
+        "name": "AC-frequentie"
+      },
+      "total_charging_energy": {
+        "name": "Totale Oplaadenergie"
+      },
+      "total_discharging_energy": {
+        "name": "Totale Ontlaadenergie"
+      },
+      "battery_cycle_count": {
+        "name": "Volledige cycli (BMS)"
+      },
+      "battery_cycle_count_calc": {
+        "name": "Volledige cycli (Calc)"
+      },
+      "total_daily_charging_energy": {
+        "name": "Dagelijkse Oplaadenergie"
+      },
+      "total_daily_discharging_energy": {
+        "name": "Dagelijkse Ontlaadenergie"
+      },
+      "total_monthly_charging_energy": {
+        "name": "Maandelijkse Oplaadenergie"
+      },
+      "total_monthly_discharging_energy": {
+        "name": "Maandelijkse Ontlaadenergie"
+      },
+      "max_cell_temperature": {
+        "name": "Max. Celtemperatuur"
+      },
+      "min_cell_temperature": {
+        "name": "Min. Celtemperatuur"
+      },
+      "max_cell_voltage": {
+        "name": "Max. Celspanning"
+      },
+      "min_cell_voltage": {
+        "name": "Min. Celspanning"
+      },
+      "battery_1_cell_1_voltage": {
+        "name": "Batterij pack 1 Cel 1 Spanning"
+      },
+      "battery_1_cell_2_voltage": {
+        "name": "Batterij pack 1 Cel 2 Spanning"
+      },
+      "battery_1_cell_3_voltage": {
+        "name": "Batterij pack 1 Cel 3 Spanning"
+      },
+      "battery_1_cell_4_voltage": {
+        "name": "Batterij pack 1 Cel 4 Spanning"
+      },
+      "battery_1_cell_5_voltage": {
+        "name": "Batterij pack 1 Cel 5 Spanning"
+      },
+      "battery_1_cell_6_voltage": {
+        "name": "Batterij pack 1 Cel 6 Spanning"
+      },
+      "battery_1_cell_7_voltage": {
+        "name": "Batterij pack 1 Cel 7 Spanning"
+      },
+      "battery_1_cell_8_voltage": {
+        "name": "Batterij pack 1 Cel 8 Spanning"
+      },
+      "battery_1_cell_9_voltage": {
+        "name": "Batterij pack 1 Cel 9 Spanning"
+      },
+      "battery_1_cell_10_voltage": {
+        "name": "Batterij pack 1 Cel 10 Spanning"
+      },
+      "battery_1_cell_11_voltage": {
+        "name": "Batterij pack 1 Cel 11 Spanning"
+      },
+      "battery_1_cell_12_voltage": {
+        "name": "Batterij pack 1 Cel 12 Spanning"
+      },
+      "battery_1_cell_13_voltage": {
+        "name": "Batterij pack 1 Cel 13 Spanning"
+      },
+      "battery_1_cell_14_voltage": {
+        "name": "Batterij pack 1 Cel 14 Spanning"
+      },
+      "battery_1_cell_15_voltage": {
+        "name": "Batterij pack 1 Cel 15 Spanning"
+      },
+      "battery_1_cell_16_voltage": {
+        "name": "Batterij pack 1 Cel 16 Spanning"
+      },
+      "battery_2_cell_1_voltage": {
+        "name": "Batterij pack 2 Cel 1 Spanning"
+      },
+      "battery_2_cell_2_voltage": {
+        "name": "Batterij pack 2 Cel 2 Spanning"
+      },
+      "battery_2_cell_3_voltage": {
+        "name": "Batterij pack 2 Cel 3 Spanning"
+      },
+      "battery_2_cell_4_voltage": {
+        "name": "Batterij pack 2 Cel 4 Spanning"
+      },
+      "battery_2_cell_5_voltage": {
+        "name": "Batterij pack 2 Cel 5 Spanning"
+      },
+      "battery_2_cell_6_voltage": {
+        "name": "Batterij pack 2 Cel 6 Spanning"
+      },
+      "battery_2_cell_7_voltage": {
+        "name": "Batterij pack 2 Cel 7 Spanning"
+      },
+      "battery_2_cell_8_voltage": {
+        "name": "Batterij pack 2 Cel 8 Spanning"
+      },
+      "battery_2_cell_9_voltage": {
+        "name": "Batterij pack 2 Cel 9 Spanning"
+      },
+      "battery_2_cell_10_voltage": {
+        "name": "Batterij pack 2 Cel 10 Spanning"
+      },
+      "battery_2_cell_11_voltage": {
+        "name": "Batterij pack 2 Cel 11 Spanning"
+      },
+      "battery_2_cell_12_voltage": {
+        "name": "Batterij pack 2 Cel 12 Spanning"
+      },
+      "battery_2_cell_13_voltage": {
+        "name": "Batterij pack 2 Cel 13 Spanning"
+      },
+      "battery_3_cell_1_voltage": {
+        "name": "Batterij pack 3 Cel 1 Spanning"
+      },
+      "battery_3_cell_2_voltage": {
+        "name": "Batterij pack 3 Cel 2 Spanning"
+      },
+      "battery_3_cell_3_voltage": {
+        "name": "Batterij pack 3 Cel 3 Spanning"
+      },
+      "battery_3_cell_4_voltage": {
+        "name": "Batterij pack 3 Cel 4 Spanning"
+      },
+      "battery_3_cell_5_voltage": {
+        "name": "Batterij pack 3 Cel 5 Spanning"
+      },
+      "battery_3_cell_6_voltage": {
+        "name": "Batterij pack 3 Cel 6 Spanning"
+      },
+      "battery_3_cell_7_voltage": {
+        "name": "Batterij pack 3 Cel 7 Spanning"
+      },
+      "battery_3_cell_8_voltage": {
+        "name": "Batterij pack 3 Cel 8 Spanning"
+      },
+      "battery_3_cell_9_voltage": {
+        "name": "Batterij pack 3 Cel 9 Spanning"
+      },
+      "battery_3_cell_10_voltage": {
+        "name": "Batterij pack 3 Cel 10 Spanning"
+      },
+      "battery_3_cell_11_voltage": {
+        "name": "Batterij pack 3 Cel 11 Spanning"
+      },
+      "battery_3_cell_12_voltage": {
+        "name": "Batterij pack 3 Cel 12 Spanning"
+      },
+      "battery_3_cell_13_voltage": {
+        "name": "Batterij pack 3 Cel 13 Spanning"
+      },
+      "battery_4_cell_1_voltage": {
+        "name": "Batterij pack 4 Cel 1 Spanning"
+      },
+      "battery_4_cell_2_voltage": {
+        "name": "Batterij pack 4 Cel 2 Spanning"
+      },
+      "battery_4_cell_3_voltage": {
+        "name": "Batterij pack 4 Cel 3 Spanning"
+      },
+      "battery_4_cell_4_voltage": {
+        "name": "Batterij pack 4 Cel 4 Spanning"
+      },
+      "battery_4_cell_5_voltage": {
+        "name": "Batterij pack 4 Cel 5 Spanning"
+      },
+      "battery_4_cell_6_voltage": {
+        "name": "Batterij pack 4 Cel 6 Spanning"
+      },
+      "battery_4_cell_7_voltage": {
+        "name": "Batterij pack 4 Cel 7 Spanning"
+      },
+      "battery_4_cell_8_voltage": {
+        "name": "Batterij pack 4 Cel 8 Spanning"
+      },
+      "battery_4_cell_9_voltage": {
+        "name": "Batterij pack 4 Cel 9 Spanning"
+      },
+      "battery_4_cell_10_voltage": {
+        "name": "Batterij pack 4 Cel 10 Spanning"
+      },
+      "battery_4_cell_11_voltage": {
+        "name": "Batterij pack 4 Cel 11 Spanning"
+      },
+      "battery_4_cell_12_voltage": {
+        "name": "Batterij pack 4 Cel 12 Spanning"
+      },
+      "battery_4_cell_13_voltage": {
+        "name": "Batterij pack 4 Cel 13 Spanning"
+      },
+      "battery_5_cell_1_voltage": {
+        "name": "Batterij pack 5 Cel 1 Spanning"
+      },
+      "battery_5_cell_2_voltage": {
+        "name": "Batterij pack 5 Cel 2 Spanning"
+      },
+      "battery_5_cell_3_voltage": {
+        "name": "Batterij pack 5 Cel 3 Spanning"
+      },
+      "battery_5_cell_4_voltage": {
+        "name": "Batterij pack 5 Cel 4 Spanning"
+      },
+      "battery_5_cell_5_voltage": {
+        "name": "Batterij pack 5 Cel 5 Spanning"
+      },
+      "battery_5_cell_6_voltage": {
+        "name": "Batterij pack 5 Cel 6 Spanning"
+      },
+      "battery_5_cell_7_voltage": {
+        "name": "Batterij pack 5 Cel 7 Spanning"
+      },
+      "battery_5_cell_8_voltage": {
+        "name": "Batterij pack 5 Cel 8 Spanning"
+      },
+      "battery_5_cell_9_voltage": {
+        "name": "Batterij pack 5 Cel 9 Spanning"
+      },
+      "battery_5_cell_10_voltage": {
+        "name": "Batterij pack 5 Cel 10 Spanning"
+      },
+      "battery_5_cell_11_voltage": {
+        "name": "Batterij pack 5 Cel 11 Spanning"
+      },
+      "battery_5_cell_12_voltage": {
+        "name": "Batterij pack 5 Cel 12 Spanning"
+      },
+      "battery_5_cell_13_voltage": {
+        "name": "Batterij pack 5 Cel 13 Spanning"
+      },
+      "battery_6_cell_1_voltage": {
+        "name": "Batterij pack 6 Cel 1 Spanning"
+      },
+      "battery_6_cell_2_voltage": {
+        "name": "Batterij pack 6 Cel 2 Spanning"
+      },
+      "battery_6_cell_3_voltage": {
+        "name": "Batterij pack 6 Cel 3 Spanning"
+      },
+      "battery_6_cell_4_voltage": {
+        "name": "Batterij pack 6 Cel 4 Spanning"
+      },
+      "battery_6_cell_5_voltage": {
+        "name": "Batterij pack 6 Cel 5 Spanning"
+      },
+      "battery_6_cell_6_voltage": {
+        "name": "Batterij pack 6 Cel 6 Spanning"
+      },
+      "battery_6_cell_7_voltage": {
+        "name": "Batterij pack 6 Cel 7 Spanning"
+      },
+      "battery_6_cell_8_voltage": {
+        "name": "Batterij pack 6 Cel 8 Spanning"
+      },
+      "battery_6_cell_9_voltage": {
+        "name": "Batterij pack 6 Cel 9 Spanning"
+      },
+      "battery_6_cell_10_voltage": {
+        "name": "Batterij pack 6 Cel 10 Spanning"
+      },
+      "battery_6_cell_11_voltage": {
+        "name": "Batterij pack 6 Cel 11 Spanning"
+      },
+      "battery_6_cell_12_voltage": {
+        "name": "Batterij pack 6 Cel 12 Spanning"
+      },
+      "battery_6_cell_13_voltage": {
+        "name": "Batterij pack 6 Cel 13 Spanning"
+      },
+      "inverter_state": {
+        "name": "Omvormer Status",
+        "state": {
+          "0": "Slaap",
+          "1": "Standby",
+          "2": "Laden",
+          "3": "Ontladen",
+          "4": "Backup-modus",
+          "5": "OTA-upgrade",
+          "6": "Bypass"
+        }
+      },
+      "fault_status": {
+        "name": "Foutstatus"
+      },
+      "alarm_status": {
+        "name": "Alarmstatus"
+      },
+      "modbus_address": {
+        "name": "Modbus-adres"
+      },
+      "ac_offgrid_voltage": {
+        "name": "AC Off-grid Spanning"
+      },
+      "ac_offgrid_current": {
+        "name": "AC Off-grid Stroom"
+      },
+      "ac_offgrid_power": {
+        "name": "AC Off-grid Vermogen"
+      },
+      "device_ip": {
+        "name": "Apparaat IP-adres"
+      },
+      "gateway_ip": {
+        "name": "Gateway IP-adres"
+      },
+      "wifi_signal_strength": {
+        "name": "WiFi-signaalsterkte"
+      },
+      "round_trip_efficiency_total": {
+        "name": "Totaal rendement"
+      },
+      "round_trip_efficiency_monthly": {
+        "name": "Maandelijks rendement"
+      },
+      "conversion_efficiency": {
+        "name": "Conversierendement"
+      },
+      "stored_energy": {
+        "name": "Opgeslagen Energie"
+      },
+      "mppt1_voltage": {
+        "name": "MPPT1 Spanning"
+      },
+      "mppt1_current": {
+        "name": "MPPT1 Stroom"
+      },
+      "mppt1_power": {
+        "name": "MPPT1 Vermogen"
+      },
+      "mppt2_voltage": {
+        "name": "MPPT2 Spanning"
+      },
+      "mppt2_current": {
+        "name": "MPPT2 Stroom"
+      },
+      "mppt2_power": {
+        "name": "MPPT2 Vermogen"
+      },
+      "mppt3_voltage": {
+        "name": "MPPT3 Spanning"
+      },
+      "mppt3_current": {
+        "name": "MPPT3 Stroom"
+      },
+      "mppt3_power": {
+        "name": "MPPT3 Vermogen"
+      },
+      "mppt4_voltage": {
+        "name": "MPPT4 Spanning"
+      },
+      "mppt4_current": {
+        "name": "MPPT4 Stroom"
+      },
+      "mppt4_power": {
+        "name": "MPPT4 Vermogen"
+      },
+      "bluetooth_status": {
+        "name": "Bluetooth-status",
+        "state": {
+          "0": "Niet verbonden",
+          "1": "Verbonden na herstart",
+          "2": "Verbonden",
+          "3": "Actief",
+          "4": "Vergrendeld"
+        }
+      }
+    },
+    "binary_sensor": {
+      "modbus_connection": {
+        "name": "Modbus-verbinding"
+      },
+      "wifi_status": {
+        "name": "WiFi-status"
+      },
+      "cloud_status": {
+        "name": "Cloud-status"
+      },
+      "discharge_limit_mode": {
+        "name": "Ontlaadlimiet"
+      }
+    },
+    "select": {
+      "user_work_mode": {
+        "name": "Gebruikersmodus",
+        "state": {
+          "manual": "Handmatig",
+          "anti_feed": "Anti-teruglevering",
+          "trade_mode": "Handelsmodus"
+        }
+      },
+      "force_mode": {
+        "name": "Geforceerde Modus",
+        "state": {
+          "standby": "Standby",
+          "charge": "Laden",
+          "discharge": "Ontladen"
+        }
+      },
+      "grid_standard": {
+        "name": "Netstandaard",
+        "state": {
+          "Auto": "Automatisch",
+          "EN50549": "EN50549",
+          "Netherlands": "Nederland",
+          "Germany": "Duitsland",
+          "Austria": "Oostenrijk",
+          "United Kingdom": "Verenigd Koninkrijk",
+          "Spain": "Spanje",
+          "Poland": "Polen",
+          "Italy": "Italië",
+          "China": "China"
+        }
+      },
+      "schedule_1_days": {
+        "name": "Schema 1 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      },
+      "schedule_2_days": {
+        "name": "Schema 2 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      },
+      "schedule_3_days": {
+        "name": "Schema 3 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      },
+      "schedule_4_days": {
+        "name": "Schema 4 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      },
+      "schedule_5_days": {
+        "name": "Schema 5 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      },
+      "schedule_6_days": {
+        "name": "Schema 6 Dagen",
+        "state": {
+          "sunday": "Zondag",
+          "monday": "Maandag",
+          "tuesday": "Dinsdag",
+          "wednesday": "Woensdag",
+          "thursday": "Donderdag",
+          "friday": "Vrijdag",
+          "saturday": "Zaterdag"
+        }
+      }
+    },
+    "switch": {
+      "backup_function": {
+        "name": "Back-up functie"
+      },
+      "rs485_control_mode": {
+        "name": "RS485 Bedrijfsmodus"
+      },
+      "schedule_1_enabled": {
+        "name": "Schema 1 Ingeschakeld"
+      },
+      "schedule_2_enabled": {
+        "name": "Schema 2 Ingeschakeld"
+      },
+      "schedule_3_enabled": {
+        "name": "Schema 3 Ingeschakeld"
+      },
+      "schedule_4_enabled": {
+        "name": "Schema 4 Ingeschakeld"
+      },
+      "schedule_5_enabled": {
+        "name": "Schema 5 Ingeschakeld"
+      },
+      "schedule_6_enabled": {
+        "name": "Schema 6 Ingeschakeld"
+      }
+    },
+    "number": {
+      "set_charge_power": {
+        "name": "Forceer Laadvermogen"
+      },
+      "set_discharge_power": {
+        "name": "Forceer Ontlaadvermogen"
+      },
+      "max_charge_power": {
+        "name": "Max. Laadvermogen"
+      },
+      "max_discharge_power": {
+        "name": "Max. Ontlaadvermogen"
+      },
+      "charging_cutoff_capacity": {
+        "name": "Laadstopcapaciteit"
+      },
+      "discharging_cutoff_capacity": {
+        "name": "Ontlaadstopcapaciteit"
+      },
+      "charge_to_soc": {
+        "name": "Laden tot SOC"
+      },
+      "schedule_1_start": {
+        "name": "Schema 1 Start"
+      },
+      "schedule_2_start": {
+        "name": "Schema 2 Start"
+      },
+      "schedule_3_start": {
+        "name": "Schema 3 Start"
+      },
+      "schedule_4_start": {
+        "name": "Schema 4 Start"
+      },
+      "schedule_5_start": {
+        "name": "Schema 5 Start"
+      },
+      "schedule_6_start": {
+        "name": "Schema 6 Start"
+      },
+      "schedule_1_end": {
+        "name": "Schema 1 Einde"
+      },
+      "schedule_2_end": {
+        "name": "Schema 2 Einde"
+      },
+      "schedule_3_end": {
+        "name": "Schema 3 Einde"
+      },
+      "schedule_4_end": {
+        "name": "Schema 4 Einde"
+      },
+      "schedule_5_end": {
+        "name": "Schema 5 Einde"
+      },
+      "schedule_6_end": {
+        "name": "Schema 6 Einde"
+      },
+      "schedule_1_mode": {
+        "name": "Schema 1 Modus"
+      },
+      "schedule_2_mode": {
+        "name": "Schema 2 Modus"
+      },
+      "schedule_3_mode": {
+        "name": "Schema 3 Modus"
+      },
+      "schedule_4_mode": {
+        "name": "Schema 4 Modus"
+      },
+      "schedule_5_mode": {
+        "name": "Schema 5 Modus"
+      },
+      "schedule_6_mode": {
+        "name": "Schema 6 Modus"
+      }
+    },
+    "button": {
+      "reset_device": {
+        "name": "Apparaat Resetten"
+      },
+      "factory_reset": {
+        "name": "Fabrieksinstellingen Herstellen"
+      }
+    }
+  }
+}

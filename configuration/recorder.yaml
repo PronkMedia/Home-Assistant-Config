@@ -40,3 +40,7 @@ include:
     - sensor.water_consumption_total_m3
     - sensor.inverter_goodwe
     - sensor.inverter_goodwe_energy
+    - sensor.marstek_venus_battery_power
+    - sensor.marstek_venus_battery_soc
+    - sensor.marstek_venus_total_charging_energy
+    - sensor.marstek_venus_total_discharging_energy

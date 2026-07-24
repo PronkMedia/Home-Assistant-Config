@@ -1,0 +1,44 @@
+# Home battery (Marstek Venus E 3.0)
+- sensor:
+    - name: Marstek Venus status
+      icon: >
+        {% set status = states('sensor.marstek_venus_inverter_state') %}
+        {% if status == 'Bypass' %}
+          mdi:battery-sync-outline
+        {% elif status == 'Charge' %}
+          mdi:battery-arrow-up-outline
+        {% elif status == 'Discharge' %}
+          mdi:battery-arrow-down-outline
+        {% elif status == 'Standby' %}
+          mdi:battery-check-outline
+        {% else %}
+          mdi:battery-remove-outline
+        {% endif %}
+      state: >
+        {% set map = {
+          'Bypass': 'Doorvoer',
+          'Charge': 'Opladen',
+          'Discharge': 'Ontladen',
+          'Standby': 'Stand-by'
+        } %}
+        {{ map.get(states('sensor.marstek_venus_inverter_state'), 'Onbekend') }}
+    - name: Marstek Venus capacity
+      icon: >
+        {% set pct = states('sensor.marstek_venus_battery_soc') | float(0) %}
+        {% if pct >= 95 %}
+          mdi:battery
+        {% elif pct >= 75 %}
+          mdi:battery-80
+        {% elif pct >= 50 %}
+          mdi:battery-50
+        {% elif pct >= 25 %}
+          mdi:battery-30
+        {% elif pct > 0 %}
+          mdi:battery-10
+        {% else %}
+          mdi:battery-alert
+        {% endif %}
+      state: >
+        {{ "%.3f"|format(states("sensor.marstek_venus_stored_energy")|float) | replace(".", ",") }} kWh
+        /
+        {{ "%.3f"|format(states("sensor.marstek_venus_battery_total_energy")|float) | replace(".", ",") }} kWh

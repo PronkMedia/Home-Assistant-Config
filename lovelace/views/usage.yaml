@@ -14,6 +14,12 @@ cards:
               line-height: 1.4;
               opacity: .6;
             }
+            path#battery-grid, circle.battery-to-grid {
+              stroke: var(--energy-grid-consumption-color) !important;
+            }
+            circle.battery-to-grid {
+              fill: var(--energy-grid-consumption-color) !important;
+            }
         title: Verbruiksoverzicht
       - type: custom:mini-graph-card
         card_mod:
@@ -26,6 +32,9 @@ cards:
             }
             .header {
               margin-top: 10px;
+            }
+            .icon {
+              color: var(--primary-text-color) !important;
             }
             .name > span {
               font-size: var(--ha-font-size-2xl) !important;
@@ -74,6 +83,7 @@ cards:
               width: 45%;
             }
         name: Slimme meter
+        icon: mdi:meter-electric-outline
         entities:
           - entity: sensor.electricity_meter_power_consumption
             name: Stroom (verbruik)
@@ -96,7 +106,6 @@ cards:
             show_state: true
             show_indicator: true
         show:
-          icon: false
           labels: false
           points: false
         points_per_hour: 30
@@ -196,7 +205,7 @@ cards:
               font-size: 10px;
             }
         name: Zonnepanelen
-        icon: mdi:solar-panel-large
+        icon: mdi:solar-power-variant-outline
         entities:
           - entity: sensor.inverter_goodwe
             color: var(--label-badge-yellow)
@@ -253,6 +262,101 @@ cards:
             row:
               entity: sensor.inverter_goodwe_temperature
               name: Temperatuur
+      - type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              z-index: 1;
+              margin-bottom: -26px;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            .header {
+              margin-top: 10px;
+            }
+            .icon {
+              color: var(--primary-text-color) !important;
+            }
+            .name > span {
+              font-size: var(--ha-font-size-2xl) !important;
+              font-weight: var(--ha-font-weight-normal) !important;
+              line-height: 1;
+              opacity: 1 !important;
+            }
+            .states {
+              font-size: 10px;
+              padding: 0 20px 16px;
+            }
+            .states svg {
+              display: flex !important;
+              margin-right: 8px;
+            }
+            .states--secondary {
+              position: absolute;
+              flex-flow: row wrap !important;
+              width: calc(100% - 34px);
+            }
+            .state--small {
+              font-size: 1em !important;
+              width: 50%;
+            }
+            .state--small:first-child {
+              margin-left: 50%;
+            }
+            .state--small:nth-child(odd) {
+              left: 15%;
+            }
+            .graph__legend {
+              justify-content: flex-end !important;
+            }
+            .graph__legend__item {
+              width: 45%;
+            }
+        name: Batterij
+        icon: mdi:home-battery-outline
+        entities:
+          - entity: sensor.marstek_venus_battery_soc
+            name: Laadniveau
+            show_indicator: true
+            color: var(--warning-color)
+          - entity: sensor.marstek_venus_battery_power
+            name: Vermogen
+            show_state: true
+            show_indicator: true
+            show_fill: false
+            y_axis: secondary
+        show:
+          labels: false
+          labels_secondary: false
+          points: false
+        color_thresholds:
+          - value: -24
+            color: var(--label-badge-green)
+          - value: -25
+            color: var(--label-badge-red)
+        points_per_hour: 30
+        update_interval: 30
+        lower_bound: 0
+        upper_bound: 100
+        lower_bound_secondary: -2750
+        upper_bound_secondary: 2750
+        line_width: 1
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - type: divider
+            style:
+              margin: 0 -16px
+          - type: custom:text-row
+            text: Batterij informatie
+            style:
+              margin: 16px 0 8px 8px
+          - entity: sensor.marstek_venus_capacity
+            name: Capaciteit
+          - entity: sensor.marstek_venus_status
+            name: Status
+          - entity: sensor.marstek_venus_internal_temperature
+            name: Temperatuur
       - type: conditional
         conditions:
           - entity: switch.energy_monitor_1

@@ -1,0 +1,752 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Marstek Venus per Modbus verbinden",
+        "description": "Modbus TCP Verbindungsdetails eingeben",
+        "data": {
+          "host": "IP-Adresse",
+          "port": "Port",
+          "unit_id": "Unit-ID",
+          "device_version": "Geräteversion"
+        }
+      }
+    },
+    "error": {
+      "permission_denied": "Zugriff verweigert",
+      "connection_refused": "Verbindung abgelehnt",
+      "timed_out": "Zeitüberschreitung der Verbindung",
+      "invalid_host": "Ungültiger Host oder IP-Adresse",
+      "invalid_unit_id": "Ungültige Modbus Unit-ID (muss 1-255 sein)",
+      "unit_id_no_response": "Keine Antwort von Unit-ID. Prüfen Sie, ob das Gerät diese Unit-ID verwendet",
+      "cannot_connect": "Verbindung zum Gerät nicht möglich"
+    },
+    "abort": {
+      "already_configured": "Dieses Gerät ist bereits konfiguriert"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sensor-Scanintervalle konfigurieren",
+        "description": "Abfragehäufigkeit pro Kategorie anpassen",
+        "data": {
+          "unit_id": "Modbus Unit-ID"
+        }
+      },
+      "menu": {
+        "title": "Marstek Optionen",
+        "description": "Wählen Sie, welche Einstellungen Sie konfigurieren möchten",
+        "menu_options": {
+          "connection": "Verbindungseinstellungen",
+          "polling": "Polling-Intervalle"
+        }
+      },
+      "polling": {
+        "title": "Polling-Intervalle konfigurieren",
+        "description": "Abfragehäufigkeit pro Kategorie anpassen",
+        "data": {
+          "high": "High-Priorität Intervall (s)",
+          "low": "Low-Priorität Intervall (s)"
+        }
+      },
+      "connection": {
+        "title": "Verbindungsdetails bearbeiten",
+        "description": "Ändern Sie Host, Port und Unit-ID für Modbus TCP",
+        "data": {
+          "host": "IP-Adresse",
+          "port": "Port",
+          "unit_id": "Unit-ID"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "device_name": {
+        "name": "Gerätename"
+      },
+      "sn_code": {
+        "name": "Seriennummer"
+      },
+      "software_version": {
+        "name": "Softwareversion"
+      },
+      "bms_version": {
+        "name": "BMS-Version"
+      },
+      "ems_version": {
+        "name": "EMS-Version"
+      },
+      "firmware_version": {
+        "name": "Firmware-Version"
+      },
+      "comm_module_firmware": {
+        "name": "Kommunikationsmodul-Firmware"
+      },
+      "ble_mac_address": {
+        "name": "Bluetooth-MAC"
+      },
+      "battery_soc": {
+        "name": "SoC Batterie"
+      },
+      "battery_soc_1": {
+        "name": "SoC Batteriepack 1"
+      },
+      "battery_soc_2": {
+        "name": "SoC Batteriepack 2"
+      },
+      "battery_soc_3": {
+        "name": "SoC Batteriepack 3"
+      },
+      "battery_soc_4": {
+        "name": "SoC Batteriepack 4"
+      },
+      "battery_soc_5": {
+        "name": "SoC Batteriepack 5"
+      },
+      "battery_soc_6": {
+        "name": "SoC Batteriepack 6"
+      },
+      "battery_total_energy": {
+        "name": "Batterie-Gesamtenergie"
+      },
+      "battery_voltage": {
+        "name": "Batteriespannung"
+      },
+      "battery_current": {
+        "name": "Batteriestrom"
+      },
+      "battery_power": {
+        "name": "Batterieleistung"
+      },
+      "internal_temperature": {
+        "name": "Innentemperatur"
+      },
+      "internal_mos1_temperature": {
+        "name": "Interne MOS1-Temperatur"
+      },
+      "internal_mos2_temperature": {
+        "name": "Interne MOS2-Temperatur"
+      },
+      "ac_voltage": {
+        "name": "AC-Spannung"
+      },
+      "ac_current": {
+        "name": "AC-Strom"
+      },
+      "ac_power": {
+        "name": "AC-Leistung"
+      },
+      "ac_frequency": {
+        "name": "AC-Frequenz"
+      },
+      "total_charging_energy": {
+        "name": "Gesamte Ladeenergie"
+      },
+      "total_discharging_energy": {
+        "name": "Gesamte Entladeenergie"
+      },
+      "battery_cycle_count": {
+        "name": "Vollzyklen (BMS)"
+      },
+      "battery_cycle_count_calc": {
+        "name": "Vollzyklen (berechnet)"
+      },
+      "total_daily_charging_energy": {
+        "name": "Tägliche Ladeenergie"
+      },
+      "total_daily_discharging_energy": {
+        "name": "Tägliche Entladeenergie"
+      },
+      "total_monthly_charging_energy": {
+        "name": "Monatliche Ladeenergie"
+      },
+      "total_monthly_discharging_energy": {
+        "name": "Monatliche Entladeenergie"
+      },
+      "max_cell_temperature": {
+        "name": "Maximale Zellentemperatur"
+      },
+      "min_cell_temperature": {
+        "name": "Minimale Zellentemperatur"
+      },
+      "max_cell_voltage": {
+        "name": "Maximale Zellenspannung"
+      },
+      "min_cell_voltage": {
+        "name": "Minimale Zellenspannung"
+      },
+      "battery_1_cell_1_voltage": {
+        "name": "Batteriepack 1 Zelle 1 Spannung"
+      },
+      "battery_1_cell_2_voltage": {
+        "name": "Batteriepack 1 Zelle 2 Spannung"
+      },
+      "battery_1_cell_3_voltage": {
+        "name": "Batteriepack 1 Zelle 3 Spannung"
+      },
+      "battery_1_cell_4_voltage": {
+        "name": "Batteriepack 1 Zelle 4 Spannung"
+      },
+      "battery_1_cell_5_voltage": {
+        "name": "Batteriepack 1 Zelle 5 Spannung"
+      },
+      "battery_1_cell_6_voltage": {
+        "name": "Batteriepack 1 Zelle 6 Spannung"
+      },
+      "battery_1_cell_7_voltage": {
+        "name": "Batteriepack 1 Zelle 7 Spannung"
+      },
+      "battery_1_cell_8_voltage": {
+        "name": "Batteriepack 1 Zelle 8 Spannung"
+      },
+      "battery_1_cell_9_voltage": {
+        "name": "Batteriepack 1 Zelle 9 Spannung"
+      },
+      "battery_1_cell_10_voltage": {
+        "name": "Batteriepack 1 Zelle 10 Spannung"
+      },
+      "battery_1_cell_11_voltage": {
+        "name": "Batteriepack 1 Zelle 11 Spannung"
+      },
+      "battery_1_cell_12_voltage": {
+        "name": "Batteriepack 1 Zelle 12 Spannung"
+      },
+      "battery_1_cell_13_voltage": {
+        "name": "Batteriepack 1 Zelle 13 Spannung"
+      },
+      "battery_1_cell_14_voltage": {
+        "name": "Batteriepack 1 Zelle 14 Spannung"
+      },
+      "battery_1_cell_15_voltage": {
+        "name": "Batteriepack 1 Zelle 15 Spannung"
+      },
+      "battery_1_cell_16_voltage": {
+        "name": "Batteriepack 1 Zelle 16 Spannung"
+      },
+      "battery_2_cell_1_voltage": {
+        "name": "Batteriepack 2 Zelle 1 Spannung"
+      },
+      "battery_2_cell_2_voltage": {
+        "name": "Batteriepack 2 Zelle 2 Spannung"
+      },
+      "battery_2_cell_3_voltage": {
+        "name": "Batteriepack 2 Zelle 3 Spannung"
+      },
+      "battery_2_cell_4_voltage": {
+        "name": "Batteriepack 2 Zelle 4 Spannung"
+      },
+      "battery_2_cell_5_voltage": {
+        "name": "Batteriepack 2 Zelle 5 Spannung"
+      },
+      "battery_2_cell_6_voltage": {
+        "name": "Batteriepack 2 Zelle 6 Spannung"
+      },
+      "battery_2_cell_7_voltage": {
+        "name": "Batteriepack 2 Zelle 7 Spannung"
+      },
+      "battery_2_cell_8_voltage": {
+        "name": "Batteriepack 2 Zelle 8 Spannung"
+      },
+      "battery_2_cell_9_voltage": {
+        "name": "Batteriepack 2 Zelle 9 Spannung"
+      },
+      "battery_2_cell_10_voltage": {
+        "name": "Batteriepack 2 Zelle 10 Spannung"
+      },
+      "battery_2_cell_11_voltage": {
+        "name": "Batteriepack 2 Zelle 11 Spannung"
+      },
+      "battery_2_cell_12_voltage": {
+        "name": "Batteriepack 2 Zelle 12 Spannung"
+      },
+      "battery_2_cell_13_voltage": {
+        "name": "Batteriepack 2 Zelle 13 Spannung"
+      },
+      "battery_3_cell_1_voltage": {
+        "name": "Batteriepack 3 Zelle 1 Spannung"
+      },
+      "battery_3_cell_2_voltage": {
+        "name": "Batteriepack 3 Zelle 2 Spannung"
+      },
+      "battery_3_cell_3_voltage": {
+        "name": "Batteriepack 3 Zelle 3 Spannung"
+      },
+      "battery_3_cell_4_voltage": {
+        "name": "Batteriepack 3 Zelle 4 Spannung"
+      },
+      "battery_3_cell_5_voltage": {
+        "name": "Batteriepack 3 Zelle 5 Spannung"
+      },
+      "battery_3_cell_6_voltage": {
+        "name": "Batteriepack 3 Zelle 6 Spannung"
+      },
+      "battery_3_cell_7_voltage": {
+        "name": "Batteriepack 3 Zelle 7 Spannung"
+      },
+      "battery_3_cell_8_voltage": {
+        "name": "Batteriepack 3 Zelle 8 Spannung"
+      },
+      "battery_3_cell_9_voltage": {
+        "name": "Batteriepack 3 Zelle 9 Spannung"
+      },
+      "battery_3_cell_10_voltage": {
+        "name": "Batteriepack 3 Zelle 10 Spannung"
+      },
+      "battery_3_cell_11_voltage": {
+        "name": "Batteriepack 3 Zelle 11 Spannung"
+      },
+      "battery_3_cell_12_voltage": {
+        "name": "Batteriepack 3 Zelle 12 Spannung"
+      },
+      "battery_3_cell_13_voltage": {
+        "name": "Batteriepack 3 Zelle 13 Spannung"
+      },
+      "battery_4_cell_1_voltage": {
+        "name": "Batteriepack 4 Zelle 1 Spannung"
+      },
+      "battery_4_cell_2_voltage": {
+        "name": "Batteriepack 4 Zelle 2 Spannung"
+      },
+      "battery_4_cell_3_voltage": {
+        "name": "Batteriepack 4 Zelle 3 Spannung"
+      },
+      "battery_4_cell_4_voltage": {
+        "name": "Batteriepack 4 Zelle 4 Spannung"
+      },
+      "battery_4_cell_5_voltage": {
+        "name": "Batteriepack 4 Zelle 5 Spannung"
+      },
+      "battery_4_cell_6_voltage": {
+        "name": "Batteriepack 4 Zelle 6 Spannung"
+      },
+      "battery_4_cell_7_voltage": {
+        "name": "Batteriepack 4 Zelle 7 Spannung"
+      },
+      "battery_4_cell_8_voltage": {
+        "name": "Batteriepack 4 Zelle 8 Spannung"
+      },
+      "battery_4_cell_9_voltage": {
+        "name": "Batteriepack 4 Zelle 9 Spannung"
+      },
+      "battery_4_cell_10_voltage": {
+        "name": "Batteriepack 4 Zelle 10 Spannung"
+      },
+      "battery_4_cell_11_voltage": {
+        "name": "Batteriepack 4 Zelle 11 Spannung"
+      },
+      "battery_4_cell_12_voltage": {
+        "name": "Batteriepack 4 Zelle 12 Spannung"
+      },
+      "battery_4_cell_13_voltage": {
+        "name": "Batteriepack 4 Zelle 13 Spannung"
+      },
+      "battery_5_cell_1_voltage": {
+        "name": "Batteriepack 5 Zelle 1 Spannung"
+      },
+      "battery_5_cell_2_voltage": {
+        "name": "Batteriepack 5 Zelle 2 Spannung"
+      },
+      "battery_5_cell_3_voltage": {
+        "name": "Batteriepack 5 Zelle 3 Spannung"
+      },
+      "battery_5_cell_4_voltage": {
+        "name": "Batteriepack 5 Zelle 4 Spannung"
+      },
+      "battery_5_cell_5_voltage": {
+        "name": "Batteriepack 5 Zelle 5 Spannung"
+      },
+      "battery_5_cell_6_voltage": {
+        "name": "Batteriepack 5 Zelle 6 Spannung"
+      },
+      "battery_5_cell_7_voltage": {
+        "name": "Batteriepack 5 Zelle 7 Spannung"
+      },
+      "battery_5_cell_8_voltage": {
+        "name": "Batteriepack 5 Zelle 8 Spannung"
+      },
+      "battery_5_cell_9_voltage": {
+        "name": "Batteriepack 5 Zelle 9 Spannung"
+      },
+      "battery_5_cell_10_voltage": {
+        "name": "Batteriepack 5 Zelle 10 Spannung"
+      },
+      "battery_5_cell_11_voltage": {
+        "name": "Batteriepack 5 Zelle 11 Spannung"
+      },
+      "battery_5_cell_12_voltage": {
+        "name": "Batteriepack 5 Zelle 12 Spannung"
+      },
+      "battery_5_cell_13_voltage": {
+        "name": "Batteriepack 5 Zelle 13 Spannung"
+      },
+      "battery_6_cell_1_voltage": {
+        "name": "Batteriepack 6 Zelle 1 Spannung"
+      },
+      "battery_6_cell_2_voltage": {
+        "name": "Batteriepack 6 Zelle 2 Spannung"
+      },
+      "battery_6_cell_3_voltage": {
+        "name": "Batteriepack 6 Zelle 3 Spannung"
+      },
+      "battery_6_cell_4_voltage": {
+        "name": "Batteriepack 6 Zelle 4 Spannung"
+      },
+      "battery_6_cell_5_voltage": {
+        "name": "Batteriepack 6 Zelle 5 Spannung"
+      },
+      "battery_6_cell_6_voltage": {
+        "name": "Batteriepack 6 Zelle 6 Spannung"
+      },
+      "battery_6_cell_7_voltage": {
+        "name": "Batteriepack 6 Zelle 7 Spannung"
+      },
+      "battery_6_cell_8_voltage": {
+        "name": "Batteriepack 6 Zelle 8 Spannung"
+      },
+      "battery_6_cell_9_voltage": {
+        "name": "Batteriepack 6 Zelle 9 Spannung"
+      },
+      "battery_6_cell_10_voltage": {
+        "name": "Batteriepack 6 Zelle 10 Spannung"
+      },
+      "battery_6_cell_11_voltage": {
+        "name": "Batteriepack 6 Zelle 11 Spannung"
+      },
+      "battery_6_cell_12_voltage": {
+        "name": "Batteriepack 6 Zelle 12 Spannung"
+      },
+      "battery_6_cell_13_voltage": {
+        "name": "Batteriepack 6 Zelle 13 Spannung"
+      },
+      "inverter_state": {
+        "name": "Wechselrichter-Status",
+        "state": {
+          "0": "Schlafmodus",
+          "1": "Standby",
+          "2": "Laden",
+          "3": "Entladen",
+          "4": "Backup-Modus",
+          "5": "OTA-Upgrade",
+          "6": "Bypass"
+        }
+      },
+      "fault_status": {
+        "name": "Fehlerstatus"
+      },
+      "alarm_status": {
+        "name": "Alarmstatus"
+      },
+      "modbus_address": {
+        "name": "Modbus-Adresse"
+      },
+      "ac_offgrid_voltage": {
+        "name": "AC-Offgrid-Spannung"
+      },
+      "ac_offgrid_current": {
+        "name": "AC-Offgrid-Strom"
+      },
+      "ac_offgrid_power": {
+        "name": "AC-Offgrid-Leistung"
+      },
+      "device_ip": {
+        "name": "Geräte-IP-Adresse"
+      },
+      "gateway_ip": {
+        "name": "Gateway-IP-Adresse"
+      },
+      "wifi_signal_strength": {
+        "name": "WLAN-Signalstärke"
+      },
+      "round_trip_efficiency_total": {
+        "name": "Gesamt-Roundtrip-Effizienz"
+      },
+      "round_trip_efficiency_monthly": {
+        "name": "Monatliche Roundtrip-Effizienz"
+      },
+      "conversion_efficiency": {
+        "name": "Umwandlungseffizienz"
+      },
+      "stored_energy": {
+        "name": "Gespeicherte Energie"
+      },
+      "mppt1_voltage": {
+        "name": "MPPT1 Spannung"
+      },
+      "mppt1_current": {
+        "name": "MPPT1 Strom"
+      },
+      "mppt1_power": {
+        "name": "MPPT1 Leistung"
+      },
+      "mppt2_voltage": {
+        "name": "MPPT2 Spannung"
+      },
+      "mppt2_current": {
+        "name": "MPPT2 Strom"
+      },
+      "mppt2_power": {
+        "name": "MPPT2 Leistung"
+      },
+      "mppt3_voltage": {
+        "name": "MPPT3 Spannung"
+      },
+      "mppt3_current": {
+        "name": "MPPT3 Strom"
+      },
+      "mppt3_power": {
+        "name": "MPPT3 Leistung"
+      },
+      "mppt4_voltage": {
+        "name": "MPPT4 Spannung"
+      },
+      "mppt4_current": {
+        "name": "MPPT4 Strom"
+      },
+      "mppt4_power": {
+        "name": "MPPT4 Leistung"
+      },
+      "bluetooth_status": {
+        "name": "Bluetooth-Status",
+        "state": {
+          "0": "Getrennt",
+          "1": "Nach dem Neustart verbunden",
+          "2": "Verbunden",
+          "3": "Aktiv",
+          "4": "Gesperrt"
+        }
+      }
+    },
+    "binary_sensor": {
+      "modbus_connection": {
+        "name": "Modbus-Verbindung"
+      },
+      "wifi_status": {
+        "name": "WLAN-Status"
+      },
+      "cloud_status": {
+        "name": "Cloud-Status"
+      },
+      "discharge_limit_mode": {
+        "name": "Entladebegrenzung"
+      }
+    },
+    "select": {
+      "user_work_mode": {
+        "name": "Benutzer-Modus",
+        "state": {
+          "manual": "Manuell",
+          "anti_feed": "Nulleinspeisung",
+          "trade_mode": "AI-Optimierung (Dynamischer Stromtarif)"
+        }
+      },
+      "force_mode": {
+        "name": "Erzwungener Modus",
+        "state": {
+          "standby": "Standby",
+          "charge": "Laden",
+          "discharge": "Entladen"
+        }
+      },
+      "grid_standard": {
+        "name": "Netzstandard",
+        "state": {
+          "Auto": "Automatisch",
+          "EN50549": "EN50549",
+          "Netherlands": "Niederlande",
+          "Germany": "Deutschland",
+          "Austria": "Österreich",
+          "United Kingdom": "Vereinigtes Königreich",
+          "Spain": "Spanien",
+          "Poland": "Polen",
+          "Italy": "Italien",
+          "China": "China"
+        }
+      },
+      "schedule_1_days": {
+        "name": "Zeitplan 1 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      },
+      "schedule_2_days": {
+        "name": "Zeitplan 2 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      },
+      "schedule_3_days": {
+        "name": "Zeitplan 3 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      },
+      "schedule_4_days": {
+        "name": "Zeitplan 4 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      },
+      "schedule_5_days": {
+        "name": "Zeitplan 5 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      },
+      "schedule_6_days": {
+        "name": "Zeitplan 6 Tage",
+        "state": {
+          "sunday": "Sonntag",
+          "monday": "Montag",
+          "tuesday": "Dienstag",
+          "wednesday": "Mittwoch",
+          "thursday": "Donnerstag",
+          "friday": "Freitag",
+          "saturday": "Samstag"
+        }
+      }
+    },
+    "switch": {
+      "backup_function": {
+        "name": "Backup-Funktion"
+      },
+      "rs485_control_mode": {
+        "name": "RS485-Steuermodus"
+      },
+      "schedule_1_enabled": {
+        "name": "Zeitplan 1 aktivieren"
+      },
+      "schedule_2_enabled": {
+        "name": "Zeitplan 2 aktivieren"
+      },
+      "schedule_3_enabled": {
+        "name": "Zeitplan 3 aktivieren"
+      },
+      "schedule_4_enabled": {
+        "name": "Zeitplan 4 aktivieren"
+      },
+      "schedule_5_enabled": {
+        "name": "Zeitplan 5 aktivieren"
+      },
+      "schedule_6_enabled": {
+        "name": "Zeitplan 6 aktivieren"
+      }
+    },
+    "number": {
+      "set_charge_power": {
+        "name": "Ladeleistung einstellen"
+      },
+      "set_discharge_power": {
+        "name": "Entladeleistung einstellen"
+      },
+      "max_charge_power": {
+        "name": "Maximale Ladeleistung"
+      },
+      "max_discharge_power": {
+        "name": "Maximale Entladeleistung"
+      },
+      "charging_cutoff_capacity": {
+        "name": "Ladeabschaltkapazität"
+      },
+      "discharging_cutoff_capacity": {
+        "name": "Entladeabschaltkapazität"
+      },
+      "charge_to_soc": {
+        "name": "Maximaler SoC"
+      },
+      "schedule_1_start": {
+        "name": "Zeitplan 1 Start"
+      },
+      "schedule_2_start": {
+        "name": "Zeitplan 2 Start"
+      },
+      "schedule_3_start": {
+        "name": "Zeitplan 3 Start"
+      },
+      "schedule_4_start": {
+        "name": "Zeitplan 4 Start"
+      },
+      "schedule_5_start": {
+        "name": "Zeitplan 5 Start"
+      },
+      "schedule_6_start": {
+        "name": "Zeitplan 6 Start"
+      },
+      "schedule_1_end": {
+        "name": "Zeitplan 1 Ende"
+      },
+      "schedule_2_end": {
+        "name": "Zeitplan 2 Ende"
+      },
+      "schedule_3_end": {
+        "name": "Zeitplan 3 Ende"
+      },
+      "schedule_4_end": {
+        "name": "Zeitplan 4 Ende"
+      },
+      "schedule_5_end": {
+        "name": "Zeitplan 5 Ende"
+      },
+      "schedule_6_end": {
+        "name": "Zeitplan 6 Ende"
+      },
+      "schedule_1_mode": {
+        "name": "Zeitplan 1 Modus"
+      },
+      "schedule_2_mode": {
+        "name": "Zeitplan 2 Modus"
+      },
+      "schedule_3_mode": {
+        "name": "Zeitplan 3 Modus"
+      },
+      "schedule_4_mode": {
+        "name": "Zeitplan 4 Modus"
+      },
+      "schedule_5_mode": {
+        "name": "Zeitplan 5 Modus"
+      },
+      "schedule_6_mode": {
+        "name": "Zeitplan 6 Modus"
+      }
+    },
+    "button": {
+      "reset_device": {
+        "name": "Gerät zurücksetzen"
+      },
+      "factory_reset": {
+        "name": "Werkseinstellungen"
+      }
+    }
+  }
+}

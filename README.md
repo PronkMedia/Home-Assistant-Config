@@ -61,11 +61,15 @@ My Home Assistant configuration & documentation.
     - 1x Chime (2nd Generation)
 - Landis+Gyr
     - 1x Smart Utility Meter (E360)
-    - 1x USB > Serial Cable (P1)
 - Smart Gateways
+    - 1x Active P1 Splitter for Smart Meter
     - 1x Watermeter Gateway
+- HomeWizard
+    - 1x P1 Meter
+- Marstek
+    - 1x Venus E 3.0 (5,12 kWh)
 - GoodWe 
-    - 1x Solar Inverter (GoodWe GW2500-XS)
+    - 1x Solar Inverter (GW2500-XS)
 - Canadian Solar
     - 9x Solar Panel (KuBlack CS3K-310MS)
 
