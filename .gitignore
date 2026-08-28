@@ -3,9 +3,11 @@
 
 # Whitelisted files
 !.gitignore
+!*.gz
 !*.js
 !*.json
 !*.md
+!*.png
 !*.py
 !*.yaml
 !favicon*.*
