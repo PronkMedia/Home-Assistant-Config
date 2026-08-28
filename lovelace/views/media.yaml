@@ -5,7 +5,7 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:mini-media-player
-        card_mod:
+        uix:
           style:
             .: |
               .entity__info {
@@ -40,7 +40,7 @@ cards:
           power: true
           source: true
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -83,7 +83,7 @@ cards:
             state: "on"
         card:
           type: entities
-          card_mod:
+          uix:
             style:
               .: |
                 ha-card {

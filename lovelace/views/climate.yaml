@@ -5,7 +5,7 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:simple-thermostat
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -63,7 +63,7 @@ cards:
           - entity: sensor.thermostat_heating_state
             name: Verwarming
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-top: -26px;
@@ -92,7 +92,7 @@ cards:
         update_interval: 10
         line_width: 1
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               border-top-left-radius: 0;
@@ -107,7 +107,7 @@ cards:
             name: Automatisch schema volgen
             icon: mdi:thermostat-auto
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -134,7 +134,7 @@ cards:
         line_width: 1
         line_color: var(--label-badge-red)
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -161,7 +161,7 @@ cards:
         line_width: 1
         line_color: var(--label-badge-blue)
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -188,7 +188,7 @@ cards:
         line_width: 1
         line_color: var(--warning-color)
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -215,7 +215,7 @@ cards:
         line_width: 1
         line_color: var(--label-badge-green)
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -242,7 +242,7 @@ cards:
         line_width: 1
         line_color: var(--label-badge-red)
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -276,7 +276,7 @@ cards:
         line_width: 1
         line_color: var(--label-badge-blue)
       - type: weather-forecast
-        card_mod:
+        uix:
           style: |
             .content {
               display: none !important;

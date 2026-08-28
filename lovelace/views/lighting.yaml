@@ -46,7 +46,7 @@ cards:
               action: call-service
               service: script.scene_huiskamer_spelen
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -70,7 +70,7 @@ cards:
             style:
               margin: 0 16px 8px
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-bottom: -26px;
@@ -88,7 +88,7 @@ cards:
         entities:
           - entity: light.beneden
       - type: glance
-        card_mod:
+        uix:
           style:
             .: |
               ha-card {
@@ -142,7 +142,7 @@ cards:
             tap_action:
               action: more-info
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-bottom: -26px;
@@ -165,7 +165,7 @@ cards:
         entities:
           - entity: light.boven
       - type: glance
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-bottom: -26px;
@@ -189,7 +189,7 @@ cards:
             tap_action:
               action: more-info
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-bottom: -26px;
@@ -212,7 +212,7 @@ cards:
         entities:
           - entity: light.buiten
       - type: glance
-        card_mod:
+        uix:
           style:
             .: |
               .entities div:nth-child(3) {

@@ -5,7 +5,7 @@ cards:
   - type: vertical-stack
     cards:
       - type: entities
-        card_mod:
+        uix:
           style: |
             #states > div:nth-child(-n+9) {
               display: none;
@@ -196,7 +196,7 @@ cards:
                       "usage":
                         button:
                           color: var(--state-active-color)
-            card_mod:
+            uix:
               style:
                 hui-toggle-entity-row:
                   $:
@@ -213,7 +213,7 @@ cards:
                               color: var(--state-icon-color);
                             }
           - type: custom:slider-entity-row
-            card_mod:
+            uix:
               style: |
                 :host {
                   display: block;
@@ -395,7 +395,7 @@ cards:
           - entity: sensor.shelly_ht_2_humidity
             name: Luchtvochtigheid
       - type: entities
-        card_mod:
+        uix:
           style: |
             #states > div:nth-child(-n+5) {
               display: none;
@@ -419,7 +419,7 @@ cards:
               hide_when_off: true
               step: 1
               min: 1
-            card_mod:
+            uix:
               style:
                 slider-entity-row:
                   $:
@@ -440,7 +440,7 @@ cards:
               hide_when_off: true
               step: 1
               min: 1
-            card_mod:
+            uix:
               style:
                 slider-entity-row:
                   $:
@@ -474,7 +474,7 @@ cards:
               hide_when_off: true
               step: 1
               min: 1
-            card_mod:
+            uix:
               style:
                 slider-entity-row:
                   $:
@@ -495,7 +495,7 @@ cards:
               hide_when_off: true
               step: 1
               min: 1
-            card_mod:
+            uix:
               style:
                 slider-entity-row:
                   $:

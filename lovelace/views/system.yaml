@@ -43,7 +43,7 @@ cards:
             name: Laatste herstart
             icon: mdi:update
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;
@@ -84,7 +84,7 @@ cards:
         lower_bound: 0
         line_width: 1
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             .header {
               margin-top: 10px;

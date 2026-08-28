@@ -5,7 +5,7 @@ cards:
   - type: vertical-stack
     cards:
       - type: energy-distribution
-        card_mod:
+        uix:
           style: |
             span.label {
               max-width: 100px;
@@ -22,7 +22,7 @@ cards:
             }
         title: Verbruiksoverzicht
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -181,7 +181,7 @@ cards:
             name: Waterverbruik
             icon: mdi:water-outline
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;
@@ -263,7 +263,7 @@ cards:
               entity: sensor.inverter_goodwe_temperature
               name: Temperatuur
       - type: custom:mini-graph-card
-        card_mod:
+        uix:
           style: |
             ha-card {
               z-index: 1;

@@ -89,8 +89,8 @@ energy-solar-color: "#7bcc00"
 energy-water-color: "#337fbf"
 
 # Card-Mod custom CSS
-card-mod-theme: Huis
-card-mod-root-yaml: |
+uix-theme: Huis
+uix-root-yaml: |
   ha-menu-button$: |
     ha-icon-button {
       display: none;
@@ -110,7 +110,7 @@ card-mod-root-yaml: |
     ha-button {
       display: none;
     }
-card-mod-view-yaml: |
+uix-view-yaml: |
   "*:first-child$": |
     #columns {
       margin: 2px 0 !important;
@@ -119,12 +119,12 @@ card-mod-view-yaml: |
       margin-left: 0px !important;
       margin-right: 0px !important;
     }
-card-mod-card: |
+uix-card: |
   ha-card {
     transition: all 0.3s ease-out, margin 0s;
     margin: 2px 14px;
   }
-card-mod-row-yaml: |
+uix-row-yaml: |
   "slider-entity-row$": |
     hui-generic-entity-row .wrapper {
       flex: 100;

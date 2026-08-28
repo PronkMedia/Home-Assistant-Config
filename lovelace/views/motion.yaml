@@ -19,7 +19,7 @@ cards:
               margin-left: 55px
       - type: custom:mini-graph-card
         height: 50
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-top: -26px;
@@ -50,7 +50,7 @@ cards:
           - value: "home"
             label: Aanwezig
       - type: entities
-        card_mod:
+        uix:
           style: |
             ha-card {
               border-top-left-radius: 0;
@@ -65,7 +65,7 @@ cards:
             name: Vakantie
             icon: mdi:island
       - type: entities
-        card_mod:
+        uix:
           style:
             hui-picture-header-footer$: |
               img {
@@ -180,7 +180,7 @@ cards:
               margin-left: 55px
       - type: custom:mini-graph-card
         height: 50
-        card_mod:
+        uix:
           style: |
             ha-card {
               margin-top: -26px;
