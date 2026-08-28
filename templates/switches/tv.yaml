@@ -1,0 +1,12 @@
+# TV switch (Philips 55OLED810/12)
+- switch:
+    - name: tv
+      state: "{{ is_state('media_player.tv', 'on') }}"
+      turn_on:
+        action: button.press
+        target:
+          entity_id: button.tv
+      turn_off:
+        action: remote.turn_off
+        target:
+          entity_id: remote.tv

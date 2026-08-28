@@ -1,19 +1,41 @@
 # Media source detection
 - binary_sensor:
     - name: Media source (ziggo)
+      delay_off:
+        seconds: 3
       state: >
         {{
-          is_state_attr("media_player.sonos_speakers", "source", "TV")
-          and is_state("media_player.55pus6704_12", "on")
-          and is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
+          is_state_attr('media_player.sonos_speakers', 'source', 'TV')
+          and is_state('media_player.tv', 'on')
+          and state_attr('media_player.tv', 'app_id') in [
+            'org.droidtv.playtv',
+            'org.droidtv.teletext',
+            'com.ziggo.tv'
+          ]
         }}
-    - name: Media source (chromecast ultra)
+    - name: Media source (streaming)
+      delay_off:
+        seconds: 3
       state: >
         {{
-          is_state_attr("media_player.sonos_speakers", "source", "TV")
-          and is_state("media_player.55pus6704_12", "on")
-          and is_state("media_player.chromecast_ultra", "playing")
-          and not is_state_attr("media_player.55pus6704_12", "media_content_type", "channel")
+          is_state_attr('media_player.sonos_speakers', 'source', 'TV')
+          and is_state('media_player.tv', 'on')
+          and state_attr('media_player.tv', 'app_id') in [
+            'com.netflix.ninja',
+            'com.amazon.amazonvideo.livingroom',
+            'com.skyshowtime.skyshowtime.google',
+            'nl.uitzendinggemist',
+            'com.google.android.youtube.tv'
+          ]
+        }}
+    - name: Media source (music)
+      delay_off:
+        seconds: 3
+      state: >
+        {{
+          is_state_attr('media_player.sonos_speakers', 'source', 'TV')
+          and is_state('media_player.tv', 'on')
+          and is_state_attr('media_player.tv', 'app_id', 'com.spotify.tv.android')
         }}
     - name: Media source radio (npo radio 1)
       state: '{{ is_state_attr("media_player.sonos_speakers", "media_content_id", "aac://http://icecast.omroep.nl/radio1-bb-aac") }}'

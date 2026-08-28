@@ -24,7 +24,7 @@ My Home Assistant configuration & documentation.
 - LEICKE
     - Power Supply (5V 4A 20W | 5.5mm/2.5mm)
 - Philips Ambilight
-    - 1x 4K UHD LED Smart TV (55PUS6704/12)
+    - 1x 4K OLED Smart TV (55OLED810/12)
 - Philips Hue
     - 1x Bridge (BSB002)
     - 4x Motion Sensor (SML001)
@@ -55,7 +55,6 @@ My Home Assistant configuration & documentation.
     - 1x Smart Indoor Infrarood Heater (450 W)
 - Google
     - 1x Nest Learning Thermostat (3rd Generation)
-    - 1x Chromecast (Ultra)
 - Ring
     - 1x Video Doorbell Wired
     - 1x Chime (2nd Generation)

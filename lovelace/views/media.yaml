@@ -64,23 +64,22 @@ cards:
         entities:
           - entity: binary_sensor.media_source_ziggo
             name: Ziggo
-            icon: mdi:television
+            icon: mdi:television-classic
             tap_action:
-              action: call-service
-              service: wake_on_lan.send_magic_packet
-              service_data:
-                mac: !secret mac_philips_55pus6704
-          - entity: binary_sensor.media_source_chromecast_ultra
-            name: Chromecast
+              action: none
+          - entity: binary_sensor.media_source_streaming
+            name: Streaming
             icon: mdi:television-play
             tap_action:
-              action: call-service
-              service: media_player.turn_on
-              service_data:
-                entity_id: media_player.chromecast_ultra
+              action: none
+          - entity: binary_sensor.media_source_music
+            name: Muziek
+            icon: mdi:television-speaker
+            tap_action:
+              action: none
       - type: conditional
         conditions:
-          - entity: media_player.55pus6704_12
+          - entity: media_player.tv
             state: "on"
         card:
           type: entities
@@ -100,7 +99,7 @@ cards:
                           margin-bottom: -16px;
                         }
                         ha-assist-chip:nth-child(3) {
-                          margin-right: 12px;
+                          margin-right: 20px;
                         }
                         state-badge {
                           margin-left: 0px !important;
@@ -113,227 +112,251 @@ cards:
             - type: buttons
               entities:
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-1-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit1
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 1
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-2-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit2
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 2
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-3-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit3
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 3
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:volume-plus
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: VolumeUp
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: VOLUME_UP
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:plus-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: ChannelStepUp
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: CHANNEL_UP
                 - type: button
-                  entity: remote.55pus6704_12
-                  icon: mdi:television-box
+                  entity: remote.tv
+                  icon: mdi:home-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: WatchTV
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: HOME
             - type: buttons
               entities:
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-4-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit4
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 4
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-5-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit5
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 5
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-6-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit6
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 6
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:volume-minus
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: VolumeDown
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: VOLUME_DOWN
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:minus-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: ChannelStepDown
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: CHANNEL_DOWN
                 - type: button
-                  entity: remote.55pus6704_12
-                  icon: mdi:open-in-app
+                  entity: remote.tv
+                  icon: mdi:play-pause
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Source
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: MEDIA_PLAY_PAUSE
             - type: buttons
               entities:
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-7-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit7
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 7
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-8-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit8
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 8
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-9-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit9
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 9
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:keyboard-backspace
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Back
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: BACK
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:arrow-up-bold-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: CursorUp
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: DPAD_UP
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:check-circle-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Confirm
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: DPAD_CENTER
             - type: buttons
               entities:
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:text-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Teletext
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: TV_TELETEXT
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:numeric-0-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: Digit0
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: 0
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:file-table-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: TvGuide
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: GUIDE
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:arrow-left-bold-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: CursorLeft
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: DPAD_LEFT
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:arrow-down-bold-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: CursorDown
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: DPAD_DOWN
                 - type: button
-                  entity: remote.55pus6704_12
+                  entity: remote.tv
                   icon: mdi:arrow-right-bold-box-outline
                   tap_action:
-                    action: call-service
-                    service: remote.send_command
-                    service_data:
-                      entity_id: remote.55pus6704_12
-                      command: CursorRight
+                    action: perform-action
+                    perform_action: remote.send_command
+                    target:
+                      entity_id: remote.tv
+                    data:
+                      command: DPAD_RIGHT
       - type: glance
         title: Radio stations
         show_state: false
