@@ -16,6 +16,7 @@
 !*/
 
 # Ignore these folders
+.cache
 .cloud
 .storage
 blueprints
