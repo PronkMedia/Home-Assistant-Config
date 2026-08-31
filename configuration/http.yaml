@@ -1,5 +1,0 @@
-server_port: !secret server_port
-use_x_forwarded_for: true
-trusted_proxies: !secret internal_proxy_address
-ip_ban_enabled: true
-login_attempts_threshold: 3
