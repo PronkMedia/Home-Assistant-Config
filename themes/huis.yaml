@@ -30,6 +30,7 @@ state-icon-color: "#8d8d8d"
 state-sensor-battery-low-color: "#8d8d8d"
 state-sensor-battery-medium-color: "#8d8d8d"
 state-sensor-battery-high-color: "#8d8d8d"
+state-update-on-color: "#8d8d8d"
 state-active-color: "#ffffff"
 state-switch-active-color: "#ffffff"
 state-light-active-color: "#ffffff"
@@ -133,4 +134,9 @@ uix-row-yaml: |
     hui-generic-entity-row .wrapper {
       flex: 100;
       gap: 14px;
+    }
+uix-more-info-yaml: |
+  "ha-more-info-info $ ha-more-info-history $ statistics-chart $ ha-chart-base $": |
+    .chart > div:nth-of-type(2) {
+      color: var(--ha-dialog-surface-background) !important;
     }
