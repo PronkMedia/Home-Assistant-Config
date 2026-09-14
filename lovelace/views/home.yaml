@@ -304,6 +304,11 @@ cards:
           show_header_toggle: false
           entities:
             - type: custom:slider-entity-row
+              uix:
+                style: |
+                  :host div.wrapper {
+                    gap: 14px;
+                  }
               entity: light.overloop
               icon: mdi:dome-light
               toggle: true
