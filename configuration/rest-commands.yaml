@@ -19,8 +19,12 @@ matrix:
           "daytotal": "{{ inverter_daytotal }}"
         },
         "usage": {
-          "dayenery": "{{ usage_dayenery }}",
-          "daygas": "{{ usage_daygas }}"
+          "dayenergy": "{{ usage_dayenergy }}",
+          "daygas": "{{ usage_daygas }}",
+          "daywater": "{{ usage_daywater }}"
+        },
+        "battery": {
+          "soc": "{{ battery_soc }}"
         }
       }
     }

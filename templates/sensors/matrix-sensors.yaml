@@ -8,7 +8,7 @@
       state: '{{ (state_attr("sensor.inverter_goodwe", "outputpower") | float(default=0) / 1000) | round(1) }}'
     - name: Matrix inverter (daytotal)
       state: '{{ states("sensor.daily_generation") | round(0, default=0) }}'
-    - name: Matrix usage (dayenery)
+    - name: Matrix usage (dayenergy)
       state: >
         {% if states("sensor.daily_energy") | float(default=0) <= -9.9501 %}
           {% set decimals = 0 %}
@@ -20,3 +20,5 @@
       state: '{{ states("sensor.daily_gas") | round(1, default=0) }}'
     - name: Matrix usage (daywater)
       state: '{{ states("sensor.daily_water_consumption") | round(0, default=0) }}'
+    - name: Matrix battery (soc)
+      state: '{{ states("sensor.marstek_venus_battery_soc") | round(0, default=0) }}'
