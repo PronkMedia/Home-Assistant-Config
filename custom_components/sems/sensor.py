@@ -41,6 +41,7 @@ from .const import (
     AC_FEQ_EMPTY,
     DOMAIN,
     GOODWE_SPELLING,
+    GRID_STATUS_LABELS,
     STATUS_LABELS,
     redact_for_log,
 )
@@ -82,6 +83,7 @@ class SemsSensorType:
     empty_value: Any = None
     data_type_converter: Callable = Decimal
     custom_value_handler: Callable[[Any, dict[str, Any]], Any] | None = None
+    entity_registry_enabled_default: bool = True
 
 
 @dataclass(slots=True)
@@ -133,9 +135,7 @@ def sensor_options_for_data(
     _LOGGER.debug("Detected currency: %s", currency)
 
     for serial_number, inverter_data in data.inverters.items():
-        # serial_number = inverter["sn"]
         path_to_inverter: SemsValuePath = [serial_number]
-        # device_data = get_value_from_path(data, path_to_inverter)
 
         device_info = device_info_for_inverter(serial_number, inverter_data)
         sensors += [
@@ -209,12 +209,31 @@ def sensor_options_for_data(
             ),
             SemsInverterSensorType(
                 device_info,
+                f"{serial_number}-eweek",
+                [*path_to_inverter, "eweek"],
+                "Energy This Week",
+                SensorDeviceClass.ENERGY,
+                UnitOfEnergy.KILO_WATT_HOUR,
+                SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-eyear",
+                [*path_to_inverter, "eyear"],
+                "Energy This Year",
+                SensorDeviceClass.ENERGY,
+                UnitOfEnergy.KILO_WATT_HOUR,
+                SensorStateClass.TOTAL_INCREASING,
+            ),
+            SemsInverterSensorType(
+                device_info,
                 f"{serial_number}-{GOODWE_SPELLING.lastMonthTotalE}",
                 [*path_to_inverter, GOODWE_SPELLING.lastMonthTotalE],
                 "Energy Last Month",
                 SensorDeviceClass.ENERGY,
                 UnitOfEnergy.KILO_WATT_HOUR,
                 SensorStateClass.TOTAL_INCREASING,
+                entity_registry_enabled_default=False,
             ),
             SemsInverterSensorType(
                 device_info,
@@ -264,6 +283,21 @@ def sensor_options_for_data(
             )
             for idx in range(1, 5)
             if get_value_from_path(data.inverters, [*path_to_inverter, f"ipv{idx}"])
+            is not None
+        ]
+        sensors += [
+            SemsInverterSensorType(
+                device_info,
+                f"{serial_number}-ppv{idx}",
+                [*path_to_inverter, f"ppv{idx}"],
+                f"PV String {idx} Power",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+                SensorStateClass.MEASUREMENT,
+                0,
+            )
+            for idx in range(1, 5)
+            if get_value_from_path(data.inverters, [*path_to_inverter, f"ppv{idx}"])
             is not None
         ]
         sensors += [
@@ -513,7 +547,6 @@ def sensor_options_for_data(
                 SensorDeviceClass.POWER,
                 UnitOfPower.WATT,
                 SensorStateClass.MEASUREMENT,
-                custom_value_handler=status_value_handler(["loadStatus"]),
             ),
             SemsHomekitSensorType(
                 device_info,
@@ -579,6 +612,80 @@ def sensor_options_for_data(
                 SensorStateClass.MEASUREMENT,
             ),
         ]
+        for key, name, device_class, unit in (
+            (
+                "meter_power",
+                "Smart Meter Power",
+                SensorDeviceClass.POWER,
+                UnitOfPower.WATT,
+            ),
+            (
+                "meter_phase_a_power",
+                "Smart Meter Phase A Power",
+                SensorDeviceClass.POWER,
+                UnitOfPower.KILO_WATT,
+            ),
+            (
+                "meter_phase_b_power",
+                "Smart Meter Phase B Power",
+                SensorDeviceClass.POWER,
+                UnitOfPower.KILO_WATT,
+            ),
+            (
+                "meter_phase_c_power",
+                "Smart Meter Phase C Power",
+                SensorDeviceClass.POWER,
+                UnitOfPower.KILO_WATT,
+            ),
+            (
+                "meter_phase_a_voltage",
+                "Smart Meter Phase A Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+            ),
+            (
+                "meter_phase_b_voltage",
+                "Smart Meter Phase B Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+            ),
+            (
+                "meter_phase_c_voltage",
+                "Smart Meter Phase C Voltage",
+                SensorDeviceClass.VOLTAGE,
+                UnitOfElectricPotential.VOLT,
+            ),
+            (
+                "meter_phase_a_current",
+                "Smart Meter Phase A Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+            ),
+            (
+                "meter_phase_b_current",
+                "Smart Meter Phase B Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+            ),
+            (
+                "meter_phase_c_current",
+                "Smart Meter Phase C Current",
+                SensorDeviceClass.CURRENT,
+                UnitOfElectricCurrent.AMPERE,
+            ),
+        ):
+            if key in data.homekit:
+                sensors.append(
+                    SemsHomekitSensorType(
+                        device_info,
+                        f"{homekit_sn}-{key}",
+                        [key],
+                        name,
+                        device_class,
+                        unit,
+                        SensorStateClass.MEASUREMENT,
+                    )
+                )
         if data.homekit.get(GOODWE_SPELLING.hasEnergyStatisticsCharts):
             if any(key.startswith("Charts_") for key in data.homekit):
                 sensors += [
@@ -795,19 +902,10 @@ async def async_setup_entry(
                 sensor_option.state_class,
                 sensor_option.empty_value,
                 sensor_option.custom_value_handler,
+                sensor_option.entity_registry_enabled_default,
             )
         )
     async_add_entities(sensors)
-
-    # async_add_entities(
-    #     SemsSensor(coordinator, ent)
-    #     for idx, ent in enumerate(coordinator.data)
-    #     # Don't make SemsSensor for homeKit, since it is not an inverter; unsure how this could work before...
-    #     if ent != "homeKit"
-    # )
-    # async_add_entities(
-    #     SemsStatisticsSensor(coordinator, ent)
-    #     for idx, ent in enumerate(coordinator.data)
 
 
 def _migrate_unique_ids(hass: HomeAssistant, migrations: dict[str, str]) -> None:
@@ -867,6 +965,7 @@ class SemsSensor(CoordinatorEntity[SemsCoordinator], SensorEntity):
         state_class: SensorStateClass | None = None,
         empty_value=None,
         custom_value_handler=None,
+        entity_registry_enabled_default=True,
     ) -> None:
         """Initialize a SEMS sensor."""
 
@@ -887,6 +986,7 @@ class SemsSensor(CoordinatorEntity[SemsCoordinator], SensorEntity):
             self._attr_name = name
 
         self._custom_value_handler = custom_value_handler
+        self._attr_entity_registry_enabled_default = entity_registry_enabled_default
 
         raw_value = self._get_native_value_from_coordinator()
 
@@ -949,11 +1049,6 @@ class SemsSensor(CoordinatorEntity[SemsCoordinator], SensorEntity):
             return self._data_type_converter(value)
         except (TypeError, ValueError):
             return value
-
-    # @property
-    # def suggested_display_precision(self):
-    #     """Return the suggested number of decimal digits for display."""
-    #     return 2
 
 
 class SemsInverterSensor(SemsSensor):
@@ -1040,11 +1135,10 @@ class SemsLegacyPowerflowSensor(SemsHomekitSensor):
 
     @staticmethod
     def _status_text(status: Any) -> str:
-        labels = {-1: "Offline", 0: "Waiting", 1: "Normal", 2: "Fault"}
         if status is None:
             return "Unknown"
         try:
-            return labels[int(status)]
+            return GRID_STATUS_LABELS[int(status)]
         except (TypeError, ValueError, KeyError):
             return "Unknown"
 
