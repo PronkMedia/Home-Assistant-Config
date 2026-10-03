@@ -5,6 +5,7 @@ import hashlib
 import json
 import logging
 import math
+import threading
 import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
@@ -35,6 +36,10 @@ _WEB_INVERTER_ENTITY_TYPES = {
     "BATTERY_RACK",
     "DONGLE",
 }
+_WEB_REAL_INVERTER_TYPES = {
+    "INVERTER",
+    "ENERGY_STORAGE_INTEGRATED_CABINET",
+}
 _WEB_STATISTICS_KEY_MAP = {
     "proSystemTotalStats": "sum",
     "proPurchaseStats": "buy",
@@ -52,9 +57,23 @@ _WEB_STATISTICS_RATE_MAP = {
 # Web token plus X-Signature headers.
 _RequestTimeout = 30  # seconds
 _RateLimitRetryAfterSeconds = 300
+# One client is shared by all stations of an account; keep its load bounded.
+_MaxConcurrentRequests = 2
+# Client-wide cool-down after rate limiting or a rejected login. It doubles on
+# each consecutive failure; Retry-After is honoured up to its own cap.
+_CooldownBaseSeconds = 60
+_CooldownMaxSeconds = 900
+_RetryAfterMaxSeconds = 3_600
 
 _SuccessCodes = {0, "0", "00000"}
 _RateLimitCode = "GY0429"
+# Codes for a token the server no longer accepts (expired or replaced session).
+# Only these trigger a re-login.
+_AuthExpiredCodes = {"100002", "C0602"}
+# Login rejections that say nothing about the credentials themselves.
+_TransientLoginCodes = {"C0602", _RateLimitCode}
+# Consecutive credential rejections before the entry asks for reauthentication.
+_AuthRejectionsBeforeReauth = 3
 _BrowserUserAgent = "Home Assistant GoodWe SEMS API Integration"
 _SemsPlusWebUserAgent = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -131,6 +150,9 @@ _WEB_STATISTICS_REFRESH_SECONDS = 300
 _WEB_HISTORIC_STATISTICS_REFRESH_SECONDS = 86_400
 _WEB_STATISTICS_EARLIEST_YEAR = 2015
 _WEB_RELATED_DEVICES_REFRESH_SECONDS = 3_600
+_WEB_DEVICE_LIST_CACHE_SECONDS = 3_600
+_WEB_FAILED_REQUEST_RETRY_SECONDS = 300
+_WEB_FUNCTION_MENUS_REFRESH_SECONDS = 21_600
 
 
 class SemsApi:
@@ -146,6 +168,38 @@ class SemsApi:
         self._web_token: dict[str, Any] | None = None  # Used for SEMS+ web APIs
         self._preferred_login_mode: TokenType | None = None
         self._web_cache: dict[str, tuple[float, Any]] = {}
+        self._session = requests.Session()
+        self._request_slots = threading.BoundedSemaphore(_MaxConcurrentRequests)
+        # Logins are serialized. Each successful login bumps the generation of
+        # its token type, so a request that was rejected with an older token
+        # reuses a token another thread already fetched instead of logging in.
+        self._auth_lock = threading.Lock()
+        self._token_generation: dict[TokenType, int] = {
+            "legacy": 0,
+            "new": 0,
+            "web": 0,
+        }
+        self._last_login_rejection_code: str | None = None
+        self._auth_rejections = 0
+        self._session_failure_logged = False
+        self._cooldown_lock = threading.Lock()
+        self._cooldown_until = 0.0
+        self._cooldown_strikes = 0
+
+    def close(self) -> None:
+        """Close the HTTP session."""
+        self._session.close()
+
+    def update_credentials(self, password: str) -> None:
+        """Use a new password, dropping tokens obtained with the old one."""
+        with self._auth_lock:
+            if password == self._password:
+                return
+            self._password = password
+            self._token = None
+            self._new_token = None
+            self._web_token = None
+            self._auth_rejections = 0
 
     def test_authentication(self) -> bool:
         """Test if we can authenticate with the host."""
@@ -182,19 +236,35 @@ class SemsApi:
         method: str = "POST",
     ) -> dict[str, Any] | None:
         """Make a generic HTTP request with error handling and optional code validation."""
+        self._raise_if_cooling_down(operation_name)
         try:
             _LOGGER.debug("SEMS - Making %s to %s", operation_name, url)
-            response = requests.request(
-                method.upper(),
-                url,
-                headers={"User-Agent": _BrowserUserAgent, **headers},
-                data=data,
-                json=json_data,
-                timeout=_RequestTimeout,
-            )
+            with self._request_slots:
+                response = self._session.request(
+                    method.upper(),
+                    url,
+                    headers={"User-Agent": _BrowserUserAgent, **headers},
+                    data=data,
+                    json=json_data,
+                    timeout=_RequestTimeout,
+                )
 
             _LOGGER.debug("%s Response: %s", operation_name, response)
             # _LOGGER.debug("%s Response text: %s", operation_name, response.text)
+
+            if response.status_code == 429:
+                retry_after = self._start_cooldown(
+                    self._parse_retry_after(response.headers.get("Retry-After"))
+                )
+                _LOGGER.warning(
+                    "SEMS rate limited %s (HTTP 429); pausing requests for %ss",
+                    operation_name,
+                    retry_after,
+                )
+                raise SemsRateLimitedError(
+                    retry_after=retry_after,
+                    message=f"{operation_name} returned HTTP 429",
+                )
 
             response.raise_for_status()
             json_response: dict[str, Any] = response.json()
@@ -213,22 +283,56 @@ class SemsApi:
                 response_code,
                 json_response.get("msg"),
                 json_response.get("description"),
-                json_response.get("api"),
+                json_response.get("api")
+                or (
+                    json_response.get("data", {}).get("api")
+                    if isinstance(json_response.get("data"), dict)
+                    else None
+                ),
                 json_response.get("data") not in (None, "", [], {}),
             )
 
             if str(response_code) == _RateLimitCode:
+                retry_after = self._start_cooldown(_RateLimitRetryAfterSeconds)
+                _LOGGER.warning(
+                    "SEMS rate limited %s (code %s); pausing requests for %ss",
+                    operation_name,
+                    _RateLimitCode,
+                    retry_after,
+                )
                 raise SemsRateLimitedError(
-                    retry_after=_RateLimitRetryAfterSeconds,
+                    retry_after=retry_after,
                     message=(
                         f"{operation_name} returned rate-limit code {_RateLimitCode}"
                     ),
                 )
 
+            if str(response_code) == "100025":
+                raise SemsPermissionError(
+                    operation_name,
+                    self._response_error_message(json_response),
+                )
+
+            # Login responses are classified by _extract_login_token instead.
+            is_login = self._is_sensitive_operation(operation_name)
+            if str(response_code) in _AuthExpiredCodes and not is_login:
+                _LOGGER.debug(
+                    "%s rejected the token with code %s: %s",
+                    operation_name,
+                    response_code,
+                    self._response_error_message(json_response),
+                )
+                raise SemsAuthExpiredError(
+                    f"{operation_name} rejected the token with code {response_code}"
+                )
+
+            if response_code in _SuccessCodes:
+                self._reset_cooldown()
+
             # Validate response code if requested
             if validate_code:
                 if response_code not in _SuccessCodes:
-                    _LOGGER.error(
+                    _LOGGER.warning(
                         "%s failed with code: %s, message: %s",
                         operation_name,
                         response_code,
@@ -259,8 +363,51 @@ class SemsApi:
                 _LOGGER.error("Unable to complete %s: %s", operation_name, exception)
             raise
         except (requests.RequestException, ValueError, KeyError) as exception:
-            _LOGGER.error("Unable to complete %s: %s", operation_name, exception)
+            _LOGGER.warning("Unable to complete %s: %s", operation_name, exception)
             raise
+
+    @staticmethod
+    def _parse_retry_after(value: str | None) -> int | None:
+        """Return a Retry-After header in seconds, if given as a number."""
+        try:
+            return max(0, int(value)) if value is not None else None
+        except ValueError:
+            return None
+
+    def _start_cooldown(self, retry_after: int | None = None) -> int:
+        """Pause all requests of this client and return the pause in seconds."""
+        with self._cooldown_lock:
+            now = time.monotonic()
+            if self._cooldown_until > now:
+                # Parallel requests hitting the same limit extend nothing.
+                return math.ceil(self._cooldown_until - now)
+            self._cooldown_strikes += 1
+            delay = min(
+                _CooldownBaseSeconds * 2 ** (self._cooldown_strikes - 1),
+                _CooldownMaxSeconds,
+            )
+            if retry_after:
+                delay = max(delay, min(retry_after, _RetryAfterMaxSeconds))
+            self._cooldown_until = now + delay
+            return delay
+
+    def _reset_cooldown(self) -> None:
+        """Forget earlier failures after a successful response."""
+        if self._cooldown_strikes:
+            with self._cooldown_lock:
+                self._cooldown_strikes = 0
+
+    def _raise_if_cooling_down(self, operation_name: str) -> None:
+        """Skip requests while the client is cooling down."""
+        remaining = self._cooldown_until - time.monotonic()
+        if remaining > 0:
+            raise SemsRateLimitedError(
+                retry_after=math.ceil(remaining),
+                message=(
+                    f"{operation_name} skipped; SEMS requests are paused for "
+                    f"{math.ceil(remaining)}s"
+                ),
+            )
 
     def _is_sensitive_operation(self, operation_name: str) -> bool:
         """Return True if the operation name indicates it handles sensitive credentials."""
@@ -339,45 +486,17 @@ class SemsApi:
         renewToken: bool,
         operation_name: str,
         token_type: TokenType = "legacy",
-    ) -> tuple[str, dict[str, str]] | None:
-        """Return the request URL and headers for an authenticated call."""
-        if token_type == "web":
-            token = self._web_token
-        elif token_type == "new":
-            token = self._new_token
-        else:
-            token = self._token
+        stale_generation: int | None = None,
+    ) -> tuple[str, dict[str, str], int]:
+        """Return the request URL, headers and token generation for a call.
 
-        if token is None or renewToken:
-            _LOGGER.debug(
-                "API token not set (%s) or new token requested (%s), fetching",
-                redact_for_log(token),
-                renewToken,
-            )
-            if token_type == "web":
-                self._web_token = self._get_new_login_token(
-                    self._username, self._password, is_web=True
-                )
-                token = self._web_token
-            elif token_type == "new":
-                self._new_token = self._get_new_login_token(
-                    self._username, self._password
-                )
-                token = self._new_token
-            else:
-                self._token = self.getLoginToken(self._username, self._password)
-                # A legacy re-login invalidates the SEMS+ Web session server-side.
-                self._web_token = None
-                token = self._token
-
-        if token is None:
-            _LOGGER.error(
-                "Failed to obtain %s token for %s; endpoint %s cannot be called",
-                token_type,
-                operation_name,
-                url_part,
-            )
-            return None
+        `stale_generation` is the generation of a token the server rejected.
+        """
+        if renewToken and stale_generation is None:
+            stale_generation = self._token_generation[token_type]
+        token, generation = self._get_token(
+            token_type, operation_name, stale_generation
+        )
 
         api_base = self._normalize_powerstation_api_base(token["api"], url_part)
         api_url = api_base + url_part
@@ -391,7 +510,79 @@ class SemsApi:
             url_part,
             redact_for_log(token),
         )
-        return api_url, headers
+        return api_url, headers, generation
+
+    def _stored_token(self, token_type: TokenType) -> dict[str, Any] | None:
+        """Return the current token of a type."""
+        if token_type == "web":
+            return self._web_token
+        if token_type == "new":
+            return self._new_token
+        return self._token
+
+    def _get_token(
+        self,
+        token_type: TokenType,
+        operation_name: str,
+        stale_generation: int | None = None,
+    ) -> tuple[dict[str, Any], int]:
+        """Return a usable token and its generation, logging in only if needed.
+
+        Raises SemsRateLimitedError while logins are paused and SemsAuthError
+        once the credentials were rejected repeatedly.
+        """
+        with self._auth_lock:
+            token = self._stored_token(token_type)
+            generation = self._token_generation[token_type]
+            if token is not None and stale_generation != generation:
+                return token, generation
+
+            # No login attempts while rate limited or after a failed login.
+            self._raise_if_cooling_down(operation_name)
+            _LOGGER.debug(
+                "SEMS %s token missing or rejected, logging in for %s",
+                token_type,
+                operation_name,
+            )
+            self._last_login_rejection_code = None
+            if token_type == "web":
+                token = self._get_new_login_token(
+                    self._username, self._password, is_web=True
+                )
+                self._web_token = token
+            elif token_type == "new":
+                token = self._get_new_login_token(self._username, self._password)
+                self._new_token = token
+            else:
+                token = self.getLoginToken(self._username, self._password)
+                self._token = token
+                # A legacy re-login invalidates the SEMS+ Web session server-side.
+                self._web_token = None
+
+            if token is not None:
+                self._auth_rejections = 0
+                self._token_generation[token_type] += 1
+                return token, self._token_generation[token_type]
+
+            code = self._last_login_rejection_code
+            if code is not None and code not in _TransientLoginCodes:
+                self._auth_rejections += 1
+            if self._auth_rejections >= _AuthRejectionsBeforeReauth:
+                raise SemsAuthError(
+                    f"SEMS rejected the credentials {self._auth_rejections} "
+                    f"times in a row (code {code})"
+                )
+            retry_after = self._start_cooldown()
+            _LOGGER.warning(
+                "SEMS %s login failed (code %s); pausing requests for %ss",
+                token_type,
+                code,
+                retry_after,
+            )
+            raise SemsRateLimitedError(
+                retry_after=retry_after,
+                message=f"SEMS {token_type} login failed for {operation_name}",
+            )
 
     def _build_authenticated_headers(
         self,
@@ -483,6 +674,7 @@ class SemsApi:
 
         code = json_response.get("code")
         if code not in _SuccessCodes:
+            self._last_login_rejection_code = str(code)
             _LOGGER.debug(
                 "SEMS %s login failed during %s with code %s, msg=%s, description=%s, api=%s, data_type=%s",
                 login_mode,
@@ -612,7 +804,7 @@ class SemsApi:
                 self._preferred_login_mode = login_mode
                 return token
 
-        _LOGGER.error(
+        _LOGGER.warning(
             "Unable to authenticate with SEMS API; tried authentication methods: %s",
             ", ".join(tried_login_modes),
         )
@@ -630,56 +822,68 @@ class SemsApi:
         retry_on_api_error: bool = True,
         token_type: TokenType | None = None,
     ) -> Any | None:
-        """Make a generic API call with token management and retry logic."""
+        """Make an API call, re-authenticating at most once for a rejected token.
+
+        Only codes for an expired or replaced session trigger the re-login.
+        Other API error codes raise OutOfRetries without logging in again.
+        """
         _LOGGER.debug("SEMS - Making %s", operation_name)
         if maxTokenRetries <= 0:
-            _LOGGER.info("SEMS - Maximum token fetch tries reached, aborting for now")
+            _LOGGER.debug("SEMS - Maximum token fetch tries reached, aborting for now")
             raise OutOfRetries
 
         if token_type is None:
             token_type = "web" if is_web else "legacy"
 
-        context = self._get_authenticated_request_context(
-            url_part,
-            renewToken,
-            operation_name,
-            token_type=token_type,
-        )
-        if context is None:
-            return None
-
-        api_url, headers = context
-
-        try:
-            json_response: dict[str, Any] | None = self._make_http_request(
-                api_url,
-                headers,
-                data=data,
-                method=method,
-                operation_name=operation_name,
-                validate_code=retry_on_api_error,
+        may_reauthenticate = maxTokenRetries > 1
+        stale_generation: int | None = None
+        while True:
+            api_url, headers, generation = self._get_authenticated_request_context(
+                url_part,
+                renewToken,
+                operation_name,
+                token_type=token_type,
+                stale_generation=stale_generation,
             )
 
-            # _make_http_request already validated the response, so if we get here, it's successful
-            if json_response is None:
-                # Response validation failed in _make_http_request
+            try:
+                json_response: dict[str, Any] | None = self._make_http_request(
+                    api_url,
+                    headers,
+                    data=data,
+                    method=method,
+                    operation_name=operation_name,
+                    validate_code=retry_on_api_error,
+                )
+            except SemsAuthExpiredError as exception:
+                if may_reauthenticate:
+                    may_reauthenticate = False
+                    renewToken = False
+                    stale_generation = generation
+                    continue
+                self._log_session_failure(operation_name, exception)
+                raise OutOfRetries(str(exception)) from exception
+            except SemsRateLimitedError as exception:
                 _LOGGER.debug(
-                    "%s not successful, retrying with new token, %s retries remaining",
+                    "SEMS - Propagating rate limit from %s to coordinator: "
+                    "retry_after=%s",
                     operation_name,
-                    maxTokenRetries,
+                    exception.retry_after,
                 )
-                return self._make_api_call(
-                    url_part,
-                    data,
-                    True,
-                    maxTokenRetries - 1,
-                    operation_name,
-                    method,
-                    is_web,
-                    retry_on_api_error,
-                    token_type,
-                )
+                raise
+            except SemsPermissionError:
+                raise
+            except (requests.RequestException, ValueError, KeyError) as exception:
+                # _make_http_request already logged the failure.
+                _LOGGER.debug("Unable to complete %s: %s", operation_name, exception)
+                return None
 
+            if json_response is None:
+                # An API error that is not about the token; a new login would
+                # not help.
+                raise OutOfRetries(f"{operation_name} returned an API error")
+
+            self._session_failure_logged = False
             if is_web and not self._is_sensitive_operation(operation_name):
                 _LOGGER.debug(
                     "SEMS - %s response data: %s",
@@ -687,19 +891,20 @@ class SemsApi:
                     redact_for_log(json_response.get("data")),
                 )
 
-            # Response is valid, return the data
             return json_response.get("data", {}) if is_web else json_response["data"]
 
-        except SemsRateLimitedError as exception:
-            _LOGGER.debug(
-                "SEMS - Propagating rate limit from %s to coordinator: retry_after=%s",
-                operation_name,
-                exception.retry_after,
-            )
-            raise
-        except (requests.RequestException, ValueError, KeyError) as exception:
-            _LOGGER.error("Unable to complete %s: %s", operation_name, exception)
-            return None
+    def _log_session_failure(self, operation_name: str, err: Exception) -> None:
+        """Warn once while SEMS keeps rejecting fresh tokens."""
+        if self._session_failure_logged:
+            _LOGGER.debug("%s failed after re-authentication: %s", operation_name, err)
+            return
+        self._session_failure_logged = True
+        _LOGGER.warning(
+            "SEMS rejected the session for %s even after re-authentication: %s. "
+            "Further failures are logged at debug level until a request succeeds.",
+            operation_name,
+            err,
+        )
 
     def getPowerStationIds(
         self, renewToken: bool = False, maxTokenRetries: int = 2
@@ -753,25 +958,32 @@ class SemsApi:
         cached = self._web_cache.get(cache_key)
         if cached and time.monotonic() - cached[0] < refresh:
             return cached[1]
+        if self._recently_failed(cache_key):
+            return cached[1] if cached else None
 
-        response = self._make_api_call(
-            _WEB_STATION_STATISTICS_ENDPOINT.url_part,
-            data=json.dumps(
-                {
-                    "stationId": power_station_id,
-                    "isReport": False,
-                    "items": _WEB_STATISTICS_ITEMS,
-                    "dimension": dimension,
-                    "startTime": start.strftime("%Y-%m-%d %H:%M:%S"),
-                    "endTime": end.strftime("%Y-%m-%d %H:%M:%S"),
-                }
-            ),
-            operation_name="getWebStationStatistics API call",
-            is_web=True,
-            token_type=_WEB_STATION_STATISTICS_ENDPOINT.token_type,
-        )
+        try:
+            response = self._make_api_call(
+                _WEB_STATION_STATISTICS_ENDPOINT.url_part,
+                data=json.dumps(
+                    {
+                        "stationId": power_station_id,
+                        "isReport": False,
+                        "items": _WEB_STATISTICS_ITEMS,
+                        "dimension": dimension,
+                        "startTime": start.strftime("%Y-%m-%d %H:%M:%S"),
+                        "endTime": end.strftime("%Y-%m-%d %H:%M:%S"),
+                    }
+                ),
+                operation_name="getWebStationStatistics API call",
+                is_web=True,
+                token_type=_WEB_STATION_STATISTICS_ENDPOINT.token_type,
+            )
+        except OutOfRetries as err:
+            _LOGGER.debug("SEMS %s statistics unavailable: %s", dimension, err)
+            response = None
         if not isinstance(response, dict):
-            return None
+            self._remember_failure(cache_key)
+            return cached[1] if cached else None
 
         parsed: dict[str, list[float]] = {}
         for item_data in response.get("dataList", []):
@@ -785,9 +997,11 @@ class SemsApi:
                 if not isinstance(statistic, dict):
                     continue
                 value = statistic.get("val")
+                if not isinstance(value, (int, float, str)):
+                    continue
                 try:
                     numeric_value = float(value)
-                except (TypeError, ValueError):
+                except TypeError, ValueError:
                     continue
                 if math.isfinite(numeric_value):
                     values.append(numeric_value)
@@ -803,28 +1017,35 @@ class SemsApi:
             ("proChar", "proCharStats"),
         ):
             value = response.get(summary_key)
+            if not isinstance(value, (int, float, str)):
+                continue
             try:
                 numeric_value = float(value)
-            except (TypeError, ValueError):
+            except TypeError, ValueError:
                 continue
             if math.isfinite(numeric_value) and item not in parsed:
                 parsed[item] = [numeric_value]
         for summary_key in _WEB_STATISTICS_RATE_MAP:
             value = response.get(summary_key)
+            if not isinstance(value, (int, float, str)):
+                continue
             try:
                 numeric_value = float(value)
-            except (TypeError, ValueError):
+            except TypeError, ValueError:
                 continue
             if math.isfinite(numeric_value):
                 parsed[summary_key] = [numeric_value]
 
-        response_dates = [
-            statistic.get("date")
-            for item_data in response.get("dataList", [])
-            if isinstance(item_data, dict)
-            for statistic in item_data.get("statisticsList", [])
-            if isinstance(statistic, dict) and isinstance(statistic.get("date"), str)
-        ]
+        response_dates: list[str] = []
+        for item_data in response.get("dataList", []):
+            if not isinstance(item_data, dict):
+                continue
+            for statistic in item_data.get("statisticsList", []):
+                if not isinstance(statistic, dict):
+                    continue
+                date = statistic.get("date")
+                if isinstance(date, str):
+                    response_dates.append(date)
         _LOGGER.debug(
             "SEMS - getWebStationStatistics response: dimension=%s "
             "requested=%s..%s items=%s points=%s dates=%s..%s",
@@ -838,6 +1059,17 @@ class SemsApi:
         )
         self._web_cache[cache_key] = (time.monotonic(), parsed)
         return parsed
+
+    def _recently_failed(self, cache_key: str) -> bool:
+        """Return whether a request failed too recently to retry it."""
+        failed = self._web_cache.get(f"failed:{cache_key}")
+        return bool(
+            failed and time.monotonic() - failed[0] < _WEB_FAILED_REQUEST_RETRY_SECONDS
+        )
+
+    def _remember_failure(self, cache_key: str) -> None:
+        """Delay the next attempt of a failed optional request."""
+        self._web_cache[f"failed:{cache_key}"] = (time.monotonic(), None)
 
     def _get_web_energy_statistics(
         self,
@@ -874,11 +1106,11 @@ class SemsApi:
                     install_year = (
                         year if install_year is None else min(install_year, year)
                     )
-                except (TypeError, ValueError, OSError, OverflowError):
+                except TypeError, ValueError, OSError, OverflowError:
                     continue
             if install_year is None:
                 install_year = _WEB_STATISTICS_EARLIEST_YEAR
-            with ThreadPoolExecutor(max_workers=5) as executor:
+            with ThreadPoolExecutor(max_workers=_MaxConcurrentRequests) as executor:
                 production_future = executor.submit(
                     self._get_web_production,
                     power_station_id,
@@ -903,30 +1135,33 @@ class SemsApi:
                     datetime(current_year + 1, 1, 1) - timedelta(seconds=1),
                 )
 
-                production = production_future.result()
+                production_data = production_future.result()
                 statistic_data = [future.result() for future in statistics_futures]
                 historic_statistics = historic_statistics_future.result()
 
-            if production:
-                currency = production.get("currency")
+            if production_data and isinstance(production_data.get("currency"), str):
+                currency = production_data.get("currency")
             for (_dimension, start, _), data in zip(
                 statistic_ranges, statistic_data, strict=True
             ):
                 if not data:
                     continue
                 if start == now:
+                    # Only map series the station reports; a missing series must
+                    # not become 0 and hide smart-meter counters.
                     charts.update(
                         {
-                            target: sum(data.get(source, []))
+                            target: sum(data[source])
                             for source, target in _WEB_STATISTICS_KEY_MAP.items()
+                            if data.get(source)
                         }
                     )
-                    if production:
+                    if production_data:
                         for source, target in _WEB_STATISTICS_KEY_MAP.items():
                             if target not in charts and isinstance(
-                                production.get(source), (int, float)
+                                production_data.get(source), (int, float)
                             ):
-                                charts[target] = production[source]
+                                charts[target] = production_data[source]
                     charts.update(
                         {
                             target: sum(data.get(source, [])) / 100
@@ -939,16 +1174,16 @@ class SemsApi:
 
             if historic_statistics:
                 for item, values in historic_statistics.items():
-                    target = _WEB_STATISTICS_KEY_MAP.get(item)
-                    if target is not None:
-                        totals[target] = sum(values)
+                    mapped_target = _WEB_STATISTICS_KEY_MAP.get(item)
+                    if mapped_target is not None:
+                        totals[mapped_target] = sum(values)
             self_use = totals.get("selfUseOfPv")
             consumption = totals.get("consumptionOfLoad")
-            production = totals.get("sum")
+            production_total = totals.get("sum")
             if self_use is not None and consumption:
                 totals["contributingRate"] = self_use / consumption
-            if self_use is not None and production:
-                totals["selfUseRate"] = self_use / production
+            if self_use is not None and production_total:
+                totals["selfUseRate"] = self_use / production_total
 
             return charts, totals, currency, last_month_pv
         except (OutOfRetries, SemsRateLimitedError) as err:
@@ -959,30 +1194,45 @@ class SemsApi:
         self, power_station_id: str, start: datetime, end: datetime
     ) -> dict[str, Any] | None:
         """Get optional flat station production totals and currency."""
-        response = self._make_api_call(
-            _WEB_STATION_PRODUCTION_ENDPOINT.url_part,
-            data=json.dumps(
-                {
-                    "stationId": power_station_id,
-                    "items": [
-                        "proConsumStats",
-                        "proGridStats",
-                        "proPurchaseStats",
-                        "profitGridStats",
-                        "profitProStats",
-                        "proSystemTotalStats",
-                    ],
-                    "dimension": "day",
-                    "isReport": False,
-                    "startTime": start.strftime("%Y-%m-%d %H:%M:%S"),
-                    "endTime": end.strftime("%Y-%m-%d %H:%M:%S"),
-                }
-            ),
-            operation_name="getWebStationProduction API call",
-            is_web=True,
-            token_type=_WEB_STATION_PRODUCTION_ENDPOINT.token_type,
-        )
-        return response if isinstance(response, dict) else None
+        cache_key = f"production:{power_station_id}:{start.date()}:{end.date()}"
+        cached = self._web_cache.get(cache_key)
+        if cached and time.monotonic() - cached[0] < _WEB_STATISTICS_REFRESH_SECONDS:
+            return cached[1]
+        if self._recently_failed(cache_key):
+            return cached[1] if cached else None
+
+        try:
+            response = self._make_api_call(
+                _WEB_STATION_PRODUCTION_ENDPOINT.url_part,
+                data=json.dumps(
+                    {
+                        "stationId": power_station_id,
+                        "items": [
+                            "proConsumStats",
+                            "proGridStats",
+                            "proPurchaseStats",
+                            "profitGridStats",
+                            "profitProStats",
+                            "proSystemTotalStats",
+                        ],
+                        "dimension": "day",
+                        "isReport": False,
+                        "startTime": start.strftime("%Y-%m-%d %H:%M:%S"),
+                        "endTime": end.strftime("%Y-%m-%d %H:%M:%S"),
+                    }
+                ),
+                operation_name="getWebStationProduction API call",
+                is_web=True,
+                token_type=_WEB_STATION_PRODUCTION_ENDPOINT.token_type,
+            )
+        except OutOfRetries as err:
+            _LOGGER.debug("SEMS station production unavailable: %s", err)
+            response = None
+        if not isinstance(response, dict):
+            self._remember_failure(cache_key)
+            return cached[1] if cached else None
+        self._web_cache[cache_key] = (time.monotonic(), response)
+        return response
 
     def getWebData(
         self,
@@ -994,9 +1244,35 @@ class SemsApi:
         """Build the legacy coordinator shape from SEMS+ Web responses."""
         inverters: list[dict[str, Any]] = []
         smart_meters: list[dict[str, Any]] = []
-        for device in self.getWebInverterDevices(
-            powerStationId, renewToken, maxTokenRetries
-        ):
+        unavailable_inverter_sources: dict[str, set[str]] = {}
+        unavailable_homekit_sources: set[str] = set()
+        device_cache_key = f"devices:{powerStationId}"
+        cached_devices = self._web_cache.get(device_cache_key)
+        device_inventory_unavailable = False
+        try:
+            devices = self.getWebInverterDevices(
+                powerStationId, renewToken, maxTokenRetries
+            )
+        except OutOfRetries, SemsRateLimitedError:
+            if (
+                cached_devices is None
+                or time.monotonic() - cached_devices[0]
+                >= _WEB_DEVICE_LIST_CACHE_SECONDS
+                or not isinstance(cached_devices[1], list)
+                or not cached_devices[1]
+            ):
+                raise
+            _LOGGER.debug("SEMS+ device discovery unavailable; using recent inventory")
+            devices = [
+                {key: value for key, value in device.items() if key != "status"}
+                for device in cached_devices[1]
+                if isinstance(device, dict)
+            ]
+            device_inventory_unavailable = True
+        else:
+            self._web_cache[device_cache_key] = (time.monotonic(), devices)
+
+        for device in devices:
             serial_number = device.get("sn")
             if not isinstance(serial_number, str):
                 continue
@@ -1004,26 +1280,44 @@ class SemsApi:
             if not isinstance(device_type, str):
                 device_type = "INVERTER"
             device_data = dict(device)
+            if (
+                device_inventory_unavailable
+                and device_type in _WEB_INVERTER_ENTITY_TYPES
+            ):
+                unavailable_inverter_sources.setdefault(serial_number, set()).add(
+                    "device_status"
+                )
             # Dongles have status, but no useful telemetry or counters. Avoid
             # making unsupported requests for them while preserving their
             # device/entity entry.
             if device_type != "DONGLE":
+                unavailable_sources: set[str] = set()
                 try:
-                    device_data.update(
-                        self.getWebInverterTelemetry(
-                            powerStationId,
-                            serial_number,
-                            renewToken,
-                            maxTokenRetries,
-                            device_type=device_type,
-                        )
+                    telemetry = self.getWebInverterTelemetry(
+                        powerStationId,
+                        serial_number,
+                        renewToken,
+                        maxTokenRetries,
+                        device_type=device_type,
                     )
-                except (OutOfRetries, SemsRateLimitedError) as err:
-                    _LOGGER.debug(
-                        "SEMS inverter telemetry unavailable for %s: %s",
+                    device_data.update(telemetry)
+                except SemsPermissionError as err:
+                    _LOGGER.warning(
+                        "SEMS+ denied telemetry access for inverter %s: %s. "
+                        "Check the GoodWe account or plant permissions.",
                         serial_number,
                         err,
                     )
+                    unavailable_sources.add("telemetry")
+                except (OutOfRetries, SemsRateLimitedError) as err:
+                    _LOGGER.debug(
+                        "SEMS+ telemetry unavailable for inverter %s: %s",
+                        serial_number,
+                        err,
+                    )
+                    unavailable_sources.add("telemetry")
+                if "pac" not in device_data and device_data.get("status") in (-1, 0):
+                    device_data["pac"] = 0
                 try:
                     device_data.update(
                         self.getWebInverterTelecounting(
@@ -1034,12 +1328,28 @@ class SemsApi:
                             device_type=device_type,
                         )
                     )
-                except (OutOfRetries, SemsRateLimitedError) as err:
-                    _LOGGER.debug(
-                        "SEMS inverter counters unavailable for %s: %s",
+                except SemsPermissionError as err:
+                    _LOGGER.warning(
+                        "SEMS+ denied counter access for inverter %s: %s. "
+                        "Check the GoodWe account or plant permissions.",
                         serial_number,
                         err,
                     )
+                    unavailable_sources.add("counters")
+                except (OutOfRetries, SemsRateLimitedError) as err:
+                    _LOGGER.debug(
+                        "SEMS+ counters unavailable for inverter %s: %s",
+                        serial_number,
+                        err,
+                    )
+                    unavailable_sources.add("counters")
+                if unavailable_sources:
+                    if device_type == "SMART_METER":
+                        unavailable_homekit_sources.update(unavailable_sources)
+                    else:
+                        unavailable_inverter_sources.setdefault(
+                            serial_number, set()
+                        ).update(unavailable_sources)
             if device_type == "BATTERY_RACK":
                 battery_data = {
                     key: device_data.pop(key)
@@ -1055,8 +1365,9 @@ class SemsApi:
                     )
                     if key in device_data
                 }
-                device_data["battery_count"] = 1
-                device_data["more_batterys"] = [battery_data]
+                if battery_data:
+                    device_data["battery_count"] = 1
+                    device_data["more_batterys"] = [battery_data]
             device_data.setdefault("powerstation_id", powerStationId)
             if device_type == "SMART_METER":
                 smart_meters.append(device_data)
@@ -1073,6 +1384,11 @@ class SemsApi:
                 )
             inverters.append({"invert_full": device_data})
 
+        real_inverters = [
+            inverter
+            for inverter in inverters
+            if inverter["invert_full"].get("deviceType") in _WEB_REAL_INVERTER_TYPES
+        ]
         result: dict[str, Any] = {"inverter": inverters}
         try:
             flow = self.getWebStationFlow(powerStationId, renewToken, maxTokenRetries)
@@ -1082,23 +1398,23 @@ class SemsApi:
         if flow:
             if (
                 not smart_meters
-                and len(inverters) == 1
+                and len(real_inverters) == 1
                 and (grid_power := flow.get("pGrid")) is not None
             ):
                 try:
-                    for inverter in inverters:
+                    for inverter in real_inverters:
                         inverter["invert_full"]["pmeter"] = float(grid_power) * 1000
-                except (TypeError, ValueError):
+                except TypeError, ValueError:
                     _LOGGER.debug("SEMS station flow has an invalid pGrid value")
-            if len(inverters) == 1:
-                inverter_full = inverters[0]["invert_full"]
+            if len(real_inverters) == 1:
+                inverter_full = real_inverters[0]["invert_full"]
                 if (
                     "pac" not in inverter_full
                     and (solar_power := flow.get("pAc")) is not None
                 ):
                     try:
                         inverter_full["pac"] = float(solar_power) * 1000
-                    except (TypeError, ValueError):
+                    except TypeError, ValueError:
                         _LOGGER.debug("SEMS station flow has an invalid pAc value")
             result.update(
                 {
@@ -1154,18 +1470,40 @@ class SemsApi:
             inverters,
             include_last_month=include_last_month,
         )
-        if statistics is not None:
-            charts, totals, currency, last_month_pv = statistics
-            if charts:
-                result["hasEnergeStatisticsCharts"] = True
-                result["energeStatisticsCharts"] = charts
-                result["energeStatisticsTotals"] = totals
-            if last_month_pv is not None and len(inverters) == 1:
-                invert_full = inverters[0].get("invert_full")
-                if isinstance(invert_full, dict):
-                    invert_full["lastmonthetotle"] = last_month_pv
-            if currency is not None:
-                result["kpi"] = {"currency": currency}
+        charts, totals, currency, last_month_pv = (
+            statistics if statistics is not None else ({}, {}, None, None)
+        )
+        if smart_meters:
+            # The smart meter measures grid import/export directly; prefer its
+            # counters over station statistics, which may omit or zero them.
+            for source, stats, target in (
+                ("proPurchaseStatsToday", charts, "buy"),
+                ("proGridStatsToday", charts, "sell"),
+                ("proPurchaseStatsTotal", totals, "buy"),
+                ("proGridStatsTotal", totals, "sell"),
+            ):
+                values = [
+                    meter[source]
+                    for meter in smart_meters
+                    if isinstance(meter.get(source), (int, float))
+                ]
+                if values:
+                    stats[target] = sum(values)
+        if charts or totals:
+            result["hasEnergeStatisticsCharts"] = True
+            result["energeStatisticsCharts"] = charts
+            result["energeStatisticsTotals"] = totals
+        if last_month_pv is not None and len(real_inverters) == 1:
+            invert_full = real_inverters[0].get("invert_full")
+            if isinstance(invert_full, dict):
+                invert_full["lastmonthetotle"] = last_month_pv
+        if currency is not None:
+            result["kpi"] = {"currency": currency}
+        if unavailable_inverter_sources or unavailable_homekit_sources:
+            result["unavailable_data_sources"] = {
+                "inverters": unavailable_inverter_sources,
+                "homekit": unavailable_homekit_sources,
+            }
         return result
 
     def getWebStationFlow(
@@ -1192,14 +1530,12 @@ class SemsApi:
     ) -> dict[str, Any]:
         """Map SEMS+ flow and smart-meter counters to HomeKit fields."""
         grid_status = -1 if float(flow.get("pGrid", 0)) > 0 else 1
-        battery_power = flow.get("pBat")
-        battery_status = (
-            -1 if battery_power is not None and float(battery_power) > 0 else 1
-        )
         homekit: dict[str, Any] = {
             "sn": smart_meter.get("sn") if smart_meter else None,
             "gridStatus": grid_status,
             "loadStatus": grid_status,
+            # Marks SEMS+ Web flow data, whose load is always the consumption.
+            "isSemsPlusFlow": True,
         }
         for source, target in (
             ("pSystem" if "pSystem" in flow else "pAc", "pv"),
@@ -1209,11 +1545,19 @@ class SemsApi:
         ):
             if (value := flow.get(source)) is not None:
                 homekit[target] = float(value) * 1000
+        if "load" in homekit:
+            # Household consumption is never negative; SEMS+ can report pConsum
+            # with a flow-direction sign.
+            homekit["load"] = abs(homekit["load"])
         if (soc := flow.get("soc")) is not None:
             homekit["soc"] = soc
         if "battery" in homekit:
+            battery_value = homekit["battery"]
+            battery_status = -1 if battery_value > 0 else 1
+            battery_magnitude = abs(battery_value)
+            homekit["battery"] = battery_magnitude
             homekit["batteryStatus"] = battery_status
-            homekit["bettery"] = homekit["battery"]
+            homekit["bettery"] = battery_magnitude
             homekit["betteryStatus"] = battery_status
         if smart_meter:
             homekit.update(
@@ -1263,7 +1607,7 @@ class SemsApi:
             return None
         try:
             return float(value)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return None
 
     def getWebInverterDevices(
@@ -1279,6 +1623,8 @@ class SemsApi:
             is_web=True,
             token_type=_WEB_DEVICE_STATUS_ENDPOINT.token_type,
         )
+        if result is None:
+            raise OutOfRetries("SEMS+ device discovery request failed")
         devices: list[dict[str, Any]] = []
         for device_group in (
             result.get("deviceDetailList", []) if isinstance(result, dict) else []
@@ -1327,6 +1673,8 @@ class SemsApi:
             is_web=True,
             token_type=_WEB_TELEMETRY_ENDPOINT.token_type,
         )
+        if result is None:
+            raise OutOfRetries("SEMS+ telemetry request failed")
         factors = self._flatten_web_factors(
             result if isinstance(result, list) else None
         )
@@ -1410,6 +1758,8 @@ class SemsApi:
             is_web=True,
             token_type=_WEB_TELECOUNTING_ENDPOINT.token_type,
         )
+        if result is None:
+            raise OutOfRetries("SEMS+ counter request failed")
         factors = self._flatten_web_factors(
             result if isinstance(result, list) else None
         )
@@ -1428,6 +1778,69 @@ class SemsApi:
         ):
             if (value := self._numeric_web_factor(factors, source)) is not None:
                 counters[target] = value
+        cache_key = f"counters:{powerStationId}:{serialNumber}:{device_type}"
+        cached = self._web_cache.get(cache_key)
+        previous = cached[1] if cached and isinstance(cached[1], dict) else {}
+        previous_periods = previous.get("_periods", {})
+        if not isinstance(previous_periods, dict):
+            previous_periods = {}
+        now = dt_util.now()
+        # Around midnight SEMS can report the previous day's counters for
+        # several minutes after the reset (#94). Don't publish or cache them
+        # before the portal has settled.
+        # 23:58-00:20 is the window users in #94 have relied on for years.
+        if (now.hour == 23 and now.minute >= 58) or (now.hour == 0 and now.minute < 20):
+            _LOGGER.debug(
+                "Keeping SEMS+ counters for %s during the midnight rollover",
+                serialNumber,
+            )
+            return (
+                {
+                    key: value
+                    for key, value in previous.items()
+                    if not key.startswith("_")
+                }
+                if previous
+                else {}
+            )
+        counter_periods = {
+            "eday": now.date().isoformat(),
+            "eweek": f"{now.isocalendar().year}-W{now.isocalendar().week}",
+            "thismonthetotle": f"{now.year}-{now.month}",
+            "eyear": str(now.year),
+            "eChargeDay": now.date().isoformat(),
+            "eDischargeDay": now.date().isoformat(),
+        }
+        for key in (
+            "eday",
+            "eweek",
+            "thismonthetotle",
+            "eyear",
+            "etotal",
+            "eChargeDay",
+            "eDischargeDay",
+        ):
+            value = counters.get(key)
+            if value is None:
+                continue
+            old_value = previous.get(key)
+            same_period = key == "etotal" or (
+                previous_periods.get(key) == counter_periods.get(key)
+            )
+            if (
+                same_period
+                and isinstance(old_value, (int, float))
+                and old_value > 0
+                and (value <= 0 or value < old_value)
+            ):
+                _LOGGER.warning(
+                    "Ignoring invalid SEMS+ %s counter for %s: %s after %s",
+                    key,
+                    serialNumber,
+                    value,
+                    old_value,
+                )
+                counters[key] = old_value
         if device_type == "SMART_METER":
             for period in ("Today", "Week", "Month", "Year", "Total"):
                 for source, target in (
@@ -1436,6 +1849,15 @@ class SemsApi:
                 ):
                     if (value := self._numeric_web_factor(factors, source)) is not None:
                         counters[target] = value
+        if counters:
+            self._web_cache[cache_key] = (
+                time.monotonic(),
+                {
+                    **previous,
+                    **counters,
+                    "_periods": {**previous_periods, **counter_periods},
+                },
+            )
         return counters
 
     def getEnergyStorageIntegratedCabinets(
@@ -1569,6 +1991,15 @@ class SemsApi:
         maxTokenRetries: int = 2,
     ) -> dict[str, Any]:
         """Get the battery general functions from the SEMS API."""
+        # The function menus (addresses and ids) are static; don't refetch
+        # them on every refresh.
+        cache_key = f"function_menus:{serialNumber}:{batIndex}"
+        cached = self._web_cache.get(cache_key)
+        if (
+            cached
+            and time.monotonic() - cached[0] < _WEB_FUNCTION_MENUS_REFRESH_SECONDS
+        ):
+            return cached[1]
         data = json.dumps(
             {
                 "batIndex": str(batIndex),
@@ -1587,7 +2018,11 @@ class SemsApi:
             is_web=True,
             retry_on_api_error=False,
         )
-        return result if isinstance(result, dict) else {}
+        if not isinstance(result, dict):
+            return {}
+        if result.get("functionMenus"):
+            self._web_cache[cache_key] = (time.monotonic(), result)
+        return result
 
     def getBatteryImmediateChargingStates(
         self, serialNumber: str, renewToken: bool = False, maxTokenRetries: int = 2
@@ -1753,16 +2188,12 @@ class SemsApi:
             _LOGGER.info("SEMS - Maximum token fetch tries reached, aborting for now")
             raise OutOfRetries
 
-        context = self._get_authenticated_request_context(
+        api_url, headers, _generation = self._get_authenticated_request_context(
             _POWER_CONTROL_ENDPOINT.url_part,
             renewToken,
             operation_name,
             token_type=_POWER_CONTROL_ENDPOINT.token_type,
         )
-        if context is None:
-            return False
-
-        api_url, headers = context
 
         try:
             # Control API uses different validation (HTTP status code), so don't validate JSON response code
@@ -1790,6 +2221,10 @@ class SemsApi:
                 )
             _LOGGER.error("Unable to execute %s: %s", operation_name, e)
             return False
+        except SemsAuthExpiredError:
+            return self._make_control_api_call(
+                data, True, maxTokenRetries - 1, operation_name
+            )
         except SemsRateLimitedError as exception:
             _LOGGER.warning("Unable to execute %s: %s", operation_name, exception)
             return False
@@ -1875,3 +2310,19 @@ class SemsRateLimitedError(exceptions.HomeAssistantError):
         """Initialize rate limit exception."""
         super().__init__(message)
         self.retry_after = retry_after
+
+
+class SemsAuthExpiredError(exceptions.HomeAssistantError):
+    """Error to indicate SEMS rejected the token (expired or replaced session)."""
+
+
+class SemsAuthError(exceptions.HomeAssistantError):
+    """Error to indicate SEMS repeatedly rejected the credentials."""
+
+
+class SemsPermissionError(exceptions.HomeAssistantError):
+    """Error to indicate the SEMS API denied access to an operation."""
+
+    def __init__(self, operation_name: str, message: str):
+        """Initialize the permission error."""
+        super().__init__(f"{operation_name} was denied: {message}")
