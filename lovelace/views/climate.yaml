@@ -13,7 +13,7 @@ cards:
               border-bottom-right-radius: 0;
             }
             ha-card .body {
-              margin: 12px 0;
+              margin: 8px 0;
               justify-items: flex-start;
             }
             .body .entities {
@@ -44,6 +44,9 @@ cards:
             }
             .current--value.updating .current--unit {
               opacity: 1;
+            }
+            .current-wrapper .current--label {
+              display: none;
             }
         entity: climate.thermostat
         name: Thermostaat
