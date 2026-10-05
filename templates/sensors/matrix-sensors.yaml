@@ -5,7 +5,7 @@
     - name: Matrix temperature (inside)
       state: '{{ state_attr("climate.thermostat", "current_temperature") }}'
     - name: Matrix inverter (outputpower)
-      state: '{{ (state_attr("sensor.inverter_goodwe", "outputpower") | float(default=0) / 1000) | round(1) }}'
+      state: '{{ states("sensor.inverter_goodwe") | round(1, default=0) }}'
     - name: Matrix inverter (daytotal)
       state: '{{ states("sensor.daily_generation") | round(0, default=0) }}'
     - name: Matrix usage (dayenergy)
