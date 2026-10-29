@@ -102,8 +102,8 @@ cards:
                           margin-right: 20px;
                         }
                         state-badge {
-                          margin-left: 0px !important;
-                          margin-right: -8px !important;
+                          margin-left: 2px !important;
+                          margin-right: -13px !important;
                           color: var(--state-icon-active-color) !important;
                         }
           show_header_toggle: false
