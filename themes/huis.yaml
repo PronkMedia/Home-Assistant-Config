@@ -4,6 +4,7 @@ secondary-text-color: "#8d8d8d"
 disabled-text-color: "#7b7b7b"
 
 # Header
+app-theme-color: "#242424"
 app-header-background-color: "#242424"
 app-header-text-color: "#ffffff"
 header-height: 48px
