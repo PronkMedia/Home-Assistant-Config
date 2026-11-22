@@ -175,25 +175,41 @@ cards:
                         option: solar
                     styles:
                       button:
-                        margin-right: -16px
+                        margin-right: -12px
                     state_styles:
                       "solar":
                         button:
                           color: var(--state-active-color)
                   - entity: input_select.matrix_view
-                    icon: mdi:lightning-bolt-outline
+                    icon: mdi:battery-charging-outline
                     name: false
                     tap_action:
                       action: call-service
                       service: input_select.select_option
                       service_data:
                         entity_id: input_select.matrix_view
-                        option: usage
+                        option: electricity
+                    styles:
+                      button:
+                        margin-right: -12px
+                    state_styles:
+                      "electricity":
+                        button:
+                          color: var(--state-active-color)
+                  - entity: input_select.matrix_view
+                    icon: mdi:meter-gas-outline
+                    name: false
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.matrix_view
+                        option: utilities
                     styles:
                       button:
                         margin-right: 12px
                     state_styles:
-                      "usage":
+                      "utilities":
                         button:
                           color: var(--state-active-color)
             uix:

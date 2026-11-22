@@ -11,20 +11,22 @@ matrix:
       },
       "data": {
         "temperature": {
-          "outside": "{{ temperature_outside }}",
-          "inside": "{{ temperature_inside }}"
+          "outside_c": "{{ temperature_outside }}",
+          "inside_c": "{{ temperature_inside }}"
         },
-        "inverter": {
-          "outputpower": "{{ inverter_outputpower }}",
-          "daytotal": "{{ inverter_daytotal }}"
+        "solar": {
+          "power_kw": "{{ inverter_outputpower }}",
+          "energy_today_kwh": "{{ inverter_daytotal }}"
         },
-        "usage": {
-          "dayenergy": "{{ usage_dayenergy }}",
-          "daygas": "{{ usage_daygas }}",
-          "daywater": "{{ usage_daywater }}"
+        "electricity": {
+          "net_energy_today_kwh": "{{ usage_dayenergy }}"
+        },
+        "utilities": {
+          "water_today_litres": "{{ usage_daywater }}",
+          "gas_today_m3": "{{ usage_daygas }}"
         },
         "battery": {
-          "soc": "{{ battery_soc }}"
+          "state_of_charge_percent": "{{ battery_soc }}"
         }
       }
     }
