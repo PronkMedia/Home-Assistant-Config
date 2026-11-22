@@ -129,7 +129,7 @@ cards:
           - entity: sensor.daily_gas
             name: Gasverbruik
             icon: mdi:fire
-          - entity: sensor.daily_water_consumption
+          - entity: sensor.daily_water
             name: Waterverbruik
             icon: mdi:water-outline
           - type: divider

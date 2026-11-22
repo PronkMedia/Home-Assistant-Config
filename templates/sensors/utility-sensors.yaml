@@ -4,8 +4,8 @@
       unit_of_measurement: m³/h
       state: '{{ (states("sensor.hourly_water_consumption") | float / 1000) | round(3) }}'
     - name: Daily water
-      unit_of_measurement: m³
-      state: '{{ (states("sensor.daily_water_consumption") | float / 1000) | round(3) }}'
+      unit_of_measurement: L
+      state: '{{ states("sensor.daily_water_consumption") | float | round(0) }}'
     - name: Daily gas
       unit_of_measurement: m³
       state: '{{ states("sensor.daily_gas_consumption") }}'

@@ -19,6 +19,6 @@
     - name: Matrix usage (daygas)
       state: '{{ states("sensor.daily_gas") | round(1, default=0) }}'
     - name: Matrix usage (daywater)
-      state: '{{ states("sensor.daily_water_consumption") | round(0, default=0) }}'
+      state: '{{ states("sensor.daily_water") }}'
     - name: Matrix battery (soc)
       state: '{{ states("sensor.marstek_venus_battery_soc") | round(0, default=0) }}'
