@@ -20,6 +20,7 @@
 .cloud
 .storage
 blueprints
+sems
 
 # Ignore these files
 ip_bans.yaml
