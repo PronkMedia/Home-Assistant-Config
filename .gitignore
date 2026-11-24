@@ -3,7 +3,6 @@
 
 # Whitelisted files
 !.gitignore
-!*.gz
 !*.js
 !*.json
 !*.md
@@ -21,6 +20,7 @@
 .storage
 blueprints
 sems
+uix
 
 # Ignore these files
 ip_bans.yaml
