@@ -5,7 +5,7 @@
 - url: /local/custom_lovelace/mini-media-player-bundle.js?v=1.16.12
   type: module
 # Paper Buttons Row
-- url: /local/custom_lovelace/paper-buttons-row.js?v=2.3.1
+- url: /local/community/lovelace-paper-buttons-row/paper-buttons-row.js?v=v2.3.1
   type: module
 # Simple Thermostat
 - url: /local/community/simple-thermostat/simple-thermostat.js?v=v4.6.0
