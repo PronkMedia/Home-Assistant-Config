@@ -11,7 +11,7 @@
 - url: /local/community/simple-thermostat/simple-thermostat.js?v=v4.6.0
   type: module
 # Slider Entity Row
-- url: /local/custom_lovelace/slider-entity-row.js?v=17.5.0
+- url: /local/community/lovelace-slider-entity-row/slider-entity-row.js?v=v17.5.0
   type: module
 # Swipe Navigation
 - url: /local/community/hass-swipe-navigation/swipe-navigation.js?v=v1.16.3
